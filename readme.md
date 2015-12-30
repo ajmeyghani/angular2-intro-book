@@ -18,6 +18,7 @@ In this section, we will set up node and visual studio code.
 
 - Install [Visual Studio Code](https://code.visualstudio.com/)
 - Show the basics of vscode: opening files. shortcut, `cmd+shift+p`.
+- Install Angular2 Snippets [extension](https://marketplace.visualstudio.com/items/UVBrain.Angular2)
 
 ## TypeScript Crash-course
 
@@ -27,3 +28,4 @@ A crash-course on TypeScript, so that we can understand the code that we write.
 - Interfaces
 - Classes
 - Decorators
+- Modules
