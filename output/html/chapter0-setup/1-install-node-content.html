@@ -1,0 +1,31 @@
+<h1 id="installing-node">Installing Node</h1>
+<ul>
+<li>Use <a href="https://github.com/creationix/nvm">nvm</a> to install and manage Node on the machine. Copy the install script and run it:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">curl</span> -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh <span class="kw">|</span> <span class="kw">bash</span></code></pre></td></tr></table></div>
+<ul>
+<li>After installed, make sure that it is installed, by running:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> --help</code></pre></td></tr></table></div>
+<ul>
+<li>Then use <code>nvm</code> to install node version <code>0.12.9</code> by running:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> install 0.12.9</code></pre></td></tr></table></div>
+<ul>
+<li><p>Confirm that it is installed by running <code>node -v</code>.</p></li>
+<li><p>You can load any node version in the current shell with <code>nvm use 0.x.y</code> after of course installing it.</p></li>
+<li><p>You can make <code>0.12.9</code> the default version by making an alias for the default node:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> alias default 0.12.9</code></pre></td></tr></table></div>
+<h2 id="permissions">Permissions</h2></li>
+<li><p>Never use <code>sudo</code> to install packages, never do <code>sudo npm install &lt;package&gt;</code>. If you get permission errors, you can own the folders by the current user. So for example, if you get an error like:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">Error</span>: EACCES, mkdir <span class="st">&#39;/usr/local&#39;</span></code></pre></td></tr></table></div></li>
+<li><p>you can own the folder with:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">sudo</span> chown -R <span class="kw">`whoami`</span> /usr/local</code></pre></td></tr></table></div>
+<p>You can own folders until node doesn't complain.</p></li>
+</ul>
