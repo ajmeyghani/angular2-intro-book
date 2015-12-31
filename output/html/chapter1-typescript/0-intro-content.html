@@ -1,0 +1,99 @@
+<h1 id="typescript-crash-course">TypeScript Crash-course</h1>
+<h2 id="installing-typescript">Installing TypeScript</h2>
+<p>You can install the TypeScript compiler with node:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i typescript -g</code></pre></td></tr></table></div>
+<p>Then to verify that it is installed, run <code>tsc -v</code> to see the version of the compiler. You will get an output like this:</p>
+<pre><code>message TS6029: Version 1.7.5</code></pre>
+<p>In addition to the compiler, we also need to install the TypeScript Definition manager for DefinitelyTyped (tsd). You can install tsd with:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i tsd -g</code></pre></td></tr></table></div>
+<p>Using TSD, you can search and install TypeScript definition files directly from the community driven DefinitelyTyped repository. To verify that tsd is installed, run tsd with the <code>version</code> flag:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsd</span> --version</code></pre></td></tr></table></div>
+<p>You should get an output like this:</p>
+<pre><code>&gt;&gt; tsd 0.6.5</code></pre>
+<p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
+<ul>
+<li><p>make a file called <code>hello.ts</code> on your desktop:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>Then, put some TypeScript code in the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>Then you can compile the file to JavaScript:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>It should output a file in <code>Desktop/hello.js</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div></li>
+</ul>
+<p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
+<h2 id="setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</h2>
+<p>You can set up Visual Studio Code to compile your TypeScript code as your work.</p>
+<ul>
+<li>First, open Visual Studio Code</li>
+<li>Make a new window: <code>File &gt; New Window</code></li>
+<li>Then, make a folder on your desktop for a new project: <code>mkdir ~/Desktop/vscode-demo</code></li>
+<li>The, open the folder in VSCode: <code>File &gt; open</code> and select the <code>vscode-demo</code> folder on your desktop.</li>
+<li><p>Now we need to make three configuration files:</p>
+<ol style="list-style-type: decimal">
+<li><code>tsconfig.json</code>: configuration for the TypeScript compiler</li>
+<li><code>tasks.json</code>: Task configuration for VSCode to watch and compile files</li>
+<li><code>launch.json</code>: Configuration for the debugger</li>
+</ol></li>
+<li><p>The <code>tsconfig.json</code> file should be in the root of the project. Let's make the file and put the following in it:</p>
+<pre><code>{
+  &quot;compilerOptions&quot;: {
+    &quot;experimentalDecorators&quot;: true,
+    &quot;emitDecoratorMetadata&quot;: true,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;sourceMap&quot;: true,
+    &quot;outDir&quot;: &quot;output&quot;,
+    &quot;watch&quot;: true
+  }
+}</code></pre></li>
+<li><p>Now to make the <code>tasks.json</code> file, open the prompt with <code>command + shift + p</code> and type:</p>
+<pre><code>&gt; configure task runner</code></pre></li>
+<li><p>Then put the following in the file and save the file:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;command&quot;: &quot;tsc&quot;,
+  &quot;showOutput&quot;: &quot;silent&quot;,
+  &quot;isShellCommand&quot;: true,
+  &quot;problemMatcher&quot;: &quot;$tsc&quot;
+}</code></pre></li>
+<li><p>The last thing that we need to set up is the debugger, i.e.<code>launch.json</code> file. Right click on the <code>.vscode</code> folder in the file navigator and make a new file called <code>launch.json</code> and put in the following:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;TS Debugger&quot;,
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;program&quot;: &quot;main.ts&quot;,
+      &quot;stopOnEntry&quot;: false,
+      &quot;sourceMaps&quot;: true,
+      &quot;outDir&quot;: &quot;output&quot;
+    }
+  ]
+}</code></pre></li>
+<li><p>After you save the file, you should be able to see the debugger in the debugger dropdown options.</p></li>
+<li><p>Now, we are ready to make the <code>main.ts</code> file in the root of the project:</p>
+<p><strong><code>main.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">console.<span class="fu">log</span>(&#39;hello&#39;);</code></pre></td></tr></table></div></li>
+<li><p>Now you can start the task to watch the files and compile as you work. Open the prompt with <code>command + shift + p</code> and type:</p>
+<pre><code>&gt; run build tasks</code></pre>
+<p>you can also use the <code>command + shift + b</code> keyboard shortcut instead. This will start the debugger and watch the files. After making a change to <code>main.ts</code>, you should be able to see the output in the <code>output</code> folder.</p></li>
+<li><p>Now that the build task is running, we can put a breakpoint anywhere in our typescript code. Lets add some more code to the main file and use the debugger:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let a = <span class="dv">2</span>;
+let b = <span class="dv">3</span>;
+let c = <span class="dv">4</span>;</code></pre></td></tr></table></div></li>
+<li><p>Then click on the margin of line two for example to add a breakpoint. Then open the debugger tab to run the debugger and you should see that the program will stop at the breakpoint and you can step over or into the line.</p></li>
+<li><p>To stop the task you can terminate it. Open the prompt and type:</p>
+<pre><code>&gt; terminate running task</code></pre></li>
+</ul>

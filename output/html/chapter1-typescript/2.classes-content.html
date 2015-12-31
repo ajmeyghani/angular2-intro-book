@@ -1,0 +1,144 @@
+<h2 id="classes">Classes</h2>
+<ul>
+<li>Classes are heavily used in classical object oriented programming</li>
+<li>It defines what an object is and what it can do</li>
+<li>A class is defined using the <code>class</code> keyword followed by a name</li>
+<li>By convention, the name of the class start with an uppercase letter</li>
+<li>A class can be used to create multiple objects (instances) of the same class</li>
+<li>An object is created from a class using the <code>new</code> keyword</li>
+<li>A class can have a <code>constructor</code> which is called when an object is made from the class</li>
+<li>Properties of a class are called instance variables and its functions are called the class methods</li>
+<li>Access modifiers can be used to make them public or private</li>
+<li>The instance variables are attached to the instance itself but not the prototype</li>
+<li>Methods however are attached to the prototype object as opposed to the instance itself</li>
+<li>Classes can inherit functionality from other classes, but you should <a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh">favor composition over inheritance</a> or make sure you know <a href="https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e">when to use it</a></li>
+<li>Classes can implement interfaces</li>
+</ul>
+<p>Let's make a class definition for a car and incrementally add more things to it.</p>
+<h3 id="adding-an-instance-variable">Adding an Instance Variable</h3>
+<p>The <code>Car</code> class definition can be very simple and can define only a single instance variable that all cars can have:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  distance: number;
+}</code></pre></td></tr></table></div>
+<ul>
+<li><code>Car</code> is the name of the class, which also defines the custom type <code>Car</code></li>
+<li><code>distance</code> is a property that tracks the distance that car has traveled</li>
+<li>Distance is of type <code>number</code> and only accepts <code>number</code> type.</li>
+</ul>
+<p>Now that we have the definition for a car, we can create a car from the definition:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let myCar:Car = <span class="kw">new</span> <span class="fu">Car</span>();
+myCar.<span class="fu">distance</span> = <span class="dv">0</span>;</code></pre></td></tr></table></div>
+<ul>
+<li><code>myCar:Car</code> means that <code>myCar</code> is of type <code>Car</code></li>
+<li><code>new Car()</code> creates an instance from the <code>Car</code> definition.</li>
+<li><code>myCar.distance = 0</code> sets the initial value of the <code>distance</code> to 0 for the newly created <code>car</code></li>
+</ul>
+<h3 id="adding-a-method">Adding a Method</h3>
+<p>So far our car doesn't have any definitions for any actions. Let's define a <code>move</code> method that all the cars can have:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  distance: number;
+  <span class="fu">move</span>():<span class="dt">void</span> {
+    <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
+  };
+}</code></pre></td></tr></table></div>
+<ul>
+<li><code>move():void</code> means that <code>move</code> is a method that does not return any value, hence <code>void</code>.</li>
+<li>The body of the method is defined in <code>{ }</code></li>
+<li><code>this</code> refers to the instance, therefore <code>this.distance</code> points to the <code>distance</code> property defined on the car instance.</li>
+<li>Now you can call the <code>move</code> method on the car instance to increment the <code>distance</code> value by 1:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">myCar.<span class="fu">move</span>();
+console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <span class="co">// -&gt; 1</span></code></pre></td></tr></table></div>
+<h3 id="adding-a-constructor">Adding a constructor</h3>
+<p>A <code>constructor</code> is a special method that gets called when an instance is created from a class. Let's add a constructor to the <code>Car</code> class that initializes the <code>distance</code> value to 0. This means that all the cars that are crated from this class, will have their <code>distance</code> set to 0 automatically:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  distance: number;
+  <span class="fu">constructor</span> () {
+    <span class="kw">this</span>.<span class="fu">distance</span> = <span class="dv">0</span>;
+  };
+  <span class="fu">move</span>():<span class="dt">void</span> {
+    <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
+  };
+}</code></pre></td></tr></table></div>
+<ul>
+<li><code>constructor()</code> is called automatically when a new car is created</li>
+<li>The body of the constructor is defined in the <code>{ }</code></li>
+</ul>
+<p>So now when we create a car, the <code>distance</code> property is automatically set to 0.</p>
+<h3 id="using-access-modifiers">Using Access Modifiers</h3>
+<p>If you wanted to tell the compiler that the <code>distance</code> variable is private and can only be used by the object itself, you can use the <code>private</code> modifier before the name of the property:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="kw">private</span> distance: number;
+  <span class="fu">constructor</span> () {
+    ...
+  };
+  ...
+}</code></pre></td></tr></table></div>
+<p>Access modifiers can be used in different places. Check out the access modifiers chapter for more details.</p>
+<h3 id="implementing-an-interface">Implementing an Interface</h3>
+<p>Classes can implement one or multiple interfaces. We can make the <code>Car</code> class implement two interfaces:</p>
+<p><strong>interfaces</strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">interface</span> ICarProps {
+  distance: number;
+}
+<span class="kw">interface</span> ICarMethods {
+  <span class="fu">move</span>():<span class="dt">void</span>;
+}</code></pre></td></tr></table></div>
+<p>Making the <code>Car</code> class implement the interfaces:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car <span class="kw">implements</span> ICarProps, ICarMethods {
+  distance: number;
+  <span class="fu">constructor</span> () {
+    <span class="kw">this</span>.<span class="fu">distance</span> = <span class="dv">5</span>;
+  };
+  <span class="fu">move</span>():<span class="dt">void</span> {
+    <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
+  };
+}</code></pre></td></tr></table></div>
+<p>The above example is silly, but it shows the point that a class can implement one or more interfaces. Now if the class does not provide implementations for any of the interfaces, the compiler will complain. For example, if we leave out the <code>distance</code> instance variable, the compiler will print out the following error:</p>
+<blockquote>
+<p>error TS2420: Class 'Car' incorrectly implements interface 'ICarProps'. Property 'distance' is missing in type 'Car'.</p>
+</blockquote>

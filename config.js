@@ -1,5 +1,5 @@
 module.exports = {
   input: 'chapters',
   output: 'output',
-  name: 'bookname'
+  name: 'ng2-intro'
 };

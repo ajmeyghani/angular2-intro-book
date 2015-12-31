@@ -43,3 +43,17 @@ nvm install 0.12.9
 
     You can own folders until node doesn't complain.
 
+## Install a Package
+
+- Install a package to verify that node is installed and everything is wired up correctly. We are going to use `live-server` through the course. So let's install that:
+
+    ~~~~{.numberLines .bash startFrom="1"}
+    npm i -g live-server
+    ~~~~~~~
+
+- Then, you should be able to run `live-server` in any folder to server the content of that folder:
+
+    ~~~~{.numberLines .bash startFrom="1"}
+    mdkir ~/Desktop/sample && cd $_
+    live-server .
+    ~~~~~~~

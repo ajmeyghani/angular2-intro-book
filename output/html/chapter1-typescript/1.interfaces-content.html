@@ -1,0 +1,60 @@
+<h2 id="interface">Interface</h2>
+<ul>
+<li>An Interface is defined using the <code>interface</code> keyword</li>
+<li>Interfaces are used only during compilation time to check types</li>
+<li>By convention, interface definitions start with an <code>I</code>, e.g. : <code>IPoint</code></li>
+<li>Interfaces are used in classical object oriented programming as a design tool</li>
+<li>Interfaces don't contain implementations</li>
+<li>They provide definitions only</li>
+<li>When an object implements an interface, it must adhere to the contract defined by the interface</li>
+<li>An interface defines what properties and methods an object must implement</li>
+<li>If an object implements an interface, it must adhere to the contract. If it doesn't the compiler will let us know.</li>
+<li>Interfaces also define custom types</li>
+</ul>
+<h3 id="basic-interface">Basic Interface</h3>
+<p>Below is an example of an Interface that defines two properties and three methods that implementers should provide implementations for:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">interface</span> IMyInterface {
+  <span class="co">// some properties</span>
+  id: number;
+  name: string;
+
+  <span class="co">// some methods</span>
+  <span class="fu">method</span>(): <span class="dt">void</span>;
+  <span class="fu">methodWithReturnVal</span>():number;
+  <span class="fu">sum</span>(nums: number[]):number;
+}</code></pre></td></tr></table></div>
+<p>Using the interface above we can create an object that adheres to the interface:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let myObj: IMyInterface = {
+  id: <span class="dv">2</span>,
+  name: &#39;some name&#39;,
+
+  <span class="fu">method</span>() { console.<span class="fu">log</span>(&#39;hello&#39;); },
+  <span class="fu">methodWithReturnVal</span> () { <span class="kw">return</span> <span class="dv">2</span>; },
+  <span class="fu">sum</span>(numbers) {
+    <span class="kw">return</span> numbers.<span class="fu">reduce</span>( (a,b) =&gt; { <span class="kw">return</span> a + b } );
+  }
+};</code></pre></td></tr></table></div>
+<p>Notice that we had to provide values to <strong>all</strong> the properties defined by the Interface, and the implementations for <strong>all</strong> the methods defined by the Interface.</p>
+<p>And then of course you can use your object methods to perform operations:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let sum = myObj.<span class="fu">sum</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]); <span class="co">// -&gt; 15</span></code></pre></td></tr></table></div>
