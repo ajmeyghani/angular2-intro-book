@@ -1,5 +1,9 @@
 # Visual Studio Code
 
+Visual Studio Code is a good IDE for developing web apps. In this chapter we will look at installing and configuring VSCode.
+
+## Visual Studio Code Basics
+
 - Install Visual Studio Code from: [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
 - You can open new projects by going to the `File > Open` tag, to etierh open a folder containing your project or a single file

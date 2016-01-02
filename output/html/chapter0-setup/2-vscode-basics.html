@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
   <meta charset="UTF-8">
-  <title>Debugging App from VSCode</title>
+  <title>Visual Studio Code</title>
 
   <link rel='stylesheet' href='../public/style/style.css' type='text/css' media="all" />
   <style type="text/css">
@@ -56,33 +56,34 @@
       <!-- @toc -->
     </div>
     <div class="l-all-content">
-      <h1 id="debugging-app-from-vscode">Debugging App from VSCode</h1>
-<p>The &quot;vscode-chrome-debug&quot; extension allows you to attach VSCode to a running instance of chrome. This makes it very convenient because you can put breakpoints in your TypeScript code and run the debugger to debug your app. Let's get started.</p>
+      <h1 id="visual-studio-code">Visual Studio Code</h1>
+<p>Visual Studio Code is a good IDE for developing web apps. In this chapter we will look at installing and configuring VSCode.</p>
+<h2 id="visual-studio-code-basics">Visual Studio Code Basics</h2>
 <ul>
-<li><p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
-<pre><code>&gt; install extension</code></pre>
-<p>hit enter and then type:</p>
-<pre><code>debugger for chrome</code></pre>
-<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p></li>
-<li><p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;0.1.0&quot;,
-  &quot;configurations&quot;: [
-    {
-      &quot;name&quot;: &quot;Launch Chrome Debugger&quot;,
-      &quot;type&quot;: &quot;chrome&quot;,
-      &quot;request&quot;: &quot;launch&quot;,
-      &quot;url&quot;: &quot;http://localhost:8080&quot;,
-      &quot;sourceMaps&quot;: true,
-      &quot;webRoot&quot;: &quot;.&quot;,
-      &quot;runtimeExecutable&quot;: &quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;,
-      &quot;runtimeArgs&quot;: [&quot;--remote-debugging-port=9222&quot;, &quot;--incognito&quot;]
-    }
-  ]
-}</code></pre>
-<p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
-<li><p>After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.</p></li>
-<li><p>Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.</p></li>
+<li><p>Install Visual Studio Code from: <a href="https://code.visualstudio.com/" class="uri">https://code.visualstudio.com/</a></p></li>
+<li><p>You can open new projects by going to the <code>File &gt; Open</code> tag, to etierh open a folder containing your project or a single file</p></li>
+<li><p>Some useful keyboard shortcuts are:</p>
+<ul>
+<li><code>command + b</code>: to close/open the file navigator</li>
+<li><code>command + shift + p</code>: to open the prompt</li>
+</ul></li>
+<li><p>To install extensions open the prompt with <code>command + shift + p</code> and type:</p>
+<ul>
+<li><code>&gt; install extension</code></li>
+</ul></li>
+<li><p>Open the shortcuts settings from <code>Preferences &gt; Keyboard Shortcuts</code>, and then you can add your own shortcuts:</p>
+<pre><code>// Place your key bindings in this file to overwrite the defaults
+[
+  {
+    &quot;key&quot;: &quot;cmd+t&quot;,
+    &quot;command&quot;: &quot;workbench.action.quickOpen&quot;
+  },
+  {
+    &quot;key&quot;: &quot;shift+cmd+r&quot;,
+    &quot;command&quot;: &quot;editor.action.format&quot;,
+    &quot;when&quot;: &quot;editorTextFocus&quot;
+  }
+]</code></pre></li>
 </ul>
 
     </div>

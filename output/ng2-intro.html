@@ -57,13 +57,16 @@
      <div id="TOC" class="l-toc">
     <ul>
     <li><a href="#installing-node">Installing Node</a><ul>
-    <li><a href="#install-a-package">Install a Package</a></li>
+    <li><a href="#installing-live-server">Installing <code>live-server</code></a></li>
     </ul></li>
-    <li><a href="#visual-studio-code">Visual Studio Code</a></li>
-    <li><a href="#typescript-crash-course">TypeScript Crash-course</a><ul>
-    <li><a href="#installing-typescript">Installing TypeScript</a></li>
+    <li><a href="#visual-studio-code">Visual Studio Code</a><ul>
+    <li><a href="#visual-studio-code-basics">Visual Studio Code Basics</a></li>
     <li><a href="#setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</a></li>
     <li><a href="#running-vscode-from-the-terminal">Running VSCode from the Terminal</a></li>
+    <li><a href="#debugging-app-from-vscode">Debugging App from VSCode</a></li>
+    </ul></li>
+    <li><a href="#typescript-crash-course">TypeScript Crash-course</a><ul>
+    <li><a href="#installing-typescript">Installing TypeScript</a></li>
     <li><a href="#types-and-the-basics">Types and the Basics</a></li>
     <li><a href="#interface">Interface</a><ul>
     <li><a href="#basic-interface">Basic Interface</a></li>
@@ -76,7 +79,7 @@
     <li><a href="#implementing-an-interface">Implementing an Interface</a></li>
     </ul></li>
     </ul></li>
-    <li><a href="#debugging-app-from-vscode">Debugging App from VSCode</a></li>
+    <li><a href="#hello-angular">Hello Angular</a></li>
     </ul>
   </div>
     <div class="l-main-content">
@@ -112,8 +115,8 @@
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">sudo</span> chown -R <span class="kw">`whoami`</span> /usr/local</code></pre></td></tr></table></div>
 <p>You can own folders until node doesn't complain.</p></li>
 </ul>
-<div id="install-a-package" class="section level2">
-<h2>Install a Package</h2>
+<div id="installing-live-server" class="section level2">
+<h2>Installing <code>live-server</code></h2>
 <ul>
 <li><p>Install a package to verify that node is installed and everything is wired up correctly. We are going to use <code>live-server</code> through the course. So let's install that:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -128,6 +131,9 @@
 </div>
 <div id="visual-studio-code" class="section level1">
 <h1>Visual Studio Code</h1>
+<p>Visual Studio Code is a good IDE for developing web apps. In this chapter we will look at installing and configuring VSCode.</p>
+<div id="visual-studio-code-basics" class="section level2">
+<h2>Visual Studio Code Basics</h2>
 <ul>
 <li><p>Install Visual Studio Code from: <a href="https://code.visualstudio.com/" class="uri">https://code.visualstudio.com/</a></p></li>
 <li><p>You can open new projects by going to the <code>File &gt; Open</code> tag, to etierh open a folder containing your project or a single file</p></li>
@@ -154,40 +160,6 @@
   }
 ]</code></pre></li>
 </ul>
-</div>
-<div id="typescript-crash-course" class="section level1">
-<h1>TypeScript Crash-course</h1>
-<div id="installing-typescript" class="section level2">
-<h2>Installing TypeScript</h2>
-<p>You can install the TypeScript compiler with node:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i typescript -g</code></pre></td></tr></table></div>
-<p>Then to verify that it is installed, run <code>tsc -v</code> to see the version of the compiler. You will get an output like this:</p>
-<pre><code>message TS6029: Version 1.7.5</code></pre>
-<p>In addition to the compiler, we also need to install the TypeScript Definition manager for DefinitelyTyped (tsd). You can install tsd with:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i tsd -g</code></pre></td></tr></table></div>
-<p>Using TSD, you can search and install TypeScript definition files directly from the community driven DefinitelyTyped repository. To verify that tsd is installed, run tsd with the <code>version</code> flag:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsd</span> --version</code></pre></td></tr></table></div>
-<p>You should get an output like this:</p>
-<pre><code>&gt;&gt; tsd 0.6.5</code></pre>
-<p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
-<ul>
-<li><p>make a file called <code>hello.ts</code> on your desktop:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then, put some TypeScript code in the file:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then you can compile the file to JavaScript:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>It should output a file in <code>Desktop/hello.js</code>:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div></li>
-</ul>
-<p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
 </div>
 <div id="setting-up-typescript-for-vscode" class="section level2">
 <h2>Setting up TypeScript for VSCode</h2>
@@ -270,6 +242,71 @@ let c = <span class="dv">4</span>;</code></pre></td></tr></table></div></li>
 <pre><code>sudo ln -s /path/to/vscode/Code /usr/local/bin/code</code></pre>
 <p><strong>Windows</strong></p>
 <p>You might need to log off after the installation for the change to the PATH environmental variable to take effect.</p>
+</div>
+<div id="debugging-app-from-vscode" class="section level2">
+<h2>Debugging App from VSCode</h2>
+<p>The &quot;vscode-chrome-debug&quot; extension allows you to attach VSCode to a running instance of chrome. This makes it very convenient because you can put breakpoints in your TypeScript code and run the debugger to debug your app. Let's get started.</p>
+<ul>
+<li><p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
+<pre><code>&gt; install extension</code></pre>
+<p>hit enter and then type:</p>
+<pre><code>debugger for chrome</code></pre>
+<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p></li>
+<li><p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;Launch Chrome Debugger&quot;,
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;webRoot&quot;: &quot;.&quot;,
+      &quot;runtimeExecutable&quot;: &quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;,
+      &quot;runtimeArgs&quot;: [&quot;--remote-debugging-port=9222&quot;, &quot;--incognito&quot;]
+    }
+  ]
+}</code></pre>
+<p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
+<li><p>After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.</p></li>
+<li><p>Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.</p></li>
+</ul>
+</div>
+</div>
+<div id="typescript-crash-course" class="section level1">
+<h1>TypeScript Crash-course</h1>
+<div id="installing-typescript" class="section level2">
+<h2>Installing TypeScript</h2>
+<p>You can install the TypeScript compiler with node:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i typescript -g</code></pre></td></tr></table></div>
+<p>Then to verify that it is installed, run <code>tsc -v</code> to see the version of the compiler. You will get an output like this:</p>
+<pre><code>message TS6029: Version 1.7.5</code></pre>
+<p>In addition to the compiler, we also need to install the TypeScript Definition manager for DefinitelyTyped (tsd). You can install tsd with:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i tsd -g</code></pre></td></tr></table></div>
+<p>Using TSD, you can search and install TypeScript definition files directly from the community driven DefinitelyTyped repository. To verify that tsd is installed, run tsd with the <code>version</code> flag:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsd</span> --version</code></pre></td></tr></table></div>
+<p>You should get an output like this:</p>
+<pre><code>&gt;&gt; tsd 0.6.5</code></pre>
+<p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
+<ul>
+<li><p>make a file called <code>hello.ts</code> on your desktop:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>Then, put some TypeScript code in the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>Then you can compile the file to JavaScript:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
+<li><p>It should output a file in <code>Desktop/hello.js</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div></li>
+</ul>
+<p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
 </div>
 <div id="types-and-the-basics" class="section level2">
 <h2>Types and the Basics</h2>
@@ -505,35 +542,9 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 </div>
 </div>
 </div>
-<div id="debugging-app-from-vscode" class="section level1">
-<h1>Debugging App from VSCode</h1>
-<p>The &quot;vscode-chrome-debug&quot; extension allows you to attach VSCode to a running instance of chrome. This makes it very convenient because you can put breakpoints in your TypeScript code and run the debugger to debug your app. Let's get started.</p>
-<ul>
-<li><p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
-<pre><code>&gt; install extension</code></pre>
-<p>hit enter and then type:</p>
-<pre><code>debugger for chrome</code></pre>
-<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p></li>
-<li><p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;0.1.0&quot;,
-  &quot;configurations&quot;: [
-    {
-      &quot;name&quot;: &quot;Launch Chrome Debugger&quot;,
-      &quot;type&quot;: &quot;chrome&quot;,
-      &quot;request&quot;: &quot;launch&quot;,
-      &quot;url&quot;: &quot;http://localhost:8080&quot;,
-      &quot;sourceMaps&quot;: true,
-      &quot;webRoot&quot;: &quot;.&quot;,
-      &quot;runtimeExecutable&quot;: &quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;,
-      &quot;runtimeArgs&quot;: [&quot;--remote-debugging-port=9222&quot;, &quot;--incognito&quot;]
-    }
-  ]
-}</code></pre>
-<p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
-<li><p>After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.</p></li>
-<li><p>Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.</p></li>
-</ul>
+<div id="hello-angular" class="section level1">
+<h1>Hello Angular</h1>
+<p>In this section we are going to build a simple component. In addition, we will configure VSCode as well to build TypeScript files for us.</p>
 </div> 
     </div>
 </body>

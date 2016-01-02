@@ -52,8 +52,8 @@ nvm install 0.12.9
 
     You can own folders until node doesn't complain.
 
-Install a Package
------------------
+Installing `live-server`
+------------------------
 
 -   Install a package to verify that node is installed and everything is
     wired up correctly. We are going to use `live-server` through
@@ -73,6 +73,12 @@ Install a Package
 
 Visual Studio Code
 ==================
+
+Visual Studio Code is a good IDE for developing web apps. In this
+chapter we will look at installing and configuring VSCode.
+
+Visual Studio Code Basics
+-------------------------
 
 -   Install Visual Studio Code from: <https://code.visualstudio.com/>
 
@@ -102,72 +108,6 @@ Visual Studio Code
             "when": "editorTextFocus"
           }
         ]
-
-TypeScript Crash-course
-=======================
-
-Installing TypeScript
----------------------
-
-You can install the TypeScript compiler with node:
-
-``` {.bash}
-npm i typescript -g
-```
-
-Then to verify that it is installed, run `tsc -v` to see the version of
-the compiler. You will get an output like this:
-
-    message TS6029: Version 1.7.5
-
-In addition to the compiler, we also need to install the TypeScript
-Definition manager for DefinitelyTyped (tsd). You can install tsd with:
-
-``` {.bash}
-npm i tsd -g
-```
-
-Using TSD, you can search and install TypeScript definition files
-directly from the community driven DefinitelyTyped repository. To verify
-that tsd is installed, run tsd with the `version` flag:
-
-``` {.bash}
-tsd --version
-```
-
-You should get an output like this:
-
-    >> tsd 0.6.5
-
-After `tsd` and `tsc` are installed, we can compile a hello world
-program:
-
--   make a file called `hello.ts` on your desktop:
-
-    ``` {.bash}
-    touch ~/Desktop/hello.ts
-    ```
-
--   Then, put some TypeScript code in the file:
-
-    ``` {.bash}
-    echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
-    ```
-
--   Then you can compile the file to JavaScript:
-
-    ``` {.bash}
-    tsc ~/Desktop/hello.ts
-    ```
-
--   It should output a file in `Desktop/hello.js`:
-
-    ``` {.javascript}
-    var adder = function (a, b) { return a + b; };
-    ```
-
-Now that your TypeScript compiler setup, we can move on to configuring
-Visual Studio Code.
 
 Setting up TypeScript for VSCode
 --------------------------------
@@ -300,6 +240,130 @@ Add the following to your "bash" file:
 
 You might need to log off after the installation for the change to the
 PATH environmental variable to take effect.
+
+Debugging App from VSCode
+-------------------------
+
+The "vscode-chrome-debug" extension allows you to attach VSCode to a
+running instance of chrome. This makes it very convenient because you
+can put breakpoints in your TypeScript code and run the debugger to
+debug your app. Let's get started.
+
+-   In order to install the
+    [extension](https://github.com/Microsoft/vscode-chrome-debug) open
+    the prompt in VSCode with `command + shift + p` and type:
+
+        > install extension
+
+    hit enter and then type:
+
+        debugger for chrome
+
+    Then just click on the result to install the extension. Restart
+    VSCode when you are prompted.
+
+-   After installing the extension, we need to update or create a
+    `launch.json` file for debugging. You can create one in the
+    `.vscode` folder. After you created the file, put in the following:
+
+        {
+          "version": "0.1.0",
+          "configurations": [
+            {
+              "name": "Launch Chrome Debugger",
+              "type": "chrome",
+              "request": "launch",
+              "url": "http://localhost:8080",
+              "sourceMaps": true,
+              "webRoot": ".",
+              "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+              "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
+            }
+          ]
+        }
+
+    Depending on your platform you need to change the
+    `runtimeExecutable` path to Chrome's executable path. After
+    configuring the debugger you need to have a server running serving
+    the app. You can change the `url` value accordingly. Also make sure
+    that the `webRoot` path is set to the root of your web server.
+
+-   After that it is a good idea to close all the instances of chrome.
+    Then, put a breakpoint in your code and run the debugger. If
+    everything is set up correctly, you should see an instance of chrome
+    running in incognito mode. To trigger the breakpoint, just reload
+    the page and you should be able to see the debugger paused at
+    the breakpoint.
+
+-   Also make sure that you have the compiler running so that you can
+    use the JavaScript output and the sourcemaps to use the debugger.
+    See the TypeScript and VSCode set up for more details.
+
+TypeScript Crash-course
+=======================
+
+Installing TypeScript
+---------------------
+
+You can install the TypeScript compiler with node:
+
+``` {.bash}
+npm i typescript -g
+```
+
+Then to verify that it is installed, run `tsc -v` to see the version of
+the compiler. You will get an output like this:
+
+    message TS6029: Version 1.7.5
+
+In addition to the compiler, we also need to install the TypeScript
+Definition manager for DefinitelyTyped (tsd). You can install tsd with:
+
+``` {.bash}
+npm i tsd -g
+```
+
+Using TSD, you can search and install TypeScript definition files
+directly from the community driven DefinitelyTyped repository. To verify
+that tsd is installed, run tsd with the `version` flag:
+
+``` {.bash}
+tsd --version
+```
+
+You should get an output like this:
+
+    >> tsd 0.6.5
+
+After `tsd` and `tsc` are installed, we can compile a hello world
+program:
+
+-   make a file called `hello.ts` on your desktop:
+
+    ``` {.bash}
+    touch ~/Desktop/hello.ts
+    ```
+
+-   Then, put some TypeScript code in the file:
+
+    ``` {.bash}
+    echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
+    ```
+
+-   Then you can compile the file to JavaScript:
+
+    ``` {.bash}
+    tsc ~/Desktop/hello.ts
+    ```
+
+-   It should output a file in `Desktop/hello.js`:
+
+    ``` {.javascript}
+    var adder = function (a, b) { return a + b; };
+    ```
+
+Now that your TypeScript compiler setup, we can move on to configuring
+Visual Studio Code.
 
 Types and the Basics
 --------------------
@@ -549,62 +613,8 @@ compiler will print out the following error:
 > error TS2420: Class 'Car' incorrectly implements interface
 > 'ICarProps'. Property 'distance' is missing in type 'Car'.
 
-Debugging App from VSCode
-=========================
+Hello Angular
+=============
 
-The "vscode-chrome-debug" extension allows you to attach VSCode to a
-running instance of chrome. This makes it very convenient because you
-can put breakpoints in your TypeScript code and run the debugger to
-debug your app. Let's get started.
-
--   In order to install the
-    [extension](https://github.com/Microsoft/vscode-chrome-debug) open
-    the prompt in VSCode with `command + shift + p` and type:
-
-        > install extension
-
-    hit enter and then type:
-
-        debugger for chrome
-
-    Then just click on the result to install the extension. Restart
-    VSCode when you are prompted.
-
--   After installing the extension, we need to update or create a
-    `launch.json` file for debugging. You can create one in the
-    `.vscode` folder. After you created the file, put in the following:
-
-        {
-          "version": "0.1.0",
-          "configurations": [
-            {
-              "name": "Launch Chrome Debugger",
-              "type": "chrome",
-              "request": "launch",
-              "url": "http://localhost:8080",
-              "sourceMaps": true,
-              "webRoot": ".",
-              "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-              "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
-            }
-          ]
-        }
-
-    Depending on your platform you need to change the
-    `runtimeExecutable` path to Chrome's executable path. After
-    configuring the debugger you need to have a server running serving
-    the app. You can change the `url` value accordingly. Also make sure
-    that the `webRoot` path is set to the root of your web server.
-
--   After that it is a good idea to close all the instances of chrome.
-    Then, put a breakpoint in your code and run the debugger. If
-    everything is set up correctly, you should see an instance of chrome
-    running in incognito mode. To trigger the breakpoint, just reload
-    the page and you should be able to see the debugger paused at
-    the breakpoint.
-
--   Also make sure that you have the compiler running so that you can
-    use the JavaScript output and the sourcemaps to use the debugger.
-    See the TypeScript and VSCode set up for more details.
-
-
+In this section we are going to build a simple component. In addition,
+we will configure VSCode as well to build TypeScript files for us.

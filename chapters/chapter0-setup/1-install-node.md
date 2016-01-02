@@ -43,7 +43,7 @@ nvm install 0.12.9
 
     You can own folders until node doesn't complain.
 
-## Install a Package
+## Installing `live-server`
 
 - Install a package to verify that node is installed and everything is wired up correctly. We are going to use `live-server` through the course. So let's install that:
 
