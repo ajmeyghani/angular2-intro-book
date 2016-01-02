@@ -90,6 +90,7 @@
 <h2 id="setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</h2>
 <p>You can set up Visual Studio Code to compile your TypeScript code as your work.</p>
 <ul>
+<li>You can download and instal Visual Studio Code from the VSCode <a href="https://code.visualstudio.com/">Website</a></li>
 <li>First, open Visual Studio Code</li>
 <li>Make a new window: <code>File &gt; New Window</code></li>
 <li>Then, make a folder on your desktop for a new project: <code>mkdir ~/Desktop/vscode-demo</code></li>
@@ -155,6 +156,15 @@ let c = <span class="dv">4</span>;</code></pre></td></tr></table></div></li>
 <li><p>To stop the task you can terminate it. Open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>
+<h2 id="running-vscode-from-the-terminal">Running VSCode from the Terminal</h2>
+<p>If you want to run VSCode from the terminal, you can follow the <a href="https://code.visualstudio.com/Docs/editor/setup">guide</a> on VSCode's website. Below is the summary of the guide:</p>
+<p><strong>MAC</strong></p>
+<p>Add the following to your &quot;bash&quot; file:</p>
+<pre><code>function code () { VSCODE_CWD=&quot;$PWD&quot; open -n -b &quot;com.microsoft.VSCode&quot; --args $*; }</code></pre>
+<p><strong>Linux</strong></p>
+<pre><code>sudo ln -s /path/to/vscode/Code /usr/local/bin/code</code></pre>
+<p><strong>Windows</strong></p>
+<p>You might need to log off after the installation for the change to the PATH environmental variable to take effect.</p>
 
     </div>
   </body>

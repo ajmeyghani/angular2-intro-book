@@ -366,6 +366,9 @@ your work.
 
 \begin{itemize}
 \item
+  You can download and instal Visual Studio Code from the VSCode
+  \href{https://code.visualstudio.com/}{Website}
+\item
   First, open Visual Studio Code
 \item
   Make a new window: \texttt{File\ \textgreater{}\ New\ Window}
@@ -496,6 +499,32 @@ your work.
 > terminate running task
 \end{verbatim}
 \end{itemize}
+
+\subsection{Running VSCode from the
+Terminal}\label{running-vscode-from-the-terminal}
+
+If you want to run VSCode from the terminal, you can follow the
+\href{https://code.visualstudio.com/Docs/editor/setup}{guide} on
+VSCode's website. Below is the summary of the guide:
+
+\textbf{MAC}
+
+Add the following to your ``bash'' file:
+
+\begin{verbatim}
+function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
+\end{verbatim}
+
+\textbf{Linux}
+
+\begin{verbatim}
+sudo ln -s /path/to/vscode/Code /usr/local/bin/code
+\end{verbatim}
+
+\textbf{Windows}
+
+You might need to log off after the installation for the change to the
+PATH environmental variable to take effect.
 
 \subsection{Types and the Basics}\label{types-and-the-basics}
 

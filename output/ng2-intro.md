@@ -175,6 +175,8 @@ Setting up TypeScript for VSCode
 You can set up Visual Studio Code to compile your TypeScript code as
 your work.
 
+-   You can download and instal Visual Studio Code from the VSCode
+    [Website](https://code.visualstudio.com/)
 -   First, open Visual Studio Code
 -   Make a new window: `File > New Window`
 -   Then, make a folder on your desktop for a new project:
@@ -276,6 +278,28 @@ your work.
 -   To stop the task you can terminate it. Open the prompt and type:
 
         > terminate running task
+
+Running VSCode from the Terminal
+--------------------------------
+
+If you want to run VSCode from the terminal, you can follow the
+[guide](https://code.visualstudio.com/Docs/editor/setup) on VSCode's
+website. Below is the summary of the guide:
+
+**MAC**
+
+Add the following to your "bash" file:
+
+    function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
+
+**Linux**
+
+    sudo ln -s /path/to/vscode/Code /usr/local/bin/code
+
+**Windows**
+
+You might need to log off after the installation for the change to the
+PATH environmental variable to take effect.
 
 Types and the Basics
 --------------------
