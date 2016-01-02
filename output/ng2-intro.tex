@@ -835,4 +835,72 @@ error TS2420: Class `Car' incorrectly implements interface `ICarProps'.
 Property `distance' is missing in type `Car'.
 \end{quote}
 
+\section{Debugging App from VSCode}\label{debugging-app-from-vscode}
+
+The ``vscode-chrome-debug'' extension allows you to attach VSCode to a
+running instance of chrome. This makes it very convenient because you
+can put breakpoints in your TypeScript code and run the debugger to
+debug your app. Let's get started.
+
+\begin{itemize}
+\item
+  In order to install the
+  \href{https://github.com/Microsoft/vscode-chrome-debug}{extension}
+  open the prompt in VSCode with \texttt{command\ +\ shift\ +\ p} and
+  type:
+
+\begin{verbatim}
+> install extension
+\end{verbatim}
+
+  hit enter and then type:
+
+\begin{verbatim}
+debugger for chrome
+\end{verbatim}
+
+  Then just click on the result to install the extension. Restart VSCode
+  when you are prompted.
+\item
+  After installing the extension, we need to update or create a
+  \texttt{launch.json} file for debugging. You can create one in the
+  \texttt{.vscode} folder. After you created the file, put in the
+  following:
+
+\begin{verbatim}
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome Debugger",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8080",
+      "sourceMaps": true,
+      "webRoot": ".",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
+    }
+  ]
+}
+\end{verbatim}
+
+  Depending on your platform you need to change the
+  \texttt{runtimeExecutable} path to Chrome's executable path. After
+  configuring the debugger you need to have a server running serving the
+  app. You can change the \texttt{url} value accordingly. Also make sure
+  that the \texttt{webRoot} path is set to the root of your web server.
+\item
+  After that it is a good idea to close all the instances of chrome.
+  Then, put a breakpoint in your code and run the debugger. If
+  everything is set up correctly, you should see an instance of chrome
+  running in incognito mode. To trigger the breakpoint, just reload the
+  page and you should be able to see the debugger paused at the
+  breakpoint.
+\item
+  Also make sure that you have the compiler running so that you can use
+  the JavaScript output and the sourcemaps to use the debugger. See the
+  TypeScript and VSCode set up for more details.
+\end{itemize}
+
 \end{document}

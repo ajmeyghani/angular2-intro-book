@@ -75,6 +75,7 @@
     <li><a href="#implementing-an-interface">Implementing an Interface</a></li>
     </ul></li>
     </ul></li>
+    <li><a href="#debugging-app-from-vscode">Debugging App from VSCode</a></li>
     </ul>
   </div>
     <div class="l-main-content">
@@ -490,6 +491,36 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 </blockquote>
 </div>
 </div>
+</div>
+<div id="debugging-app-from-vscode" class="section level1">
+<h1>Debugging App from VSCode</h1>
+<p>The &quot;vscode-chrome-debug&quot; extension allows you to attach VSCode to a running instance of chrome. This makes it very convenient because you can put breakpoints in your TypeScript code and run the debugger to debug your app. Let's get started.</p>
+<ul>
+<li><p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
+<pre><code>&gt; install extension</code></pre>
+<p>hit enter and then type:</p>
+<pre><code>debugger for chrome</code></pre>
+<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p></li>
+<li><p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;Launch Chrome Debugger&quot;,
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;webRoot&quot;: &quot;.&quot;,
+      &quot;runtimeExecutable&quot;: &quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;,
+      &quot;runtimeArgs&quot;: [&quot;--remote-debugging-port=9222&quot;, &quot;--incognito&quot;]
+    }
+  ]
+}</code></pre>
+<p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
+<li><p>After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.</p></li>
+<li><p>Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.</p></li>
+</ul>
 </div> 
     </div>
 </body>
