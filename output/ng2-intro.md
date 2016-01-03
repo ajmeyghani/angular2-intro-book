@@ -31,75 +31,84 @@ Notes
 Installing Node
 ===============
 
--   Use [nvm](https://github.com/creationix/nvm) to install and manage
-    Node on the machine. Copy the install script and run it:
+You can use [nvm](https://github.com/creationix/nvm) to install and
+manage Node on your machine. Copy the install script and run it:
 
 ``` {.bash}
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 ```
 
--   After installed, make sure that it is installed, by running:
+After that, make a new terminal window and make sure that it is
+installed, by running:
 
 ``` {.bash}
 nvm --help
 ```
 
--   Then use `nvm` to install node version `0.12.9` by running:
+Now you can use `nvm` to install Node `0.12.9` by running:
 
 ``` {.bash}
 nvm install 0.12.9
 ```
 
--   Confirm that it is installed by running `node -v`.
+After that, nvm is going to load version 0.12.9 automatically. If it
+doesn't, you can load it in the current shell, with:
 
--   You can load any node version in the current shell with
-    `nvm use 0.x.y` after of course installing it.
+``` {.bash}
+nvm use 0.12.9
+```
 
--   You can make `0.12.9` the default version by making an alias for the
-    default node:
+Note that you can load any node version in the current shell with
+`nvm use 0.x.y` after installing that version.
 
-    ``` {.bash}
-    nvm alias default 0.12.9
-    ```
+Also note that if you want to make `0.12.9` the default Node version on
+your machine, you can do so by running the following:
 
-    Permissions
-    -----------
+``` {.bash}
+nvm alias default 0.12.9
+```
 
--   Never use `sudo` to install packages, never do
-    `sudo npm install <package>`. If you get permission errors, you can
-    own the folders by the current user. So for example, if you get an
-    error like:
+Then you can verify that it is the default version by making a new
+terminal window and typing `node -v`.
 
-    ``` {.bash}
-    Error: EACCES, mkdir '/usr/local'
-    ```
+Permissions
+-----------
 
--   you can own the folder with:
+Never use `sudo` to install packages, never do
+`sudo npm install <package>`. If you get permission errors while
+installing without `sudo`, you can own the folders instead. So for
+example, if you get an error like:
 
-    ``` {.bash}
-    sudo chown -R `whoami` /usr/local
-    ```
+``` {.bash}
+Error: EACCES, mkdir '/usr/local'
+```
 
-    You can own folders until node doesn't complain.
+you can own the folder with:
+
+``` {.bash}
+sudo chown -R `whoami` /usr/local
+```
+
+You can own folders until Node doesn't complain.
 
 Installing `live-server`
 ------------------------
 
--   Install a package to verify that node is installed and everything is
-    wired up correctly. We are going to use `live-server` through
-    the course. So let's install that:
+Install a package to verify that node is installed and everything is
+wired up correctly. We are going to use `live-server` through the book.
+So let's install that with:
 
-    ``` {.bash}
-    npm i -g live-server
-    ```
+``` {.bash}
+npm i -g live-server
+```
 
--   Then, you should be able to run `live-server` in any folder to
-    server the content of that folder:
+Then, you should be able to run `live-server` in any folder to serve the
+content of that folder:
 
-    ``` {.bash}
-    mdkir ~/Desktop/sample && cd $_
-    live-server .
-    ```
+``` {.bash}
+mdkir ~/Desktop/sample && cd $_
+live-server .
+```
 
 Visual Studio Code
 ==================
@@ -122,9 +131,11 @@ Visual Studio Code Basics
 -   To install extensions open the prompt with `command + shift + p` and
     type:
 
-    -   `> install extension`
--   Open the shortcuts settings from `Preferences > Keyboard Shortcuts`,
-    and then you can add your own shortcuts:
+        > install extension
+
+-   You can change the keyboard shortcuts settings from
+    `Preferences > Keyboard Shortcuts`. Open the settings and then you
+    can add your own shortcuts:
 
         // Place your key bindings in this file to overwrite the defaults
         [
@@ -162,90 +173,96 @@ along or check out the folder to see the final result.
     2.  `tasks.json`: Task configuration for VSCode to watch and compile
         files
     3.  `launch.json`: Configuration for the debugger
--   The `tsconfig.json` file should be in the root of the project. Let's
-    make the file and put the following in it:
 
-        {
-          "compilerOptions": {
-            "experimentalDecorators": true,
-            "emitDecoratorMetadata": true,
-            "module": "commonjs",
-            "target": "es5",
-            "sourceMap": true,
-            "outDir": "output",
-            "watch": true
-          }
-        }
+The `tsconfig.json` file should be in the root of the project. Let's
+make the file and put the following in it:
 
--   Now to make the `tasks.json` file, open the prompt with
-    `command + shift + p` and type:
+``` {.javascript}
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "outDir": "output",
+    "watch": true
+  }
+}
+```
 
-        > configure task runner
+Now to make the `tasks.json` file. Open the prompt with
+`command + shift + p` and type:
 
--   Then put the following in the file and save the file:
+    > configure task runner
 
-        {
-          "version": "0.1.0",
-          "command": "tsc",
-          "showOutput": "silent",
-          "isShellCommand": true,
-          "problemMatcher": "$tsc"
-        }
+Then put the following in the file and save the file:
 
--   The last thing that we need to set up is the debugger,
-    i.e.`launch.json` file. Right click on the `.vscode` folder in the
-    file navigator and make a new file called `launch.json` and put in
-    the following:
+``` {.javascript}
+{
+  "version": "0.1.0",
+  "command": "tsc",
+  "showOutput": "silent",
+  "isShellCommand": true,
+  "problemMatcher": "$tsc"
+}
+```
 
-        {
-          "version": "0.1.0",
-          "configurations": [
-            {
-              "name": "TS Debugger",
-              "type": "node",
-              "program": "main.ts",
-              "stopOnEntry": false,
-              "sourceMaps": true,
-              "outDir": "output"
-            }
-          ]
-        }
+The last thing that we need to set up is the debugger, i.e. the
+`launch.json` file. Right click on the `.vscode` folder in the file
+navigator and make a new file called `launch.json` and put in the
+following:
 
--   After you save the file, you should be able to see the debugger in
-    the debugger dropdown options.
+``` {.javascript}
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "TS Debugger",
+      "type": "node",
+      "program": "main.ts",
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "outDir": "output"
+    }
+  ]
+}
+```
 
--   Now, we are ready to make the `main.ts` file in the root of the
-    project:
+After you save the file, you should be able to see the debugger in the
+debugger dropdown options.
 
-    **`main.ts`**
+Now, we are ready to make the `main.ts` file in the root of the project:
 
-    ``` {.typescript}
-    const sum = (a: number, b: number): number => a + b;
-    const r = sum(1,2);
-    console.log(r);
-    ```
+**`main.ts`**
 
--   Now you can start the task to watch the files and compile as
-    you work. Open the prompt with `command + shift + p` and type:
+``` {.typescript}
+const sum = (a: number, b: number): number => a + b;
+const r = sum(1,2);
+console.log(r);
+```
 
-        > run build tasks
+Now you can start the task to watch the files and compile as you work.
+Open the prompt with `command + shift + p` and type:
 
-    you can also use the `command + shift + b` keyboard
-    shortcut instead. This will start the debugger and watch the files.
-    After making a change to `main.ts`, you should be able to see the
-    output in the `output` folder.
+    > run build tasks
 
--   Now that the build task is running, we can put a breakpoint anywhere
-    in our typescript code. Let's put a breakpoint on line 2 and start
-    the debugger by clicking on the margin of line 2.
+you can also use the `command + shift + b` keyboard shortcut instead.
+This will start the debugger and watch the files. After making a change
+to `main.ts`, you should be able to see the output in the `output`
+folder.
 
--   Then open the debugger tab to run the debugger and you should see
-    that the program will stop at the breakpoint and you can step over
-    or into the line.
+After the build task is running, we can put a breakpoint anywhere in our
+TypeScript code. Let's put a breakpoint on line 2 by clicking on the
+margin. Then start the debugger by going to the debugger tab and
+clicking the green play icon.
 
--   To stop the task you can terminate it. Open the prompt and type:
+Now you should see that the program will stop at the breakpoint and you
+should be able to step over or into your program.
 
-        > terminate running task
+To stop the task you can terminate it. Open the prompt and type:
+
+    > terminate running task
 
 Running VSCode from the Terminal
 --------------------------------
@@ -277,40 +294,42 @@ running instance of chrome. This makes it very convenient because you
 can put breakpoints in your TypeScript code and run the debugger to
 debug your app. Let's get started.
 
--   In order to install the
-    [extension](https://github.com/Microsoft/vscode-chrome-debug) open
-    the prompt in VSCode with `command + shift + p` and type:
+In order to install the
+[extension](https://github.com/Microsoft/vscode-chrome-debug) open the
+prompt in VSCode with `command + shift + p` and type:
 
-        > install extension
+    > install extension
 
-    hit enter and then type:
+hit enter and then type:
 
-        debugger for chrome
+    debugger for chrome
 
-    Then just click on the result to install the extension. Restart
-    VSCode when you are prompted.
+Then just click on the result to install the extension. Restart VSCode
+when you are prompted.
 
--   After installing the extension, we need to update or create a
-    `launch.json` file for debugging. You can create one in the
-    `.vscode` folder. After you created the file, put in the following:
+After installing the extension, we need to update or create a
+`launch.json` file for debugging. You can create one in the `.vscode`
+folder. After you created the file, put in the following:
 
+    {
+      "version": "0.1.0",
+      "configurations": [
         {
-          "version": "0.1.0",
-          "configurations": [
-            {
-              "name": "Launch Chrome Debugger",
-              "type": "chrome",
-              "request": "launch",
-              "url": "http://localhost:8080",
-              "sourceMaps": true,
-              "webRoot": ".",
-              "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-              "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
-            }
-          ]
+          "name": "Launch Chrome Debugger",
+          "type": "chrome",
+          "request": "launch",
+          "url": "http://localhost:8080",
+          "sourceMaps": true,
+          "webRoot": ".",
+          "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
         }
+      ]
+    }
 
-    Depending on your platform you need to change the
+**Notes:**
+
+-   Depending on your platform you need to change the
     `runtimeExecutable` path to Chrome's executable path. After
     configuring the debugger you need to have a server running serving
     the app. You can change the `url` value accordingly. Also make sure
@@ -366,29 +385,29 @@ You should get an output like this:
 After `tsd` and `tsc` are installed, we can compile a hello world
 program:
 
--   make a file called `hello.ts` on your desktop:
+make a file called `hello.ts` on your desktop:
 
-    ``` {.bash}
-    touch ~/Desktop/hello.ts
-    ```
+``` {.bash}
+touch ~/Desktop/hello.ts
+```
 
--   Then, put some TypeScript code in the file:
+Then, put some TypeScript code in the file:
 
-    ``` {.bash}
-    echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
-    ```
+``` {.bash}
+echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
+```
 
--   Then you can compile the file to JavaScript:
+Then you can compile the file to JavaScript:
 
-    ``` {.bash}
-    tsc ~/Desktop/hello.ts
-    ```
+``` {.bash}
+tsc ~/Desktop/hello.ts
+```
 
--   It should output a file in `Desktop/hello.js`:
+It should output a file in `Desktop/hello.js`:
 
-    ``` {.javascript}
-    var adder = function (a, b) { return a + b; };
-    ```
+``` {.javascript}
+var adder = function (a, b) { return a + b; };
+```
 
 Now that your TypeScript compiler setup, we can move on to configuring
 Visual Studio Code.

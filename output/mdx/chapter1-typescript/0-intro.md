@@ -34,28 +34,28 @@ You should get an output like this:
 
 After `tsd` and `tsc` are installed, we can compile a hello world program:
 
-- make a file called `hello.ts` on your desktop:
+make a file called `hello.ts` on your desktop:
 
-    ~~~~{.numberLines .bash startFrom="1"}
-    touch ~/Desktop/hello.ts
-    ~~~~~~~
+~~~~{.numberLines .bash startFrom="1"}
+touch ~/Desktop/hello.ts
+~~~~~~~
 
-- Then, put some TypeScript code in the file:
+Then, put some TypeScript code in the file:
 
-    ~~~~{.numberLines .bash startFrom="1"}
-    echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
-    ~~~~~~~
+~~~~{.numberLines .bash startFrom="1"}
+echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
+~~~~~~~
 
-- Then you can compile the file to JavaScript:
+Then you can compile the file to JavaScript:
 
-    ~~~~{.numberLines .bash startFrom="1"}
-    tsc ~/Desktop/hello.ts
-    ~~~~~~~
+~~~~{.numberLines .bash startFrom="1"}
+tsc ~/Desktop/hello.ts
+~~~~~~~
 
-- It should output a file in `Desktop/hello.js`:
+It should output a file in `Desktop/hello.js`:
 
-    ~~~~{.numberLines .javascript startFrom="1"}
-    var adder = function (a, b) { return a + b; };
-    ~~~~~~~
+~~~~{.numberLines .javascript startFrom="1"}
+var adder = function (a, b) { return a + b; };
+~~~~~~~
 
 Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.

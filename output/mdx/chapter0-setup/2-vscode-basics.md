@@ -15,9 +15,11 @@ Visual Studio Code is a good IDE for developing web apps. In this chapter we wil
 
 - To install extensions open the prompt with `command + shift + p` and type:
 
-    - `> install extension`
+    ```
+    > install extension
+    ```
 
-- Open the shortcuts settings from `Preferences > Keyboard Shortcuts`, and then you can add your own shortcuts:
+- You can change the keyboard shortcuts settings from `Preferences > Keyboard Shortcuts`. Open the settings and then you can add your own shortcuts:
 
     ```
     // Place your key bindings in this file to overwrite the defaults

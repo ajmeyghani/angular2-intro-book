@@ -72,20 +72,18 @@
 <p>You should get an output like this:</p>
 <pre><code>&gt;&gt; tsd 0.6.5</code></pre>
 <p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
-<ul>
-<li><p>make a file called <code>hello.ts</code> on your desktop:</p>
+<p>make a file called <code>hello.ts</code> on your desktop:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then, put some TypeScript code in the file:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then, put some TypeScript code in the file:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then you can compile the file to JavaScript:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then you can compile the file to JavaScript:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>It should output a file in <code>Desktop/hello.js</code>:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>It should output a file in <code>Desktop/hello.js</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div></li>
-</ul>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div>
 <p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
 
     </div>

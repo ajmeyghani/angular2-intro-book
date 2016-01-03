@@ -70,6 +70,7 @@
     <ul>
     <li><a href="#notes">Notes</a></li>
     <li><a href="#installing-node">Installing Node</a><ul>
+    <li><a href="#permissions">Permissions</a></li>
     <li><a href="#installing-live-server">Installing <code>live-server</code></a></li>
     </ul></li>
     <li><a href="#visual-studio-code">Visual Studio Code</a><ul>
@@ -115,48 +116,43 @@
 </div>
 <div id="installing-node" class="section level1">
 <h1>Installing Node</h1>
-<ul>
-<li>Use <a href="https://github.com/creationix/nvm">nvm</a> to install and manage Node on the machine. Copy the install script and run it:</li>
-</ul>
+<p>You can use <a href="https://github.com/creationix/nvm">nvm</a> to install and manage Node on your machine. Copy the install script and run it:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">curl</span> -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh <span class="kw">|</span> <span class="kw">bash</span></code></pre></td></tr></table></div>
-<ul>
-<li>After installed, make sure that it is installed, by running:</li>
-</ul>
+<p>After that, make a new terminal window and make sure that it is installed, by running:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> --help</code></pre></td></tr></table></div>
-<ul>
-<li>Then use <code>nvm</code> to install node version <code>0.12.9</code> by running:</li>
-</ul>
+<p>Now you can use <code>nvm</code> to install Node <code>0.12.9</code> by running:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> install 0.12.9</code></pre></td></tr></table></div>
-<ul>
-<li><p>Confirm that it is installed by running <code>node -v</code>.</p></li>
-<li><p>You can load any node version in the current shell with <code>nvm use 0.x.y</code> after of course installing it.</p></li>
-<li><p>You can make <code>0.12.9</code> the default version by making an alias for the default node:</p>
+<p>After that, nvm is going to load version 0.12.9 automatically. If it doesn't, you can load it in the current shell, with:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> use 0.12.9</code></pre></td></tr></table></div>
+<p>Note that you can load any node version in the current shell with <code>nvm use 0.x.y</code> after installing that version.</p>
+<p>Also note that if you want to make <code>0.12.9</code> the default Node version on your machine, you can do so by running the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> alias default 0.12.9</code></pre></td></tr></table></div>
-<h2 id="permissions">Permissions</h2></li>
-<li><p>Never use <code>sudo</code> to install packages, never do <code>sudo npm install &lt;package&gt;</code>. If you get permission errors, you can own the folders by the current user. So for example, if you get an error like:</p>
+<p>Then you can verify that it is the default version by making a new terminal window and typing <code>node -v</code>.</p>
+<div id="permissions" class="section level2">
+<h2>Permissions</h2>
+<p>Never use <code>sudo</code> to install packages, never do <code>sudo npm install &lt;package&gt;</code>. If you get permission errors while installing without <code>sudo</code>, you can own the folders instead. So for example, if you get an error like:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">Error</span>: EACCES, mkdir <span class="st">&#39;/usr/local&#39;</span></code></pre></td></tr></table></div></li>
-<li><p>you can own the folder with:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">Error</span>: EACCES, mkdir <span class="st">&#39;/usr/local&#39;</span></code></pre></td></tr></table></div>
+<p>you can own the folder with:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">sudo</span> chown -R <span class="kw">`whoami`</span> /usr/local</code></pre></td></tr></table></div>
-<p>You can own folders until node doesn't complain.</p></li>
-</ul>
+<p>You can own folders until Node doesn't complain.</p>
+</div>
 <div id="installing-live-server" class="section level2">
 <h2>Installing <code>live-server</code></h2>
-<ul>
-<li><p>Install a package to verify that node is installed and everything is wired up correctly. We are going to use <code>live-server</code> through the course. So let's install that:</p>
+<p>Install a package to verify that node is installed and everything is wired up correctly. We are going to use <code>live-server</code> through the book. So let's install that with:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i -g live-server</code></pre></td></tr></table></div></li>
-<li><p>Then, you should be able to run <code>live-server</code> in any folder to server the content of that folder:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i -g live-server</code></pre></td></tr></table></div>
+<p>Then, you should be able to run <code>live-server</code> in any folder to serve the content of that folder:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">mdkir</span> ~/Desktop/sample <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span>
-<span class="kw">live-server</span> .</code></pre></td></tr></table></div></li>
-</ul>
+<span class="kw">live-server</span> .</code></pre></td></tr></table></div>
 </div>
 </div>
 <div id="visual-studio-code" class="section level1">
@@ -173,10 +169,8 @@
 <li><code>command + shift + p</code>: to open the prompt</li>
 </ul></li>
 <li><p>To install extensions open the prompt with <code>command + shift + p</code> and type:</p>
-<ul>
-<li><code>&gt; install extension</code></li>
-</ul></li>
-<li><p>Open the shortcuts settings from <code>Preferences &gt; Keyboard Shortcuts</code>, and then you can add your own shortcuts:</p>
+<pre><code>&gt; install extension</code></pre></li>
+<li><p>You can change the keyboard shortcuts settings from <code>Preferences &gt; Keyboard Shortcuts</code>. Open the settings and then you can add your own shortcuts:</p>
 <pre><code>// Place your key bindings in this file to overwrite the defaults
 [
   {
@@ -205,59 +199,90 @@
 <li><code>tasks.json</code>: Task configuration for VSCode to watch and compile files</li>
 <li><code>launch.json</code>: Configuration for the debugger</li>
 </ol></li>
-<li><p>The <code>tsconfig.json</code> file should be in the root of the project. Let's make the file and put the following in it:</p>
-<pre><code>{
-  &quot;compilerOptions&quot;: {
-    &quot;experimentalDecorators&quot;: true,
-    &quot;emitDecoratorMetadata&quot;: true,
-    &quot;module&quot;: &quot;commonjs&quot;,
-    &quot;target&quot;: &quot;es5&quot;,
-    &quot;sourceMap&quot;: true,
-    &quot;outDir&quot;: &quot;output&quot;,
-    &quot;watch&quot;: true
-  }
-}</code></pre></li>
-<li><p>Now to make the <code>tasks.json</code> file, open the prompt with <code>command + shift + p</code> and type:</p>
-<pre><code>&gt; configure task runner</code></pre></li>
-<li><p>Then put the following in the file and save the file:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;0.1.0&quot;,
-  &quot;command&quot;: &quot;tsc&quot;,
-  &quot;showOutput&quot;: &quot;silent&quot;,
-  &quot;isShellCommand&quot;: true,
-  &quot;problemMatcher&quot;: &quot;$tsc&quot;
-}</code></pre></li>
-<li><p>The last thing that we need to set up is the debugger, i.e.<code>launch.json</code> file. Right click on the <code>.vscode</code> folder in the file navigator and make a new file called <code>launch.json</code> and put in the following:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;0.1.0&quot;,
-  &quot;configurations&quot;: [
-    {
-      &quot;name&quot;: &quot;TS Debugger&quot;,
-      &quot;type&quot;: &quot;node&quot;,
-      &quot;program&quot;: &quot;main.ts&quot;,
-      &quot;stopOnEntry&quot;: false,
-      &quot;sourceMaps&quot;: true,
-      &quot;outDir&quot;: &quot;output&quot;
-    }
+</ul>
+<p>The <code>tsconfig.json</code> file should be in the root of the project. Let's make the file and put the following in it:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="st">&quot;compilerOptions&quot;</span><span class="op">:</span> <span class="op">{</span>
+    <span class="st">&quot;experimentalDecorators&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+    <span class="st">&quot;emitDecoratorMetadata&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+    <span class="st">&quot;module&quot;</span><span class="op">:</span> <span class="st">&quot;commonjs&quot;</span><span class="op">,</span>
+    <span class="st">&quot;target&quot;</span><span class="op">:</span> <span class="st">&quot;es5&quot;</span><span class="op">,</span>
+    <span class="st">&quot;sourceMap&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+    <span class="st">&quot;outDir&quot;</span><span class="op">:</span> <span class="st">&quot;output&quot;</span><span class="op">,</span>
+    <span class="st">&quot;watch&quot;</span><span class="op">:</span> <span class="kw">true</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></td></tr></table></div>
+<p>Now to make the <code>tasks.json</code> file. Open the prompt with <code>command + shift + p</code> and type:</p>
+<pre><code>&gt; configure task runner</code></pre>
+<p>Then put the following in the file and save the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="st">&quot;version&quot;</span><span class="op">:</span> <span class="st">&quot;0.1.0&quot;</span><span class="op">,</span>
+  <span class="st">&quot;command&quot;</span><span class="op">:</span> <span class="st">&quot;tsc&quot;</span><span class="op">,</span>
+  <span class="st">&quot;showOutput&quot;</span><span class="op">:</span> <span class="st">&quot;silent&quot;</span><span class="op">,</span>
+  <span class="st">&quot;isShellCommand&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+  <span class="st">&quot;problemMatcher&quot;</span><span class="op">:</span> <span class="st">&quot;$tsc&quot;</span>
+<span class="op">}</span></code></pre></td></tr></table></div>
+<p>The last thing that we need to set up is the debugger, i.e. the <code>launch.json</code> file. Right click on the <code>.vscode</code> folder in the file navigator and make a new file called <code>launch.json</code> and put in the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="st">&quot;version&quot;</span><span class="op">:</span> <span class="st">&quot;0.1.0&quot;</span><span class="op">,</span>
+  <span class="st">&quot;configurations&quot;</span><span class="op">:</span> [
+    <span class="op">{</span>
+      <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="st">&quot;TS Debugger&quot;</span><span class="op">,</span>
+      <span class="st">&quot;type&quot;</span><span class="op">:</span> <span class="st">&quot;node&quot;</span><span class="op">,</span>
+      <span class="st">&quot;program&quot;</span><span class="op">:</span> <span class="st">&quot;main.ts&quot;</span><span class="op">,</span>
+      <span class="st">&quot;stopOnEntry&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+      <span class="st">&quot;sourceMaps&quot;</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+      <span class="st">&quot;outDir&quot;</span><span class="op">:</span> <span class="st">&quot;output&quot;</span>
+    <span class="op">}</span>
   ]
-}</code></pre></li>
-<li><p>After you save the file, you should be able to see the debugger in the debugger dropdown options.</p></li>
-<li><p>Now, we are ready to make the <code>main.ts</code> file in the root of the project:</p>
+<span class="op">}</span></code></pre></td></tr></table></div>
+<p>After you save the file, you should be able to see the debugger in the debugger dropdown options.</p>
+<p>Now, we are ready to make the <code>main.ts</code> file in the root of the project:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> sum = (a: number, b: number): number =&gt; a + b;
 <span class="dt">const</span> r = <span class="fu">sum</span>(<span class="dv">1</span>,<span class="dv">2</span>);
-console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div></li>
-<li><p>Now you can start the task to watch the files and compile as you work. Open the prompt with <code>command + shift + p</code> and type:</p>
+console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
+<p>Now you can start the task to watch the files and compile as you work. Open the prompt with <code>command + shift + p</code> and type:</p>
 <pre><code>&gt; run build tasks</code></pre>
-<p>you can also use the <code>command + shift + b</code> keyboard shortcut instead. This will start the debugger and watch the files. After making a change to <code>main.ts</code>, you should be able to see the output in the <code>output</code> folder.</p></li>
-<li><p>Now that the build task is running, we can put a breakpoint anywhere in our typescript code. Let's put a breakpoint on line 2 and start the debugger by clicking on the margin of line 2.</p></li>
-<li><p>Then open the debugger tab to run the debugger and you should see that the program will stop at the breakpoint and you can step over or into the line.</p></li>
-<li><p>To stop the task you can terminate it. Open the prompt and type:</p>
-<pre><code>&gt; terminate running task</code></pre></li>
-</ul>
+<p>you can also use the <code>command + shift + b</code> keyboard shortcut instead. This will start the debugger and watch the files. After making a change to <code>main.ts</code>, you should be able to see the output in the <code>output</code> folder.</p>
+<p>After the build task is running, we can put a breakpoint anywhere in our TypeScript code. Let's put a breakpoint on line 2 by clicking on the margin. Then start the debugger by going to the debugger tab and clicking the green play icon.</p>
+<p>Now you should see that the program will stop at the breakpoint and you should be able to step over or into your program.</p>
+<p>To stop the task you can terminate it. Open the prompt and type:</p>
+<pre><code>&gt; terminate running task</code></pre>
 </div>
 <div id="running-vscode-from-the-terminal" class="section level2">
 <h2>Running VSCode from the Terminal</h2>
@@ -273,13 +298,12 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div></li
 <div id="debugging-app-from-vscode" class="section level2">
 <h2>Debugging App from VSCode</h2>
 <p>The &quot;vscode-chrome-debug&quot; extension allows you to attach VSCode to a running instance of chrome. This makes it very convenient because you can put breakpoints in your TypeScript code and run the debugger to debug your app. Let's get started.</p>
-<ul>
-<li><p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
+<p>In order to install the <a href="https://github.com/Microsoft/vscode-chrome-debug">extension</a> open the prompt in VSCode with <code>command + shift + p</code> and type:</p>
 <pre><code>&gt; install extension</code></pre>
 <p>hit enter and then type:</p>
 <pre><code>debugger for chrome</code></pre>
-<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p></li>
-<li><p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
+<p>Then just click on the result to install the extension. Restart VSCode when you are prompted.</p>
+<p>After installing the extension, we need to update or create a <code>launch.json</code> file for debugging. You can create one in the <code>.vscode</code> folder. After you created the file, put in the following:</p>
 <pre><code>{
   &quot;version&quot;: &quot;0.1.0&quot;,
   &quot;configurations&quot;: [
@@ -295,7 +319,9 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div></li
     }
   ]
 }</code></pre>
-<p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><p>Depending on your platform you need to change the <code>runtimeExecutable</code> path to Chrome's executable path. After configuring the debugger you need to have a server running serving the app. You can change the <code>url</code> value accordingly. Also make sure that the <code>webRoot</code> path is set to the root of your web server.</p></li>
 <li><p>After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.</p></li>
 <li><p>Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.</p></li>
 </ul>
@@ -319,20 +345,18 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div></li
 <p>You should get an output like this:</p>
 <pre><code>&gt;&gt; tsd 0.6.5</code></pre>
 <p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
-<ul>
-<li><p>make a file called <code>hello.ts</code> on your desktop:</p>
+<p>make a file called <code>hello.ts</code> on your desktop:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then, put some TypeScript code in the file:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then, put some TypeScript code in the file:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>Then you can compile the file to JavaScript:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then you can compile the file to JavaScript:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div></li>
-<li><p>It should output a file in <code>Desktop/hello.js</code>:</p>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>It should output a file in <code>Desktop/hello.js</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div></li>
-</ul>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div>
 <p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
 </div>
 <div id="types-and-the-basics" class="section level2">

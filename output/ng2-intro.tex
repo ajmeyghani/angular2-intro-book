@@ -164,12 +164,8 @@
 
 \section{Installing Node}\label{installing-node}
 
-\begin{itemize}
-\tightlist
-\item
-  Use \href{https://github.com/creationix/nvm}{nvm} to install and
-  manage Node on the machine. Copy the install script and run it:
-\end{itemize}
+You can use \href{https://github.com/creationix/nvm}{nvm} to install and
+manage Node on your machine. Copy the install script and run it:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -177,11 +173,8 @@
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  After installed, make sure that it is installed, by running:
-\end{itemize}
+After that, make a new terminal window and make sure that it is
+installed, by running:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -189,12 +182,7 @@
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  Then use \texttt{nvm} to install node version \texttt{0.12.9} by
-  running:
-\end{itemize}
+Now you can use \texttt{nvm} to install Node \texttt{0.12.9} by running:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -202,15 +190,20 @@
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\item
-  Confirm that it is installed by running \texttt{node\ -v}.
-\item
-  You can load any node version in the current shell with
-  \texttt{nvm\ use\ 0.x.y} after of course installing it.
-\item
-  You can make \texttt{0.12.9} the default version by making an alias
-  for the default node:
+After that, nvm is going to load version 0.12.9 automatically. If it
+doesn't, you can load it in the current shell, with:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{nvm} \NormalTok{use 0.12.9}
+\end{Highlighting}
+\end{Shaded}
+
+Note that you can load any node version in the current shell with
+\texttt{nvm\ use\ 0.x.y} after installing that version.
+
+Also note that if you want to make \texttt{0.12.9} the default Node
+version on your machine, you can do so by running the following:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -218,20 +211,23 @@
 \end{Highlighting}
 \end{Shaded}
 
-  \subsection{Permissions}\label{permissions}
-\item
-  Never use \texttt{sudo} to install packages, never do
-  \texttt{sudo\ npm\ install\ \textless{}package\textgreater{}}. If you
-  get permission errors, you can own the folders by the current user. So
-  for example, if you get an error like:
+Then you can verify that it is the default version by making a new
+terminal window and typing \texttt{node\ -v}.
+
+\subsection{Permissions}\label{permissions}
+
+Never use \texttt{sudo} to install packages, never do
+\texttt{sudo\ npm\ install\ \textless{}package\textgreater{}}. If you
+get permission errors while installing without \texttt{sudo}, you can
+own the folders instead. So for example, if you get an error like:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{Error}\NormalTok{: EACCES, mkdir }\StringTok{'/usr/local'}
 \end{Highlighting}
 \end{Shaded}
-\item
-  you can own the folder with:
+
+you can own the folder with:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -239,26 +235,23 @@
 \end{Highlighting}
 \end{Shaded}
 
-  You can own folders until node doesn't complain.
-\end{itemize}
+You can own folders until Node doesn't complain.
 
 \subsection{\texorpdfstring{Installing
 \texttt{live-server}}{Installing live-server}}\label{installing-live-server}
 
-\begin{itemize}
-\item
-  Install a package to verify that node is installed and everything is
-  wired up correctly. We are going to use \texttt{live-server} through
-  the course. So let's install that:
+Install a package to verify that node is installed and everything is
+wired up correctly. We are going to use \texttt{live-server} through the
+book. So let's install that with:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{npm} \NormalTok{i -g live-server}
 \end{Highlighting}
 \end{Shaded}
-\item
-  Then, you should be able to run \texttt{live-server} in any folder to
-  server the content of that folder:
+
+Then, you should be able to run \texttt{live-server} in any folder to
+serve the content of that folder:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -266,7 +259,6 @@
 \KeywordTok{live-server} \NormalTok{.}
 \end{Highlighting}
 \end{Shaded}
-\end{itemize}
 
 \section{Visual Studio Code}\label{visual-studio-code}
 
@@ -296,15 +288,13 @@ chapter we will look at installing and configuring VSCode.
   To install extensions open the prompt with
   \texttt{command\ +\ shift\ +\ p} and type:
 
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{\textgreater{}\ install\ extension}
-  \end{itemize}
+\begin{verbatim}
+> install extension
+\end{verbatim}
 \item
-  Open the shortcuts settings from
-  \texttt{Preferences\ \textgreater{}\ Keyboard\ Shortcuts}, and then
-  you can add your own shortcuts:
+  You can change the keyboard shortcuts settings from
+  \texttt{Preferences\ \textgreater{}\ Keyboard\ Shortcuts}. Open the
+  settings and then you can add your own shortcuts:
 
 \begin{verbatim}
 // Place your key bindings in this file to overwrite the defaults
@@ -359,71 +349,78 @@ either follow along or check out the folder to see the final result.
   \item
     \texttt{launch.json}: Configuration for the debugger
   \end{enumerate}
-\item
-  The \texttt{tsconfig.json} file should be in the root of the project.
-  Let's make the file and put the following in it:
+\end{itemize}
 
-\begin{verbatim}
-{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "commonjs",
-    "target": "es5",
-    "sourceMap": true,
-    "outDir": "output",
-    "watch": true
-  }
-}
-\end{verbatim}
-\item
-  Now to make the \texttt{tasks.json} file, open the prompt with
-  \texttt{command\ +\ shift\ +\ p} and type:
+The \texttt{tsconfig.json} file should be in the root of the project.
+Let's make the file and put the following in it:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\OperatorTok{\{}
+  \StringTok{"compilerOptions"}\OperatorTok{:} \OperatorTok{\{}
+    \StringTok{"experimentalDecorators"}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+    \StringTok{"emitDecoratorMetadata"}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+    \StringTok{"module"}\OperatorTok{:} \StringTok{"commonjs"}\OperatorTok{,}
+    \StringTok{"target"}\OperatorTok{:} \StringTok{"es5"}\OperatorTok{,}
+    \StringTok{"sourceMap"}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+    \StringTok{"outDir"}\OperatorTok{:} \StringTok{"output"}\OperatorTok{,}
+    \StringTok{"watch"}\OperatorTok{:} \KeywordTok{true}
+  \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now to make the \texttt{tasks.json} file. Open the prompt with
+\texttt{command\ +\ shift\ +\ p} and type:
 
 \begin{verbatim}
 > configure task runner
 \end{verbatim}
-\item
-  Then put the following in the file and save the file:
 
-\begin{verbatim}
-{
-  "version": "0.1.0",
-  "command": "tsc",
-  "showOutput": "silent",
-  "isShellCommand": true,
-  "problemMatcher": "$tsc"
-}
-\end{verbatim}
-\item
-  The last thing that we need to set up is the debugger,
-  i.e.\texttt{launch.json} file. Right click on the \texttt{.vscode}
-  folder in the file navigator and make a new file called
-  \texttt{launch.json} and put in the following:
+Then put the following in the file and save the file:
 
-\begin{verbatim}
-{
-  "version": "0.1.0",
-  "configurations": [
-    {
-      "name": "TS Debugger",
-      "type": "node",
-      "program": "main.ts",
-      "stopOnEntry": false,
-      "sourceMaps": true,
-      "outDir": "output"
-    }
-  ]
-}
-\end{verbatim}
-\item
-  After you save the file, you should be able to see the debugger in the
-  debugger dropdown options.
-\item
-  Now, we are ready to make the \texttt{main.ts} file in the root of the
-  project:
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\OperatorTok{\{}
+  \StringTok{"version"}\OperatorTok{:} \StringTok{"0.1.0"}\OperatorTok{,}
+  \StringTok{"command"}\OperatorTok{:} \StringTok{"tsc"}\OperatorTok{,}
+  \StringTok{"showOutput"}\OperatorTok{:} \StringTok{"silent"}\OperatorTok{,}
+  \StringTok{"isShellCommand"}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+  \StringTok{"problemMatcher"}\OperatorTok{:} \StringTok{"$tsc"}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
-  \textbf{\texttt{main.ts}}
+The last thing that we need to set up is the debugger, i.e.~the
+\texttt{launch.json} file. Right click on the \texttt{.vscode} folder in
+the file navigator and make a new file called \texttt{launch.json} and
+put in the following:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\OperatorTok{\{}
+  \StringTok{"version"}\OperatorTok{:} \StringTok{"0.1.0"}\OperatorTok{,}
+  \StringTok{"configurations"}\OperatorTok{:} \NormalTok{[}
+    \OperatorTok{\{}
+      \StringTok{"name"}\OperatorTok{:} \StringTok{"TS Debugger"}\OperatorTok{,}
+      \StringTok{"type"}\OperatorTok{:} \StringTok{"node"}\OperatorTok{,}
+      \StringTok{"program"}\OperatorTok{:} \StringTok{"main.ts"}\OperatorTok{,}
+      \StringTok{"stopOnEntry"}\OperatorTok{:} \KeywordTok{false}\OperatorTok{,}
+      \StringTok{"sourceMaps"}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+      \StringTok{"outDir"}\OperatorTok{:} \StringTok{"output"}
+    \OperatorTok{\}}
+  \NormalTok{]}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+After you save the file, you should be able to see the debugger in the
+debugger dropdown options.
+
+Now, we are ready to make the \texttt{main.ts} file in the root of the
+project:
+
+\textbf{\texttt{main.ts}}
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -432,33 +429,32 @@ either follow along or check out the folder to see the final result.
 \NormalTok{console.}\FunctionTok{log}\NormalTok{(r);}
 \end{Highlighting}
 \end{Shaded}
-\item
-  Now you can start the task to watch the files and compile as you work.
-  Open the prompt with \texttt{command\ +\ shift\ +\ p} and type:
+
+Now you can start the task to watch the files and compile as you work.
+Open the prompt with \texttt{command\ +\ shift\ +\ p} and type:
 
 \begin{verbatim}
 > run build tasks
 \end{verbatim}
 
-  you can also use the \texttt{command\ +\ shift\ +\ b} keyboard
-  shortcut instead. This will start the debugger and watch the files.
-  After making a change to \texttt{main.ts}, you should be able to see
-  the output in the \texttt{output} folder.
-\item
-  Now that the build task is running, we can put a breakpoint anywhere
-  in our typescript code. Let's put a breakpoint on line 2 and start the
-  debugger by clicking on the margin of line 2.
-\item
-  Then open the debugger tab to run the debugger and you should see that
-  the program will stop at the breakpoint and you can step over or into
-  the line.
-\item
-  To stop the task you can terminate it. Open the prompt and type:
+you can also use the \texttt{command\ +\ shift\ +\ b} keyboard shortcut
+instead. This will start the debugger and watch the files. After making
+a change to \texttt{main.ts}, you should be able to see the output in
+the \texttt{output} folder.
+
+After the build task is running, we can put a breakpoint anywhere in our
+TypeScript code. Let's put a breakpoint on line 2 by clicking on the
+margin. Then start the debugger by going to the debugger tab and
+clicking the green play icon.
+
+Now you should see that the program will stop at the breakpoint and you
+should be able to step over or into your program.
+
+To stop the task you can terminate it. Open the prompt and type:
 
 \begin{verbatim}
 > terminate running task
 \end{verbatim}
-\end{itemize}
 
 \subsection{Running VSCode from the
 Terminal}\label{running-vscode-from-the-terminal}
@@ -493,30 +489,27 @@ running instance of chrome. This makes it very convenient because you
 can put breakpoints in your TypeScript code and run the debugger to
 debug your app. Let's get started.
 
-\begin{itemize}
-\item
-  In order to install the
-  \href{https://github.com/Microsoft/vscode-chrome-debug}{extension}
-  open the prompt in VSCode with \texttt{command\ +\ shift\ +\ p} and
-  type:
+In order to install the
+\href{https://github.com/Microsoft/vscode-chrome-debug}{extension} open
+the prompt in VSCode with \texttt{command\ +\ shift\ +\ p} and type:
 
 \begin{verbatim}
 > install extension
 \end{verbatim}
 
-  hit enter and then type:
+hit enter and then type:
 
 \begin{verbatim}
 debugger for chrome
 \end{verbatim}
 
-  Then just click on the result to install the extension. Restart VSCode
-  when you are prompted.
-\item
-  After installing the extension, we need to update or create a
-  \texttt{launch.json} file for debugging. You can create one in the
-  \texttt{.vscode} folder. After you created the file, put in the
-  following:
+Then just click on the result to install the extension. Restart VSCode
+when you are prompted.
+
+After installing the extension, we need to update or create a
+\texttt{launch.json} file for debugging. You can create one in the
+\texttt{.vscode} folder. After you created the file, put in the
+following:
 
 \begin{verbatim}
 {
@@ -536,6 +529,10 @@ debugger for chrome
 }
 \end{verbatim}
 
+\textbf{Notes:}
+
+\begin{itemize}
+\item
   Depending on your platform you need to change the
   \texttt{runtimeExecutable} path to Chrome's executable path. After
   configuring the debugger you need to have a server running serving the
@@ -601,40 +598,37 @@ You should get an output like this:
 After \texttt{tsd} and \texttt{tsc} are installed, we can compile a
 hello world program:
 
-\begin{itemize}
-\item
-  make a file called \texttt{hello.ts} on your desktop:
+make a file called \texttt{hello.ts} on your desktop:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{touch} \NormalTok{~/Desktop/hello.ts}
 \end{Highlighting}
 \end{Shaded}
-\item
-  Then, put some TypeScript code in the file:
+
+Then, put some TypeScript code in the file:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{echo} \StringTok{"const adder = (a: number, b: number): number => a + b;"} \KeywordTok{>} \NormalTok{~/Desktop/hello.ts}
 \end{Highlighting}
 \end{Shaded}
-\item
-  Then you can compile the file to JavaScript:
+
+Then you can compile the file to JavaScript:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{tsc} \NormalTok{~/Desktop/hello.ts}
 \end{Highlighting}
 \end{Shaded}
-\item
-  It should output a file in \texttt{Desktop/hello.js}:
+
+It should output a file in \texttt{Desktop/hello.js}:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \KeywordTok{var} \NormalTok{adder }\OperatorTok{=} \KeywordTok{function} \NormalTok{(a}\OperatorTok{,} \NormalTok{b) }\OperatorTok{\{} \ControlFlowTok{return} \NormalTok{a }\OperatorTok{+} \NormalTok{b}\OperatorTok{;} \OperatorTok{\};}
 \end{Highlighting}
 \end{Shaded}
-\end{itemize}
 
 Now that your TypeScript compiler setup, we can move on to configuring
 Visual Studio Code.
