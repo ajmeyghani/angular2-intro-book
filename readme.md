@@ -1,31 +1,16 @@
-# Introduction to Angular 2
+# Introduction to Angular2
 
-The goal of this course is to make you familiar with Angular 2 and TypeScript. It will walk you through installing all the tools that you need. Then it will walk you through a crash-course on TypeScript. Then it will show you how to use different features of Angular 2, most importantly the components. By the end of the course, you should have a good understanding of Angular 2 and the different pieces that are involved.
+This book is a short book that takes you through the basics of Angular 2. It will also show you how to set up Visual Studio Code to work with TypeScript and Angular.
 
-# Outline
+## Chapters
 
-## The Setup
+- Each individual chapters are in the [chapters](chapters) folder.
+- The book is compiled into different formats in the [output](output) folder.
 
-In this section, we will set up node and visual studio code.
+## Building the book
 
-### Install Node
+The `./build.sh` script builds the book using [Bookly](https://github.com/st32lth/bookly). If you want to build the book, make sure you install bookly's requirements.
 
-- Install `Node` with `nvm`
-- Confirm that is installed
-- Install `live-server` to confirm everything is wired up.
+## Building the book for leanpub
 
-### Install Visual Studio Code
-
-- Install [Visual Studio Code](https://code.visualstudio.com/)
-- Show the basics of vscode: opening files. shortcut, `cmd+shift+p`.
-- Install Angular2 Snippets [extension](https://marketplace.visualstudio.com/items/UVBrain.Angular2)
-
-## TypeScript Crash-course
-
-A crash-course on TypeScript, so that we can understand the code that we write.
-
-- Types and the Basics
-- Interfaces
-- Classes
-- Decorators
-- Modules
+The `./lean.sh` script is used to build the book for leanpub.
