@@ -90,6 +90,15 @@
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\NormalTok}[1]{{#1}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
@@ -940,7 +949,278 @@ Property `distance' is missing in type `Car'.
 
 \section{Hello Angular}\label{hello-angular}
 
-In this section we are going to build a simple component. In addition,
-we will configure VSCode as well to build TypeScript files for us.
+In this section we are going to write a simple \texttt{HelloAngular}
+component, compile it and run it in the browser. In addition, we will
+configure VSCode to build the TypeScript files as we go.
+
+\subsection{Project Files}\label{project-files}
+
+The project files for this chapter are in
+\textbf{\texttt{angular2-intro/code/hello-angular}}
+
+You can either follow along or just look at the final result. As always,
+the \texttt{node\_modules} folder is not included. You would have to
+install it with \texttt{npm\ i} in the project folder:
+
+\begin{verbatim}
+cd angular2-intro/code/hello-angular && npm i
+\end{verbatim}
+
+\subsection{Getting Started}\label{getting-started}
+
+Make a folder on your desktop called \texttt{hello-angular} and navigate
+to it:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{mkdir} \NormalTok{~/Desktop/hello-angular }\KeywordTok{&&} \KeywordTok{cd} \OtherTok{$_}
+\end{Highlighting}
+\end{Shaded}
+
+Start npm in this folder with \texttt{npm\ init} and accept all the
+defaults.
+
+After that, install the dependencies with:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{npm} \NormalTok{i angular2 rxjs -S}
+\end{Highlighting}
+\end{Shaded}
+
+Then install the ``devDependencies'':
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{npm} \NormalTok{i systemjs -D}
+\end{Highlighting}
+\end{Shaded}
+
+After all the dependencies are installed, start VSCode in this folder
+with \texttt{code\ .}
+
+Then create a \texttt{index.html} file in the root of the project and
+put in the following:
+
+\textbf{\texttt{index.html}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<html>}
+\KeywordTok{<head>}
+  \KeywordTok{<title>}\NormalTok{Hello Angular}\KeywordTok{</title>}
+
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/angular2/bundles/angular2-polyfills.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/systemjs/dist/system.src.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/rxjs/bundles/Rx.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/angular2/bundles/angular2.dev.js"}\KeywordTok{></script>}
+
+  \CommentTok{<!-- add systemjs settings later -->}
+
+\KeywordTok{</head>}
+
+\KeywordTok{<body>}
+  \CommentTok{<!-- add app stuff later -->}
+\KeywordTok{</body>}
+
+\KeywordTok{</html>}
+\end{Highlighting}
+\end{Shaded}
+
+This loads all the necessary scripts that we need to run Angular in the
+browser.
+
+\subsection{Making the Component}\label{making-the-component}
+
+Let's start by making the \texttt{main.ts} file in the root of the
+project. In this file we are going to define the main component called
+\texttt{HelloAngular} and then bootstrap the app with it:
+
+\textbf{\texttt{main.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Component, OnInit \} from 'angular2/core';}
+\KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
+
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{template: `<h1> hello angular </h1> `}
+\NormalTok{\});}
+
+\KeywordTok{class} \NormalTok{HelloAngular }\KeywordTok{implements} \NormalTok{OnInit  \{}
+  \FunctionTok{constructor}\NormalTok{() \{ console.}\FunctionTok{log}\NormalTok{('constructor called'); \}}
+  \FunctionTok{ngOnInit}\NormalTok{() \{ console.}\FunctionTok{log}\NormalTok{('component initialized'); \}}
+\NormalTok{\}}
+
+\FunctionTok{bootstrap}\NormalTok{(HelloAngular, []);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 1 we are importing the \texttt{component} meta data
+  (annotation) and the \texttt{onInit} interface.
+\item
+  On line 2 we are loading the \texttt{bootstrap} method that bootstraps
+  the app given a component.
+\item
+  On line 4, we are defining a component using the \texttt{component}
+  annotation. The \texttt{@component} is technically a class decorator
+  because it precedes the \texttt{HelloAngular} class definition.
+\item
+  On line 5, we are telling angular to look out for the \texttt{app}
+  tag. So when Angular looks at the html and comes across the
+  \texttt{\textless{}app\textgreater{}\textless{}/app\textgreater{}}
+  tag, it is going to load the template (on line 6) and instantiates the
+  class for it (defined on line 9).
+\item
+  On line 9, we are defining a class called \texttt{HelloAngular} that
+  defines the logic of the component. And for fun, we are implementing
+  the \texttt{OnInit} interface to log something to the console when the
+  component is ready with its data. We will learn more about the
+  lifeCycle hooks later.
+\item
+  Last but not least, we call the \texttt{bootstrap} method with the
+  \texttt{HelloAngular} class as the first argument to bootstrap the app
+  with the \texttt{HelloAngular} component.
+\end{itemize}
+
+\subsection{Compiling the Component}\label{compiling-the-component}
+
+Now we need to compile the file to JavaScript. We can do it from the
+terminal, but let's stick to VSCode. In order to that, we need to make
+two config files:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  First is the standard \texttt{tsconfig.json} file
+\item
+  And the \texttt{tasks.json} file for VSCode to do the compiling
+\end{enumerate}
+
+Create the \texttt{tsconfig.json} file in the root of the project and
+put in the following:
+
+\textbf{\texttt{tsconfig.json}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{\{}
+  \DataTypeTok{"compilerOptions"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"target"}\FunctionTok{:} \StringTok{"es5"}\FunctionTok{,}
+    \DataTypeTok{"module"}\FunctionTok{:} \StringTok{"system"}\FunctionTok{,}
+    \DataTypeTok{"moduleResolution"}\FunctionTok{:} \StringTok{"node"}\FunctionTok{,}
+    \DataTypeTok{"sourceMap"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"emitDecoratorMetadata"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"experimentalDecorators"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"removeComments"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"noImplicitAny"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"outDir"}\FunctionTok{:} \StringTok{"output"}\FunctionTok{,}
+    \DataTypeTok{"watch"}\FunctionTok{:} \KeywordTok{true}
+  \FunctionTok{\},}
+  \DataTypeTok{"exclude"}\FunctionTok{:} \OtherTok{[}
+    \StringTok{"node_modules"}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Then create the \texttt{tasks.json} in the \texttt{.vscode} folder in
+the root of the project and put in the following:
+
+\textbf{\texttt{.vscode/tasks.json}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{\{}
+  \DataTypeTok{"version"}\FunctionTok{:} \StringTok{"0.1.0"}\FunctionTok{,}
+  \DataTypeTok{"command"}\FunctionTok{:} \StringTok{"tsc"}\FunctionTok{,}
+  \DataTypeTok{"showOutput"}\FunctionTok{:} \StringTok{"silent"}\FunctionTok{,}
+  \DataTypeTok{"isShellCommand"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+  \DataTypeTok{"problemMatcher"}\FunctionTok{:} \StringTok{"$tsc"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  Now we can build the TypeScript files as we work. We just need to
+  start the build task with \texttt{command\ +\ shift\ +\ b} or using
+  the prompt. If you want to use the prompt do the following:
+
+  \begin{itemize}
+  \item
+    Use \texttt{command\ +\ shift\ +\ p} to open the prompt
+  \item
+    Then, type \texttt{\textgreater{}\ run\ build\ task} and hit enter
+    to start the build task.
+  \end{itemize}
+\item
+  After you run the build task, you should see an \texttt{output} file
+  generated with \texttt{main.js} and the source maps in it.
+\item
+  The task is watching the files and compiling as you go. To stop the
+  task, open the prompt and type:
+
+\begin{verbatim}
+> terminate running task
+\end{verbatim}
+\end{itemize}
+
+\subsection{Loading the Component}\label{loading-the-component}
+
+After compiling the component, we need to load it to the
+\texttt{index.html} file with \texttt{Systemjs}. Open the
+\texttt{index.html} file and replace
+\texttt{\textless{}!-\/-\ add\ systemjs\ settings\ later\ -\/-\textgreater{}}
+with the following:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<script>}
+  \VariableTok{System}\NormalTok{.}\AttributeTok{config}\NormalTok{(}\OperatorTok{\{}
+    \DataTypeTok{packages}\OperatorTok{:} \OperatorTok{\{}
+      \DataTypeTok{output}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{format}\OperatorTok{:} \StringTok{'register'}\OperatorTok{,}
+        \DataTypeTok{defaultExtension}\OperatorTok{:} \StringTok{'js'}
+      \OperatorTok{\}}
+    \OperatorTok{\}}
+  \OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+  \VariableTok{System}\NormalTok{.}\AttributeTok{import}\NormalTok{(}\StringTok{'output/main'}\NormalTok{)}
+  \NormalTok{.}\AttributeTok{then}\NormalTok{(}\KeywordTok{null}\OperatorTok{,} \VariableTok{console}\NormalTok{.}\VariableTok{error}\NormalTok{.}\AttributeTok{bind}\NormalTok{(console))}\OperatorTok{;}
+\OperatorTok{<}\SpecialStringTok{/script>}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can use our component in the body of the html:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<body>}
+  \KeywordTok{<app>}\NormalTok{Loading ...}\KeywordTok{</app>}
+\KeywordTok{</body>}
+\end{Highlighting}
+\end{Shaded}
+
+It is finally time to serve the app. You can serve the app in the
+current directory using the \texttt{live-server}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{live-server} \NormalTok{.}
+\end{Highlighting}
+\end{Shaded}
+
+If everything is wired up correctly, you should be able to see the
+following:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{./images/hello-angular.png}
+\caption{Hello Angular}
+\end{figure}
 
 \end{document}
