@@ -59,6 +59,7 @@ var adder = function (a, b) { return a + b; };
 ```
 
 Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.
+
 ## Types and the Basics
 
 There are 7 types in TypeScript:
@@ -123,6 +124,7 @@ And then of course you can use your object methods to perform operations:
 ```typescript
 let sum = myObj.sum([1,2,3,4,5]); // -> 15
 ```
+
 
 ## Classes
 

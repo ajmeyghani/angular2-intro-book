@@ -11,6 +11,7 @@
 - Node is heavily used throughout the book. Make sure that you follow the "Node" chapter to install Node and set permissions correctly.
 
 - All the keyboard shortcuts are mac-based. But if you are using a non-mac machine, you can almost always replace `command` with `ctrl` and you should be good. For example, if you a see a shortcut like `command + shift + b`, you can use `ctrl + shift + b` where `ctrl` is obviously the `control` key.
+
 # Installing Node
 
 You can use [nvm](https://github.com/creationix/nvm) to install and manage Node on your machine. Copy the install script and run it:
@@ -77,6 +78,7 @@ Then, you should be able to run `live-server` in any folder to serve the content
 mdkir ~/Desktop/sample && cd $_
 live-server .
 ```
+
 # Visual Studio Code
 
 Visual Studio Code is a good IDE for developing web apps. In this chapter we will look at installing and configuring VSCode.
@@ -114,6 +116,7 @@ Visual Studio Code is a good IDE for developing web apps. In this chapter we wil
       }
     ]
     ```
+
 ## Setting up TypeScript for VSCode
 
 In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in **`angular2-intro/project-files/vscode-demo`**. You can either follow along or check out the folder to see the final result.
@@ -277,3 +280,4 @@ After installing the extension, we need to update or create a `launch.json` file
 - After that it is a good idea to close all the instances of chrome. Then, put a breakpoint in your code and run the debugger. If everything is set up correctly, you should see an instance of chrome running in incognito mode. To trigger the breakpoint, just reload the page and you should be able to see the debugger paused at the breakpoint.
 
 - Also make sure that you have the compiler running so that you can use the JavaScript output and the sourcemaps to use the debugger. See the TypeScript and VSCode set up for more details.
+

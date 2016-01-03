@@ -11,3 +11,4 @@
 - Node is heavily used throughout the book. Make sure that you follow the "Node" chapter to install Node and set permissions correctly.
 
 - All the keyboard shortcuts are mac-based. But if you are using a non-mac machine, you can almost always replace `command` with `ctrl` and you should be good. For example, if you a see a shortcut like `command + shift + b`, you can use `ctrl + shift + b` where `ctrl` is obviously the `control` key.
+

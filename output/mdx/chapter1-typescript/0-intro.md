@@ -59,3 +59,4 @@ var adder = function (a, b) { return a + b; };
 ~~~~~~~
 
 Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.
+
