@@ -4,11 +4,11 @@ In this section we are going to write a simple `HelloAngular` component, compile
 
 ## Project Files
 
-The project files for this chapter are in **`angular2-intro/code/hello-angular`**
+The project files for this chapter are in **`angular2-intro/project-files/hello-angular`**
 
 You can either follow along or just look at the final result. As always, the `node_modules` folder is not included. You would have to install it with `npm i` in the project folder:
 
-    cd angular2-intro/code/hello-angular && npm i
+    cd angular2-intro/project-files/hello-angular && npm i
 
 ## Getting Started
 
