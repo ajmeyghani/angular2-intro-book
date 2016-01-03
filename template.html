@@ -28,7 +28,18 @@
   <link rel="stylesheet" href="$css$" type="text/css" /> $endfor$ $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$ $endfor$
   <link rel='stylesheet' href='../public/style/style.css' type='text/css' media="all" />
 </head>
-
+<style>
+.toggle-content {
+  cursor: pointer;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.toggle-content:hover {
+  opacity: 0.6;
+}
+</style>
 <body>
   $for(include-before)$ $include-before$ $endfor$ $if(title)$
   <div id="$idprefix$header">
@@ -36,6 +47,7 @@
     <h1 class="subtitle">$subtitle$</h1> $endif$ $for(author)$
     <h2 class="author">$author$</h2> $endfor$ $if(date)$
     <h3 class="date">$date$</h3> $endif$
+    <code class="toggle-content" id="js-toggle-content">Toggle TOC </code>
   </div>
   $endif$ $if(toc)$
   <div id="$idprefix$TOC" class="l-toc">
@@ -44,6 +56,19 @@
     <div class="l-main-content">
     $endif$ $body$ $for(include-after)$ $include-after$ $endfor$
     </div>
+<script>
+var isToggle = 0;
+document.getElementById('js-toggle-content').addEventListener('click', function () {
+  isToggle = !isToggle;
+  if (isToggle) {
+    document.getElementsByClassName('l-main-content')[0].style.left = 0;
+    document.getElementById('TOC').style.display = 'none';
+  } else {
+    document.getElementsByClassName('l-main-content')[0].style.left = '333px';
+    document.getElementById('TOC').style.display = 'block';
+  }
+});
+</script>
 </body>
 
 </html>

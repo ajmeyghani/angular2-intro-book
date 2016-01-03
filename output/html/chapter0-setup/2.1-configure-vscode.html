@@ -57,16 +57,15 @@
     </div>
     <div class="l-all-content">
       <h2 id="setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</h2>
-<p>You can set up Visual Studio Code to compile your TypeScript code as your work.</p>
+<p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <strong><code>angular2-intro/project-files/vscode-demo</code></strong>. You can either follow along or check out the folder to see the final result.</p>
 <ul>
-<li>You can download and instal Visual Studio Code from the VSCode <a href="https://code.visualstudio.com/">Website</a></li>
-<li>First, open Visual Studio Code</li>
-<li>Make a new window: <code>File &gt; New Window</code></li>
+<li>First download and install Visual Studio Code from the VSCode <a href="https://code.visualstudio.com/">Website</a></li>
+<li>After installing VSCode, open it and then make a new window: <code>File &gt; New Window</code></li>
 <li>Then, make a folder on your desktop for a new project: <code>mkdir ~/Desktop/vscode-demo</code></li>
-<li>The, open the folder in VSCode: <code>File &gt; open</code> and select the <code>vscode-demo</code> folder on your desktop.</li>
+<li>After that, open the folder in VSCode: <code>File &gt; open</code> and select the <code>vscode-demo</code> folder on your desktop.</li>
 <li><p>Now we need to make three configuration files:</p>
 <ol style="list-style-type: decimal">
-<li><code>tsconfig.json</code>: configuration for the TypeScript compiler</li>
+<li><a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a>: configuration for the TypeScript compiler</li>
 <li><code>tasks.json</code>: Task configuration for VSCode to watch and compile files</li>
 <li><code>launch.json</code>: Configuration for the debugger</li>
 </ol></li>
@@ -110,18 +109,16 @@
 <li><p>Now, we are ready to make the <code>main.ts</code> file in the root of the project:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode java">console.<span class="fu">log</span>(&#39;hello&#39;);</code></pre></td></tr></table></div></li>
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> sum = (a: number, b: number): number =&gt; a + b;
+<span class="dt">const</span> r = <span class="fu">sum</span>(<span class="dv">1</span>,<span class="dv">2</span>);
+console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div></li>
 <li><p>Now you can start the task to watch the files and compile as you work. Open the prompt with <code>command + shift + p</code> and type:</p>
 <pre><code>&gt; run build tasks</code></pre>
 <p>you can also use the <code>command + shift + b</code> keyboard shortcut instead. This will start the debugger and watch the files. After making a change to <code>main.ts</code>, you should be able to see the output in the <code>output</code> folder.</p></li>
-<li><p>Now that the build task is running, we can put a breakpoint anywhere in our typescript code. Lets add some more code to the main file and use the debugger:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let a = <span class="dv">2</span>;
-let b = <span class="dv">3</span>;
-let c = <span class="dv">4</span>;</code></pre></td></tr></table></div></li>
-<li><p>Then click on the margin of line two for example to add a breakpoint. Then open the debugger tab to run the debugger and you should see that the program will stop at the breakpoint and you can step over or into the line.</p></li>
+<li><p>Now that the build task is running, we can put a breakpoint anywhere in our typescript code. Let's put a breakpoint on line 2 and start the debugger by clicking on the margin of line 2.</p></li>
+<li><p>Then open the debugger tab to run the debugger and you should see that the program will stop at the breakpoint and you can step over or into the line.</p></li>
 <li><p>To stop the task you can terminate it. Open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>

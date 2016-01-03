@@ -1,3 +1,33 @@
+Notes
+=====
+
+-   The book assumes that you are working in a Unix-like environment. If
+    you are on Windows you can use [Cygwin](https://www.cygwin.com/) so
+    that you can follow along with the bash terminal commands.
+
+-   All the project files for the book are hosted on github:
+    <https://github.com/st32lth/angular2-intro>. You can clone the
+    repository and check out the project files. Throughout the book, you
+    will see references to the project files. Those refer to
+    this repository. For example,
+    `angular2-intro/project-files/hello-angular` refers to the
+    `hello-angular` folder inside the `project-files` folder.
+
+-   Make sure you have `git` installed on your machine. That is, make
+    sure you get an output for `git --version`.
+
+-   The book assumes that you have a working knowledge of JavaScript and
+    Angular 1.x
+
+-   Node is heavily used throughout the book. Make sure that you follow
+    the "Node" chapter to install Node and set permissions correctly.
+
+-   All the keyboard shortcuts are mac-based. But if you are using a
+    non-mac machine, you can almost always replace `command` with `ctrl`
+    and you should be good. For example, if you a see a shortcut like
+    `command + shift + b`, you can use `ctrl + shift + b` where `ctrl`
+    is obviously the `control` key.
+
 Installing Node
 ===============
 
@@ -112,20 +142,23 @@ Visual Studio Code Basics
 Setting up TypeScript for VSCode
 --------------------------------
 
-You can set up Visual Studio Code to compile your TypeScript code as
-your work.
+In this section we are going to set up Visual Studio Code for
+TypeScript. The project files for this chapter are in
+**`angular2-intro/project-files/vscode-demo`**. You can either follow
+along or check out the folder to see the final result.
 
--   You can download and instal Visual Studio Code from the VSCode
+-   First download and install Visual Studio Code from the VSCode
     [Website](https://code.visualstudio.com/)
--   First, open Visual Studio Code
--   Make a new window: `File > New Window`
+-   After installing VSCode, open it and then make a new window:
+    `File > New Window`
 -   Then, make a folder on your desktop for a new project:
     `mkdir ~/Desktop/vscode-demo`
--   The, open the folder in VSCode: `File > open` and select the
+-   After that, open the folder in VSCode: `File > open` and select the
     `vscode-demo` folder on your desktop.
 -   Now we need to make three configuration files:
 
-    1.  `tsconfig.json`: configuration for the TypeScript compiler
+    1.  [`tsconfig.json`](http://json.schemastore.org/tsconfig):
+        configuration for the TypeScript compiler
     2.  `tasks.json`: Task configuration for VSCode to watch and compile
         files
     3.  `launch.json`: Configuration for the debugger
@@ -187,7 +220,9 @@ your work.
     **`main.ts`**
 
     ``` {.typescript}
-    console.log('hello');
+    const sum = (a: number, b: number): number => a + b;
+    const r = sum(1,2);
+    console.log(r);
     ```
 
 -   Now you can start the task to watch the files and compile as
@@ -201,19 +236,12 @@ your work.
     output in the `output` folder.
 
 -   Now that the build task is running, we can put a breakpoint anywhere
-    in our typescript code. Lets add some more code to the main file and
-    use the debugger:
+    in our typescript code. Let's put a breakpoint on line 2 and start
+    the debugger by clicking on the margin of line 2.
 
-    ``` {.typescript}
-    let a = 2;
-    let b = 3;
-    let c = 4;
-    ```
-
--   Then click on the margin of line two for example to add
-    a breakpoint. Then open the debugger tab to run the debugger and you
-    should see that the program will stop at the breakpoint and you can
-    step over or into the line.
+-   Then open the debugger tab to run the debugger and you should see
+    that the program will stop at the breakpoint and you can step over
+    or into the line.
 
 -   To stop the task you can terminate it. Open the prompt and type:
 
@@ -624,13 +652,13 @@ Project Files
 -------------
 
 The project files for this chapter are in
-**`angular2-intro/code/hello-angular`**
+**`angular2-intro/project-files/hello-angular`**
 
 You can either follow along or just look at the final result. As always,
 the `node_modules` folder is not included. You would have to install it
 with `npm i` in the project folder:
 
-    cd angular2-intro/code/hello-angular && npm i
+    cd angular2-intro/project-files/hello-angular && npm i
 
 Getting Started
 ---------------
@@ -687,6 +715,15 @@ the following:
 This loads all the necessary scripts that we need to run Angular in the
 browser.
 
+**Note**
+
+If you need to support older browsers, you need to include the
+`es6-shims` before everything else:
+
+``` {.html}
+<script src="node_modules/es6-shim/es6-shim.js"></script>
+```
+
 Making the Component
 --------------------
 
@@ -740,7 +777,8 @@ Now we need to compile the file to JavaScript. We can do it from the
 terminal, but let's stick to VSCode. In order to that, we need to make
 two config files:
 
-1.  First is the standard `tsconfig.json` file
+1.  First is the standard
+    [`tsconfig.json`](http://json.schemastore.org/tsconfig) file
 
 2.  And the `tasks.json` file for VSCode to do the compiling
 

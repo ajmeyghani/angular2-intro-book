@@ -128,6 +128,40 @@
 \setcounter{tocdepth}{5}
 \tableofcontents
 }
+\section{Notes}\label{notes}
+
+\begin{itemize}
+\item
+  The book assumes that you are working in a Unix-like environment. If
+  you are on Windows you can use \href{https://www.cygwin.com/}{Cygwin}
+  so that you can follow along with the bash terminal commands.
+\item
+  All the project files for the book are hosted on github:
+  \url{https://github.com/st32lth/angular2-intro}. You can clone the
+  repository and check out the project files. Throughout the book, you
+  will see references to the project files. Those refer to this
+  repository. For example,
+  \texttt{angular2-intro/project-files/hello-angular} refers to the
+  \texttt{hello-angular} folder inside the \texttt{project-files}
+  folder.
+\item
+  Make sure you have \texttt{git} installed on your machine. That is,
+  make sure you get an output for \texttt{git\ -\/-version}.
+\item
+  The book assumes that you have a working knowledge of JavaScript and
+  Angular 1.x
+\item
+  Node is heavily used throughout the book. Make sure that you follow
+  the ``Node'' chapter to install Node and set permissions correctly.
+\item
+  All the keyboard shortcuts are mac-based. But if you are using a
+  non-mac machine, you can almost always replace \texttt{command} with
+  \texttt{ctrl} and you should be good. For example, if you a see a
+  shortcut like \texttt{command\ +\ shift\ +\ b}, you can use
+  \texttt{ctrl\ +\ shift\ +\ b} where \texttt{ctrl} is obviously the
+  \texttt{control} key.
+\end{itemize}
+
 \section{Installing Node}\label{installing-node}
 
 \begin{itemize}
@@ -291,23 +325,25 @@ chapter we will look at installing and configuring VSCode.
 \subsection{Setting up TypeScript for
 VSCode}\label{setting-up-typescript-for-vscode}
 
-You can set up Visual Studio Code to compile your TypeScript code as
-your work.
+In this section we are going to set up Visual Studio Code for
+TypeScript. The project files for this chapter are in
+\textbf{\texttt{angular2-intro/project-files/vscode-demo}}. You can
+either follow along or check out the folder to see the final result.
 
 \begin{itemize}
 \item
-  You can download and instal Visual Studio Code from the VSCode
+  First download and install Visual Studio Code from the VSCode
   \href{https://code.visualstudio.com/}{Website}
 \item
-  First, open Visual Studio Code
-\item
-  Make a new window: \texttt{File\ \textgreater{}\ New\ Window}
+  After installing VSCode, open it and then make a new window:
+  \texttt{File\ \textgreater{}\ New\ Window}
 \item
   Then, make a folder on your desktop for a new project:
   \texttt{mkdir\ \textasciitilde{}/Desktop/vscode-demo}
 \item
-  The, open the folder in VSCode: \texttt{File\ \textgreater{}\ open}
-  and select the \texttt{vscode-demo} folder on your desktop.
+  After that, open the folder in VSCode:
+  \texttt{File\ \textgreater{}\ open} and select the
+  \texttt{vscode-demo} folder on your desktop.
 \item
   Now we need to make three configuration files:
 
@@ -315,7 +351,8 @@ your work.
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    \texttt{tsconfig.json}: configuration for the TypeScript compiler
+    \href{http://json.schemastore.org/tsconfig}{\texttt{tsconfig.json}}:
+    configuration for the TypeScript compiler
   \item
     \texttt{tasks.json}: Task configuration for VSCode to watch and
     compile files
@@ -390,7 +427,9 @@ your work.
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{console.}\FunctionTok{log}\NormalTok{('hello');}
+\DataTypeTok{const} \NormalTok{sum = (a: number, b: number): number => a + b;}
+\DataTypeTok{const} \NormalTok{r = }\FunctionTok{sum}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{);}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(r);}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -407,18 +446,9 @@ your work.
   the output in the \texttt{output} folder.
 \item
   Now that the build task is running, we can put a breakpoint anywhere
-  in our typescript code. Lets add some more code to the main file and
-  use the debugger:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{let a = }\DecValTok{2}\NormalTok{;}
-\NormalTok{let b = }\DecValTok{3}\NormalTok{;}
-\NormalTok{let c = }\DecValTok{4}\NormalTok{;}
-\end{Highlighting}
-\end{Shaded}
+  in our typescript code. Let's put a breakpoint on line 2 and start the
+  debugger by clicking on the margin of line 2.
 \item
-  Then click on the margin of line two for example to add a breakpoint.
   Then open the debugger tab to run the debugger and you should see that
   the program will stop at the breakpoint and you can step over or into
   the line.
@@ -956,14 +986,14 @@ configure VSCode to build the TypeScript files as we go.
 \subsection{Project Files}\label{project-files}
 
 The project files for this chapter are in
-\textbf{\texttt{angular2-intro/code/hello-angular}}
+\textbf{\texttt{angular2-intro/project-files/hello-angular}}
 
 You can either follow along or just look at the final result. As always,
 the \texttt{node\_modules} folder is not included. You would have to
 install it with \texttt{npm\ i} in the project folder:
 
 \begin{verbatim}
-cd angular2-intro/code/hello-angular && npm i
+cd angular2-intro/project-files/hello-angular && npm i
 \end{verbatim}
 
 \subsection{Getting Started}\label{getting-started}
@@ -1029,6 +1059,17 @@ put in the following:
 
 This loads all the necessary scripts that we need to run Angular in the
 browser.
+
+\textbf{Note}
+
+If you need to support older browsers, you need to include the
+\texttt{es6-shims} before everything else:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/es6-shim/es6-shim.js"}\KeywordTok{></script>}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Making the Component}\label{making-the-component}
 
@@ -1096,7 +1137,9 @@ two config files:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  First is the standard \texttt{tsconfig.json} file
+  First is the standard
+  \href{http://json.schemastore.org/tsconfig}{\texttt{tsconfig.json}}
+  file
 \item
   And the \texttt{tasks.json} file for VSCode to do the compiling
 \end{enumerate}

@@ -1,9 +1,9 @@
 <h1 id="hello-angular">Hello Angular</h1>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <h2 id="project-files">Project Files</h2>
-<p>The project files for this chapter are in <strong><code>angular2-intro/code/hello-angular</code></strong></p>
+<p>The project files for this chapter are in <strong><code>angular2-intro/project-files/hello-angular</code></strong></p>
 <p>You can either follow along or just look at the final result. As always, the <code>node_modules</code> folder is not included. You would have to install it with <code>npm i</code> in the project folder:</p>
-<pre><code>cd angular2-intro/code/hello-angular &amp;&amp; npm i</code></pre>
+<pre><code>cd angular2-intro/project-files/hello-angular &amp;&amp; npm i</code></pre>
 <h2 id="getting-started">Getting Started</h2>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -55,6 +55,10 @@
 
 <span class="kw">&lt;/html&gt;</span></code></pre></td></tr></table></div>
 <p>This loads all the necessary scripts that we need to run Angular in the browser.</p>
+<p><strong>Note</strong></p>
+<p>If you need to support older browsers, you need to include the <code>es6-shims</code> before everything else:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
 <h2 id="making-the-component">Making the Component</h2>
 <p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
 <p><strong><code>main.ts</code></strong></p>
@@ -97,7 +101,7 @@
 <h2 id="compiling-the-component">Compiling the Component</h2>
 <p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
 <ol style="list-style-type: decimal">
-<li><p>First is the standard <code>tsconfig.json</code> file</p></li>
+<li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
 <li><p>And the <code>tasks.json</code> file for VSCode to do the compiling</p></li>
 </ol>
 <p>Create the <code>tsconfig.json</code> file in the root of the project and put in the following:</p>

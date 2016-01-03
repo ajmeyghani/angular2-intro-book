@@ -4,11 +4,11 @@ In this section we are going to write a simple `HelloAngular` component, compile
 
 ## Project Files
 
-The project files for this chapter are in **`angular2-intro/code/hello-angular`**
+The project files for this chapter are in **`angular2-intro/project-files/hello-angular`**
 
 You can either follow along or just look at the final result. As always, the `node_modules` folder is not included. You would have to install it with `npm i` in the project folder:
 
-    cd angular2-intro/code/hello-angular && npm i
+    cd angular2-intro/project-files/hello-angular && npm i
 
 ## Getting Started
 
@@ -61,6 +61,14 @@ Then create a `index.html` file in the root of the project and put in the follow
 
 This loads all the necessary scripts that we need to run Angular in the browser.
 
+**Note**
+
+If you need to support older browsers, you need to include the `es6-shims` before everything else:
+
+~~~~{.numberLines .html startFrom="1"}
+<script src="node_modules/es6-shim/es6-shim.js"></script>
+~~~~~~~
+
 ## Making the Component
 
 Let's start by making the `main.ts` file in the root of the project. In this file we are going to define the main component called `HelloAngular` and then bootstrap the app with it:
@@ -95,7 +103,7 @@ bootstrap(HelloAngular, []);
 
 Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:
 
-1. First is the standard `tsconfig.json` file
+1. First is the standard [`tsconfig.json`](http://json.schemastore.org/tsconfig) file
 
 2. And the `tasks.json` file for VSCode to do the compiling
 
