@@ -1,16 +1,25 @@
-# Hello Angular
+# Angular Basics
+
+This chapter will walk you through the basics of Angular2. We will start by looking at the basics of components, and then we move onto pipes, events and other concepts. By the end of the chapter you should have a basic understanding of the new concepts in Angular2.
+
+The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in the later chapters.
+## Components
+
+Components are at the heart of Angular. The idea is that you break down your application into different logical components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html.
 
 In this section we are going to write a simple `HelloAngular` component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.
 
-## Project Files
+Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.
 
-The project files for this chapter are in **`angular2-intro/project-files/hello-angular`**
+### Project Files
+
+The project files for this chapter are in **`angular2-intro/project-files/basic-component`**
 
 You can either follow along or just look at the final result. As always, the `node_modules` folder is not included. You would have to install it with `npm i` in the project folder:
 
-    cd angular2-intro/project-files/hello-angular && npm i
+    cd angular2-intro/project-files/basic-component && npm i
 
-## Getting Started
+### Getting Started
 
 Make a folder on your desktop called `hello-angular` and navigate to it:
 
@@ -69,7 +78,7 @@ If you need to support older browsers, you need to include the `es6-shims` befor
 <script src="node_modules/es6-shim/es6-shim.js"></script>
 ```
 
-## Making the Component
+### Making the Component
 
 Let's start by making the `main.ts` file in the root of the project. In this file we are going to define the main component called `HelloAngular` and then bootstrap the app with it:
 
@@ -99,7 +108,7 @@ bootstrap(HelloAngular, []);
 - On line 9, we are defining a class called `HelloAngular` that defines the logic of the component. And for fun, we are implementing the `OnInit` interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.
 - Last but not least, we call the `bootstrap` method with the `HelloAngular` class as the first argument to bootstrap the app with the `HelloAngular` component.
 
-## Compiling the Component
+### Compiling the Component
 
 Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:
 
@@ -159,7 +168,7 @@ Then create the `tasks.json` in the `.vscode` folder in the root of the project 
     > terminate running task
     ```
 
-## Loading the Component
+### Loading the Component
 
 After compiling the component, we need to load it to the `index.html` file with `Systemjs`. Open the `index.html` file and replace `<!-- add systemjs settings later -->` with the following:
 

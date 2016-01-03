@@ -971,26 +971,46 @@ error TS2420: Class `Car' incorrectly implements interface `ICarProps'.
 Property `distance' is missing in type `Car'.
 \end{quote}
 
-\section{Hello Angular}\label{hello-angular}
+\section{Angular Basics}\label{angular-basics}
+
+This chapter will walk you through the basics of Angular2. We will start
+by looking at the basics of components, and then we move onto pipes,
+events and other concepts. By the end of the chapter you should have a
+basic understanding of the new concepts in Angular2.
+
+The goal of this chapter is to get your feet wet without scaring you
+with a lot of details. Don't worry, there will be a lot coming in the
+later chapters.
+
+\subsection{Components}\label{components}
+
+Components are at the heart of Angular. The idea is that you break down
+your application into different logical components and let the
+components handle the rest. Every component has a controller defined by
+a class and a template defined by html.
 
 In this section we are going to write a simple \texttt{HelloAngular}
 component, compile it and run it in the browser. In addition, we will
 configure VSCode to build the TypeScript files as we go.
 
-\subsection{Project Files}\label{project-files}
+Note that there is a lot to talk about components. We are going dive
+into components a lot more in later chapters, but for now let's just
+keep things simple.
+
+\subsubsection{Project Files}\label{project-files}
 
 The project files for this chapter are in
-\textbf{\texttt{angular2-intro/project-files/hello-angular}}
+\textbf{\texttt{angular2-intro/project-files/basic-component}}
 
 You can either follow along or just look at the final result. As always,
 the \texttt{node\_modules} folder is not included. You would have to
 install it with \texttt{npm\ i} in the project folder:
 
 \begin{verbatim}
-cd angular2-intro/project-files/hello-angular && npm i
+cd angular2-intro/project-files/basic-component && npm i
 \end{verbatim}
 
-\subsection{Getting Started}\label{getting-started}
+\subsubsection{Getting Started}\label{getting-started}
 
 Make a folder on your desktop called \texttt{hello-angular} and navigate
 to it:
@@ -1065,7 +1085,7 @@ If you need to support older browsers, you need to include the
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Making the Component}\label{making-the-component}
+\subsubsection{Making the Component}\label{making-the-component}
 
 Let's start by making the \texttt{main.ts} file in the root of the
 project. In this file we are going to define the main component called
@@ -1122,7 +1142,7 @@ project. In this file we are going to define the main component called
   with the \texttt{HelloAngular} component.
 \end{itemize}
 
-\subsection{Compiling the Component}\label{compiling-the-component}
+\subsubsection{Compiling the Component}\label{compiling-the-component}
 
 Now we need to compile the file to JavaScript. We can do it from the
 terminal, but let's stick to VSCode. In order to that, we need to make
@@ -1207,7 +1227,7 @@ the root of the project and put in the following:
 \end{verbatim}
 \end{itemize}
 
-\subsection{Loading the Component}\label{loading-the-component}
+\subsubsection{Loading the Component}\label{loading-the-component}
 
 After compiling the component, we need to load it to the
 \texttt{index.html} file with \texttt{Systemjs}. Open the

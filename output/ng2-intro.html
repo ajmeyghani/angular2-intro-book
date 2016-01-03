@@ -93,12 +93,14 @@
     <li><a href="#implementing-an-interface">Implementing an Interface</a></li>
     </ul></li>
     </ul></li>
-    <li><a href="#hello-angular">Hello Angular</a><ul>
+    <li><a href="#angular-basics">Angular Basics</a><ul>
+    <li><a href="#components">Components</a><ul>
     <li><a href="#project-files">Project Files</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#making-the-component">Making the Component</a></li>
     <li><a href="#compiling-the-component">Compiling the Component</a></li>
     <li><a href="#loading-the-component">Loading the Component</a></li>
+    </ul></li>
     </ul></li>
     </ul>
   </div>
@@ -593,17 +595,23 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 </div>
 </div>
 </div>
-<div id="hello-angular" class="section level1">
-<h1>Hello Angular</h1>
+<div id="angular-basics" class="section level1">
+<h1>Angular Basics</h1>
+<p>This chapter will walk you through the basics of Angular2. We will start by looking at the basics of components, and then we move onto pipes, events and other concepts. By the end of the chapter you should have a basic understanding of the new concepts in Angular2.</p>
+<p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in the later chapters.</p>
+<div id="components" class="section level2">
+<h2>Components</h2>
+<p>Components are at the heart of Angular. The idea is that you break down your application into different logical components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
-<div id="project-files" class="section level2">
-<h2>Project Files</h2>
-<p>The project files for this chapter are in <strong><code>angular2-intro/project-files/hello-angular</code></strong></p>
+<p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
+<div id="project-files" class="section level3">
+<h3>Project Files</h3>
+<p>The project files for this chapter are in <strong><code>angular2-intro/project-files/basic-component</code></strong></p>
 <p>You can either follow along or just look at the final result. As always, the <code>node_modules</code> folder is not included. You would have to install it with <code>npm i</code> in the project folder:</p>
-<pre><code>cd angular2-intro/project-files/hello-angular &amp;&amp; npm i</code></pre>
+<pre><code>cd angular2-intro/project-files/basic-component &amp;&amp; npm i</code></pre>
 </div>
-<div id="getting-started" class="section level2">
-<h2>Getting Started</h2>
+<div id="getting-started" class="section level3">
+<h3>Getting Started</h3>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">mkdir</span> ~/Desktop/hello-angular <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span></code></pre></td></tr></table></div>
@@ -659,8 +667,8 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
 </div>
-<div id="making-the-component" class="section level2">
-<h2>Making the Component</h2>
+<div id="making-the-component" class="section level3">
+<h3>Making the Component</h3>
 <p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -700,8 +708,8 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <li>Last but not least, we call the <code>bootstrap</code> method with the <code>HelloAngular</code> class as the first argument to bootstrap the app with the <code>HelloAngular</code> component.</li>
 </ul>
 </div>
-<div id="compiling-the-component" class="section level2">
-<h2>Compiling the Component</h2>
+<div id="compiling-the-component" class="section level3">
+<h3>Compiling the Component</h3>
 <p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
 <ol style="list-style-type: decimal">
 <li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
@@ -770,8 +778,8 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>
 </div>
-<div id="loading-the-component" class="section level2">
-<h2>Loading the Component</h2>
+<div id="loading-the-component" class="section level3">
+<h3>Loading the Component</h3>
 <p>After compiling the component, we need to load it to the <code>index.html</code> file with <code>Systemjs</code>. Open the <code>index.html</code> file and replace <code>&lt;!-- add systemjs settings later --&gt;</code> with the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -811,6 +819,7 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <div class="figure">
 <img src="./images/hello-angular.png" alt="Hello Angular" />
 <p class="caption">Hello Angular</p>
+</div>
 </div>
 </div>
 </div> 

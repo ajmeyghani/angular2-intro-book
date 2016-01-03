@@ -1,10 +1,70 @@
-<h1 id="hello-angular">Hello Angular</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta charset="UTF-8">
+  <title># Components</title>
+
+  <link rel='stylesheet' href='../public/style/style.css' type='text/css' media="all" />
+  <style type="text/css">
+    code {
+      white-space: pre;
+    }
+  </style>
+  <style type="text/css">
+    div.sourceCode { overflow-x: auto; }
+    table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+      margin: 0; padding: 0; vertical-align: baseline; border: none; }
+      table.sourceCode { width: 100%; line-height: 100%; }
+      td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+      td.sourceCode { padding-left: 5px; }
+      code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code > span.dt { color: #902000; } /* DataType */
+      code > span.dv { color: #40a070; } /* DecVal */
+      code > span.bn { color: #40a070; } /* BaseN */
+      code > span.fl { color: #40a070; } /* Float */
+      code > span.ch { color: #4070a0; } /* Char */
+      code > span.st { color: #4070a0; } /* String */
+      code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code > span.ot { color: #007020; } /* Other */
+      code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code > span.fu { color: #06287e; } /* Function */
+      code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+      code > span.cn { color: #880000; } /* Constant */
+      code > span.sc { color: #4070a0; } /* SpecialChar */
+      code > span.vs { color: #4070a0; } /* VerbatimString */
+      code > span.ss { color: #bb6688; } /* SpecialString */
+      code > span.im { } /* Import */
+      code > span.va { color: #19177c; } /* Variable */
+      code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code > span.op { color: #666666; } /* Operator */
+      code > span.bu { } /* BuiltIn */
+      code > span.ex { } /* Extension */
+      code > span.pp { color: #bc7a00; } /* Preprocessor */
+      code > span.at { color: #7d9029; } /* Attribute */
+      code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    </style>
+
+  </head>
+  <body>
+    <div class="l-toc">
+      <!-- @toc -->
+    </div>
+    <div class="l-all-content">
+      <h2 id="components">Components</h2>
+<p>Components are at the heart of Angular. The idea is that you break down your application into different logical components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
-<h2 id="project-files">Project Files</h2>
-<p>The project files for this chapter are in <strong><code>angular2-intro/project-files/hello-angular</code></strong></p>
+<p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
+<h3 id="project-files">Project Files</h3>
+<p>The project files for this chapter are in <strong><code>angular2-intro/project-files/basic-component</code></strong></p>
 <p>You can either follow along or just look at the final result. As always, the <code>node_modules</code> folder is not included. You would have to install it with <code>npm i</code> in the project folder:</p>
-<pre><code>cd angular2-intro/project-files/hello-angular &amp;&amp; npm i</code></pre>
-<h2 id="getting-started">Getting Started</h2>
+<pre><code>cd angular2-intro/project-files/basic-component &amp;&amp; npm i</code></pre>
+<h3 id="getting-started">Getting Started</h3>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">mkdir</span> ~/Desktop/hello-angular <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span></code></pre></td></tr></table></div>
@@ -59,7 +119,7 @@
 <p>If you need to support older browsers, you need to include the <code>es6-shims</code> before everything else:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
-<h2 id="making-the-component">Making the Component</h2>
+<h3 id="making-the-component">Making the Component</h3>
 <p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -98,7 +158,7 @@
 <li>On line 9, we are defining a class called <code>HelloAngular</code> that defines the logic of the component. And for fun, we are implementing the <code>OnInit</code> interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.</li>
 <li>Last but not least, we call the <code>bootstrap</code> method with the <code>HelloAngular</code> class as the first argument to bootstrap the app with the <code>HelloAngular</code> component.</li>
 </ul>
-<h2 id="compiling-the-component">Compiling the Component</h2>
+<h3 id="compiling-the-component">Compiling the Component</h3>
 <p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
 <ol style="list-style-type: decimal">
 <li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
@@ -166,7 +226,7 @@
 <li><p>The task is watching the files and compiling as you go. To stop the task, open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>
-<h2 id="loading-the-component">Loading the Component</h2>
+<h3 id="loading-the-component">Loading the Component</h3>
 <p>After compiling the component, we need to load it to the <code>index.html</code> file with <code>Systemjs</code>. Open the <code>index.html</code> file and replace <code>&lt;!-- add systemjs settings later --&gt;</code> with the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -207,3 +267,7 @@
 <img src="./images/hello-angular.png" alt="Hello Angular" />
 <p class="caption">Hello Angular</p>
 </div>
+
+    </div>
+  </body>
+  </html>
