@@ -75,8 +75,10 @@
     </ul></li>
     <li><a href="#visual-studio-code">Visual Studio Code</a><ul>
     <li><a href="#visual-studio-code-basics">Visual Studio Code Basics</a></li>
-    <li><a href="#setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</a></li>
+    <li><a href="#setting-up-vscode-for-typescript">Setting up VSCode for TypeScript</a><ul>
     <li><a href="#installing-typescript">Installing TypeScript</a></li>
+    <li><a href="#add-vscode-configurations">Add VSCode Configurations</a></li>
+    </ul></li>
     <li><a href="#running-vscode-from-the-terminal">Running VSCode from the Terminal</a></li>
     <li><a href="#debugging-app-from-vscode">Debugging App from VSCode</a></li>
     </ul></li>
@@ -187,12 +189,11 @@
 ]</code></pre></li>
 </ul>
 </div>
-<div id="setting-up-typescript-for-vscode" class="section level2">
-<h2>Setting up TypeScript for VSCode</h2>
+<div id="setting-up-vscode-for-typescript" class="section level2">
+<h2>Setting up VSCode for TypeScript</h2>
 <p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode-demo"><code>angular2-intro/project-files/vscode-demo</code></a></strong>. You can either follow along or check out the folder to see the final result.</p>
-</div>
-<div id="installing-typescript" class="section level2">
-<h2>Installing TypeScript</h2>
+<div id="installing-typescript" class="section level3">
+<h3>Installing TypeScript</h3>
 <p>Before anything, we need to install the TypeScript compiler. You can install the TypeScript compiler with npm:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i typescript -g</code></pre></td></tr></table></div>
@@ -220,6 +221,9 @@
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div>
 <p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
+</div>
+<div id="add-vscode-configurations" class="section level3">
+<h3>Add VSCode Configurations</h3>
 <ul>
 <li>First download and install Visual Studio Code from the VSCode <a href="https://code.visualstudio.com/">Website</a></li>
 <li>After installing VSCode, open it and then make a new window: <code>File &gt; New Window</code></li>
@@ -315,6 +319,7 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
 <p>Now you should see that the program will stop at the breakpoint and you should be able to step over or into your program.</p>
 <p>To stop the task you can terminate it. Open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre>
+</div>
 </div>
 <div id="running-vscode-from-the-terminal" class="section level2">
 <h2>Running VSCode from the Terminal</h2>

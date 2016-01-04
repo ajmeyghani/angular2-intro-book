@@ -150,7 +150,7 @@ Visual Studio Code Basics
           }
         ]
 
-Setting up TypeScript for VSCode
+Setting up VSCode for TypeScript
 --------------------------------
 
 In this section we are going to set up Visual Studio Code for
@@ -159,8 +159,7 @@ TypeScript. The project files for this chapter are in
 You can either follow along or check out the folder to see the final
 result.
 
-Installing TypeScript
----------------------
+### Installing TypeScript
 
 Before anything, we need to install the TypeScript compiler. You can
 install the TypeScript compiler with npm:
@@ -222,6 +221,8 @@ var adder = function (a, b) { return a + b; };
 
 Now that your TypeScript compiler setup, we can move on to configuring
 Visual Studio Code.
+
+### Add VSCode Configurations
 
 -   First download and install Visual Studio Code from the VSCode
     [Website](https://code.visualstudio.com/)
