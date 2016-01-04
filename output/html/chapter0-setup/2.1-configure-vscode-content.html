@@ -1,5 +1,33 @@
 <h2 id="setting-up-typescript-for-vscode">Setting up TypeScript for VSCode</h2>
 <p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode-demo"><code>angular2-intro/project-files/vscode-demo</code></a></strong>. You can either follow along or check out the folder to see the final result.</p>
+<h2 id="installing-typescript">Installing TypeScript</h2>
+<p>Before anything, we need to install the TypeScript compiler. You can install the TypeScript compiler with npm:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i typescript -g</code></pre></td></tr></table></div>
+<p>Then to verify that it is installed, run <code>tsc -v</code> to see the version of the compiler. You will get an output like this:</p>
+<pre><code>message TS6029: Version 1.7.5</code></pre>
+<p>In addition to the compiler, we also need to install the TypeScript Definition manager for DefinitelyTyped (tsd). You can install tsd with:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i tsd -g</code></pre></td></tr></table></div>
+<p>Using TSD, you can search and install TypeScript definition files directly from the community driven DefinitelyTyped repository. To verify that tsd is installed, run tsd with the <code>version</code> flag:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsd</span> --version</code></pre></td></tr></table></div>
+<p>You should get an output like this:</p>
+<pre><code>&gt;&gt; tsd 0.6.5</code></pre>
+<p>After <code>tsd</code> and <code>tsc</code> are installed, we can compile a hello world program:</p>
+<p>make a file called <code>hello.ts</code> on your desktop:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">touch</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then, put some TypeScript code in the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;const adder = (a: number, b: number): number =&gt; a + b;&quot;</span> <span class="kw">&gt;</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>Then you can compile the file to JavaScript:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">tsc</span> ~/Desktop/hello.ts</code></pre></td></tr></table></div>
+<p>It should output a file in <code>Desktop/hello.js</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> adder <span class="op">=</span> <span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">};</span></code></pre></td></tr></table></div>
+<p>Now that your TypeScript compiler setup, we can move on to configuring Visual Studio Code.</p>
 <ul>
 <li>First download and install Visual Studio Code from the VSCode <a href="https://code.visualstudio.com/">Website</a></li>
 <li>After installing VSCode, open it and then make a new window: <code>File &gt; New Window</code></li>

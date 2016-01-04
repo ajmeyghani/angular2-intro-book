@@ -159,6 +159,70 @@ TypeScript. The project files for this chapter are in
 You can either follow along or check out the folder to see the final
 result.
 
+Installing TypeScript
+---------------------
+
+Before anything, we need to install the TypeScript compiler. You can
+install the TypeScript compiler with npm:
+
+``` {.bash}
+npm i typescript -g
+```
+
+Then to verify that it is installed, run `tsc -v` to see the version of
+the compiler. You will get an output like this:
+
+    message TS6029: Version 1.7.5
+
+In addition to the compiler, we also need to install the TypeScript
+Definition manager for DefinitelyTyped (tsd). You can install tsd with:
+
+``` {.bash}
+npm i tsd -g
+```
+
+Using TSD, you can search and install TypeScript definition files
+directly from the community driven DefinitelyTyped repository. To verify
+that tsd is installed, run tsd with the `version` flag:
+
+``` {.bash}
+tsd --version
+```
+
+You should get an output like this:
+
+    >> tsd 0.6.5
+
+After `tsd` and `tsc` are installed, we can compile a hello world
+program:
+
+make a file called `hello.ts` on your desktop:
+
+``` {.bash}
+touch ~/Desktop/hello.ts
+```
+
+Then, put some TypeScript code in the file:
+
+``` {.bash}
+echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
+```
+
+Then you can compile the file to JavaScript:
+
+``` {.bash}
+tsc ~/Desktop/hello.ts
+```
+
+It should output a file in `Desktop/hello.js`:
+
+``` {.javascript}
+var adder = function (a, b) { return a + b; };
+```
+
+Now that your TypeScript compiler setup, we can move on to configuring
+Visual Studio Code.
+
 -   First download and install Visual Studio Code from the VSCode
     [Website](https://code.visualstudio.com/)
 -   After installing VSCode, open it and then make a new window:
@@ -349,69 +413,6 @@ folder. After you created the file, put in the following:
 
 TypeScript Crash-course
 =======================
-
-Installing TypeScript
----------------------
-
-You can install the TypeScript compiler with node:
-
-``` {.bash}
-npm i typescript -g
-```
-
-Then to verify that it is installed, run `tsc -v` to see the version of
-the compiler. You will get an output like this:
-
-    message TS6029: Version 1.7.5
-
-In addition to the compiler, we also need to install the TypeScript
-Definition manager for DefinitelyTyped (tsd). You can install tsd with:
-
-``` {.bash}
-npm i tsd -g
-```
-
-Using TSD, you can search and install TypeScript definition files
-directly from the community driven DefinitelyTyped repository. To verify
-that tsd is installed, run tsd with the `version` flag:
-
-``` {.bash}
-tsd --version
-```
-
-You should get an output like this:
-
-    >> tsd 0.6.5
-
-After `tsd` and `tsc` are installed, we can compile a hello world
-program:
-
-make a file called `hello.ts` on your desktop:
-
-``` {.bash}
-touch ~/Desktop/hello.ts
-```
-
-Then, put some TypeScript code in the file:
-
-``` {.bash}
-echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
-```
-
-Then you can compile the file to JavaScript:
-
-``` {.bash}
-tsc ~/Desktop/hello.ts
-```
-
-It should output a file in `Desktop/hello.js`:
-
-``` {.javascript}
-var adder = function (a, b) { return a + b; };
-```
-
-Now that your TypeScript compiler setup, we can move on to configuring
-Visual Studio Code.
 
 Types and the Basics
 --------------------
