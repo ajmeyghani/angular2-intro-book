@@ -8,7 +8,7 @@ Note that there is a lot to talk about components. We are going dive into compon
 
 ### Project Files
 
-The project files for this chapter are in **`angular2-intro/project-files/basic-component`**
+The project files for this chapter are in **[`angular2-intro/project-files/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-component)**
 
 You can either follow along or just look at the final result. As always, the `node_modules` folder is not included. You would have to install it with `npm i` in the project folder:
 
