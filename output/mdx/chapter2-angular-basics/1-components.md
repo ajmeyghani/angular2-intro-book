@@ -198,5 +198,5 @@ live-server .
 
 If everything is wired up correctly, you should be able to see the following:
 
-![Hello Angular](./images/hello-angular.png)
+![Running a basic component in the browser](images/hello-angular.png)
 
