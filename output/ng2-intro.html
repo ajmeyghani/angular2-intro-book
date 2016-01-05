@@ -103,6 +103,8 @@
     <li><a href="#compiling-the-component">Compiling the Component</a></li>
     <li><a href="#loading-the-component">Loading the Component</a></li>
     </ul></li>
+    <li><a href="#dependency-injection">Dependency Injection</a></li>
+    <li><a href="#services-and-providers">Services and Providers</a></li>
     </ul></li>
     </ul>
   </div>
@@ -607,7 +609,7 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in the later chapters.</p>
 <div id="components" class="section level2">
 <h2>Components</h2>
-<p>Components are at the heart of Angular. The idea is that you break down your application into different logical components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html.</p>
+<p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
 <div id="project-files" class="section level3">
@@ -827,6 +829,84 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 <p class="caption">Running a basic component in the browser</p>
 </div>
 </div>
+</div>
+<div id="dependency-injection" class="section level2">
+<h2>Dependency Injection</h2>
+<p>Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.</p>
+<p>Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.</p>
+</div>
+<div id="services-and-providers" class="section level2">
+<h2>Services and Providers</h2>
+<ul>
+<li>A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.</li>
+<li>When you bootstrap your app, Angular creates an injector on the fly that can inject services and other dependencies throughout the app.</li>
+<li>You can register the service or the dependencies during when bootstrapping the app or when defining a component.</li>
+<li><p>If you have a class called <code>MyService</code>, you can register it with the Injector and then you can inject it everywhere:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">bootstrap</span>(App, [MyService]); <span class="co">// second param is an array of providers</span></code></pre></td></tr></table></div></li>
+<li>Providers is a way to specify what services are available inside the component in a hierarchical fashion.</li>
+<li>A provider can be a class, a value or a factory.</li>
+<li>Providers create the instances of the things that we ask the injector to inject.</li>
+<li><code>[SomeService];</code> is short for <code>[provide(SomeService, {useClass:SomeService})];</code> where the first param is the token, and the second is the definition object.</li>
+<li><p>A simple object can be passed to the Injector to create a Value Provider:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">beforeEachProviders</span>(() =&gt; {
+  let someService = { getData: () =&gt; [] };
+  <span class="kw">return</span> [ <span class="fu">provide</span>(SomeSvc, {useValue: someService}) ]; <span class="co">// using `useValue` instead of `useClass`</span>
+});</code></pre></td></tr></table></div></li>
+<li>You can also use a factory as a provider.</li>
+<li><p>You can use a factory function that creates a properly configured Service:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">let myServiceFactory = (dx: DepX, dy: DepY) =&gt; {
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">MyService</span>(dx, dy.<span class="fu">value</span>);
+}
+
+<span class="co">// provider definition object.</span>
+let myServiceDefinition = {
+   useFactory: myServiceFactory,
+   deps: [DepX, DepY]
+};
+
+<span class="co">// create provider and bootstrap</span>
+let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefinition);
+<span class="fu">bootstrap</span>(AppComponent, [myServiceProvider, DepX, DepY]);</code></pre></td></tr></table></div></li>
+<li><p>Defining object dependencies is simple. You can make a plain JavaScript object available for injection using a string-based token and the <code>@Inject</code> decorator:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">var myObj = {};
+
+<span class="fu">bootstrap</span>(AppComponent, [
+  <span class="fu">provide</span>(&#39;coolObjToken&#39;, {useValue: myObj})
+]);
+
+<span class="co">// and you can inject it to a component</span>
+
+<span class="kw">import</span> {Inject} from &#39;angular2/core&#39;
+<span class="fu">constructor</span>(dx: DepX, <span class="fu">@Inject</span>(&#39;coolObjToken&#39;) config)</code></pre></td></tr></table></div></li>
+</ul>
 </div>
 </div> 
     </div>

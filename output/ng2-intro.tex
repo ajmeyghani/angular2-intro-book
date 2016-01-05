@@ -994,10 +994,12 @@ later chapters.
 
 \subsection{Components}\label{components}
 
-Components are at the heart of Angular. The idea is that you break down
-your application into different logical components and let the
+Components are at the heart of Angular. The main idea is that you break
+down your application into different cohesive components and let the
 components handle the rest. Every component has a controller defined by
-a class and a template defined by html.
+a class and a template defined by html. In addition, a component's job
+is to enable the user experience and delegate everything non-trivial to
+services.
 
 In this section we are going to write a simple \texttt{HelloAngular}
 component, compile it and run it in the browser. In addition, we will
@@ -1289,5 +1291,108 @@ following:
 \includegraphics{images/hello-angular.png}
 \caption{Running a basic component in the browser}
 \end{figure}
+
+\subsection{Dependency Injection}\label{dependency-injection}
+
+Dependency Injection is a coding pattern in which a class receives its
+dependencies from external sources rather than creating them itself. In
+order to achieve Dependency Injection we need a Dependency
+InjectionFramework to handle the dependencies for us. Using a DI
+framework, you simply ask for a class from the injector instead of
+worrying about the dependencies inside the class itself.
+
+Angular has a standalone module that handles Dependency Injection. This
+framework can also be used in non-Angular applications to handle
+Dependency Injection.
+
+\subsection{Services and Providers}\label{services-and-providers}
+
+\begin{itemize}
+\item
+  A service is nothing more than a class in Angular 2. It remains
+  nothing more than a class until we register it with the Angular
+  injector.
+\item
+  When you bootstrap your app, Angular creates an injector on the fly
+  that can inject services and other dependencies throughout the app.
+\item
+  You can register the service or the dependencies during when
+  bootstrapping the app or when defining a component.
+\item
+  If you have a class called \texttt{MyService}, you can register it
+  with the Injector and then you can inject it everywhere:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{bootstrap}\NormalTok{(App, [MyService]); }\CommentTok{// second param is an array of providers}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Providers is a way to specify what services are available inside the
+  component in a hierarchical fashion.
+\item
+  A provider can be a class, a value or a factory.
+\item
+  Providers create the instances of the things that we ask the injector
+  to inject.
+\item
+  \texttt{{[}SomeService{]};} is short for
+  \texttt{{[}provide(SomeService,\ \{useClass:SomeService\}){]};} where
+  the first param is the token, and the second is the definition object.
+\item
+  A simple object can be passed to the Injector to create a Value
+  Provider:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{beforeEachProviders}\NormalTok{(() => \{}
+  \NormalTok{let someService = \{ getData: () => [] \};}
+  \KeywordTok{return} \NormalTok{[ }\FunctionTok{provide}\NormalTok{(SomeSvc, \{useValue: someService\}) ]; }\CommentTok{// using `useValue` instead of `useClass`}
+\NormalTok{\});}
+\end{Highlighting}
+\end{Shaded}
+\item
+  You can also use a factory as a provider.
+\item
+  You can use a factory function that creates a properly configured
+  Service:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{let myServiceFactory = (dx: DepX, dy: DepY) => \{}
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{MyService}\NormalTok{(dx, dy.}\FunctionTok{value}\NormalTok{);}
+\NormalTok{\}}
+
+\CommentTok{// provider definition object.}
+\NormalTok{let myServiceDefinition = \{}
+   \NormalTok{useFactory: myServiceFactory,}
+   \NormalTok{deps: [DepX, DepY]}
+\NormalTok{\};}
+
+\CommentTok{// create provider and bootstrap}
+\NormalTok{let myServiceProvider = }\FunctionTok{provide}\NormalTok{(MyService, myServiceDefinition);}
+\FunctionTok{bootstrap}\NormalTok{(AppComponent, [myServiceProvider, DepX, DepY]);}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Defining object dependencies is simple. You can make a plain
+  JavaScript object available for injection using a string-based token
+  and the \texttt{@Inject} decorator:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{var myObj = \{\};}
+
+\FunctionTok{bootstrap}\NormalTok{(AppComponent, [}
+  \FunctionTok{provide}\NormalTok{('coolObjToken', \{useValue: myObj\})}
+\NormalTok{]);}
+
+\CommentTok{// and you can inject it to a component}
+
+\KeywordTok{import} \NormalTok{\{Inject\} from 'angular2/core'}
+\FunctionTok{constructor}\NormalTok{(dx: DepX, }\FunctionTok{@Inject}\NormalTok{('coolObjToken') config)}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
 
 \end{document}

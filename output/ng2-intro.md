@@ -683,10 +683,12 @@ later chapters.
 Components
 ----------
 
-Components are at the heart of Angular. The idea is that you break down
-your application into different logical components and let the
+Components are at the heart of Angular. The main idea is that you break
+down your application into different cohesive components and let the
 components handle the rest. Every component has a controller defined by
-a class and a template defined by html.
+a class and a template defined by html. In addition, a component's job
+is to enable the user experience and delegate everything non-trivial to
+services.
 
 In this section we are going to write a simple `HelloAngular` component,
 compile it and run it in the browser. In addition, we will configure
@@ -923,3 +925,91 @@ If everything is wired up correctly, you should be able to see the
 following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
+
+Dependency Injection
+--------------------
+
+Dependency Injection is a coding pattern in which a class receives its
+dependencies from external sources rather than creating them itself. In
+order to achieve Dependency Injection we need a Dependency
+InjectionFramework to handle the dependencies for us. Using a DI
+framework, you simply ask for a class from the injector instead of
+worrying about the dependencies inside the class itself.
+
+Angular has a standalone module that handles Dependency Injection. This
+framework can also be used in non-Angular applications to handle
+Dependency Injection.
+
+Services and Providers
+----------------------
+
+-   A service is nothing more than a class in Angular 2. It remains
+    nothing more than a class until we register it with the
+    Angular injector.
+-   When you bootstrap your app, Angular creates an injector on the fly
+    that can inject services and other dependencies throughout the app.
+-   You can register the service or the dependencies during when
+    bootstrapping the app or when defining a component.
+-   If you have a class called `MyService`, you can register it with the
+    Injector and then you can inject it everywhere:
+
+    ``` {.typescript}
+    bootstrap(App, [MyService]); // second param is an array of providers
+    ```
+
+-   Providers is a way to specify what services are available inside the
+    component in a hierarchical fashion.
+-   A provider can be a class, a value or a factory.
+-   Providers create the instances of the things that we ask the
+    injector to inject.
+-   `[SomeService];` is short for
+    `[provide(SomeService, {useClass:SomeService})];` where the first
+    param is the token, and the second is the definition object.
+-   A simple object can be passed to the Injector to create a Value
+    Provider:
+
+    ``` {.typescript}
+    beforeEachProviders(() => {
+      let someService = { getData: () => [] };
+      return [ provide(SomeSvc, {useValue: someService}) ]; // using `useValue` instead of `useClass`
+    });
+    ```
+
+-   You can also use a factory as a provider.
+-   You can use a factory function that creates a properly configured
+    Service:
+
+    ``` {.typescript}
+    let myServiceFactory = (dx: DepX, dy: DepY) => {
+      return new MyService(dx, dy.value);
+    }
+
+    // provider definition object.
+    let myServiceDefinition = {
+       useFactory: myServiceFactory,
+       deps: [DepX, DepY]
+    };
+
+    // create provider and bootstrap
+    let myServiceProvider = provide(MyService, myServiceDefinition);
+    bootstrap(AppComponent, [myServiceProvider, DepX, DepY]);
+    ```
+
+-   Defining object dependencies is simple. You can make a plain
+    JavaScript object available for injection using a string-based token
+    and the `@Inject` decorator:
+
+    ``` {.typescript}
+    var myObj = {};
+
+    bootstrap(AppComponent, [
+      provide('coolObjToken', {useValue: myObj})
+    ]);
+
+    // and you can inject it to a component
+
+    import {Inject} from 'angular2/core'
+    constructor(dx: DepX, @Inject('coolObjToken') config)
+    ```
+
+
