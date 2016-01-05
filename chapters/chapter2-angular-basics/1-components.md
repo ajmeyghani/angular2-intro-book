@@ -1,6 +1,6 @@
 ## Components
 
-Components are at the heart of Angular. The idea is that you break down your application into different logical components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html.
+Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.
 
 In this section we are going to write a simple `HelloAngular` component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.
 
