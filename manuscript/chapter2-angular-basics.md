@@ -53,10 +53,10 @@ Then create a `index.html` file in the root of the project and put in the follow
 <head>
   <title>Hello Angular</title>
 
-  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-  <script src="node_modules/systemjs/dist/system.src.js"></script>
-  <script src="node_modules/rxjs/bundles/Rx.js"></script>
-  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="/node_modules/systemjs/dist/system.src.js"></script>
+  <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
 
   <!-- add systemjs settings later -->
 
@@ -76,7 +76,7 @@ This loads all the necessary scripts that we need to run Angular in the browser.
 If you need to support older browsers, you need to include the `es6-shims` before everything else:
 
 ```html
-<script src="node_modules/es6-shim/es6-shim.js"></script>
+<script src="/node_modules/es6-shim/es6-shim.js"></script>
 ```
 
 ### Making the Component
@@ -230,7 +230,8 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     ```typescript
     beforeEachProviders(() => {
       let someService = { getData: () => [] };
-      return [ provide(SomeSvc, {useValue: someService}) ]; // using `useValue` instead of `useClass`
+      // using `useValue` instead of `useClass`
+      return [ provide(SomeSvc, {useValue: someService}) ];
     });
     ```
 - You can also use a factory as a provider.

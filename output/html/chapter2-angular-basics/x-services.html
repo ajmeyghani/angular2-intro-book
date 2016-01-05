@@ -73,9 +73,11 @@
 2
 3
 4
+5
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">beforeEachProviders</span>(() =&gt; {
   let someService = { getData: () =&gt; [] };
-  <span class="kw">return</span> [ <span class="fu">provide</span>(SomeSvc, {useValue: someService}) ]; <span class="co">// using `useValue` instead of `useClass`</span>
+  <span class="co">// using `useValue` instead of `useClass`</span>
+  <span class="kw">return</span> [ <span class="fu">provide</span>(SomeSvc, {useValue: someService}) ];
 });</code></pre></td></tr></table></div></li>
 <li>You can also use a factory as a provider.</li>
 <li><p>You can use a factory function that creates a properly configured Service:</p>

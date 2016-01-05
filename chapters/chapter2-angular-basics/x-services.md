@@ -17,7 +17,8 @@
     ```typescript
     beforeEachProviders(() => {
       let someService = { getData: () => [] };
-      return [ provide(SomeSvc, {useValue: someService}) ]; // using `useValue` instead of `useClass`
+      // using `useValue` instead of `useClass`
+      return [ provide(SomeSvc, {useValue: someService}) ];
     });
     ```
 - You can also use a factory as a provider.

@@ -1066,10 +1066,10 @@ put in the following:
 \KeywordTok{<head>}
   \KeywordTok{<title>}\NormalTok{Hello Angular}\KeywordTok{</title>}
 
-  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/angular2/bundles/angular2-polyfills.js"}\KeywordTok{></script>}
-  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/systemjs/dist/system.src.js"}\KeywordTok{></script>}
-  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/rxjs/bundles/Rx.js"}\KeywordTok{></script>}
-  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/angular2/bundles/angular2.dev.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"/node_modules/angular2/bundles/angular2-polyfills.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"/node_modules/systemjs/dist/system.src.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"/node_modules/rxjs/bundles/Rx.js"}\KeywordTok{></script>}
+  \KeywordTok{<script}\OtherTok{ src=}\StringTok{"/node_modules/angular2/bundles/angular2.dev.js"}\KeywordTok{></script>}
 
   \CommentTok{<!-- add systemjs settings later -->}
 
@@ -1093,7 +1093,7 @@ If you need to support older browsers, you need to include the
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\KeywordTok{<script}\OtherTok{ src=}\StringTok{"node_modules/es6-shim/es6-shim.js"}\KeywordTok{></script>}
+\KeywordTok{<script}\OtherTok{ src=}\StringTok{"/node_modules/es6-shim/es6-shim.js"}\KeywordTok{></script>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1347,7 +1347,8 @@ Dependency Injection.
 \begin{Highlighting}[numbers=left,,]
 \FunctionTok{beforeEachProviders}\NormalTok{(() => \{}
   \NormalTok{let someService = \{ getData: () => [] \};}
-  \KeywordTok{return} \NormalTok{[ }\FunctionTok{provide}\NormalTok{(SomeSvc, \{useValue: someService\}) ]; }\CommentTok{// using `useValue` instead of `useClass`}
+  \CommentTok{// using `useValue` instead of `useClass`}
+  \KeywordTok{return} \NormalTok{[ }\FunctionTok{provide}\NormalTok{(SomeSvc, \{useValue: someService\}) ];}
 \NormalTok{\});}
 \end{Highlighting}
 \end{Shaded}

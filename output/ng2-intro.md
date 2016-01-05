@@ -744,10 +744,10 @@ the following:
 <head>
   <title>Hello Angular</title>
 
-  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-  <script src="node_modules/systemjs/dist/system.src.js"></script>
-  <script src="node_modules/rxjs/bundles/Rx.js"></script>
-  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="/node_modules/systemjs/dist/system.src.js"></script>
+  <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
 
   <!-- add systemjs settings later -->
 
@@ -769,7 +769,7 @@ If you need to support older browsers, you need to include the
 `es6-shims` before everything else:
 
 ``` {.html}
-<script src="node_modules/es6-shim/es6-shim.js"></script>
+<script src="/node_modules/es6-shim/es6-shim.js"></script>
 ```
 
 ### Making the Component
@@ -971,7 +971,8 @@ Services and Providers
     ``` {.typescript}
     beforeEachProviders(() => {
       let someService = { getData: () => [] };
-      return [ provide(SomeSvc, {useValue: someService}) ]; // using `useValue` instead of `useClass`
+      // using `useValue` instead of `useClass`
+      return [ provide(SomeSvc, {useValue: someService}) ];
     });
     ```
 

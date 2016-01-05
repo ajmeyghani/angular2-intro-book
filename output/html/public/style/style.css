@@ -87,8 +87,8 @@ td { vertical-align: top; }
 @media print {
   /** { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }*/
   body {
-    font-size:10pt; max-width:100%;
-    margin: 0 0.4in 0 0.4in !important;
+    font-size: 8.5pt; max-width:100%;
+    margin: 0 0.2in 0 0.2in !important;
     padding: 0 !important;
   }
   a, a:visited { text-decoration: underline; }

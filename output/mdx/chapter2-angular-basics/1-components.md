@@ -47,10 +47,10 @@ Then create a `index.html` file in the root of the project and put in the follow
 <head>
   <title>Hello Angular</title>
 
-  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-  <script src="node_modules/systemjs/dist/system.src.js"></script>
-  <script src="node_modules/rxjs/bundles/Rx.js"></script>
-  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="/node_modules/systemjs/dist/system.src.js"></script>
+  <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
 
   <!-- add systemjs settings later -->
 
@@ -70,7 +70,7 @@ This loads all the necessary scripts that we need to run Angular in the browser.
 If you need to support older browsers, you need to include the `es6-shims` before everything else:
 
 ~~~~{.numberLines .html startFrom="1"}
-<script src="node_modules/es6-shim/es6-shim.js"></script>
+<script src="/node_modules/es6-shim/es6-shim.js"></script>
 ~~~~~~~
 
 ### Making the Component
