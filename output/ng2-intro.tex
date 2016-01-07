@@ -1292,6 +1292,47 @@ following:
 \caption{Running a basic component in the browser}
 \end{figure}
 
+\subsection{Data Architecture}\label{data-architecture}
+
+\begin{itemize}
+\tightlist
+\item
+  Angular is flexible and doesn't prescribe a recipe for managing data
+  in your apps
+\item
+  Since observables are integrated into Angular, you can take advantage
+  of observables to manage data and state
+\item
+  You ca use services to manage streams that emit models
+\item
+  Components can subscribe to the streams maintained by services and
+  render accordingly.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For example, you can have a service for a Todo app that contains a
+    stream of todos and a \texttt{ListComponent} can listen for todos
+    and render when a new task is added.
+  \item
+    You may have another component that listens for the user that has
+    been assigned to a task provided by a service.
+  \end{itemize}
+\item
+  The steps for creating different parts of an app can be summarized in
+  three steps:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defining a Model using a class
+  \item
+    Defining the service
+  \item
+    Defining the component
+  \end{itemize}
+\end{itemize}
+
 \subsection{Dependency Injection}\label{dependency-injection}
 
 Dependency Injection is a coding pattern in which a class receives its
@@ -1304,6 +1345,89 @@ worrying about the dependencies inside the class itself.
 Angular has a standalone module that handles Dependency Injection. This
 framework can also be used in non-Angular applications to handle
 Dependency Injection.
+
+\section{Meta Data}\label{meta-data}
+
+\begin{itemize}
+\item
+  Angular uses Meta Data or annotations in a lot of places.
+\item
+  The most notable Meta Data is the \texttt{@component} meta data.
+\item
+  Below is a list of Angular's core meta data classes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html}{Dependency}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Observables}\label{observables}
+
+\begin{itemize}
+\item
+  Angular embraces observables using the RxJS library.
+\item
+  Observables emit events and observers observe observables.
+\item
+  An observer \emph{subscribes} to events emitted from an observable.
+\item
+  RxJS has an object called \emph{subject} that can be used both as an
+  observer or an observable. \emph{Subject} can be imported from
+  \texttt{RxJS} very easily:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Subject\} from 'rxjs/Subject';}
+\end{Highlighting}
+\end{Shaded}
+\item
+  A subscription can be canceled by calling the \texttt{unsubscribe}
+  method.
+\end{itemize}
 
 \subsection{Services and Providers}\label{services-and-providers}
 

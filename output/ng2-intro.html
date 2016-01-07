@@ -283,7 +283,11 @@
     <li><a href="#compiling-the-component">Compiling the Component</a></li>
     <li><a href="#loading-the-component">Loading the Component</a></li>
     </ul></li>
+    <li><a href="#data-architecture">Data Architecture</a></li>
     <li><a href="#dependency-injection">Dependency Injection</a></li>
+    </ul></li>
+    <li><a href="#meta-data">Meta Data</a><ul>
+    <li><a href="#observables">Observables</a></li>
     <li><a href="#services-and-providers">Services and Providers</a></li>
     </ul></li>
     </ul>
@@ -1010,10 +1014,73 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
 </div>
 </div>
 </div>
+<div id="data-architecture" class="section level2">
+<h2>Data Architecture</h2>
+<ul>
+<li>Angular is flexible and doesn't prescribe a recipe for managing data in your apps</li>
+<li>Since observables are integrated into Angular, you can take advantage of observables to manage data and state</li>
+<li>You ca use services to manage streams that emit models</li>
+<li>Components can subscribe to the streams maintained by services and render accordingly.
+<ul>
+<li>For example, you can have a service for a Todo app that contains a stream of todos and a <code>ListComponent</code> can listen for todos and render when a new task is added.</li>
+<li>You may have another component that listens for the user that has been assigned to a task provided by a service.</li>
+</ul></li>
+<li>The steps for creating different parts of an app can be summarized in three steps:
+<ul>
+<li>Defining a Model using a class</li>
+<li>Defining the service</li>
+<li>Defining the component</li>
+</ul></li>
+</ul>
+</div>
 <div id="dependency-injection" class="section level2">
 <h2>Dependency Injection</h2>
 <p>Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.</p>
 <p>Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.</p>
+</div>
+</div>
+<div id="meta-data" class="section level1">
+<h1>Meta Data</h1>
+<ul>
+<li>Angular uses Meta Data or annotations in a lot of places.</li>
+<li>The most notable Meta Data is the <code>@component</code> meta data.</li>
+<li><p>Below is a list of Angular's core meta data classes:</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html">Attribute</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html">Component</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html">ContentChild</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html">ContentChildren</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html">Dependency</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html">Directive</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html">HostBinding</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html">HostListener</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html">Host</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html">Inject</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html">Injectable</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html">Input</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html">Optional</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html">Output</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html">Pipe</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html">Self</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html">SkipSelf</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html">ViewChild</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html">ViewChildren</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html">View</a></li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a></li>
+</ul></li>
+</ul>
+<div id="observables" class="section level2">
+<h2>Observables</h2>
+<ul>
+<li>Angular embraces observables using the RxJS library.</li>
+<li>Observables emit events and observers observe observables.</li>
+<li>An observer <em>subscribes</em> to events emitted from an observable.</li>
+<li><p>RxJS has an object called <em>subject</em> that can be used both as an observer or an observable. <em>Subject</em> can be imported from <code>RxJS</code> very easily:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Subject} from &#39;rxjs/Subject&#39;;</span></code></pre></td></tr></table></div></li>
+<li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
+</ul>
 </div>
 <div id="services-and-providers" class="section level2">
 <h2>Services and Providers</h2>
