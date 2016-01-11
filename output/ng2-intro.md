@@ -623,10 +623,9 @@ class Car {
 }
 ```
 
--   There are 4 main access modifiers in TypeScript: `static`,
-    `private`, `public`, and `protected`.
--   `static` modifier means that the property or the method is defined
-    on the class but not the instance.
+-   There are 3 main access modifiers in TypeScript: `private`,
+    `public`, and `protected`:
+
 -   `private` modifier means that the property or the method is only
     defined inside the class only.
 -   `protected` modifier means that the property or the method is only
