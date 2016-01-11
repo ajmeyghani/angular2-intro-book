@@ -206,11 +206,62 @@ If everything is wired up correctly, you should be able to see the following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
+## Data Architecture
+
+- Angular is flexible and doesn't prescribe a recipe for managing data in your apps
+- Since observables are integrated into Angular, you can take advantage of observables to manage data and state
+- You ca use services to manage streams that emit models
+- Components can subscribe to the streams maintained by services and render accordingly.
+    - For example, you can have a service for a Todo app that contains a stream of todos and a `ListComponent` can listen for todos and render when a new task is added.
+    - You may have another component that listens for the user that has been assigned to a task provided by a service.
+- The steps for creating different parts of an app can be summarized in three steps:
+    - Defining a Model using a class
+    - Defining the service
+    - Defining the component
 ## Dependency Injection
 
 Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.
 
 Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.
+# Meta Data
+
+- Angular uses Meta Data or annotations in a lot of places.
+- The most notable Meta Data is the `@component` meta data.
+- Below is a list of Angular's core meta data classes:
+
+    - [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
+    - [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html)
+    - [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html)
+    - [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html)
+    - [Dependency](https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html)
+    - [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html)
+    - [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html)
+    - [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html)
+    - [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html)
+    - [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html)
+    - [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html)
+    - [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html)
+    - [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html)
+    - [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html)
+    - [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html)
+    - [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html)
+    - [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html)
+    - [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html)
+    - [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html)
+    - [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html)
+    - [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html)
+    - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html)
+## Observables
+
+- Angular embraces observables using the RxJS library.
+- Observables emit events and observers observe observables.
+- An observer *subscribes* to events emitted from an observable.
+- RxJS has an object called *subject* that can be used both as an observer or an observable. *Subject* can be imported from `RxJS` very easily:
+
+    ```typescript
+    import {Subject} from 'rxjs/Subject';
+    ```
+- A subscription can be canceled by calling the `unsubscribe` method.
 ## Services and Providers
 
 - A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.

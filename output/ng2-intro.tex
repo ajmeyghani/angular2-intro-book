@@ -749,6 +749,32 @@ operations:
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Classes as Interfaces}\label{classes-as-interfaces}
+
+Because classes define types as well, they can also be used as
+interfaces. If you have an interface you can extend it with a class for
+example:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Point \{}
+  \NormalTok{x: number;}
+  \NormalTok{y: number;}
+\NormalTok{\}}
+\KeywordTok{interface} \NormalTok{Point3d }\KeywordTok{extends} \NormalTok{Point \{}
+  \NormalTok{z: number;}
+\NormalTok{\}}
+\DataTypeTok{const} \NormalTok{point3d: Point3d = \{x: }\DecValTok{1}\NormalTok{, y: }\DecValTok{2}\NormalTok{, z: }\DecValTok{3}\NormalTok{\};}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(point3d.}\FunctionTok{x}\NormalTok{); }\CommentTok{// -> 1}
+\end{Highlighting}
+\end{Shaded}
+
+First we are defining a class called \texttt{Point} that defines two
+fields. Then we define an interface called \texttt{Point3d} that extends
+the \texttt{Point} by adding a third field. An then we create a point of
+type \texttt{point3d} and assign a value to it. We read the value and it
+outputs \texttt{1}.
+
 \subsection{Classes}\label{classes}
 
 \begin{itemize}
@@ -853,7 +879,7 @@ define a \texttt{move} method that all the cars can have:
   \NormalTok{distance: number;}
   \FunctionTok{move}\NormalTok{():}\DataTypeTok{void} \NormalTok{\{}
     \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1}\NormalTok{;}
-  \NormalTok{\};}
+  \NormalTok{\}}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -880,40 +906,6 @@ define a \texttt{move} method that all the cars can have:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Adding a constructor}\label{adding-a-constructor}
-
-A \texttt{constructor} is a special method that gets called when an
-instance is created from a class. Let's add a constructor to the
-\texttt{Car} class that initializes the \texttt{distance} value to 0.
-This means that all the cars that are crated from this class, will have
-their \texttt{distance} set to 0 automatically:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{class} \NormalTok{Car \{}
-  \NormalTok{distance: number;}
-  \FunctionTok{constructor} \NormalTok{() \{}
-    \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{= }\DecValTok{0}\NormalTok{;}
-  \NormalTok{\};}
-  \FunctionTok{move}\NormalTok{():}\DataTypeTok{void} \NormalTok{\{}
-    \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1}\NormalTok{;}
-  \NormalTok{\};}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{constructor()} is called automatically when a new car is
-  created
-\item
-  The body of the constructor is defined in the \texttt{\{\ \}}
-\end{itemize}
-
-So now when we create a car, the \texttt{distance} property is
-automatically set to 0.
-
 \subsubsection{Using Access Modifiers}\label{using-access-modifiers}
 
 If you wanted to tell the compiler that the \texttt{distance} variable
@@ -926,22 +918,327 @@ is private and can only be used by the object itself, you can use the
   \KeywordTok{private} \NormalTok{distance: number;}
   \FunctionTok{constructor} \NormalTok{() \{}
     \NormalTok{...}
-  \NormalTok{\};}
+  \NormalTok{\}}
   \NormalTok{...}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-Access modifiers can be used in different places. Check out the access
-modifiers chapter for more details.
+\begin{itemize}
+\tightlist
+\item
+  There are 4 main access modifiers in TypeScript: \texttt{static},
+  \texttt{private}, \texttt{public}, and \texttt{protected}.
+\item
+  \texttt{static} modifier means that the property or the method is
+  defined on the class but not the instance.
+\item
+  \texttt{private} modifier means that the property or the method is
+  only defined inside the class only.
+\item
+  \texttt{protected} modifier means that the property or the method is
+  only accessible inside the class and the classes derived from the
+  class.
+\item
+  \texttt{public} is the default modifier which means the property or
+  the method is the accessible everywhere and can be accessed by anyone.
+\end{itemize}
+
+\subsubsection{Adding a constructor}\label{adding-a-constructor}
+
+A \texttt{constructor} is a special method that gets called when an
+instance is created from a class. A class may contain at most one
+constructor declaration. If a class contains no constructor declaration,
+an automatic constructor is provided.
+
+Let's add a constructor to the \texttt{Car} class that initializes the
+\texttt{distance} value to 0. This means that all the cars that are
+crated from this class, will have their \texttt{distance} set to 0
+automatically:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \NormalTok{distance: number;}
+  \FunctionTok{constructor} \NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{= }\DecValTok{0}\NormalTok{;}
+  \NormalTok{\}}
+  \FunctionTok{move}\NormalTok{():}\DataTypeTok{void} \NormalTok{\{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1}\NormalTok{;}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{constructor()} is called automatically when a new car is
+  created
+\item
+  Parameters are passed to the constructor in the \texttt{()}
+\item
+  The body of the constructor is defined in the \texttt{\{\ \}}
+\end{itemize}
+
+Now, let's customize the car's constructor to accept \texttt{distance}
+as a parameter:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \KeywordTok{private} \NormalTok{distance: number;}
+  \FunctionTok{constructor} \NormalTok{(distance) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{= distance;}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 3 we are passing distance as a parameter. This means that when
+  a new instance is created, a value should be passed in to set the
+  distance of the car.
+\item
+  On line 4 we are assigning the value of distance to the value that is
+  passed in
+\end{itemize}
+
+This pattern is so common that TypeScript has a shorthand for it:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{distance) \{}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note that the only thing that we had to do was to add
+\texttt{private\ distance} in the constructor parameter and remove the
+\texttt{this.distance} and \texttt{distance:\ number}. TypeScript will
+automatically generate that. Below is the JavaScript outputed by
+TypeScript:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{var} \NormalTok{Car }\OperatorTok{=} \NormalTok{(}\KeywordTok{function} \NormalTok{() }\OperatorTok{\{}
+  \KeywordTok{function} \AttributeTok{Car}\NormalTok{(distance) }\OperatorTok{\{}
+    \KeywordTok{this}\NormalTok{.}\AttributeTok{distance} \OperatorTok{=} \NormalTok{distance}\OperatorTok{;}
+  \OperatorTok{\}}
+  \ControlFlowTok{return} \NormalTok{Car}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)()}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+Now that our car expects a \texttt{distance} we have to always supply a
+value for the distance when creating a car. You can define default
+values if you want so that the car is instantiated with a default value
+for the distance if none is given:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{distance = }\DecValTok{0}\NormalTok{) \{}
+  \NormalTok{\}}
+  \FunctionTok{getDistance}\NormalTok{():number \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{distance}\NormalTok{; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now if I forget to pass a value for the \texttt{distance}, it is going
+to be set to zero by default:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\DataTypeTok{const} \NormalTok{mycar = }\KeywordTok{new} \FunctionTok{Car}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(mycar.}\FunctionTok{getDistance}\NormalTok{()); }\CommentTok{//-> 0}
+\end{Highlighting}
+\end{Shaded}
+
+Note that if you pass a value, it will override the default value:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\DataTypeTok{const} \NormalTok{mycar = }\KeywordTok{new} \FunctionTok{Car}\NormalTok{(}\DecValTok{5}\NormalTok{);}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(mycar.}\FunctionTok{getDistance}\NormalTok{()); }\CommentTok{//-> 5}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Setters and Getters
+(Accessors)}\label{setters-and-getters-accessors}
+
+It is a very common pattern to have setters and getters for properties
+of a class. TypeScript provides a very simple syntax to achieve that.
+Let's take our example above and add a setter and getter for the
+distance property. But before that we are going to rename
+\texttt{distance} to \texttt{\_distance} to make it explicit that it is
+private. It is not required but it is a common pattern to prefix private
+properties with an underscore.
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{_distance = }\DecValTok{0}\NormalTok{) \{\}}
+  \FunctionTok{getDistance}\NormalTok{():number \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In order to create the getter method, we are going to use the
+\texttt{get} keyword and the name for the property followed by
+\texttt{()}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{_distance = }\DecValTok{0}\NormalTok{) \{\}}
+  \NormalTok{get }\FunctionTok{distance}\NormalTok{() \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can get the value of \texttt{distance}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\DataTypeTok{const} \NormalTok{car2 = }\KeywordTok{new} \FunctionTok{Car}\NormalTok{(}\DecValTok{5}\NormalTok{);}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(car2.}\FunctionTok{distance}\NormalTok{) }\CommentTok{//-> 5}
+\end{Highlighting}
+\end{Shaded}
+
+Note on line 2 that we didn't call a function. Behind the scenes,
+TypeScript creates a property for us, that's why it is not a method.
+Below is the relevant generated JavaScript:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\VariableTok{Object}\NormalTok{.}\AttributeTok{defineProperty}\NormalTok{(}\VariableTok{Car}\NormalTok{.}\AttributeTok{prototype}\OperatorTok{,} \StringTok{"distance"}\OperatorTok{,} \OperatorTok{\{}
+  \DataTypeTok{get}\OperatorTok{:} \KeywordTok{function} \NormalTok{() }\OperatorTok{\{} \ControlFlowTok{return} \KeywordTok{this}\NormalTok{.}\AttributeTok{_distance}\OperatorTok{;} \OperatorTok{\},}
+  \DataTypeTok{enumerable}\OperatorTok{:} \KeywordTok{true}\OperatorTok{,}
+  \DataTypeTok{configurable}\OperatorTok{:} \KeywordTok{true}
+\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+JavaScript behind the scenes calls the get function for you to get the
+value, and that's why we simply did \texttt{car2.distance} as opposed to
+\texttt{car2.distance()}. For more information about
+\texttt{Object.defineProperty} checkout the
+\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty}{MDN}
+docs.
+
+Similar to the getter, we can define a setter as well:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{_distance = }\DecValTok{0}\NormalTok{) \{\}}
+  \NormalTok{get }\FunctionTok{distance}\NormalTok{() \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+  \NormalTok{set }\FunctionTok{distance}\NormalTok{(newDistance: number) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_distance} \NormalTok{= newDistance; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can both get and set the distance value:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\DataTypeTok{const} \NormalTok{coolCar = }\KeywordTok{new} \FunctionTok{Car}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(coolCar.}\FunctionTok{distance}\NormalTok{); }\CommentTok{// -> 0}
+
+\NormalTok{coolCar.}\FunctionTok{distance} \NormalTok{= }\DecValTok{55}\NormalTok{;}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(coolCar.}\FunctionTok{distance}\NormalTok{); }\CommentTok{// -> 55}
+\end{Highlighting}
+\end{Shaded}
+
+Note that if we take out the setter, we won't be able to assign a new
+value to \texttt{distance}.
+
+\subsubsection{Static Methods and
+Properties}\label{static-methods-and-properties}
+
+Static methods and properties belong to the class but not the instances.
+For example, the \texttt{Array.isArray} method is only accessible
+through the \texttt{Array} but not an instance of an array:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{var} \NormalTok{x }\OperatorTok{=} \NormalTok{[]}\OperatorTok{;}
+\VariableTok{x}\NormalTok{.}\AttributeTok{isArray} \CommentTok{// -> undefined}
+\VariableTok{Array}\NormalTok{.}\AttributeTok{isArray}\NormalTok{(x) }\CommentTok{//-> true}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 2 we are trying to access the \texttt{isArray} method, but
+  obviously it is not defined because \texttt{isArray} is a static
+  method.
+\item
+  On line three we are calling the static \texttt{isArray} method from
+  \texttt{Array} and we can check if \texttt{x} is an array.
+\end{itemize}
+
+If you look at the
+\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray}{Array}
+documentation you can see that methods and properties are either defined
+on the \texttt{Array.prototype} or \texttt{Array}:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Array.prototype.x}: makes \texttt{x} available to all the
+  instances of \texttt{Array}
+\item
+  \texttt{Array.x}: \texttt{x} is static and only available through
+  \texttt{Array}.
+\end{itemize}
+
+Now that we have some context, let's see how you can define static
+methods and properties in TypeScript. Consider the code below:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Car \{}
+  \DataTypeTok{static} \NormalTok{controls: \{isAuto: }\DataTypeTok{boolean} \NormalTok{\} = \{}
+    \NormalTok{isAuto: }\KeywordTok{true}
+  \NormalTok{\};}
+  \DataTypeTok{static} \FunctionTok{isAuto}\NormalTok{():}\DataTypeTok{boolean} \NormalTok{\{}
+    \KeywordTok{return} \NormalTok{Car.}\FunctionTok{controls}\NormalTok{.}\FunctionTok{isAuto}\NormalTok{;}
+  \NormalTok{\}}
+  \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{_distance = }\DecValTok{0}\NormalTok{) \{\}}
+  \NormalTok{get }\FunctionTok{distance}\NormalTok{() \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+\NormalTok{\}}
+
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(Car.}\FunctionTok{controls}\NormalTok{); }\CommentTok{// -> \{ isAuto: true \}}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(Car.}\FunctionTok{isAuto}\NormalTok{()); }\CommentTok{// -> true}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 2 we are defining a static property called \texttt{controls}
+  using the \texttt{static} modifier. Then we specify the form and then
+  assign a value for it.
+\item
+  On line 5 we are defining a static method called \texttt{isAuto} using
+  the the \texttt{static} modifier. This method simply returns the value
+  of \texttt{isAuto} from the static \texttt{control} object. Not that
+  we get access to the class using the name of the class as opposed to
+  using \texttt{this}. i.e. \texttt{return\ Car.controls.isAuto}
+\end{itemize}
 
 \subsubsection{Implementing an
 Interface}\label{implementing-an-interface}
 
 Classes can implement one or multiple interfaces. We can make the
 \texttt{Car} class implement two interfaces:
-
-\textbf{interfaces}
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -980,6 +1277,24 @@ the compiler will print out the following error:
 error TS2420: Class `Car' incorrectly implements interface `ICarProps'.
 Property `distance' is missing in type `Car'.
 \end{quote}
+
+\subsection{Modules}\label{modules}
+
+\begin{itemize}
+\tightlist
+\item
+  In TypeScript you can use modules to organize your code, and expose
+  functionalities for others to use.
+\item
+  Modules can be internal and external
+\item
+  They can be split into different files and references from other
+  files.
+\item
+  A module is define using the \texttt{module} keyword. The module
+  definition goes inside curly braces:
+  \texttt{module\ MyModule\ \{\ ...\ \}}
+\end{itemize}
 
 \section{Angular Basics}\label{angular-basics}
 

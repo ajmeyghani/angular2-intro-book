@@ -498,6 +498,29 @@ operations:
 let sum = myObj.sum([1,2,3,4,5]); // -> 15
 ```
 
+### Classes as Interfaces
+
+Because classes define types as well, they can also be used as
+interfaces. If you have an interface you can extend it with a class for
+example:
+
+``` {.typescript}
+class Point {
+  x: number;
+  y: number;
+}
+interface Point3d extends Point {
+  z: number;
+}
+const point3d: Point3d = {x: 1, y: 2, z: 3};
+console.log(point3d.x); // -> 1
+```
+
+First we are defining a class called `Point` that defines two fields.
+Then we define an interface called `Point3d` that extends the `Point` by
+adding a third field. An then we create a point of type `point3d` and
+assign a value to it. We read the value and it outputs `1`.
+
 Classes
 -------
 
@@ -567,7 +590,7 @@ class Car {
   distance: number;
   move():void {
     this.distance += 1;
-  };
+  }
 }
 ```
 
@@ -584,32 +607,6 @@ myCar.move();
 console.log(myCar.distance) // -> 1
 ```
 
-### Adding a constructor
-
-A `constructor` is a special method that gets called when an instance is
-created from a class. Let's add a constructor to the `Car` class that
-initializes the `distance` value to 0. This means that all the cars that
-are crated from this class, will have their `distance` set to 0
-automatically:
-
-``` {.typescript}
-class Car {
-  distance: number;
-  constructor () {
-    this.distance = 0;
-  };
-  move():void {
-    this.distance += 1;
-  };
-}
-```
-
--   `constructor()` is called automatically when a new car is created
--   The body of the constructor is defined in the `{ }`
-
-So now when we create a car, the `distance` property is automatically
-set to 0.
-
 ### Using Access Modifiers
 
 If you wanted to tell the compiler that the `distance` variable is
@@ -621,20 +618,252 @@ class Car {
   private distance: number;
   constructor () {
     ...
-  };
+  }
   ...
 }
 ```
 
-Access modifiers can be used in different places. Check out the access
-modifiers chapter for more details.
+-   There are 4 main access modifiers in TypeScript: `static`,
+    `private`, `public`, and `protected`.
+-   `static` modifier means that the property or the method is defined
+    on the class but not the instance.
+-   `private` modifier means that the property or the method is only
+    defined inside the class only.
+-   `protected` modifier means that the property or the method is only
+    accessible inside the class and the classes derived from the class.
+-   `public` is the default modifier which means the property or the
+    method is the accessible everywhere and can be accessed by anyone.
+
+### Adding a constructor
+
+A `constructor` is a special method that gets called when an instance is
+created from a class. A class may contain at most one constructor
+declaration. If a class contains no constructor declaration, an
+automatic constructor is provided.
+
+Let's add a constructor to the `Car` class that initializes the
+`distance` value to 0. This means that all the cars that are crated from
+this class, will have their `distance` set to 0 automatically:
+
+``` {.typescript}
+class Car {
+  distance: number;
+  constructor () {
+    this.distance = 0;
+  }
+  move():void {
+    this.distance += 1;
+  }
+}
+```
+
+-   `constructor()` is called automatically when a new car is created
+-   Parameters are passed to the constructor in the `()`
+-   The body of the constructor is defined in the `{ }`
+
+Now, let's customize the car's constructor to accept `distance` as a
+parameter:
+
+``` {.typescript}
+class Car {
+  private distance: number;
+  constructor (distance) {
+    this.distance = distance;
+  }
+}
+```
+
+-   On line 3 we are passing distance as a parameter. This means that
+    when a new instance is created, a value should be passed in to set
+    the distance of the car.
+-   On line 4 we are assigning the value of distance to the value that
+    is passed in
+
+This pattern is so common that TypeScript has a shorthand for it:
+
+``` {.typescript}
+class Car {
+  constructor (private distance) {
+  }
+}
+```
+
+Note that the only thing that we had to do was to add `private distance`
+in the constructor parameter and remove the `this.distance` and
+`distance: number`. TypeScript will automatically generate that. Below
+is the JavaScript outputed by TypeScript:
+
+``` {.javascript}
+var Car = (function () {
+  function Car(distance) {
+    this.distance = distance;
+  }
+  return Car;
+})();
+```
+
+Now that our car expects a `distance` we have to always supply a value
+for the distance when creating a car. You can define default values if
+you want so that the car is instantiated with a default value for the
+distance if none is given:
+
+``` {.typescript}
+class Car {
+  constructor (private distance = 0) {
+  }
+  getDistance():number { return this.distance; }
+}
+```
+
+Now if I forget to pass a value for the `distance`, it is going to be
+set to zero by default:
+
+``` {.typescript}
+const mycar = new Car();
+console.log(mycar.getDistance()); //-> 0
+```
+
+Note that if you pass a value, it will override the default value:
+
+``` {.typescript}
+const mycar = new Car(5);
+console.log(mycar.getDistance()); //-> 5
+```
+
+### Setters and Getters (Accessors)
+
+It is a very common pattern to have setters and getters for properties
+of a class. TypeScript provides a very simple syntax to achieve that.
+Let's take our example above and add a setter and getter for the
+distance property. But before that we are going to rename `distance` to
+`_distance` to make it explicit that it is private. It is not required
+but it is a common pattern to prefix private properties with an
+underscore.
+
+``` {.typescript}
+class Car {
+  constructor (private _distance = 0) {}
+  getDistance():number { return this._distance; }
+}
+```
+
+In order to create the getter method, we are going to use the `get`
+keyword and the name for the property followed by `()`:
+
+``` {.typescript}
+class Car {
+  constructor (private _distance = 0) {}
+  get distance() { return this._distance; }
+}
+```
+
+Now we can get the value of `distance`:
+
+``` {.typescript}
+const car2 = new Car(5);
+console.log(car2.distance) //-> 5
+```
+
+Note on line 2 that we didn't call a function. Behind the scenes,
+TypeScript creates a property for us, that's why it is not a method.
+Below is the relevant generated JavaScript:
+
+``` {.javascript}
+Object.defineProperty(Car.prototype, "distance", {
+  get: function () { return this._distance; },
+  enumerable: true,
+  configurable: true
+});
+```
+
+JavaScript behind the scenes calls the get function for you to get the
+value, and that's why we simply did `car2.distance` as opposed to
+`car2.distance()`. For more information about `Object.defineProperty`
+checkout the
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+docs.
+
+Similar to the getter, we can define a setter as well:
+
+``` {.typescript}
+class Car {
+  constructor (private _distance = 0) {}
+  get distance() { return this._distance; }
+  set distance(newDistance: number) { this._distance = newDistance; }
+}
+```
+
+Now we can both get and set the distance value:
+
+``` {.typescript}
+const coolCar = new Car();
+console.log(coolCar.distance); // -> 0
+
+coolCar.distance = 55;
+console.log(coolCar.distance); // -> 55
+```
+
+Note that if we take out the setter, we won't be able to assign a new
+value to `distance`.
+
+### Static Methods and Properties
+
+Static methods and properties belong to the class but not the instances.
+For example, the `Array.isArray` method is only accessible through the
+`Array` but not an instance of an array:
+
+``` {.javascript}
+var x = [];
+x.isArray // -> undefined
+Array.isArray(x) //-> true
+```
+
+-   On line 2 we are trying to access the `isArray` method, but
+    obviously it is not defined because `isArray` is a static method.
+-   On line three we are calling the static `isArray` method from
+    `Array` and we can check if `x` is an array.
+
+If you look at the
+[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
+documentation you can see that methods and properties are either defined
+on the `Array.prototype` or `Array`:
+
+-   `Array.prototype.x`: makes `x` available to all the instances of
+    `Array`
+-   `Array.x`: `x` is static and only available through `Array`.
+
+Now that we have some context, let's see how you can define static
+methods and properties in TypeScript. Consider the code below:
+
+``` {.typescript}
+class Car {
+  static controls: {isAuto: boolean } = {
+    isAuto: true
+  };
+  static isAuto():boolean {
+    return Car.controls.isAuto;
+  }
+  constructor (private _distance = 0) {}
+  get distance() { return this._distance; }
+}
+
+console.log(Car.controls); // -> { isAuto: true }
+console.log(Car.isAuto()); // -> true
+```
+
+-   On line 2 we are defining a static property called `controls` using
+    the `static` modifier. Then we specify the form and then assign a
+    value for it.
+-   On line 5 we are defining a static method called `isAuto` using the
+    the `static` modifier. This method simply returns the value of
+    `isAuto` from the static `control` object. Not that we get access to
+    the class using the name of the class as opposed to using
+    `this`. i.e. `return Car.controls.isAuto`
 
 ### Implementing an Interface
 
 Classes can implement one or multiple interfaces. We can make the `Car`
 class implement two interfaces:
-
-**interfaces**
 
 ``` {.typescript}
 interface ICarProps {
@@ -667,6 +896,17 @@ compiler will print out the following error:
 
 > error TS2420: Class 'Car' incorrectly implements interface
 > 'ICarProps'. Property 'distance' is missing in type 'Car'.
+
+Modules
+-------
+
+-   In TypeScript you can use modules to organize your code, and expose
+    functionalities for others to use.
+-   Modules can be internal and external
+-   They can be split into different files and references from
+    other files.
+-   A module is define using the `module` keyword. The module definition
+    goes inside curly braces: `module MyModule { ... }`
 
 Angular Basics
 ==============

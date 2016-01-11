@@ -58,3 +58,24 @@
 <p>And then of course you can use your object methods to perform operations:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java">let sum = myObj.<span class="fu">sum</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]); <span class="co">// -&gt; 15</span></code></pre></td></tr></table></div>
+<h3 id="classes-as-interfaces">Classes as Interfaces</h3>
+<p>Because classes define types as well, they can also be used as interfaces. If you have an interface you can extend it with a class for example:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Point {
+  x: number;
+  y: number;
+}
+<span class="kw">interface</span> Point3d <span class="kw">extends</span> Point {
+  z: number;
+}
+<span class="dt">const</span> point3d: Point3d = {x: <span class="dv">1</span>, y: <span class="dv">2</span>, z: <span class="dv">3</span>};
+console.<span class="fu">log</span>(point3d.<span class="fu">x</span>); <span class="co">// -&gt; 1</span></code></pre></td></tr></table></div>
+<p>First we are defining a class called <code>Point</code> that defines two fields. Then we define an interface called <code>Point3d</code> that extends the <code>Point</code> by adding a third field. An then we create a point of type <code>point3d</code> and assign a value to it. We read the value and it outputs <code>1</code>.</p>

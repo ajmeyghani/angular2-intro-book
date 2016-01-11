@@ -289,7 +289,7 @@ myCar.<span class="fu">distance</span> = <span class="dv">0</span>;</code></pre>
   distance: number;
   <span class="fu">move</span>():<span class="dt">void</span> {
     <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
-  };
+  }
 }</code></pre></td></tr></table></div>
 <ul>
 <li><code>move():void</code> means that <code>move</code> is a method that does not return any value, hence <code>void</code>.</li>
@@ -301,31 +301,6 @@ myCar.<span class="fu">distance</span> = <span class="dv">0</span>;</code></pre>
 2
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java">myCar.<span class="fu">move</span>();
 console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <span class="co">// -&gt; 1</span></code></pre></td></tr></table></div>
-<h3 id="adding-a-constructor">Adding a constructor</h3>
-<p>A <code>constructor</code> is a special method that gets called when an instance is created from a class. Let's add a constructor to the <code>Car</code> class that initializes the <code>distance</code> value to 0. This means that all the cars that are crated from this class, will have their <code>distance</code> set to 0 automatically:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
-  distance: number;
-  <span class="fu">constructor</span> () {
-    <span class="kw">this</span>.<span class="fu">distance</span> = <span class="dv">0</span>;
-  };
-  <span class="fu">move</span>():<span class="dt">void</span> {
-    <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
-  };
-}</code></pre></td></tr></table></div>
-<ul>
-<li><code>constructor()</code> is called automatically when a new car is created</li>
-<li>The body of the constructor is defined in the <code>{ }</code></li>
-</ul>
-<p>So now when we create a car, the <code>distance</code> property is automatically set to 0.</p>
 <h3 id="using-access-modifiers">Using Access Modifiers</h3>
 <p>If you wanted to tell the compiler that the <code>distance</code> variable is private and can only be used by the object itself, you can use the <code>private</code> modifier before the name of the property:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -339,13 +314,211 @@ console.<span class="fu">log</span>(myCar.<span class="fu">distance</span>) <spa
   <span class="kw">private</span> distance: number;
   <span class="fu">constructor</span> () {
     ...
-  };
+  }
   ...
 }</code></pre></td></tr></table></div>
-<p>Access modifiers can be used in different places. Check out the access modifiers chapter for more details.</p>
+<ul>
+<li>There are 4 main access modifiers in TypeScript: <code>static</code>, <code>private</code>, <code>public</code>, and <code>protected</code>.</li>
+<li><code>static</code> modifier means that the property or the method is defined on the class but not the instance.</li>
+<li><code>private</code> modifier means that the property or the method is only defined inside the class only.</li>
+<li><code>protected</code> modifier means that the property or the method is only accessible inside the class and the classes derived from the class.</li>
+<li><code>public</code> is the default modifier which means the property or the method is the accessible everywhere and can be accessed by anyone.</li>
+</ul>
+<h3 id="adding-a-constructor">Adding a constructor</h3>
+<p>A <code>constructor</code> is a special method that gets called when an instance is created from a class. A class may contain at most one constructor declaration. If a class contains no constructor declaration, an automatic constructor is provided.</p>
+<p>Let's add a constructor to the <code>Car</code> class that initializes the <code>distance</code> value to 0. This means that all the cars that are crated from this class, will have their <code>distance</code> set to 0 automatically:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  distance: number;
+  <span class="fu">constructor</span> () {
+    <span class="kw">this</span>.<span class="fu">distance</span> = <span class="dv">0</span>;
+  }
+  <span class="fu">move</span>():<span class="dt">void</span> {
+    <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li><code>constructor()</code> is called automatically when a new car is created</li>
+<li>Parameters are passed to the constructor in the <code>()</code></li>
+<li>The body of the constructor is defined in the <code>{ }</code></li>
+</ul>
+<p>Now, let's customize the car's constructor to accept <code>distance</code> as a parameter:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="kw">private</span> distance: number;
+  <span class="fu">constructor</span> (distance) {
+    <span class="kw">this</span>.<span class="fu">distance</span> = distance;
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>On line 3 we are passing distance as a parameter. This means that when a new instance is created, a value should be passed in to set the distance of the car.</li>
+<li>On line 4 we are assigning the value of distance to the value that is passed in</li>
+</ul>
+<p>This pattern is so common that TypeScript has a shorthand for it:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="fu">constructor</span> (<span class="kw">private</span> distance) {
+  }
+}</code></pre></td></tr></table></div>
+<p>Note that the only thing that we had to do was to add <code>private distance</code> in the constructor parameter and remove the <code>this.distance</code> and <code>distance: number</code>. TypeScript will automatically generate that. Below is the JavaScript outputed by TypeScript:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> Car <span class="op">=</span> (<span class="kw">function</span> () <span class="op">{</span>
+  <span class="kw">function</span> <span class="at">Car</span>(distance) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">distance</span> <span class="op">=</span> distance<span class="op">;</span>
+  <span class="op">}</span>
+  <span class="cf">return</span> Car<span class="op">;</span>
+<span class="op">}</span>)()<span class="op">;</span></code></pre></td></tr></table></div>
+<p>Now that our car expects a <code>distance</code> we have to always supply a value for the distance when creating a car. You can define default values if you want so that the car is instantiated with a default value for the distance if none is given:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="fu">constructor</span> (<span class="kw">private</span> distance = <span class="dv">0</span>) {
+  }
+  <span class="fu">getDistance</span>():number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">distance</span>; }
+}</code></pre></td></tr></table></div>
+<p>Now if I forget to pass a value for the <code>distance</code>, it is going to be set to zero by default:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> mycar = <span class="kw">new</span> <span class="fu">Car</span>();
+console.<span class="fu">log</span>(mycar.<span class="fu">getDistance</span>()); <span class="co">//-&gt; 0</span></code></pre></td></tr></table></div>
+<p>Note that if you pass a value, it will override the default value:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> mycar = <span class="kw">new</span> <span class="fu">Car</span>(<span class="dv">5</span>);
+console.<span class="fu">log</span>(mycar.<span class="fu">getDistance</span>()); <span class="co">//-&gt; 5</span></code></pre></td></tr></table></div>
+<h3 id="setters-and-getters-accessors">Setters and Getters (Accessors)</h3>
+<p>It is a very common pattern to have setters and getters for properties of a class. TypeScript provides a very simple syntax to achieve that. Let's take our example above and add a setter and getter for the distance property. But before that we are going to rename <code>distance</code> to <code>_distance</code> to make it explicit that it is private. It is not required but it is a common pattern to prefix private properties with an underscore.</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="fu">constructor</span> (<span class="kw">private</span> _distance = <span class="dv">0</span>) {}
+  <span class="fu">getDistance</span>():number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+}</code></pre></td></tr></table></div>
+<p>In order to create the getter method, we are going to use the <code>get</code> keyword and the name for the property followed by <code>()</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="fu">constructor</span> (<span class="kw">private</span> _distance = <span class="dv">0</span>) {}
+  get <span class="fu">distance</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+}</code></pre></td></tr></table></div>
+<p>Now we can get the value of <code>distance</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> car2 = <span class="kw">new</span> <span class="fu">Car</span>(<span class="dv">5</span>);
+console.<span class="fu">log</span>(car2.<span class="fu">distance</span>) <span class="co">//-&gt; 5</span></code></pre></td></tr></table></div>
+<p>Note on line 2 that we didn't call a function. Behind the scenes, TypeScript creates a property for us, that's why it is not a method. Below is the relevant generated JavaScript:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="va">Object</span>.<span class="at">defineProperty</span>(<span class="va">Car</span>.<span class="at">prototype</span><span class="op">,</span> <span class="st">&quot;distance&quot;</span><span class="op">,</span> <span class="op">{</span>
+  <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> () <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="at">_distance</span><span class="op">;</span> <span class="op">},</span>
+  <span class="dt">enumerable</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+  <span class="dt">configurable</span><span class="op">:</span> <span class="kw">true</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></td></tr></table></div>
+<p>JavaScript behind the scenes calls the get function for you to get the value, and that's why we simply did <code>car2.distance</code> as opposed to <code>car2.distance()</code>. For more information about <code>Object.defineProperty</code> checkout the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">MDN</a> docs.</p>
+<p>Similar to the getter, we can define a setter as well:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="fu">constructor</span> (<span class="kw">private</span> _distance = <span class="dv">0</span>) {}
+  get <span class="fu">distance</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+  set <span class="fu">distance</span>(newDistance: number) { <span class="kw">this</span>.<span class="fu">_distance</span> = newDistance; }
+}</code></pre></td></tr></table></div>
+<p>Now we can both get and set the distance value:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> coolCar = <span class="kw">new</span> <span class="fu">Car</span>();
+console.<span class="fu">log</span>(coolCar.<span class="fu">distance</span>); <span class="co">// -&gt; 0</span>
+
+coolCar.<span class="fu">distance</span> = <span class="dv">55</span>;
+console.<span class="fu">log</span>(coolCar.<span class="fu">distance</span>); <span class="co">// -&gt; 55</span></code></pre></td></tr></table></div>
+<p>Note that if we take out the setter, we won't be able to assign a new value to <code>distance</code>.</p>
+<h3 id="static-methods-and-properties">Static Methods and Properties</h3>
+<p>Static methods and properties belong to the class but not the instances. For example, the <code>Array.isArray</code> method is only accessible through the <code>Array</code> but not an instance of an array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="kw">var</span> x <span class="op">=</span> []<span class="op">;</span>
+<span class="va">x</span>.<span class="at">isArray</span> <span class="co">// -&gt; undefined</span>
+<span class="va">Array</span>.<span class="at">isArray</span>(x) <span class="co">//-&gt; true</span></code></pre></td></tr></table></div>
+<ul>
+<li>On line 2 we are trying to access the <code>isArray</code> method, but obviously it is not defined because <code>isArray</code> is a static method.</li>
+<li>On line three we are calling the static <code>isArray</code> method from <code>Array</code> and we can check if <code>x</code> is an array.</li>
+</ul>
+<p>If you look at the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray">Array</a> documentation you can see that methods and properties are either defined on the <code>Array.prototype</code> or <code>Array</code>:</p>
+<ul>
+<li><code>Array.prototype.x</code>: makes <code>x</code> available to all the instances of <code>Array</code></li>
+<li><code>Array.x</code>: <code>x</code> is static and only available through <code>Array</code>.</li>
+</ul>
+<p>Now that we have some context, let's see how you can define static methods and properties in TypeScript. Consider the code below:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Car {
+  <span class="dt">static</span> controls: {isAuto: <span class="dt">boolean</span> } = {
+    isAuto: <span class="kw">true</span>
+  };
+  <span class="dt">static</span> <span class="fu">isAuto</span>():<span class="dt">boolean</span> {
+    <span class="kw">return</span> Car.<span class="fu">controls</span>.<span class="fu">isAuto</span>;
+  }
+  <span class="fu">constructor</span> (<span class="kw">private</span> _distance = <span class="dv">0</span>) {}
+  get <span class="fu">distance</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+}
+
+console.<span class="fu">log</span>(Car.<span class="fu">controls</span>); <span class="co">// -&gt; { isAuto: true }</span>
+console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span class="co">// -&gt; true</span></code></pre></td></tr></table></div>
+<ul>
+<li>On line 2 we are defining a static property called <code>controls</code> using the <code>static</code> modifier. Then we specify the form and then assign a value for it.</li>
+<li>On line 5 we are defining a static method called <code>isAuto</code> using the the <code>static</code> modifier. This method simply returns the value of <code>isAuto</code> from the static <code>control</code> object. Not that we get access to the class using the name of the class as opposed to using <code>this</code>. i.e. <code>return Car.controls.isAuto</code></li>
+</ul>
 <h3 id="implementing-an-interface">Implementing an Interface</h3>
 <p>Classes can implement one or multiple interfaces. We can make the <code>Car</code> class implement two interfaces:</p>
-<p><strong>interfaces</strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3
