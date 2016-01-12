@@ -9,3 +9,4 @@
     import {Subject} from 'rxjs/Subject';
     ```
 - A subscription can be canceled by calling the `unsubscribe` method.
+
