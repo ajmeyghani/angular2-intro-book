@@ -26,3 +26,4 @@
     - [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html)
     - [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html)
     - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html)
+

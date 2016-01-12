@@ -55,4 +55,3 @@
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ~~~~~~~
 
-

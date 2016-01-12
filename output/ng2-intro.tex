@@ -1279,17 +1279,83 @@ Property `distance' is missing in type `Car'.
 \begin{itemize}
 \tightlist
 \item
-  In TypeScript you can use modules to organize your code, and expose
-  functionalities for others to use.
+  In TypeScript you can use modules to organize your code, avoid
+  polluting the global space, and expose functionalities for others to
+  use.
 \item
-  Modules can be internal and external
+  Multiple modules can be defined in the same file. However, it makes
+  more sense to keep on module per file
 \item
-  They can be split into different files and references from other
-  files.
+  If you want, you can split a single module across multiple files
 \item
-  A module is define using the \texttt{module} keyword. The module
-  definition goes inside curly braces:
-  \texttt{module\ MyModule\ \{\ ...\ \}}
+  If you decide to split a module across different files, this is how
+  you would do it:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Create the module file: \texttt{mymodule.ts} and declare your module
+    there: \texttt{module\ MyModule\ \{\}}
+  \item
+    Create another file: \texttt{mymodule.ext1.ts} and on top of the
+    file add:
+    \texttt{///\ \textless{}reference\ path="mymodule.ts"\ /\textgreater{}}.
+    Then in the file, you can use the same name of the module and add
+    more stuff to it:
+    \texttt{module\ MyModule\ \{\ //\ other\ stuff...\ \}}
+  \item
+    Then in your main file, you need two things on top of the file:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \texttt{///\ \textless{}reference\ path="mymodule.ts"\ /\textgreater{}}
+    \item
+      \texttt{///\ \textless{}reference\ path="mymodule.ext1.ts"\ /\textgreater{}}
+    \end{itemize}
+  \item
+    Then, you can use the name of your module to refer to the symbols
+    defined: \texttt{MyModule.something},
+    \texttt{MyModule.somethingElse}
+  \end{itemize}
+\item
+  TypeScript has two system: one used internally and the other used
+  externally
+\item
+  External modules are used if your app uses CommonJS or AMD modules.
+  Otherwise, you can use TypeScript's internal module system
+\item
+  Using TypeScript's internal module system, you can:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use the \texttt{module} keyword to define a module:
+    \texttt{module\ MyModule\ \{\ ...\ \}}
+  \item
+    split modules into different files that contribute to a single
+    module
+  \item
+    use the
+    \texttt{///\ \textless{}reference\ path="File.ts"\ /\textgreater{}}
+    tag to tell the compiler how files are related to each other when
+    modules are split across files
+  \end{itemize}
+\item
+  Using TypeScript's external module system:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    you cannot use the \texttt{module} keyword. The \texttt{module}
+    keyword is used only by the internal module system.
+  \item
+    instead of the \texttt{reference} tag, you can use the
+    \texttt{import} keyword to define the relationship between modules
+  \item
+    you can import symbols using the file name:
+    \texttt{import\ mymodule\ =\ require(\textquotesingle{}mymodule\textquotesingle{})}
+  \end{itemize}
 \end{itemize}
 
 \section{Angular Basics}\label{angular-basics}

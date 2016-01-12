@@ -218,11 +218,13 @@ If everything is wired up correctly, you should be able to see the following:
     - Defining a Model using a class
     - Defining the service
     - Defining the component
+
 ## Dependency Injection
 
 Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.
 
 Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.
+
 # Meta Data
 
 - Angular uses Meta Data or annotations in a lot of places.
@@ -251,6 +253,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     - [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html)
     - [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html)
     - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html)
+
 ## Observables
 
 - Angular embraces observables using the RxJS library.
@@ -262,6 +265,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     import {Subject} from 'rxjs/Subject';
     ```
 - A subscription can be canceled by calling the `unsubscribe` method.
+
 ## Services and Providers
 
 - A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.
@@ -318,5 +322,4 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     import {Inject} from 'angular2/core'
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
-
 

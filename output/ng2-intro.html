@@ -992,10 +992,34 @@ console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span
 <div id="modules" class="section level2">
 <h2>Modules</h2>
 <ul>
-<li>In TypeScript you can use modules to organize your code, and expose functionalities for others to use.</li>
-<li>Modules can be internal and external</li>
-<li>They can be split into different files and references from other files.</li>
-<li>A module is define using the <code>module</code> keyword. The module definition goes inside curly braces: <code>module MyModule { ... }</code></li>
+<li>In TypeScript you can use modules to organize your code, avoid polluting the global space, and expose functionalities for others to use.</li>
+<li>Multiple modules can be defined in the same file. However, it makes more sense to keep on module per file</li>
+<li>If you want, you can split a single module across multiple files</li>
+<li>If you decide to split a module across different files, this is how you would do it:
+<ul>
+<li>Create the module file: <code>mymodule.ts</code> and declare your module there: <code>module MyModule {}</code></li>
+<li>Create another file: <code>mymodule.ext1.ts</code> and on top of the file add: <code>/// &lt;reference path=&quot;mymodule.ts&quot; /&gt;</code>. Then in the file, you can use the same name of the module and add more stuff to it: <code>module MyModule { // other stuff... }</code></li>
+<li>Then in your main file, you need two things on top of the file:
+<ul>
+<li><code>/// &lt;reference path=&quot;mymodule.ts&quot; /&gt;</code></li>
+<li><code>/// &lt;reference path=&quot;mymodule.ext1.ts&quot; /&gt;</code></li>
+</ul></li>
+<li>Then, you can use the name of your module to refer to the symbols defined: <code>MyModule.something</code>, <code>MyModule.somethingElse</code></li>
+</ul></li>
+<li>TypeScript has two system: one used internally and the other used externally</li>
+<li>External modules are used if your app uses CommonJS or AMD modules. Otherwise, you can use TypeScript's internal module system</li>
+<li>Using TypeScript's internal module system, you can:
+<ul>
+<li>use the <code>module</code> keyword to define a module: <code>module MyModule { ... }</code></li>
+<li>split modules into different files that contribute to a single module</li>
+<li>use the <code>/// &lt;reference path=&quot;File.ts&quot; /&gt;</code> tag to tell the compiler how files are related to each other when modules are split across files</li>
+</ul></li>
+<li>Using TypeScript's external module system:
+<ul>
+<li>you cannot use the <code>module</code> keyword. The <code>module</code> keyword is used only by the internal module system.</li>
+<li>instead of the <code>reference</code> tag, you can use the <code>import</code> keyword to define the relationship between modules</li>
+<li>you can import symbols using the file name: <code>import mymodule = require('mymodule')</code></li>
+</ul></li>
 </ul>
 </div>
 </div>
