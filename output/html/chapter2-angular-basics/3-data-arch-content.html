@@ -1,0 +1,27 @@
+<h2 id="data-modeling-and-state">Data Modeling and State</h2>
+<ul>
+<li>Angular is flexible and doesn't prescribe a recipe for managing data in your apps</li>
+<li>Since observables are integrated into Angular, you can take advantage of observables to manage data and state</li>
+<li>You ca use services to manage streams that emit models</li>
+<li>Components can subscribe to the streams maintained by services and render accordingly.
+<ul>
+<li>For example, you can have a service for a Todo app that contains a stream of todos and a <code>ListComponent</code> can listen for todos and render when a new task is added.</li>
+<li>You may have another component that listens for the user that has been assigned to a task provided by a service.</li>
+</ul></li>
+<li>The steps for creating different parts of an app can be summarized in three steps:
+<ul>
+<li>Defining a Model using a class</li>
+<li>Defining the service</li>
+<li>Defining the component</li>
+</ul></li>
+</ul>
+<h2 id="observables">Observables</h2>
+<ul>
+<li>Angular embraces observables using the RxJS library.</li>
+<li>Observables emit events and observers observe observables.</li>
+<li>An observer <em>subscribes</em> to events emitted from an observable.</li>
+<li><p>RxJS has an object called <em>subject</em> that can be used both as an observer or an observable. <em>Subject</em> can be imported from <code>RxJS</code> very easily:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Subject} from &#39;rxjs/Subject&#39;;</span></code></pre></td></tr></table></div></li>
+<li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
+</ul>

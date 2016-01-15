@@ -521,6 +521,12 @@ Then we define an interface called `Point3d` that extends the `Point` by
 adding a third field. An then we create a point of type `point3d` and
 assign a value to it. We read the value and it outputs `1`.
 
+Class Decorators
+----------------
+
+There are different types of decorators in TypeScript. In this section
+we are going to focus on Class Decorators.
+
 Classes
 -------
 
@@ -1196,50 +1202,16 @@ following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
-Data Architecture
------------------
-
--   Angular is flexible and doesn't prescribe a recipe for managing data
-    in your apps
--   Since observables are integrated into Angular, you can take
-    advantage of observables to manage data and state
--   You ca use services to manage streams that emit models
--   Components can subscribe to the streams maintained by services and
-    render accordingly.
-    -   For example, you can have a service for a Todo app that contains
-        a stream of todos and a `ListComponent` can listen for todos and
-        render when a new task is added.
-    -   You may have another component that listens for the user that
-        has been assigned to a task provided by a service.
--   The steps for creating different parts of an app can be summarized
-    in three steps:
-    -   Defining a Model using a class
-    -   Defining the service
-    -   Defining the component
-
-Dependency Injection
---------------------
-
-Dependency Injection is a coding pattern in which a class receives its
-dependencies from external sources rather than creating them itself. In
-order to achieve Dependency Injection we need a Dependency
-InjectionFramework to handle the dependencies for us. Using a DI
-framework, you simply ask for a class from the injector instead of
-worrying about the dependencies inside the class itself.
-
-Angular has a standalone module that handles Dependency Injection. This
-framework can also be used in non-Angular applications to handle
-Dependency Injection.
-
 Meta Data
-=========
+---------
 
 -   Angular uses Meta Data or annotations in a lot of places.
 -   The most notable Meta Data is the `@component` meta data.
 -   Below is a list of Angular's core meta data classes:
 
     -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
-    -   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html)
+    -   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
+        Used to add meta data to a class defining a component.
     -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html)
     -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html)
     -   [Dependency](https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html)
@@ -1261,21 +1233,19 @@ Meta Data
     -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html)
     -   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html)
 
-Observables
------------
+Dependency Injection
+--------------------
 
--   Angular embraces observables using the RxJS library.
--   Observables emit events and observers observe observables.
--   An observer *subscribes* to events emitted from an observable.
--   RxJS has an object called *subject* that can be used both as an
-    observer or an observable. *Subject* can be imported from `RxJS`
-    very easily:
+Dependency Injection is a coding pattern in which a class receives its
+dependencies from external sources rather than creating them itself. In
+order to achieve Dependency Injection we need a Dependency
+InjectionFramework to handle the dependencies for us. Using a DI
+framework, you simply ask for a class from the injector instead of
+worrying about the dependencies inside the class itself.
 
-    ``` {.typescript}
-    import {Subject} from 'rxjs/Subject';
-    ```
-
--   A subscription can be canceled by calling the `unsubscribe` method.
+Angular has a standalone module that handles Dependency Injection. This
+framework can also be used in non-Angular applications to handle
+Dependency Injection.
 
 Services and Providers
 ----------------------
@@ -1350,4 +1320,88 @@ Services and Providers
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
 
+Data Modeling and State
+-----------------------
 
+-   Angular is flexible and doesn't prescribe a recipe for managing data
+    in your apps
+-   Since observables are integrated into Angular, you can take
+    advantage of observables to manage data and state
+-   You ca use services to manage streams that emit models
+-   Components can subscribe to the streams maintained by services and
+    render accordingly.
+    -   For example, you can have a service for a Todo app that contains
+        a stream of todos and a `ListComponent` can listen for todos and
+        render when a new task is added.
+    -   You may have another component that listens for the user that
+        has been assigned to a task provided by a service.
+-   The steps for creating different parts of an app can be summarized
+    in three steps:
+    -   Defining a Model using a class
+    -   Defining the service
+    -   Defining the component
+
+Observables
+-----------
+
+-   Angular embraces observables using the RxJS library.
+-   Observables emit events and observers observe observables.
+-   An observer *subscribes* to events emitted from an observable.
+-   RxJS has an object called *subject* that can be used both as an
+    observer or an observable. *Subject* can be imported from `RxJS`
+    very easily:
+
+    ``` {.typescript}
+    import {Subject} from 'rxjs/Subject';
+    ```
+
+-   A subscription can be canceled by calling the `unsubscribe` method.
+
+Angular Topics in Depth
+=======================
+
+Let's deep dive into Angular concepts.
+
+Components in Depth
+-------------------
+
+-   A component declares a reusable building block of an app
+-   A TypeScript class is used to define a component coupled with the
+    `@component` decorator
+-   The `@component` decorator defines the following:
+
+selector: `string` value defining the css selector inputs:
+`array of string` values defining the inputs to the component outputs:
+`array of string` values defining the output of the component
+properties: `array of string` values defining the properties events:
+`array of string` values defining the events host?: {\[key: string\]:
+string}, providers: `array of objects` defining the providers for the
+component exportAs: `string` value defining the exported value moduleId:
+`string` value defining the module id viewProviders: `array of objects`
+defining the providers for the view queries: {\[key: string\]: any},
+changeDetection: `ChangeDetectionStrategy` object defining the strategy
+for detecting changes:
+
+    - `ChangeDetectionStrategy.Default`: sets detector mode to `CheckAlways`
+    - `ChangeDetectionStrategy.OnPush`: sets detector mode to `CheckOnce`
+    - `ChangeDetectionStrategy.Detached`: change detector sub tree is not a part of the main tree and should be skipped
+    - `ChangeDetectionStrategy.CheckAlways`: after calling detectChanges the mode of the change detector will remain `CheckAlways`
+    - `ChangeDetectionStrategy.Checked`: change detector should be skipped until its mode changes to `CheckOnce`
+    - `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`
+
+templateUrl: `string` value for the url path to the template template:
+`string` value for the template styleUrls: `array of string` values
+defining url paths to css files styles: `array of string` values
+defining css styles:
+
+    -   styles: ['.myclass { color: #000;}'],
+
+directives: `array` of directives used in the component pipes: `array`
+of pipes used in the component encapsulation: `ViewEncapsulation` value
+that defines template and style encapsulation options: -
+`ViewEncapsulation.None`: means do not provide any style encapsulation -
+`ViewEncapsulation.Emulated`: No Shadow DOM but style encapsulation
+emulation using extra attributes on the DOM (default method) -
+`ViewEncapsulation.Native`: means provide native shadow DOM
+encapsulation and styles appear in component’s template inside the
+shadow root.

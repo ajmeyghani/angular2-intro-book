@@ -11,5 +11,6 @@ find -E chapters -regex ".*\.(jpg|gif|png|jpeg)" -exec cp {} ./images/ \;
 # build
 bookly build -e
 bookly build -a
-bookly build -r
-
+# bookly build -r # building with phatnoms
+electron-pdf output/ng2-intro.html output/ng2-intro.web.pdf
+bash ./electron.sh

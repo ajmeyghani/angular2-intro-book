@@ -9,7 +9,7 @@ This book is a short book that takes you through the basics of Angular 2. It wil
 
 ## Building the book
 
-The `./build.sh` script builds the book using [Bookly](https://github.com/st32lth/bookly). If you want to build the book, make sure you install bookly's requirements.
+- The `./build.sh` script builds the book using [Bookly](https://github.com/st32lth/bookly). If you want to build the book, make sure you install bookly's requirements. Also `npm i electron-pdf@0.6.1 -g`
 
 ## Building the book for leanpub
 

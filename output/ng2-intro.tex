@@ -775,6 +775,11 @@ the \texttt{Point} by adding a third field. An then we create a point of
 type \texttt{point3d} and assign a value to it. We read the value and it
 outputs \texttt{1}.
 
+\subsection{Class Decorators}\label{class-decorators}
+
+There are different types of decorators in TypeScript. In this section
+we are going to focus on Class Decorators.
+
 \subsection{Classes}\label{classes}
 
 \begin{itemize}
@@ -1669,61 +1674,7 @@ following:
 \caption{Running a basic component in the browser}
 \end{figure}
 
-\subsection{Data Architecture}\label{data-architecture}
-
-\begin{itemize}
-\tightlist
-\item
-  Angular is flexible and doesn't prescribe a recipe for managing data
-  in your apps
-\item
-  Since observables are integrated into Angular, you can take advantage
-  of observables to manage data and state
-\item
-  You ca use services to manage streams that emit models
-\item
-  Components can subscribe to the streams maintained by services and
-  render accordingly.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    For example, you can have a service for a Todo app that contains a
-    stream of todos and a \texttt{ListComponent} can listen for todos
-    and render when a new task is added.
-  \item
-    You may have another component that listens for the user that has
-    been assigned to a task provided by a service.
-  \end{itemize}
-\item
-  The steps for creating different parts of an app can be summarized in
-  three steps:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Defining a Model using a class
-  \item
-    Defining the service
-  \item
-    Defining the component
-  \end{itemize}
-\end{itemize}
-
-\subsection{Dependency Injection}\label{dependency-injection}
-
-Dependency Injection is a coding pattern in which a class receives its
-dependencies from external sources rather than creating them itself. In
-order to achieve Dependency Injection we need a Dependency
-InjectionFramework to handle the dependencies for us. Using a DI
-framework, you simply ask for a class from the injector instead of
-worrying about the dependencies inside the class itself.
-
-Angular has a standalone module that handles Dependency Injection. This
-framework can also be used in non-Angular applications to handle
-Dependency Injection.
-
-\section{Meta Data}\label{meta-data}
+\subsection{Meta Data}\label{meta-data}
 
 \begin{itemize}
 \item
@@ -1738,7 +1689,8 @@ Dependency Injection.
   \item
     \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}
+    \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
+    Used to add meta data to a class defining a component.
   \item
     \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}
   \item
@@ -1782,29 +1734,18 @@ Dependency Injection.
   \end{itemize}
 \end{itemize}
 
-\subsection{Observables}\label{observables}
+\subsection{Dependency Injection}\label{dependency-injection}
 
-\begin{itemize}
-\item
-  Angular embraces observables using the RxJS library.
-\item
-  Observables emit events and observers observe observables.
-\item
-  An observer \emph{subscribes} to events emitted from an observable.
-\item
-  RxJS has an object called \emph{subject} that can be used both as an
-  observer or an observable. \emph{Subject} can be imported from
-  \texttt{RxJS} very easily:
+Dependency Injection is a coding pattern in which a class receives its
+dependencies from external sources rather than creating them itself. In
+order to achieve Dependency Injection we need a Dependency
+InjectionFramework to handle the dependencies for us. Using a DI
+framework, you simply ask for a class from the injector instead of
+worrying about the dependencies inside the class itself.
 
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Subject\} from 'rxjs/Subject';}
-\end{Highlighting}
-\end{Shaded}
-\item
-  A subscription can be canceled by calling the \texttt{unsubscribe}
-  method.
-\end{itemize}
+Angular has a standalone module that handles Dependency Injection. This
+framework can also be used in non-Angular applications to handle
+Dependency Injection.
 
 \subsection{Services and Providers}\label{services-and-providers}
 
@@ -1896,5 +1837,129 @@ Dependency Injection.
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
+
+\subsection{Data Modeling and State}\label{data-modeling-and-state}
+
+\begin{itemize}
+\tightlist
+\item
+  Angular is flexible and doesn't prescribe a recipe for managing data
+  in your apps
+\item
+  Since observables are integrated into Angular, you can take advantage
+  of observables to manage data and state
+\item
+  You ca use services to manage streams that emit models
+\item
+  Components can subscribe to the streams maintained by services and
+  render accordingly.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For example, you can have a service for a Todo app that contains a
+    stream of todos and a \texttt{ListComponent} can listen for todos
+    and render when a new task is added.
+  \item
+    You may have another component that listens for the user that has
+    been assigned to a task provided by a service.
+  \end{itemize}
+\item
+  The steps for creating different parts of an app can be summarized in
+  three steps:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defining a Model using a class
+  \item
+    Defining the service
+  \item
+    Defining the component
+  \end{itemize}
+\end{itemize}
+
+\subsection{Observables}\label{observables}
+
+\begin{itemize}
+\item
+  Angular embraces observables using the RxJS library.
+\item
+  Observables emit events and observers observe observables.
+\item
+  An observer \emph{subscribes} to events emitted from an observable.
+\item
+  RxJS has an object called \emph{subject} that can be used both as an
+  observer or an observable. \emph{Subject} can be imported from
+  \texttt{RxJS} very easily:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Subject\} from 'rxjs/Subject';}
+\end{Highlighting}
+\end{Shaded}
+\item
+  A subscription can be canceled by calling the \texttt{unsubscribe}
+  method.
+\end{itemize}
+
+\section{Angular Topics in Depth}\label{angular-topics-in-depth}
+
+Let's deep dive into Angular concepts.
+
+\subsection{Components in Depth}\label{components-in-depth}
+
+\begin{itemize}
+\tightlist
+\item
+  A component declares a reusable building block of an app
+\item
+  A TypeScript class is used to define a component coupled with the
+  \texttt{@component} decorator
+\item
+  The \texttt{@component} decorator defines the following:
+\end{itemize}
+
+selector: \texttt{string} value defining the css selector inputs:
+\texttt{array\ of\ string} values defining the inputs to the component
+outputs: \texttt{array\ of\ string} values defining the output of the
+component properties: \texttt{array\ of\ string} values defining the
+properties events: \texttt{array\ of\ string} values defining the events
+host?: \{{[}key: string{]}: string\}, providers:
+\texttt{array\ of\ objects} defining the providers for the component
+exportAs: \texttt{string} value defining the exported value moduleId:
+\texttt{string} value defining the module id viewProviders:
+\texttt{array\ of\ objects} defining the providers for the view queries:
+\{{[}key: string{]}: any\}, changeDetection:
+\texttt{ChangeDetectionStrategy} object defining the strategy for
+detecting changes:
+
+\begin{verbatim}
+- `ChangeDetectionStrategy.Default`: sets detector mode to `CheckAlways`
+- `ChangeDetectionStrategy.OnPush`: sets detector mode to `CheckOnce`
+- `ChangeDetectionStrategy.Detached`: change detector sub tree is not a part of the main tree and should be skipped
+- `ChangeDetectionStrategy.CheckAlways`: after calling detectChanges the mode of the change detector will remain `CheckAlways`
+- `ChangeDetectionStrategy.Checked`: change detector should be skipped until its mode changes to `CheckOnce`
+- `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`
+\end{verbatim}
+
+templateUrl: \texttt{string} value for the url path to the template
+template: \texttt{string} value for the template styleUrls:
+\texttt{array\ of\ string} values defining url paths to css files
+styles: \texttt{array\ of\ string} values defining css styles:
+
+\begin{verbatim}
+-   styles: ['.myclass { color: #000;}'],
+\end{verbatim}
+
+directives: \texttt{array} of directives used in the component pipes:
+\texttt{array} of pipes used in the component encapsulation:
+\texttt{ViewEncapsulation} value that defines template and style
+encapsulation options: - \texttt{ViewEncapsulation.None}: means do not
+provide any style encapsulation - \texttt{ViewEncapsulation.Emulated}:
+No Shadow DOM but style encapsulation emulation using extra attributes
+on the DOM (default method) - \texttt{ViewEncapsulation.Native}: means
+provide native shadow DOM encapsulation and styles appear in component's
+template inside the shadow root.
 
 \end{document}

@@ -1,0 +1,16 @@
+<h2 id="components-in-depth">Components in Depth</h2>
+<ul>
+<li>A component declares a reusable building block of an app</li>
+<li>A TypeScript class is used to define a component coupled with the <code>@component</code> decorator</li>
+<li>The <code>@component</code> decorator defines the following:</li>
+</ul>
+<p>selector: <code>string</code> value defining the css selector inputs: <code>array of string</code> values defining the inputs to the component outputs: <code>array of string</code> values defining the output of the component properties: <code>array of string</code> values defining the properties events: <code>array of string</code> values defining the events host?: {[key: string]: string}, providers: <code>array of objects</code> defining the providers for the component exportAs: <code>string</code> value defining the exported value moduleId: <code>string</code> value defining the module id viewProviders: <code>array of objects</code> defining the providers for the view queries: {[key: string]: any}, changeDetection: <code>ChangeDetectionStrategy</code> object defining the strategy for detecting changes:</p>
+<pre><code>- `ChangeDetectionStrategy.Default`: sets detector mode to `CheckAlways`
+- `ChangeDetectionStrategy.OnPush`: sets detector mode to `CheckOnce`
+- `ChangeDetectionStrategy.Detached`: change detector sub tree is not a part of the main tree and should be skipped
+- `ChangeDetectionStrategy.CheckAlways`: after calling detectChanges the mode of the change detector will remain `CheckAlways`
+- `ChangeDetectionStrategy.Checked`: change detector should be skipped until its mode changes to `CheckOnce`
+- `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`</code></pre>
+<p>templateUrl: <code>string</code> value for the url path to the template template: <code>string</code> value for the template styleUrls: <code>array of string</code> values defining url paths to css files styles: <code>array of string</code> values defining css styles:</p>
+<pre><code>-   styles: [&#39;.myclass { color: #000;}&#39;],</code></pre>
+<p>directives: <code>array</code> of directives used in the component pipes: <code>array</code> of pipes used in the component encapsulation: <code>ViewEncapsulation</code> value that defines template and style encapsulation options: - <code>ViewEncapsulation.None</code>: means do not provide any style encapsulation - <code>ViewEncapsulation.Emulated</code>: No Shadow DOM but style encapsulation emulation using extra attributes on the DOM (default method) - <code>ViewEncapsulation.Native</code>: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.</p>
