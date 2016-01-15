@@ -86,6 +86,10 @@ console.log(point3d.x); // -> 1
 First we are defining a class called `Point` that defines two fields. Then we define an interface called `Point3d` that extends the `Point` by adding a third field.
 An then we create a point of type `point3d` and assign a value to it. We read the value and it outputs `1`.
 
+## Class Decorators
+
+There are different types of decorators in TypeScript. In this section we are going to focus on Class Decorators.
+
 ## Classes
 
 - Classes are heavily used in classical object oriented programming

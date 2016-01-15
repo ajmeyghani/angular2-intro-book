@@ -213,7 +213,7 @@ If everything is wired up correctly, you should be able to see the following:
 - Below is a list of Angular's core meta data classes:
 
     - [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
-    - [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html)
+    - [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html): Used to add meta data to a class defining a component.
     - [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html)
     - [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html)
     - [Dependency](https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html)
