@@ -1,35 +1,25 @@
 <h1 id="installing-node">Installing Node</h1>
 <p>You can use <a href="https://github.com/creationix/nvm">nvm</a> to install and manage Node on your machine. Copy the install script and run it:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">curl</span> -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh <span class="kw">|</span> <span class="kw">bash</span></code></pre></td></tr></table></div>
+<pre><code>curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash</code></pre>
 <p>After that, make a new terminal window and make sure that it is installed, by running:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> --help</code></pre></td></tr></table></div>
+<pre><code>nvm --help</code></pre>
 <p>Now you can use <code>nvm</code> to install Node <code>0.12.9</code> by running:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> install 0.12.9</code></pre></td></tr></table></div>
+<pre><code>nvm install 0.12.9</code></pre>
 <p>After that, nvm is going to load version 0.12.9 automatically. If it doesn't, you can load it in the current shell, with:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> use 0.12.9</code></pre></td></tr></table></div>
+<pre><code>nvm use 0.12.9</code></pre>
 <p>Note that you can load any node version in the current shell with <code>nvm use 0.x.y</code> after installing that version.</p>
 <p>Also note that if you want to make <code>0.12.9</code> the default Node version on your machine, you can do so by running the following:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">nvm</span> alias default 0.12.9</code></pre></td></tr></table></div>
+<pre><code>nvm alias default 0.12.9</code></pre>
 <p>Then you can verify that it is the default version by making a new terminal window and typing <code>node -v</code>.</p>
 <h2 id="permissions">Permissions</h2>
 <p>Never use <code>sudo</code> to install packages, never do <code>sudo npm install &lt;package&gt;</code>. If you get permission errors while installing without <code>sudo</code>, you can own the folders instead. So for example, if you get an error like:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">Error</span>: EACCES, mkdir <span class="st">&#39;/usr/local&#39;</span></code></pre></td></tr></table></div>
+<pre><code>Error: EACCES, mkdir &#39;/usr/local&#39;</code></pre>
 <p>you can own the folder with:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">sudo</span> chown -R <span class="kw">`whoami`</span> /usr/local</code></pre></td></tr></table></div>
+<pre><code>sudo chown -R `whoami` /usr/local</code></pre>
 <p>You can own folders until Node doesn't complain.</p>
 <h2 id="installing-live-server">Installing <code>live-server</code></h2>
 <p>Install a package to verify that node is installed and everything is wired up correctly. We are going to use <code>live-server</code> through the book. So let's install that with:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i -g live-server</code></pre></td></tr></table></div>
+<pre><code>npm i -g live-server</code></pre>
 <p>Then, you should be able to run <code>live-server</code> in any folder to serve the content of that folder:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">mdkir</span> ~/Desktop/sample <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span>
-<span class="kw">live-server</span> .</code></pre></td></tr></table></div>
+<pre><code>mdkir ~/Desktop/sample &amp;&amp; cd $_
+live-server .</code></pre>

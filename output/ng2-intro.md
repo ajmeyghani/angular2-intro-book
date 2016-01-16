@@ -34,29 +34,21 @@ Installing Node
 You can use [nvm](https://github.com/creationix/nvm) to install and
 manage Node on your machine. Copy the install script and run it:
 
-``` {.bash}
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-```
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 
 After that, make a new terminal window and make sure that it is
 installed, by running:
 
-``` {.bash}
-nvm --help
-```
+    nvm --help
 
 Now you can use `nvm` to install Node `0.12.9` by running:
 
-``` {.bash}
-nvm install 0.12.9
-```
+    nvm install 0.12.9
 
 After that, nvm is going to load version 0.12.9 automatically. If it
 doesn't, you can load it in the current shell, with:
 
-``` {.bash}
-nvm use 0.12.9
-```
+    nvm use 0.12.9
 
 Note that you can load any node version in the current shell with
 `nvm use 0.x.y` after installing that version.
@@ -64,9 +56,7 @@ Note that you can load any node version in the current shell with
 Also note that if you want to make `0.12.9` the default Node version on
 your machine, you can do so by running the following:
 
-``` {.bash}
-nvm alias default 0.12.9
-```
+    nvm alias default 0.12.9
 
 Then you can verify that it is the default version by making a new
 terminal window and typing `node -v`.
@@ -79,15 +69,11 @@ Never use `sudo` to install packages, never do
 installing without `sudo`, you can own the folders instead. So for
 example, if you get an error like:
 
-``` {.bash}
-Error: EACCES, mkdir '/usr/local'
-```
+    Error: EACCES, mkdir '/usr/local'
 
 you can own the folder with:
 
-``` {.bash}
-sudo chown -R `whoami` /usr/local
-```
+    sudo chown -R `whoami` /usr/local
 
 You can own folders until Node doesn't complain.
 
@@ -98,17 +84,13 @@ Install a package to verify that node is installed and everything is
 wired up correctly. We are going to use `live-server` through the book.
 So let's install that with:
 
-``` {.bash}
-npm i -g live-server
-```
+    npm i -g live-server
 
 Then, you should be able to run `live-server` in any folder to serve the
 content of that folder:
 
-``` {.bash}
-mdkir ~/Desktop/sample && cd $_
-live-server .
-```
+    mdkir ~/Desktop/sample && cd $_
+    live-server .
 
 Visual Studio Code
 ==================
@@ -164,9 +146,7 @@ result.
 Before anything, we need to install the TypeScript compiler. You can
 install the TypeScript compiler with npm:
 
-``` {.bash}
-npm i typescript -g
-```
+    npm i typescript -g
 
 Then to verify that it is installed, run `tsc -v` to see the version of
 the compiler. You will get an output like this:
@@ -176,17 +156,13 @@ the compiler. You will get an output like this:
 In addition to the compiler, we also need to install the TypeScript
 Definition manager for DefinitelyTyped (tsd). You can install tsd with:
 
-``` {.bash}
-npm i tsd -g
-```
+    npm i tsd -g
 
 Using TSD, you can search and install TypeScript definition files
 directly from the community driven DefinitelyTyped repository. To verify
 that tsd is installed, run tsd with the `version` flag:
 
-``` {.bash}
-tsd --version
-```
+    tsd --version
 
 You should get an output like this:
 
@@ -197,21 +173,15 @@ program:
 
 make a file called `hello.ts` on your desktop:
 
-``` {.bash}
-touch ~/Desktop/hello.ts
-```
+    touch ~/Desktop/hello.ts
 
 Then, put some TypeScript code in the file:
 
-``` {.bash}
-echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
-```
+    echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
 
 Then you can compile the file to JavaScript:
 
-``` {.bash}
-tsc ~/Desktop/hello.ts
-```
+    tsc ~/Desktop/hello.ts
 
 It should output a file in `Desktop/hello.js`:
 
@@ -989,23 +959,17 @@ with `npm i` in the project folder:
 
 Make a folder on your desktop called `hello-angular` and navigate to it:
 
-``` {.bash}
-mkdir ~/Desktop/hello-angular && cd $_
-```
+    mkdir ~/Desktop/hello-angular && cd $_
 
 Start npm in this folder with `npm init` and accept all the defaults.
 
 After that, install the dependencies with:
 
-``` {.bash}
-npm i angular2 rxjs -S
-```
+    npm i angular2 rxjs -S
 
 Then install the "devDependencies":
 
-``` {.bash}
-npm i systemjs -D
-```
+    npm i systemjs -D
 
 After all the dependencies are installed, start VSCode in this folder
 with `code .`
@@ -1193,9 +1157,7 @@ Now we can use our component in the body of the html:
 It is finally time to serve the app. You can serve the app in the
 current directory using the `live-server`:
 
-``` {.bash}
-live-server .
-```
+    live-server .
 
 If everything is wired up correctly, you should be able to see the
 following:
@@ -1368,40 +1330,59 @@ Components in Depth
 -   A component declares a reusable building block of an app
 -   A TypeScript class is used to define a component coupled with the
     `@component` decorator
--   The `@component` decorator defines the following:
 
-selector: `string` value defining the css selector inputs:
-`array of string` values defining the inputs to the component outputs:
-`array of string` values defining the output of the component
-properties: `array of string` values defining the properties events:
-`array of string` values defining the events host?: {\[key: string\]:
-string}, providers: `array of objects` defining the providers for the
-component exportAs: `string` value defining the exported value moduleId:
-`string` value defining the module id viewProviders: `array of objects`
-defining the providers for the view queries: {\[key: string\]: any},
-changeDetection: `ChangeDetectionStrategy` object defining the strategy
-for detecting changes:
+### Components Options
 
-    - `ChangeDetectionStrategy.Default`: sets detector mode to `CheckAlways`
-    - `ChangeDetectionStrategy.OnPush`: sets detector mode to `CheckOnce`
-    - `ChangeDetectionStrategy.Detached`: change detector sub tree is not a part of the main tree and should be skipped
-    - `ChangeDetectionStrategy.CheckAlways`: after calling detectChanges the mode of the change detector will remain `CheckAlways`
-    - `ChangeDetectionStrategy.Checked`: change detector should be skipped until its mode changes to `CheckOnce`
-    - `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`
+The `@component` decorator defines the following:
 
-templateUrl: `string` value for the url path to the template template:
-`string` value for the template styleUrls: `array of string` values
-defining url paths to css files styles: `array of string` values
-defining css styles:
+-   selector: `string` value defining the css selector targeting an html
+    element
+-   inputs: `array of string` values defining the inputs to the
+    component
+-   outputs: `array of string` values defining the output of the
+    component
+-   properties: `array of string` values defining the properties
+-   events: `array of string` values defining the events
+-   host?: {\['string'\]: 'string'},
+-   providers: `array of objects` defining the providers for the
+    component
+-   exportAs: `string` value defining the exported value
+-   moduleId: `string` value defining the module id
+-   viewProviders: `array of objects` defining the providers for the
+    view
+-   queries: {\[key: string\]: any},
+-   changeDetection: `ChangeDetectionStrategy` object defining the
+    strategy for detecting changes:
 
-    -   styles: ['.myclass { color: #000;}'],
+    -   `ChangeDetectionStrategy.Default`: sets detector mode to
+        `CheckAlways`
+    -   `ChangeDetectionStrategy.OnPush`: sets detector mode to
+        `CheckOnce`
+    -   `ChangeDetectionStrategy.Detached`: change detector sub tree is
+        not a part of the main tree and should be skipped
+    -   `ChangeDetectionStrategy.CheckAlways`: after calling
+        detectChanges the mode of the change detector will remain
+        `CheckAlways`
+    -   `ChangeDetectionStrategy.Checked`: change detector should be
+        skipped until its mode changes to `CheckOnce`
+    -   `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges
+        the mode of the change detector will become `Checked`
+-   templateUrl: `string` value for the url path to the template
+-   template: `string` value for the template
+-   styleUrls: `array of string` values defining url paths to css files
+-   styles: `array of string` values defining css styles:
 
-directives: `array` of directives used in the component pipes: `array`
-of pipes used in the component encapsulation: `ViewEncapsulation` value
-that defines template and style encapsulation options: -
-`ViewEncapsulation.None`: means do not provide any style encapsulation -
-`ViewEncapsulation.Emulated`: No Shadow DOM but style encapsulation
-emulation using extra attributes on the DOM (default method) -
-`ViewEncapsulation.Native`: means provide native shadow DOM
-encapsulation and styles appear in component’s template inside the
-shadow root.
+    -   styles: \['.myclass { color: \#000;}'\],
+-   directives: `array` of directives used in the component
+-   pipes: `array` of pipes used in the component
+-   encapsulation: `ViewEncapsulation` value that defines template and
+    style encapsulation options:
+    -   `ViewEncapsulation.None`: means do not provide any style
+        encapsulation
+    -   `ViewEncapsulation.Emulated`: No Shadow DOM but style
+        encapsulation emulation using extra attributes on the DOM
+        (default method)
+    -   `ViewEncapsulation.Native`: means provide native shadow DOM
+        encapsulation and styles appear in component’s template inside
+        the shadow root.
+

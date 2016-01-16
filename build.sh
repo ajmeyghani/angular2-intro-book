@@ -12,5 +12,14 @@ find -E chapters -regex ".*\.(jpg|gif|png|jpeg)" -exec cp {} ./images/ \;
 bookly build -e
 bookly build -a
 # bookly build -r # building with phatnoms
+
+# convert to pdf with electron.
 electron-pdf output/ng2-intro.html output/ng2-intro.web.pdf
-bash ./electron.sh
+# run convert to pdf
+if [[ $1 = '--pdf' ]]
+  then bash ./electron.sh
+fi
+
+if [[ $2 = '--lean' ]]
+  then bash ./lean.sh
+fi

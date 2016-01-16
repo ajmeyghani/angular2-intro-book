@@ -138,6 +138,13 @@
       padding-left: 11px;
       border: none;
     }
+    body {
+      overflow-x: hidden;
+      color :#000;
+    }
+    code {
+      font-size: 100%;
+    }
   </style>
   </head>
   <body>
@@ -155,15 +162,12 @@
 <pre><code>cd angular2-intro/project-files/basic-component &amp;&amp; npm i</code></pre>
 <h3 id="getting-started">Getting Started</h3>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">mkdir</span> ~/Desktop/hello-angular <span class="kw">&amp;&amp;</span> <span class="kw">cd</span> <span class="ot">$_</span></code></pre></td></tr></table></div>
+<pre><code>mkdir ~/Desktop/hello-angular &amp;&amp; cd $_</code></pre>
 <p>Start npm in this folder with <code>npm init</code> and accept all the defaults.</p>
 <p>After that, install the dependencies with:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i angular2 rxjs -S</code></pre></td></tr></table></div>
+<pre><code>npm i angular2 rxjs -S</code></pre>
 <p>Then install the &quot;devDependencies&quot;:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">npm</span> i systemjs -D</code></pre></td></tr></table></div>
+<pre><code>npm i systemjs -D</code></pre>
 <p>After all the dependencies are installed, start VSCode in this folder with <code>code .</code></p>
 <p>Then create a <code>index.html</code> file in the root of the project and put in the following:</p>
 <p><strong><code>index.html</code></strong></p>
@@ -349,8 +353,7 @@
   <span class="kw">&lt;app&gt;</span>Loading ...<span class="kw">&lt;/app&gt;</span>
 <span class="kw">&lt;/body&gt;</span></code></pre></td></tr></table></div>
 <p>It is finally time to serve the app. You can serve the app in the current directory using the <code>live-server</code>:</p>
-<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines bash"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode bash"><span class="kw">live-server</span> .</code></pre></td></tr></table></div>
+<pre><code>live-server .</code></pre>
 <p>If everything is wired up correctly, you should be able to see the following:</p>
 <div class="figure">
 <img src="images/hello-angular.png" alt="Running a basic component in the browser" />

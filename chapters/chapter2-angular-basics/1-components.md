@@ -18,7 +18,7 @@ You can either follow along or just look at the final result. As always, the `no
 
 Make a folder on your desktop called `hello-angular` and navigate to it:
 
-```bash
+```
 mkdir ~/Desktop/hello-angular && cd $_
 ```
 
@@ -26,13 +26,13 @@ Start npm in this folder with `npm init` and accept all the defaults.
 
 After that, install the dependencies with:
 
-```bash
+```
 npm i angular2 rxjs -S
 ```
 
 Then install the "devDependencies":
 
-```bash
+```
 npm i systemjs -D
 ```
 
@@ -192,7 +192,7 @@ Now we can use our component in the body of the html:
 
 It is finally time to serve the app. You can serve the app in the current directory using the `live-server`:
 
-```bash
+```
 live-server .
 ```
 

@@ -1,0 +1,22 @@
+td.sourceCode {
+  width: 100vw;
+}
+code.sourceCode {
+  padding-left: 32px;
+}
+td.lineNumbers pre {
+  border: none;
+  position: relative;
+  left: 37px;
+}
+td.lineNumbers {
+  font-size: 10px;
+  border: none;
+}
+table.sourceCode.numberLines {
+  position: relative;
+  left: -19px;
+}
+code {
+  font-size: 100%;
+}
