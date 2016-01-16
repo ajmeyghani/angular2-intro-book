@@ -16,25 +16,25 @@
 
 You can use [nvm](https://github.com/creationix/nvm) to install and manage Node on your machine. Copy the install script and run it:
 
-```bash
+```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 ```
 
 After that, make a new terminal window and make sure that it is installed, by running:
 
-```bash
+```
 nvm --help
 ```
 
 Now you can use `nvm` to install Node `0.12.9` by running:
 
-```bash
+```
 nvm install 0.12.9
 ```
 
 After that, nvm is going to load version 0.12.9 automatically. If it doesn't, you can load it in the current shell, with:
 
-```bash
+```
 nvm use 0.12.9
 ```
 
@@ -42,7 +42,7 @@ Note that you can load any node version in the current shell with `nvm use 0.x.y
 
 Also note that if you want to make `0.12.9` the default Node version on your machine, you can do so by running the following:
 
-```bash
+```
 nvm alias default 0.12.9
 ```
 
@@ -52,13 +52,13 @@ Then you can verify that it is the default version by making a new terminal wind
 
 Never use `sudo` to install packages, never do `sudo npm install <package>`. If you get permission errors while installing without `sudo`, you can own the folders instead. So for example, if you get an error like:
 
-```bash
+```
 Error: EACCES, mkdir '/usr/local'
 ```
 
 you can own the folder with:
 
-```bash
+```
 sudo chown -R `whoami` /usr/local
 ```
 
@@ -68,13 +68,13 @@ You can own folders until Node doesn't complain.
 
 Install a package to verify that node is installed and everything is wired up correctly. We are going to use `live-server` through the book. So let's install that with:
 
-```bash
+```
 npm i -g live-server
 ```
 
 Then, you should be able to run `live-server` in any folder to serve the content of that folder:
 
-```bash
+```
 mdkir ~/Desktop/sample && cd $_
 live-server .
 ```
@@ -125,7 +125,7 @@ In this section we are going to set up Visual Studio Code for TypeScript. The pr
 
 Before anything, we need to install the TypeScript compiler. You can install the TypeScript compiler with npm:
 
-```bash
+```
 npm i typescript -g
 ```
 
@@ -137,13 +137,13 @@ message TS6029: Version 1.7.5
 
 In addition to the compiler, we also need to install the TypeScript Definition manager for DefinitelyTyped (tsd). You can install tsd with:
 
-```bash
+```
 npm i tsd -g
 ```
 
 Using TSD, you can search and install TypeScript definition files directly from the community driven DefinitelyTyped repository. To verify that tsd is installed, run tsd with the `version` flag:
 
-```bash
+```
 tsd --version
 ```
 
@@ -157,19 +157,19 @@ After `tsd` and `tsc` are installed, we can compile a hello world program:
 
 make a file called `hello.ts` on your desktop:
 
-```bash
+```
 touch ~/Desktop/hello.ts
 ```
 
 Then, put some TypeScript code in the file:
 
-```bash
+```
 echo "const adder = (a: number, b: number): number => a + b;" > ~/Desktop/hello.ts
 ```
 
 Then you can compile the file to JavaScript:
 
-```bash
+```
 tsc ~/Desktop/hello.ts
 ```
 

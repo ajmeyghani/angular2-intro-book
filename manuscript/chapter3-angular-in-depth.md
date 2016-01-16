@@ -11,12 +11,12 @@ Let's deep dive into Angular concepts.
 
 The `@component` decorator defines the following:
 
-  - selector: `string` value defining the css selector
+  - selector: `string` value defining the css selector targeting an html element
   - inputs: `array of string` values defining the inputs to the component
   - outputs: `array of string` values defining the output of the component
   - properties: `array of string` values defining the properties
   - events: `array of string` values defining the events
-  - host?: {[key: string]: string},
+  - host?: {['string']: 'string'},
   - providers: `array of objects` defining the providers for the component
   - exportAs: `string` value defining the exported value
   - moduleId: `string` value defining the module id
