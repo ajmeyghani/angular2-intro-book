@@ -137,7 +137,7 @@ Setting up VSCode for TypeScript
 
 In this section we are going to set up Visual Studio Code for
 TypeScript. The project files for this chapter are in
-**[`angular2-intro/project-files/vscode-demo`](https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode-demo)**.
+[**`angular2-intro/project-files/vscode`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode).
 You can either follow along or check out the folder to see the final
 result.
 
@@ -391,21 +391,29 @@ TypeScript Crash-course
 In this chapter we will quickly go through the most important concepts
 in TypeScript so that you can have a better understanding of Angular
 code that you will write. Knowing TypeScript definitely helps to
-understand Angular, but again it is not a requirement.
+understand Angular, but again it is not a requirement. The project files
+for this chapter are in
+[**`angular2-intro/project-files/typescript`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript).
 
-Types and the Basics
---------------------
+TypeScript Basics
+-----------------
 
-There are 7 types in TypeScript:
+-   TypeScript is a superset of JavaScript with additional features,
+    among which optional types is the most notable. This means that any
+    valid JavaScript code (ES 2015/2016...) is valid TypeScript code.
+    You can basically change the extension of the file to `.ts` and
+    compile it with the the TypeScript compiler.
 
--   boolean: `var isDone: boolean = false;`
--   number: `var height: number = 6;`
--   string: `var name: string = "bob";`
--   array: `var list:number[] = [1, 2, 3];` also
-    `var list:Array<number> = [1, 2, 3];`
--   enum: `enum Color {Red, Green, Blue};`
--   any: `var notSure: any = 4;`
--   void: `function hello(): void { console.log('hello'); }`
+-   TypeScript defines 7 primary types:
+
+    -   boolean: `var isDone: boolean = false;`
+    -   number: `var height: number = 6;`
+    -   string: `var name: string = "bob";`
+    -   array: `var list:number[] = [1, 2, 3];` also
+        `var list:Array<number> = [1, 2, 3];`
+    -   enum: `enum Color {Red, Green, Blue};`
+    -   any: `var notSure: any = 4;`
+    -   void: `function hello(): void { console.log('hello'); }`
 
 Interface
 ---------
@@ -494,12 +502,6 @@ Then we define an interface called `Point3d` that extends the `Point` by
 adding a third field. An then we create a point of type `point3d` and
 assign a value to it. We read the value and it outputs `1`.
 
-Class Decorators
-----------------
-
-There are different types of decorators in TypeScript. In this section
-we are going to focus on Class Decorators.
-
 Classes
 -------
 
@@ -527,7 +529,8 @@ Classes
 -   Classes can implement interfaces
 
 Let's make a class definition for a car and incrementally add more
-things to it.
+things to it. The project files for this section are in
+[**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
 
 ### Adding an Instance Variable
 
@@ -875,10 +878,124 @@ compiler will print out the following error:
 > error TS2420: Class 'Car' incorrectly implements interface
 > 'ICarProps'. Property 'distance' is missing in type 'Car'.
 
-**TODO** [Pass
-Class](http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error)
-[constructor
-overload](http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript)
+### Inheritance
+
+In Object-oriented programming, a class can inherit from another class
+which helps to define shared attributes and methods among objects.
+Although this pattern is very useful, it should be used cautiously as it
+can lead to code that is hard to maintain. You can learn more about
+classical inheritance and prototypical inheritance by watching Eric
+Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at
+O'Reilly's Fluent Conference. The project files for this section are in
+[**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
+
+Let's get started by creating a base class called `Vehicle`. This class
+is going to be the base class for other classes that we create later.
+
+``` {.typescript}
+// Vehicle.ts
+export class Vehicle {
+  constructor( private _name: string = 'Vehicle',
+               private _distance: number = 0 ) { }
+  get distance(): number { return this._distance; }
+  set distance(newDistance: number) { this._distance = newDistance; }
+  get name(): string { return this._name;}
+  set name(newName: string) { this._name = newName; }
+  move() { this.distance += 1 }
+  toString() { return this._name; }
+}
+```
+
+There is nothing special in this class. We are just creating a class
+that has two private properties (name, distance) and we are creating the
+setters and getters for them. Additionally, we are defining the
+`toString` method that JavaScript internally calls in "textual
+contexts". The constructor is the most notable of all the other methods:
+
+-   It sets the `name` property to "Vehicle" for all the instances
+-   It also sets the `distance` property to 0.
+
+This means that when a class extends the `Vehicle` class, it will have
+to call the constructor of `Vehicle` using the `super` keyword. Let's do
+that now by creating two classes called `Car` and `Truck` that inherit
+from the `Vehicle` class:
+
+**`cars.ts`**
+
+``` {.typescript}
+import {Vehicle} from './vehicle';
+export class Car extends Vehicle {
+  constructor(name?: string) {
+    super();
+    this.name = name || 'Car';
+  }
+}
+export class Truck extends Vehicle {
+  constructor(name?: string) {
+    super();
+    this.name = name || 'Truck';
+  }
+}
+```
+
+-   The `Car` class and the `Truck` class both look almost identical.
+    They both inherit from the `Vehicle` using the `extends` keyword.
+-   They both call the `Vehicle`'s constructor in their own constructor
+    method before implementing their own:
+    `constructor(name?: string) { super(); }`
+-   They both take an optional `name` property to set the name of
+    the vehicle. If not name is provided, it will be set to either 'Car'
+    or 'Truck'
+
+Now let's create the `main` file and run the file:
+
+``` {.typescript}
+import {Car, Truck} from './cars';
+
+/**
+ * Creating a new car from `Car`
+ */
+const car = new Car();
+console.log(car.name);
+car.distance = 5;
+car.move();
+car.move();
+console.log(car.distance);
+/**
+ * Creating a new Truck.
+ */
+const truck = new Truck();
+console.log(truck.name);
+```
+
+-   On line 1 we are importing the `Car` and the `Truck` class.
+-   and then we create a `Car` and `Truck` instance and log their names
+    and distance to the console.
+
+Run the build task (command + shift + b) and run the file (F5) and you
+should see the output:
+
+    node --debug-brk=7394 --nolazy output/main.js
+    Debugger listening on port 7394
+    Car
+    7
+    Truck
+
+You can play around with the code above an try passing a string when
+instantiating a `Car` or a `Truck` to see the name change.
+
+**TODO**
+
+-   `constructor overloading`
+
+### Class Decorators
+
+There are different types of decorators in TypeScript. In this section
+we are going to focus on Class Decorators.
+
+**TODO**
+
+`add content`
 
 Modules
 -------
@@ -922,6 +1039,9 @@ Modules
     -   you can import symbols using the file name:
         `import mymodule = require('mymodule')`
 
+The project files for this chapter are in
+[**`angular2-intro/project-files/typescript/modules`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules).
+
 ### Simple Module
 
 Let's create a simple module that contains two classes. The first class
@@ -929,7 +1049,7 @@ is a vehicle class and the second is a car class that inherits from the
 vehicle class. Then we are going to expose the car class to the outside
 world and import it from another file. The project files for this
 section are in
-[**`angular2-intro/project-files/basic-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-module).
+[**`angular2-intro/project-files/typescript/modules/basic-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module).
 
 First, create the `main.ts` file and copy paste the following:
 
@@ -1061,7 +1181,7 @@ define a module with the same name in different files and keep adding to
 it. This is also known as merging. In this section we are going to
 demonstrate merging multiple files that contribute to a single module
 called `Merged`. The project files for this section are in
-[**`angular2-intro/project-files/merged-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/merged-module)
+[**`angular2-intro/project-files/typescript/modules/merged-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module).
 
 First, we are going to make two files: `A.ts` and `B.ts`. In each file
 we are going to define the `Merged` module:
@@ -1131,7 +1251,7 @@ In addition to TypeScript's internal module system, you can use external
 modules as well. In this section we are going to demonstrate how you can
 use external modules in TypeScript. The project files for this section
 are in
-[**`angular2-intro/project-files/external-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/external-module)
+[**`angular2-intro/project-files/typescript/modules/external-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module).
 
 Let's say I have a JavaScript Node module defined in CommonJS format in
 a file called `common.js`:
@@ -1207,6 +1327,65 @@ file (F+5) you should see the following output:
       ]
     }
 
+Decorators
+----------
+
+-   Decorators can be used to add additional properties and methods to
+    existing objects.
+-   Decorators are a declarative way to add metadata to code.
+-   There are four decorators: ClassDecorator, PropertyDecorator,
+    MethodDecorator, ParameterDecorator
+-   TypeScript supports decorators and does not know about Angular's
+    specific annotations.
+-   Angular provides annotations that are made with decorators behind
+    the scenes
+
+### Method Decorators
+
+Goals: - make a method decorator called `log`. - Decorate `someMethod`
+in a class using `@log`
+
+``` {.typescript}
+class SomeClass {
+  @log
+  someMethod(n: number) {
+    return n * 2;
+  }
+}
+```
+
+In the usage, `someMethod` has been decorated with `log` using the `@`
+symbol. `@log` is decorating `someMethod` because it is placed right
+before the method.
+
+-   Decorator Implementation:
+
+``` {.typescript}
+function log(target: Function, key: string, value: any) {
+  return {
+    value: function (...args: any[]) {
+      var a = args.map(a => JSON.stringify(a)).join();
+      var result = value.value.apply(this, args);
+      var r = JSON.stringify(result);
+      console.log(`Call: ${key}(${a}) => ${r}`);
+      return result;
+    }
+  };
+}
+```
+
+A method decorators takes a 3 arguments:
+
+-   `target`: the method being decorated.
+-   `key`: the name of the method being decorated.
+-   `value`: a property descriptor of the given property if it exists on
+    the object, undefined otherwise. The property descriptor is obtained
+    by invoking the `Object.getOwnPropertyDescriptor` function.
+
+**TODO**
+
+-   Add decorator content for each type.
+
 Angular Basics
 ==============
 
@@ -1240,13 +1419,13 @@ keep things simple.
 ### Project Files
 
 The project files for this chapter are in
-**[`angular2-intro/project-files/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-component)**
+**[`angular2-intro/project-files/angular/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular/basic-component)**
 
 You can either follow along or just look at the final result. As always,
 the `node_modules` folder is not included. You would have to install it
 with `npm i` in the project folder:
 
-    cd angular2-intro/project-files/basic-component && npm i
+    cd angular2-intro/project-files/angular/basic-component && npm i
 
 ### Getting Started
 

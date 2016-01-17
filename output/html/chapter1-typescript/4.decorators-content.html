@@ -1,0 +1,58 @@
+<h2 id="decorators">Decorators</h2>
+<ul>
+<li>Decorators can be used to add additional properties and methods to existing objects.</li>
+<li>Decorators are a declarative way to add metadata to code.</li>
+<li>There are four decorators: ClassDecorator, PropertyDecorator, MethodDecorator, ParameterDecorator</li>
+<li>TypeScript supports decorators and does not know about Angular's specific annotations.</li>
+<li>Angular provides annotations that are made with decorators behind the scenes</li>
+</ul>
+<h3 id="method-decorators">Method Decorators</h3>
+<p>Goals: - make a method decorator called <code>log</code>. - Decorate <code>someMethod</code> in a class using <code>@log</code></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> SomeClass {
+  <span class="fu">@log</span>
+  <span class="fu">someMethod</span>(n: number) {
+    <span class="kw">return</span> n * <span class="dv">2</span>;
+  }
+}</code></pre></td></tr></table></div>
+<p>In the usage, <code>someMethod</code> has been decorated with <code>log</code> using the <code>@</code> symbol. <code>@log</code> is decorating <code>someMethod</code> because it is placed right before the method.</p>
+<ul>
+<li>Decorator Implementation:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">function <span class="fu">log</span>(target: Function, key: string, value: any) {
+  <span class="kw">return</span> {
+    value: <span class="fu">function</span> (...<span class="fu">args</span>: any[]) {
+      var a = args.<span class="fu">map</span>(a =&gt; JSON.<span class="fu">stringify</span>(a)).<span class="fu">join</span>();
+      var result = value.<span class="fu">value</span>.<span class="fu">apply</span>(<span class="kw">this</span>, args);
+      var r = JSON.<span class="fu">stringify</span>(result);
+      console.<span class="fu">log</span>(`Call: ${key}(${a}) =&gt; ${r}`);
+      <span class="kw">return</span> result;
+    }
+  };
+}</code></pre></td></tr></table></div>
+<p>A method decorators takes a 3 arguments:</p>
+<ul>
+<li><code>target</code>: the method being decorated.</li>
+<li><code>key</code>: the name of the method being decorated.</li>
+<li><code>value</code>: a property descriptor of the given property if it exists on the object, undefined otherwise. The property descriptor is obtained by invoking the <code>Object.getOwnPropertyDescriptor</code> function.</li>
+</ul>
+<p><strong>TODO</strong></p>
+<ul>
+<li>Add decorator content for each type.</li>
+</ul>

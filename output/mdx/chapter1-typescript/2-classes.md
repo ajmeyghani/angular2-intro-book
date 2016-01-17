@@ -14,7 +14,7 @@
 - Classes can inherit functionality from other classes, but you should [favor composition over inheritance](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh) or make sure you know [when to use it](https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e)
 - Classes can implement interfaces
 
-Let's make a class definition for a car and incrementally add more things to it.
+Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
 
 ### Adding an Instance Variable
 
@@ -296,8 +296,92 @@ The above example is silly, but it shows the point that a class can implement on
 >error TS2420: Class 'Car' incorrectly implements interface 'ICarProps'.
   Property 'distance' is missing in type 'Car'.
 
+### Inheritance
+
+In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at O'Reilly's Fluent Conference. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
+
+Let's get started by creating a base class called `Vehicle`. This class is going to be the base class for other classes that we create later.
+
+~~~~{.numberLines .java startFrom="1"}
+// Vehicle.ts
+export class Vehicle {
+  constructor( private _name: string = 'Vehicle',
+               private _distance: number = 0 ) { }
+  get distance(): number { return this._distance; }
+  set distance(newDistance: number) { this._distance = newDistance; }
+  get name(): string { return this._name;}
+  set name(newName: string) { this._name = newName; }
+  move() { this.distance += 1 }
+  toString() { return this._name; }
+}
+~~~~~~~
+
+There is nothing special in this class. We are just creating a class that has two private properties (name, distance) and we are creating the setters and getters for them. Additionally, we are defining the `toString` method that JavaScript internally calls in "textual contexts". The constructor is the most notable of all the other methods:
+
+- It sets the `name` property to "Vehicle" for all the instances
+- It also sets the `distance` property to 0.
+
+This means that when a class extends the `Vehicle` class, it will have to call the constructor of `Vehicle` using the `super` keyword. Let's do that now by creating two classes called `Car` and `Truck` that inherit from the `Vehicle` class:
+
+**`cars.ts`**
+
+~~~~{.numberLines .java startFrom="1"}
+import {Vehicle} from './vehicle';
+export class Car extends Vehicle {
+  constructor(name?: string) {
+    super();
+    this.name = name || 'Car';
+  }
+}
+export class Truck extends Vehicle {
+  constructor(name?: string) {
+    super();
+    this.name = name || 'Truck';
+  }
+}
+~~~~~~~
+
+- The `Car` class and the `Truck` class both look almost identical. They both inherit from the `Vehicle` using the `extends` keyword.
+- They both call the `Vehicle`'s constructor in their own constructor method before implementing their own:
+    `constructor(name?: string) { super(); }`
+- They both take an optional `name` property to set the name of the vehicle. If not name is provided, it will be set to either 'Car' or 'Truck'
+
+Now let's create the `main` file and run the file:
+
+~~~~{.numberLines .java startFrom="1"}
+import {Car, Truck} from './cars';
+
+/**
+ * Creating a new car from `Car`
+ */
+const car = new Car();
+console.log(car.name);
+car.distance = 5;
+car.move();
+car.move();
+console.log(car.distance);
+/**
+ * Creating a new Truck.
+ */
+const truck = new Truck();
+console.log(truck.name);
+~~~~~~~
+
+- On line 1 we are importing the `Car` and the `Truck` class.
+- and then we create a `Car` and `Truck` instance and log their names and distance to the console.
+
+Run the build task (command + shift + b) and run the file (F5) and you should see the output:
+
+~~~~~~~
+node --debug-brk=7394 --nolazy output/main.js
+Debugger listening on port 7394
+Car
+7
+Truck
+~~~~~~~
+
+You can play around with the code above an try passing a string when instantiating a `Car` or a `Truck` to see the name change.
 
 **TODO**
-[Pass Class](http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error)
-[constructor overload](http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript)
 
+- `constructor overloading`

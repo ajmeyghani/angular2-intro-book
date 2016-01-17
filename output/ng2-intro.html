@@ -170,12 +170,11 @@
     <li><a href="#debugging-app-from-vscode">Debugging App from VSCode</a></li>
     </ul></li>
     <li><a href="#typescript-crash-course">TypeScript Crash-course</a><ul>
-    <li><a href="#types-and-the-basics">Types and the Basics</a></li>
+    <li><a href="#typescript-basics">TypeScript Basics</a></li>
     <li><a href="#interface">Interface</a><ul>
     <li><a href="#basic-interface">Basic Interface</a></li>
     <li><a href="#classes-as-interfaces">Classes as Interfaces</a></li>
     </ul></li>
-    <li><a href="#class-decorators">Class Decorators</a></li>
     <li><a href="#classes">Classes</a><ul>
     <li><a href="#adding-an-instance-variable">Adding an Instance Variable</a></li>
     <li><a href="#adding-a-method">Adding a Method</a></li>
@@ -184,11 +183,16 @@
     <li><a href="#setters-and-getters-accessors">Setters and Getters (Accessors)</a></li>
     <li><a href="#static-methods-and-properties">Static Methods and Properties</a></li>
     <li><a href="#implementing-an-interface">Implementing an Interface</a></li>
+    <li><a href="#inheritance">Inheritance</a></li>
+    <li><a href="#class-decorators">Class Decorators</a></li>
     </ul></li>
     <li><a href="#modules">Modules</a><ul>
     <li><a href="#simple-module">Simple Module</a></li>
     <li><a href="#splitting-internal-modules">Splitting Internal Modules</a></li>
     <li><a href="#external-modules">External Modules</a></li>
+    </ul></li>
+    <li><a href="#decorators">Decorators</a><ul>
+    <li><a href="#method-decorators">Method Decorators</a></li>
     </ul></li>
     </ul></li>
     <li><a href="#angular-basics">Angular Basics</a><ul>
@@ -287,7 +291,7 @@ live-server .</code></pre>
 </div>
 <div id="setting-up-vscode-for-typescript" class="section level2">
 <h2>Setting up VSCode for TypeScript</h2>
-<p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode-demo"><code>angular2-intro/project-files/vscode-demo</code></a></strong>. You can either follow along or check out the folder to see the final result.</p>
+<p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode"><strong><code>angular2-intro/project-files/vscode</code></strong></a>. You can either follow along or check out the folder to see the final result.</p>
 <div id="installing-typescript" class="section level3">
 <h3>Installing TypeScript</h3>
 <p>Before anything, we need to install the TypeScript compiler. You can install the TypeScript compiler with npm:</p>
@@ -457,10 +461,12 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
 </div>
 <div id="typescript-crash-course" class="section level1">
 <h1>TypeScript Crash-course</h1>
-<p>In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement.</p>
-<div id="types-and-the-basics" class="section level2">
-<h2>Types and the Basics</h2>
-<p>There are 7 types in TypeScript:</p>
+<p>In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement. The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript"><strong><code>angular2-intro/project-files/typescript</code></strong></a>.</p>
+<div id="typescript-basics" class="section level2">
+<h2>TypeScript Basics</h2>
+<ul>
+<li><p>TypeScript is a superset of JavaScript with additional features, among which optional types is the most notable. This means that any valid JavaScript code (ES 2015/2016...) is valid TypeScript code. You can basically change the extension of the file to <code>.ts</code> and compile it with the the TypeScript compiler.</p></li>
+<li><p>TypeScript defines 7 primary types:</p>
 <ul>
 <li>boolean: <code>var isDone: boolean = false;</code></li>
 <li>number: <code>var height: number = 6;</code></li>
@@ -469,6 +475,7 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
 <li>enum: <code>enum Color {Red, Green, Blue};</code></li>
 <li>any: <code>var notSure: any = 4;</code></li>
 <li>void: <code>function hello(): void { console.log('hello'); }</code></li>
+</ul></li>
 </ul>
 </div>
 <div id="interface" class="section level2">
@@ -558,10 +565,6 @@ console.<span class="fu">log</span>(point3d.<span class="fu">x</span>); <span cl
 <p>First we are defining a class called <code>Point</code> that defines two fields. Then we define an interface called <code>Point3d</code> that extends the <code>Point</code> by adding a third field. An then we create a point of type <code>point3d</code> and assign a value to it. We read the value and it outputs <code>1</code>.</p>
 </div>
 </div>
-<div id="class-decorators" class="section level2">
-<h2>Class Decorators</h2>
-<p>There are different types of decorators in TypeScript. In this section we are going to focus on Class Decorators.</p>
-</div>
 <div id="classes" class="section level2">
 <h2>Classes</h2>
 <ul>
@@ -579,7 +582,7 @@ console.<span class="fu">log</span>(point3d.<span class="fu">x</span>); <span cl
 <li>Classes can inherit functionality from other classes, but you should <a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh">favor composition over inheritance</a> or make sure you know <a href="https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e">when to use it</a></li>
 <li>Classes can implement interfaces</li>
 </ul>
-<p>Let's make a class definition for a car and incrementally add more things to it.</p>
+<p>Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class"><strong><code>angular2-intro/project-files/typescript/classes/basic-class</code></strong></a>.</p>
 <div id="adding-an-instance-variable" class="section level3">
 <h3>Adding an Instance Variable</h3>
 <p>The <code>Car</code> class definition can be very simple and can define only a single instance variable that all cars can have:</p>
@@ -892,7 +895,125 @@ console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span
 <blockquote>
 <p>error TS2420: Class 'Car' incorrectly implements interface 'ICarProps'. Property 'distance' is missing in type 'Car'.</p>
 </blockquote>
-<p><strong>TODO</strong> <a href="http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error">Pass Class</a> <a href="http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript">constructor overload</a></p>
+</div>
+<div id="inheritance" class="section level3">
+<h3>Inheritance</h3>
+<p>In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's <a href="https://www.youtube.com/watch?v=lKCCZTUx0sI">talk</a> at O'Reilly's Fluent Conference. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance"><strong><code>angular2-intro/project-files/typescript/classes/inheritance</code></strong></a>.</p>
+<p>Let's get started by creating a base class called <code>Vehicle</code>. This class is going to be the base class for other classes that we create later.</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// Vehicle.ts</span>
+export <span class="kw">class</span> Vehicle {
+  <span class="fu">constructor</span>( <span class="kw">private</span> _name: string = &#39;Vehicle&#39;,
+               <span class="kw">private</span> _distance: number = <span class="dv">0</span> ) { }
+  get <span class="fu">distance</span>(): number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+  set <span class="fu">distance</span>(newDistance: number) { <span class="kw">this</span>.<span class="fu">_distance</span> = newDistance; }
+  get <span class="fu">name</span>(): string { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_name</span>;}
+  set <span class="fu">name</span>(newName: string) { <span class="kw">this</span>.<span class="fu">_name</span> = newName; }
+  <span class="fu">move</span>() { <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span> }
+  <span class="fu">toString</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_name</span>; }
+}</code></pre></td></tr></table></div>
+<p>There is nothing special in this class. We are just creating a class that has two private properties (name, distance) and we are creating the setters and getters for them. Additionally, we are defining the <code>toString</code> method that JavaScript internally calls in &quot;textual contexts&quot;. The constructor is the most notable of all the other methods:</p>
+<ul>
+<li>It sets the <code>name</code> property to &quot;Vehicle&quot; for all the instances</li>
+<li>It also sets the <code>distance</code> property to 0.</li>
+</ul>
+<p>This means that when a class extends the <code>Vehicle</code> class, it will have to call the constructor of <code>Vehicle</code> using the <code>super</code> keyword. Let's do that now by creating two classes called <code>Car</code> and <code>Truck</code> that inherit from the <code>Vehicle</code> class:</p>
+<p><strong><code>cars.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Vehicle} from &#39;./vehicle&#39;;</span>
+export <span class="kw">class</span> Car <span class="kw">extends</span> Vehicle {
+  <span class="fu">constructor</span>(name?: string) {
+    <span class="kw">super</span>();
+    <span class="kw">this</span>.<span class="fu">name</span> = name || &#39;Car&#39;;
+  }
+}
+export <span class="kw">class</span> Truck <span class="kw">extends</span> Vehicle {
+  <span class="fu">constructor</span>(name?: string) {
+    <span class="kw">super</span>();
+    <span class="kw">this</span>.<span class="fu">name</span> = name || &#39;Truck&#39;;
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>The <code>Car</code> class and the <code>Truck</code> class both look almost identical. They both inherit from the <code>Vehicle</code> using the <code>extends</code> keyword.</li>
+<li>They both call the <code>Vehicle</code>'s constructor in their own constructor method before implementing their own: <code>constructor(name?: string) { super(); }</code></li>
+<li>They both take an optional <code>name</code> property to set the name of the vehicle. If not name is provided, it will be set to either 'Car' or 'Truck'</li>
+</ul>
+<p>Now let's create the <code>main</code> file and run the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Car, Truck} from &#39;./cars&#39;;</span>
+
+<span class="co">/**</span>
+<span class="co"> * Creating a new car from `Car`</span>
+<span class="co"> */</span>
+<span class="dt">const</span> car = <span class="kw">new</span> <span class="fu">Car</span>();
+console.<span class="fu">log</span>(car.<span class="fu">name</span>);
+car.<span class="fu">distance</span> = <span class="dv">5</span>;
+car.<span class="fu">move</span>();
+car.<span class="fu">move</span>();
+console.<span class="fu">log</span>(car.<span class="fu">distance</span>);
+<span class="co">/**</span>
+<span class="co"> * Creating a new Truck.</span>
+<span class="co"> */</span>
+<span class="dt">const</span> truck = <span class="kw">new</span> <span class="fu">Truck</span>();
+console.<span class="fu">log</span>(truck.<span class="fu">name</span>);</code></pre></td></tr></table></div>
+<ul>
+<li>On line 1 we are importing the <code>Car</code> and the <code>Truck</code> class.</li>
+<li>and then we create a <code>Car</code> and <code>Truck</code> instance and log their names and distance to the console.</li>
+</ul>
+<p>Run the build task (command + shift + b) and run the file (F5) and you should see the output:</p>
+<pre><code>node --debug-brk=7394 --nolazy output/main.js
+Debugger listening on port 7394
+Car
+7
+Truck</code></pre>
+<p>You can play around with the code above an try passing a string when instantiating a <code>Car</code> or a <code>Truck</code> to see the name change.</p>
+<p><strong>TODO</strong></p>
+<ul>
+<li><code>constructor overloading</code></li>
+</ul>
+</div>
+<div id="class-decorators" class="section level3">
+<h3>Class Decorators</h3>
+<p>There are different types of decorators in TypeScript. In this section we are going to focus on Class Decorators.</p>
+<p><strong>TODO</strong></p>
+<p><code>add content</code></p>
 </div>
 </div>
 <div id="modules" class="section level2">
@@ -927,9 +1048,10 @@ console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span
 <li>you can import symbols using the file name: <code>import mymodule = require('mymodule')</code></li>
 </ul></li>
 </ul>
+<p>The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules"><strong><code>angular2-intro/project-files/typescript/modules</code></strong></a>.</p>
 <div id="simple-module" class="section level3">
 <h3>Simple Module</h3>
-<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-module"><strong><code>angular2-intro/project-files/basic-module</code></strong></a>.</p>
+<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module"><strong><code>angular2-intro/project-files/typescript/modules/basic-module</code></strong></a>.</p>
 <p>First, create the <code>main.ts</code> file and copy paste the following:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -1035,7 +1157,7 @@ console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code><
 </div>
 <div id="splitting-internal-modules" class="section level3">
 <h3>Splitting Internal Modules</h3>
-<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/merged-module"><strong><code>angular2-intro/project-files/merged-module</code></strong></a></p>
+<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module"><strong><code>angular2-intro/project-files/typescript/modules/merged-module</code></strong></a>.</p>
 <p>First, we are going to make two files: <code>A.ts</code> and <code>B.ts</code>. In each file we are going to define the <code>Merged</code> module:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1106,7 +1228,7 @@ blue</code></pre>
 </div>
 <div id="external-modules" class="section level3">
 <h3>External Modules</h3>
-<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/external-module"><strong><code>angular2-intro/project-files/external-module</code></strong></a></p>
+<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module"><strong><code>angular2-intro/project-files/typescript/modules/external-module</code></strong></a>.</p>
 <p>Let's say I have a JavaScript Node module defined in CommonJS format in a file called <code>common.js</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1165,6 +1287,68 @@ CommonJS Modules</code></pre>
 }</code></pre>
 </div>
 </div>
+<div id="decorators" class="section level2">
+<h2>Decorators</h2>
+<ul>
+<li>Decorators can be used to add additional properties and methods to existing objects.</li>
+<li>Decorators are a declarative way to add metadata to code.</li>
+<li>There are four decorators: ClassDecorator, PropertyDecorator, MethodDecorator, ParameterDecorator</li>
+<li>TypeScript supports decorators and does not know about Angular's specific annotations.</li>
+<li>Angular provides annotations that are made with decorators behind the scenes</li>
+</ul>
+<div id="method-decorators" class="section level3">
+<h3>Method Decorators</h3>
+<p>Goals: - make a method decorator called <code>log</code>. - Decorate <code>someMethod</code> in a class using <code>@log</code></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> SomeClass {
+  <span class="fu">@log</span>
+  <span class="fu">someMethod</span>(n: number) {
+    <span class="kw">return</span> n * <span class="dv">2</span>;
+  }
+}</code></pre></td></tr></table></div>
+<p>In the usage, <code>someMethod</code> has been decorated with <code>log</code> using the <code>@</code> symbol. <code>@log</code> is decorating <code>someMethod</code> because it is placed right before the method.</p>
+<ul>
+<li>Decorator Implementation:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">function <span class="fu">log</span>(target: Function, key: string, value: any) {
+  <span class="kw">return</span> {
+    value: <span class="fu">function</span> (...<span class="fu">args</span>: any[]) {
+      var a = args.<span class="fu">map</span>(a =&gt; JSON.<span class="fu">stringify</span>(a)).<span class="fu">join</span>();
+      var result = value.<span class="fu">value</span>.<span class="fu">apply</span>(<span class="kw">this</span>, args);
+      var r = JSON.<span class="fu">stringify</span>(result);
+      console.<span class="fu">log</span>(`Call: ${key}(${a}) =&gt; ${r}`);
+      <span class="kw">return</span> result;
+    }
+  };
+}</code></pre></td></tr></table></div>
+<p>A method decorators takes a 3 arguments:</p>
+<ul>
+<li><code>target</code>: the method being decorated.</li>
+<li><code>key</code>: the name of the method being decorated.</li>
+<li><code>value</code>: a property descriptor of the given property if it exists on the object, undefined otherwise. The property descriptor is obtained by invoking the <code>Object.getOwnPropertyDescriptor</code> function.</li>
+</ul>
+<p><strong>TODO</strong></p>
+<ul>
+<li>Add decorator content for each type.</li>
+</ul>
+</div>
+</div>
 </div>
 <div id="angular-basics" class="section level1">
 <h1>Angular Basics</h1>
@@ -1177,9 +1361,9 @@ CommonJS Modules</code></pre>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
 <div id="project-files" class="section level3">
 <h3>Project Files</h3>
-<p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-component"><code>angular2-intro/project-files/basic-component</code></a></strong></p>
+<p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular/basic-component"><code>angular2-intro/project-files/angular/basic-component</code></a></strong></p>
 <p>You can either follow along or just look at the final result. As always, the <code>node_modules</code> folder is not included. You would have to install it with <code>npm i</code> in the project folder:</p>
-<pre><code>cd angular2-intro/project-files/basic-component &amp;&amp; npm i</code></pre>
+<pre><code>cd angular2-intro/project-files/angular/basic-component &amp;&amp; npm i</code></pre>
 </div>
 <div id="getting-started" class="section level3">
 <h3>Getting Started</h3>

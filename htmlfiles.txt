@@ -5,9 +5,10 @@ output/html/chapter0-setup/2.1-configure-vscode.html
 output/html/chapter1-typescript/0-intro.html
 output/html/chapter1-typescript/0.1-types-and-basics.html
 output/html/chapter1-typescript/1.interfaces.html
-output/html/chapter1-typescript/2.1.class-decorators.html
-output/html/chapter1-typescript/2.classes.html
+output/html/chapter1-typescript/2-classes.html
+output/html/chapter1-typescript/2.1-class-decorators.html
 output/html/chapter1-typescript/3.modules.html
+output/html/chapter1-typescript/4.decorators.html
 output/html/chapter2-angular-basics/0-ngbasics-intro.html
 output/html/chapter2-angular-basics/1-components.html
 output/html/chapter2-angular-basics/1.1-meta-data.html

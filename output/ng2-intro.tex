@@ -299,7 +299,7 @@ TypeScript}\label{setting-up-vscode-for-typescript}
 
 In this section we are going to set up Visual Studio Code for
 TypeScript. The project files for this chapter are in
-\textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode-demo}{\texttt{angular2-intro/project-files/vscode-demo}}}.
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode}{\textbf{\texttt{angular2-intro/project-files/vscode}}}.
 You can either follow along or check out the folder to see the final
 result.
 
@@ -614,30 +614,41 @@ following:
 In this chapter we will quickly go through the most important concepts
 in TypeScript so that you can have a better understanding of Angular
 code that you will write. Knowing TypeScript definitely helps to
-understand Angular, but again it is not a requirement.
+understand Angular, but again it is not a requirement. The project files
+for this chapter are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript}{\textbf{\texttt{angular2-intro/project-files/typescript}}}.
 
-\subsection{Types and the Basics}\label{types-and-the-basics}
-
-There are 7 types in TypeScript:
+\subsection{TypeScript Basics}\label{typescript-basics}
 
 \begin{itemize}
-\tightlist
 \item
-  boolean: \texttt{var\ isDone:\ boolean\ =\ false;}
+  TypeScript is a superset of JavaScript with additional features, among
+  which optional types is the most notable. This means that any valid
+  JavaScript code (ES 2015/2016\ldots{}) is valid TypeScript code. You
+  can basically change the extension of the file to \texttt{.ts} and
+  compile it with the the TypeScript compiler.
 \item
-  number: \texttt{var\ height:\ number\ =\ 6;}
-\item
-  string: \texttt{var\ name:\ string\ =\ "bob";}
-\item
-  array: \texttt{var\ list:number{[}{]}\ =\ {[}1,\ 2,\ 3{]};} also
-  \texttt{var\ list:Array\textless{}number\textgreater{}\ =\ {[}1,\ 2,\ 3{]};}
-\item
-  enum: \texttt{enum\ Color\ \{Red,\ Green,\ Blue\};}
-\item
-  any: \texttt{var\ notSure:\ any\ =\ 4;}
-\item
-  void:
-  \texttt{function\ hello():\ void\ \{\ console.log(\textquotesingle{}hello\textquotesingle{});\ \}}
+  TypeScript defines 7 primary types:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    boolean: \texttt{var\ isDone:\ boolean\ =\ false;}
+  \item
+    number: \texttt{var\ height:\ number\ =\ 6;}
+  \item
+    string: \texttt{var\ name:\ string\ =\ "bob";}
+  \item
+    array: \texttt{var\ list:number{[}{]}\ =\ {[}1,\ 2,\ 3{]};} also
+    \texttt{var\ list:Array\textless{}number\textgreater{}\ =\ {[}1,\ 2,\ 3{]};}
+  \item
+    enum: \texttt{enum\ Color\ \{Red,\ Green,\ Blue\};}
+  \item
+    any: \texttt{var\ notSure:\ any\ =\ 4;}
+  \item
+    void:
+    \texttt{function\ hello():\ void\ \{\ console.log(\textquotesingle{}hello\textquotesingle{});\ \}}
+  \end{itemize}
 \end{itemize}
 
 \subsection{Interface}\label{interface}
@@ -748,11 +759,6 @@ the \texttt{Point} by adding a third field. An then we create a point of
 type \texttt{point3d} and assign a value to it. We read the value and it
 outputs \texttt{1}.
 
-\subsection{Class Decorators}\label{class-decorators}
-
-There are different types of decorators in TypeScript. In this section
-we are going to focus on Class Decorators.
-
 \subsection{Classes}\label{classes}
 
 \begin{itemize}
@@ -795,7 +801,8 @@ we are going to focus on Class Decorators.
 \end{itemize}
 
 Let's make a class definition for a car and incrementally add more
-things to it.
+things to it. The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class}{\textbf{\texttt{angular2-intro/project-files/typescript/classes/basic-class}}}.
 
 \subsubsection{Adding an Instance
 Variable}\label{adding-an-instance-variable}
@@ -1252,11 +1259,158 @@ error TS2420: Class `Car' incorrectly implements interface `ICarProps'.
 Property `distance' is missing in type `Car'.
 \end{quote}
 
+\subsubsection{Inheritance}\label{inheritance}
+
+In Object-oriented programming, a class can inherit from another class
+which helps to define shared attributes and methods among objects.
+Although this pattern is very useful, it should be used cautiously as it
+can lead to code that is hard to maintain. You can learn more about
+classical inheritance and prototypical inheritance by watching Eric
+Elliot's \href{https://www.youtube.com/watch?v=lKCCZTUx0sI}{talk} at
+O'Reilly's Fluent Conference. The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance}{\textbf{\texttt{angular2-intro/project-files/typescript/classes/inheritance}}}.
+
+Let's get started by creating a base class called \texttt{Vehicle}. This
+class is going to be the base class for other classes that we create
+later.
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// Vehicle.ts}
+\NormalTok{export }\KeywordTok{class} \NormalTok{Vehicle \{}
+  \FunctionTok{constructor}\NormalTok{( }\KeywordTok{private} \NormalTok{_name: string = 'Vehicle',}
+               \KeywordTok{private} \NormalTok{_distance: number = }\DecValTok{0} \NormalTok{) \{ \}}
+  \NormalTok{get }\FunctionTok{distance}\NormalTok{(): number \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+  \NormalTok{set }\FunctionTok{distance}\NormalTok{(newDistance: number) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_distance} \NormalTok{= newDistance; \}}
+  \NormalTok{get }\FunctionTok{name}\NormalTok{(): string \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_name}\NormalTok{;\}}
+  \NormalTok{set }\FunctionTok{name}\NormalTok{(newName: string) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_name} \NormalTok{= newName; \}}
+  \FunctionTok{move}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1} \NormalTok{\}}
+  \FunctionTok{toString}\NormalTok{() \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_name}\NormalTok{; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+There is nothing special in this class. We are just creating a class
+that has two private properties (name, distance) and we are creating the
+setters and getters for them. Additionally, we are defining the
+\texttt{toString} method that JavaScript internally calls in ``textual
+contexts''. The constructor is the most notable of all the other
+methods:
+
+\begin{itemize}
+\tightlist
+\item
+  It sets the \texttt{name} property to ``Vehicle'' for all the
+  instances
+\item
+  It also sets the \texttt{distance} property to 0.
+\end{itemize}
+
+This means that when a class extends the \texttt{Vehicle} class, it will
+have to call the constructor of \texttt{Vehicle} using the
+\texttt{super} keyword. Let's do that now by creating two classes called
+\texttt{Car} and \texttt{Truck} that inherit from the \texttt{Vehicle}
+class:
+
+\textbf{\texttt{cars.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Vehicle\} from './vehicle';}
+\NormalTok{export }\KeywordTok{class} \NormalTok{Car }\KeywordTok{extends} \NormalTok{Vehicle \{}
+  \FunctionTok{constructor}\NormalTok{(name?: string) \{}
+    \KeywordTok{super}\NormalTok{();}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= name || 'Car';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\NormalTok{export }\KeywordTok{class} \NormalTok{Truck }\KeywordTok{extends} \NormalTok{Vehicle \{}
+  \FunctionTok{constructor}\NormalTok{(name?: string) \{}
+    \KeywordTok{super}\NormalTok{();}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= name || 'Truck';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{Car} class and the \texttt{Truck} class both look almost
+  identical. They both inherit from the \texttt{Vehicle} using the
+  \texttt{extends} keyword.
+\item
+  They both call the \texttt{Vehicle}'s constructor in their own
+  constructor method before implementing their own:
+  \texttt{constructor(name?:\ string)\ \{\ super();\ \}}
+\item
+  They both take an optional \texttt{name} property to set the name of
+  the vehicle. If not name is provided, it will be set to either `Car'
+  or `Truck'
+\end{itemize}
+
+Now let's create the \texttt{main} file and run the file:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Car, Truck\} from './cars';}
+
+\CommentTok{/**}
+\CommentTok{ * Creating a new car from `Car`}
+\CommentTok{ */}
+\DataTypeTok{const} \NormalTok{car = }\KeywordTok{new} \FunctionTok{Car}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(car.}\FunctionTok{name}\NormalTok{);}
+\NormalTok{car.}\FunctionTok{distance} \NormalTok{= }\DecValTok{5}\NormalTok{;}
+\NormalTok{car.}\FunctionTok{move}\NormalTok{();}
+\NormalTok{car.}\FunctionTok{move}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(car.}\FunctionTok{distance}\NormalTok{);}
+\CommentTok{/**}
+\CommentTok{ * Creating a new Truck.}
+\CommentTok{ */}
+\DataTypeTok{const} \NormalTok{truck = }\KeywordTok{new} \FunctionTok{Truck}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(truck.}\FunctionTok{name}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 1 we are importing the \texttt{Car} and the \texttt{Truck}
+  class.
+\item
+  and then we create a \texttt{Car} and \texttt{Truck} instance and log
+  their names and distance to the console.
+\end{itemize}
+
+Run the build task (command + shift + b) and run the file (F5) and you
+should see the output:
+
+\begin{verbatim}
+node --debug-brk=7394 --nolazy output/main.js
+Debugger listening on port 7394
+Car
+7
+Truck
+\end{verbatim}
+
+You can play around with the code above an try passing a string when
+instantiating a \texttt{Car} or a \texttt{Truck} to see the name change.
+
 \textbf{TODO}
-\href{http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error}{Pass
-Class}
-\href{http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript}{constructor
-overload}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{constructor\ overloading}
+\end{itemize}
+
+\subsubsection{Class Decorators}\label{class-decorators}
+
+There are different types of decorators in TypeScript. In this section
+we are going to focus on Class Decorators.
+
+\textbf{TODO}
+
+\texttt{add\ content}
 
 \subsection{Modules}\label{modules}
 
@@ -1342,6 +1496,9 @@ overload}
   \end{itemize}
 \end{itemize}
 
+The project files for this chapter are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules}{\textbf{\texttt{angular2-intro/project-files/typescript/modules}}}.
+
 \subsubsection{Simple Module}\label{simple-module}
 
 Let's create a simple module that contains two classes. The first class
@@ -1349,7 +1506,7 @@ is a vehicle class and the second is a car class that inherits from the
 vehicle class. Then we are going to expose the car class to the outside
 world and import it from another file. The project files for this
 section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-module}{\textbf{\texttt{angular2-intro/project-files/basic-module}}}.
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module}{\textbf{\texttt{angular2-intro/project-files/typescript/modules/basic-module}}}.
 
 First, create the \texttt{main.ts} file and copy paste the following:
 
@@ -1508,7 +1665,7 @@ define a module with the same name in different files and keep adding to
 it. This is also known as merging. In this section we are going to
 demonstrate merging multiple files that contribute to a single module
 called \texttt{Merged}. The project files for this section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/merged-module}{\textbf{\texttt{angular2-intro/project-files/merged-module}}}
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module}{\textbf{\texttt{angular2-intro/project-files/typescript/modules/merged-module}}}.
 
 First, we are going to make two files: \texttt{A.ts} and \texttt{B.ts}.
 In each file we are going to define the \texttt{Merged} module:
@@ -1588,7 +1745,7 @@ In addition to TypeScript's internal module system, you can use external
 modules as well. In this section we are going to demonstrate how you can
 use external modules in TypeScript. The project files for this section
 are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/external-module}{\textbf{\texttt{angular2-intro/project-files/external-module}}}
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module}{\textbf{\texttt{angular2-intro/project-files/typescript/modules/external-module}}}.
 
 Let's say I have a JavaScript Node module defined in CommonJS format in
 a file called \texttt{common.js}:
@@ -1678,6 +1835,91 @@ CommonJS Modules
 }
 \end{verbatim}
 
+\subsection{Decorators}\label{decorators}
+
+\begin{itemize}
+\tightlist
+\item
+  Decorators can be used to add additional properties and methods to
+  existing objects.
+\item
+  Decorators are a declarative way to add metadata to code.
+\item
+  There are four decorators: ClassDecorator, PropertyDecorator,
+  MethodDecorator, ParameterDecorator
+\item
+  TypeScript supports decorators and does not know about Angular's
+  specific annotations.
+\item
+  Angular provides annotations that are made with decorators behind the
+  scenes
+\end{itemize}
+
+\subsubsection{Method Decorators}\label{method-decorators}
+
+Goals: - make a method decorator called \texttt{log}. - Decorate
+\texttt{someMethod} in a class using \texttt{@log}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{SomeClass \{}
+  \FunctionTok{@log}
+  \FunctionTok{someMethod}\NormalTok{(n: number) \{}
+    \KeywordTok{return} \NormalTok{n * }\DecValTok{2}\NormalTok{;}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In the usage, \texttt{someMethod} has been decorated with \texttt{log}
+using the \texttt{@} symbol. \texttt{@log} is decorating
+\texttt{someMethod} because it is placed right before the method.
+
+\begin{itemize}
+\tightlist
+\item
+  Decorator Implementation:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{function }\FunctionTok{log}\NormalTok{(target: Function, key: string, value: any) \{}
+  \KeywordTok{return} \NormalTok{\{}
+    \NormalTok{value: }\FunctionTok{function} \NormalTok{(...}\FunctionTok{args}\NormalTok{: any[]) \{}
+      \NormalTok{var a = args.}\FunctionTok{map}\NormalTok{(a => JSON.}\FunctionTok{stringify}\NormalTok{(a)).}\FunctionTok{join}\NormalTok{();}
+      \NormalTok{var result = value.}\FunctionTok{value}\NormalTok{.}\FunctionTok{apply}\NormalTok{(}\KeywordTok{this}\NormalTok{, args);}
+      \NormalTok{var r = JSON.}\FunctionTok{stringify}\NormalTok{(result);}
+      \NormalTok{console.}\FunctionTok{log}\NormalTok{(`Call: $\{key\}($\{a\}) => $\{r\}`);}
+      \KeywordTok{return} \NormalTok{result;}
+    \NormalTok{\}}
+  \NormalTok{\};}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+A method decorators takes a 3 arguments:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{target}: the method being decorated.
+\item
+  \texttt{key}: the name of the method being decorated.
+\item
+  \texttt{value}: a property descriptor of the given property if it
+  exists on the object, undefined otherwise. The property descriptor is
+  obtained by invoking the \texttt{Object.getOwnPropertyDescriptor}
+  function.
+\end{itemize}
+
+\textbf{TODO}
+
+\begin{itemize}
+\tightlist
+\item
+  Add decorator content for each type.
+\end{itemize}
+
 \section{Angular Basics}\label{angular-basics}
 
 This chapter will walk you through the basics of Angular2. We will start
@@ -1709,14 +1951,14 @@ keep things simple.
 \subsubsection{Project Files}\label{project-files}
 
 The project files for this chapter are in
-\textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-component}{\texttt{angular2-intro/project-files/basic-component}}}
+\textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular/basic-component}{\texttt{angular2-intro/project-files/angular/basic-component}}}
 
 You can either follow along or just look at the final result. As always,
 the \texttt{node\_modules} folder is not included. You would have to
 install it with \texttt{npm\ i} in the project folder:
 
 \begin{verbatim}
-cd angular2-intro/project-files/basic-component && npm i
+cd angular2-intro/project-files/angular/basic-component && npm i
 \end{verbatim}
 
 \subsubsection{Getting Started}\label{getting-started}

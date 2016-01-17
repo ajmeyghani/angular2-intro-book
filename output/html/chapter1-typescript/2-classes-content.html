@@ -14,7 +14,7 @@
 <li>Classes can inherit functionality from other classes, but you should <a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh">favor composition over inheritance</a> or make sure you know <a href="https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e">when to use it</a></li>
 <li>Classes can implement interfaces</li>
 </ul>
-<p>Let's make a class definition for a car and incrementally add more things to it.</p>
+<p>Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class"><strong><code>angular2-intro/project-files/typescript/classes/basic-class</code></strong></a>.</p>
 <h3 id="adding-an-instance-variable">Adding an Instance Variable</h3>
 <p>The <code>Car</code> class definition can be very simple and can define only a single instance variable that all cars can have:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -314,4 +314,114 @@ console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span
 <blockquote>
 <p>error TS2420: Class 'Car' incorrectly implements interface 'ICarProps'. Property 'distance' is missing in type 'Car'.</p>
 </blockquote>
-<p><strong>TODO</strong> <a href="http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error">Pass Class</a> <a href="http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript">constructor overload</a></p>
+<h3 id="inheritance">Inheritance</h3>
+<p>In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's <a href="https://www.youtube.com/watch?v=lKCCZTUx0sI">talk</a> at O'Reilly's Fluent Conference. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance"><strong><code>angular2-intro/project-files/typescript/classes/inheritance</code></strong></a>.</p>
+<p>Let's get started by creating a base class called <code>Vehicle</code>. This class is going to be the base class for other classes that we create later.</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// Vehicle.ts</span>
+export <span class="kw">class</span> Vehicle {
+  <span class="fu">constructor</span>( <span class="kw">private</span> _name: string = &#39;Vehicle&#39;,
+               <span class="kw">private</span> _distance: number = <span class="dv">0</span> ) { }
+  get <span class="fu">distance</span>(): number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+  set <span class="fu">distance</span>(newDistance: number) { <span class="kw">this</span>.<span class="fu">_distance</span> = newDistance; }
+  get <span class="fu">name</span>(): string { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_name</span>;}
+  set <span class="fu">name</span>(newName: string) { <span class="kw">this</span>.<span class="fu">_name</span> = newName; }
+  <span class="fu">move</span>() { <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span> }
+  <span class="fu">toString</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_name</span>; }
+}</code></pre></td></tr></table></div>
+<p>There is nothing special in this class. We are just creating a class that has two private properties (name, distance) and we are creating the setters and getters for them. Additionally, we are defining the <code>toString</code> method that JavaScript internally calls in &quot;textual contexts&quot;. The constructor is the most notable of all the other methods:</p>
+<ul>
+<li>It sets the <code>name</code> property to &quot;Vehicle&quot; for all the instances</li>
+<li>It also sets the <code>distance</code> property to 0.</li>
+</ul>
+<p>This means that when a class extends the <code>Vehicle</code> class, it will have to call the constructor of <code>Vehicle</code> using the <code>super</code> keyword. Let's do that now by creating two classes called <code>Car</code> and <code>Truck</code> that inherit from the <code>Vehicle</code> class:</p>
+<p><strong><code>cars.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Vehicle} from &#39;./vehicle&#39;;</span>
+export <span class="kw">class</span> Car <span class="kw">extends</span> Vehicle {
+  <span class="fu">constructor</span>(name?: string) {
+    <span class="kw">super</span>();
+    <span class="kw">this</span>.<span class="fu">name</span> = name || &#39;Car&#39;;
+  }
+}
+export <span class="kw">class</span> Truck <span class="kw">extends</span> Vehicle {
+  <span class="fu">constructor</span>(name?: string) {
+    <span class="kw">super</span>();
+    <span class="kw">this</span>.<span class="fu">name</span> = name || &#39;Truck&#39;;
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>The <code>Car</code> class and the <code>Truck</code> class both look almost identical. They both inherit from the <code>Vehicle</code> using the <code>extends</code> keyword.</li>
+<li>They both call the <code>Vehicle</code>'s constructor in their own constructor method before implementing their own: <code>constructor(name?: string) { super(); }</code></li>
+<li>They both take an optional <code>name</code> property to set the name of the vehicle. If not name is provided, it will be set to either 'Car' or 'Truck'</li>
+</ul>
+<p>Now let's create the <code>main</code> file and run the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Car, Truck} from &#39;./cars&#39;;</span>
+
+<span class="co">/**</span>
+<span class="co"> * Creating a new car from `Car`</span>
+<span class="co"> */</span>
+<span class="dt">const</span> car = <span class="kw">new</span> <span class="fu">Car</span>();
+console.<span class="fu">log</span>(car.<span class="fu">name</span>);
+car.<span class="fu">distance</span> = <span class="dv">5</span>;
+car.<span class="fu">move</span>();
+car.<span class="fu">move</span>();
+console.<span class="fu">log</span>(car.<span class="fu">distance</span>);
+<span class="co">/**</span>
+<span class="co"> * Creating a new Truck.</span>
+<span class="co"> */</span>
+<span class="dt">const</span> truck = <span class="kw">new</span> <span class="fu">Truck</span>();
+console.<span class="fu">log</span>(truck.<span class="fu">name</span>);</code></pre></td></tr></table></div>
+<ul>
+<li>On line 1 we are importing the <code>Car</code> and the <code>Truck</code> class.</li>
+<li>and then we create a <code>Car</code> and <code>Truck</code> instance and log their names and distance to the console.</li>
+</ul>
+<p>Run the build task (command + shift + b) and run the file (F5) and you should see the output:</p>
+<pre><code>node --debug-brk=7394 --nolazy output/main.js
+Debugger listening on port 7394
+Car
+7
+Truck</code></pre>
+<p>You can play around with the code above an try passing a string when instantiating a <code>Car</code> or a <code>Truck</code> to see the name change.</p>
+<p><strong>TODO</strong></p>
+<ul>
+<li><code>constructor overloading</code></li>
+</ul>
