@@ -511,6 +511,9 @@ To stop the task you can terminate it. Open the prompt and type:
 > terminate running task
 \end{verbatim}
 
+You can learn more about running TypeScript with VSCode on MSDN's
+\href{http://blogs.msdn.com/b/typescript/archive/2015/04/30/using-typescript-in-visual-studio-code.aspx}{blog}.
+
 \subsection{Running VSCode from the
 Terminal}\label{running-vscode-from-the-terminal}
 
@@ -1249,6 +1252,12 @@ error TS2420: Class `Car' incorrectly implements interface `ICarProps'.
 Property `distance' is missing in type `Car'.
 \end{quote}
 
+\textbf{TODO}
+\href{http://stackoverflow.com/questions/12802317/passing-class-as-parameter-causes-is-not-newable-error}{Pass
+Class}
+\href{http://stackoverflow.com/questions/12702548/constructor-overload-in-typescript}{constructor
+overload}
+
 \subsection{Modules}\label{modules}
 
 \begin{itemize}
@@ -1332,6 +1341,342 @@ Property `distance' is missing in type `Car'.
     \texttt{import\ mymodule\ =\ require(\textquotesingle{}mymodule\textquotesingle{})}
   \end{itemize}
 \end{itemize}
+
+\subsubsection{Simple Module}\label{simple-module}
+
+Let's create a simple module that contains two classes. The first class
+is a vehicle class and the second is a car class that inherits from the
+vehicle class. Then we are going to expose the car class to the outside
+world and import it from another file. The project files for this
+section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-module}{\textbf{\texttt{angular2-intro/project-files/basic-module}}}.
+
+First, create the \texttt{main.ts} file and copy paste the following:
+
+\textbf{\texttt{main.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{module MyModule \{}
+  \KeywordTok{class} \NormalTok{Vehicle \{}
+    \FunctionTok{constructor} \NormalTok{(}\KeywordTok{public} \NormalTok{name: string = 'Vehicle', }\KeywordTok{private} \NormalTok{_distance: number = }\DecValTok{0}\NormalTok{) \{\}}
+    \NormalTok{get }\FunctionTok{distance}\NormalTok{():number \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+    \NormalTok{set }\FunctionTok{distance}\NormalTok{(newDistance: number) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_distance} \NormalTok{= newDistance; \}}
+    \FunctionTok{move}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1} \NormalTok{\}}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 1 we are defining the module called \texttt{MyModule}.
+\item
+  Inside this module we have defined a class called \texttt{Vehicle}
+  that has a distance property and a setter and getter.
+\end{itemize}
+
+Now we want to create a class and export it so that it can be imported
+by others:
+
+\textbf{\texttt{main.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{module MyModule \{}
+  \KeywordTok{class} \NormalTok{Vehicle \{}
+    \FunctionTok{constructor} \NormalTok{(}\KeywordTok{public} \NormalTok{name: string = 'Vehicle', }\KeywordTok{private} \NormalTok{_distance: number = }\DecValTok{0}\NormalTok{) \{\}}
+    \NormalTok{get }\FunctionTok{distance}\NormalTok{():number \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_distance}\NormalTok{; \}}
+    \NormalTok{set }\FunctionTok{distance}\NormalTok{(newDistance: number) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_distance} \NormalTok{= newDistance; \}}
+    \FunctionTok{move}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1} \NormalTok{\}}
+  \NormalTok{\}}
+  \CommentTok{// -> adding the car class}
+  \NormalTok{export }\KeywordTok{class} \NormalTok{Car }\KeywordTok{extends} \NormalTok{Vehicle \{}
+    \FunctionTok{constructor} \NormalTok{(}\KeywordTok{public} \NormalTok{name: string = 'Car') \{}
+      \KeywordTok{super}\NormalTok{();}
+    \NormalTok{\}}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 9 we are using the \texttt{export} keyword to indicate that
+  the \texttt{Car} class is exposed and can be used by others.
+\end{itemize}
+
+Now, let's create a car using the \texttt{Car} class defined in the
+\texttt{MyModule} module:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\DataTypeTok{const} \NormalTok{mycar = }\KeywordTok{new} \NormalTok{MyModule.}\FunctionTok{Car}\NormalTok{('My Car');}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(mycar.}\FunctionTok{name}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Note that we accessed the \texttt{Car} class using the \texttt{MyModule}
+symbol: \texttt{MyModule.Car}. Now we can split up the module into its
+own file and import it into the main file. Let's create a file called
+\texttt{MyModule.ts} and move the module definition to that file. Now in
+our main file we are just going to import the module and use the car
+class from it.
+
+\textbf{\texttt{main.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{/// <reference path="MyModule.ts" />}
+\DataTypeTok{const} \NormalTok{mycar = }\KeywordTok{new} \NormalTok{MyModule.}\FunctionTok{Car}\NormalTok{('My Car');}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(mycar.}\FunctionTok{name}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Note that we can create an alias to the \texttt{MyModule} using
+\texttt{import\ AliasName\ =\ MyModule}. Now you can reference the
+module name with \texttt{AliasName}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{/// <reference path="MyModule.ts" />}
+\KeywordTok{import AliasName = MyModule;}
+\DataTypeTok{const} \NormalTok{mycar = }\KeywordTok{new} \NormalTok{AliasName.}\FunctionTok{Car}\NormalTok{('My Car');}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(mycar.}\FunctionTok{name}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Now if we run this in debug mode, the compiler will complain that it
+can't find the \texttt{MyModule} reference. Because of that we need to
+make some changes to our config files. First, we are going to add the
+\texttt{out} property in the \texttt{tsconfig.json} file. This will tell
+the compiler to compile all the files into a single file:
+
+\begin{verbatim}
+"out": "output/run.js",
+\end{verbatim}
+
+So our \texttt{tsconfig.json} file will look like this:
+
+\begin{verbatim}
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "outDir": "output",
+    "out": "output/run.js",
+    "watch": true
+  }
+}
+\end{verbatim}
+
+Now if you run the build, you should see that all the project has been
+compiled into \texttt{output/run.js}. In addition to the
+\texttt{tsconfig.json} file, we are going to update the
+\texttt{launch.json} file and add a new configuration field:
+
+\begin{verbatim}
+{
+  "name": "TS All Debugger",
+  "type": "node",
+  "program": "output/run.js",
+  "stopOnEntry": false,
+  "sourceMaps": true
+}
+\end{verbatim}
+
+Now we should be able to use the debugger and put breakpoints in our
+TypeScript files. Select \texttt{TS\ All\ Debugger} from the debugger
+dropdown and run the debugger and it should stop if you put a breakpoint
+in any of your TypeScript files.
+
+\textbf{NOTE} Using the configuration files above we can compile all the
+TypeScript files into a single JavaScript file. But sometimes that is
+not what you want. Be aware that using the above configuration you will
+not get an output for each TypeScript file.
+
+\subsubsection{Splitting Internal
+Modules}\label{splitting-internal-modules}
+
+Internal modules in TypeScript are open ended. This means that you can
+define a module with the same name in different files and keep adding to
+it. This is also known as merging. In this section we are going to
+demonstrate merging multiple files that contribute to a single module
+called \texttt{Merged}. The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/merged-module}{\textbf{\texttt{angular2-intro/project-files/merged-module}}}
+
+First, we are going to make two files: \texttt{A.ts} and \texttt{B.ts}.
+In each file we are going to define the \texttt{Merged} module:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// A.ts}
+\NormalTok{module Merged \{}
+  \DataTypeTok{const} \NormalTok{name = 'File A'; }\CommentTok{// not exported}
+  \NormalTok{export }\KeywordTok{class} \NormalTok{Door \{}
+    \FunctionTok{constructor} \NormalTok{(}\KeywordTok{private} \NormalTok{_color = 'white') \{\}}
+    \NormalTok{get }\FunctionTok{color}\NormalTok{() \{ }\KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{_color}\NormalTok{; \}}
+    \NormalTok{set }\FunctionTok{color}\NormalTok{(newColor) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{_color} \NormalTok{= newColor; \}}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+and then the \texttt{B.ts} file:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// B.ts}
+\NormalTok{module Merged \{}
+  \DataTypeTok{const} \NormalTok{name = 'File B'; }\CommentTok{// not exported}
+  \NormalTok{export }\KeywordTok{class} \NormalTok{Car \{}
+    \FunctionTok{constructor}\NormalTok{(}\KeywordTok{public} \NormalTok{distance = }\DecValTok{0}\NormalTok{) \{\}}
+    \FunctionTok{move} \NormalTok{() \{}\KeywordTok{this}\NormalTok{.}\FunctionTok{distance} \NormalTok{+= }\DecValTok{1}\NormalTok{;\}}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We just created two files called \texttt{A.ts} and \texttt{B.ts} and
+each file we defined the \texttt{Merged} module and added a class to
+each and exported it. Now we are going to make the \texttt{main.ts} file
+and reference these two files:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// main.ts}
+\CommentTok{/// <reference path="./A.ts" />}
+\CommentTok{/// <reference path="./B.ts" />}
+\end{Highlighting}
+\end{Shaded}
+
+And now we can use the classes defined in the \texttt{Merged} module,
+that is the \texttt{Car} and the \texttt{Door} class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{/// <reference path="./A.ts" />}
+\CommentTok{/// <reference path="./B.ts" />}
+\DataTypeTok{const} \NormalTok{car: Merged.}\FunctionTok{Car} \NormalTok{= }\KeywordTok{new} \NormalTok{Merged.}\FunctionTok{Car}\NormalTok{();}
+\DataTypeTok{const} \NormalTok{door: Merged.}\FunctionTok{Door} \NormalTok{= }\KeywordTok{new} \NormalTok{Merged.}\FunctionTok{Door}\NormalTok{();}
+\NormalTok{door.}\FunctionTok{color} \NormalTok{= 'blue';}
+\NormalTok{car.}\FunctionTok{move}\NormalTok{();}
+\NormalTok{car.}\FunctionTok{move}\NormalTok{();}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(car.}\FunctionTok{distance}\NormalTok{);}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(door.}\FunctionTok{color}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+if you run the build task (command + shift + b) and hit F5 you should
+see the following output:
+
+\begin{verbatim}
+node --debug-brk=19237 --nolazy output/run.js
+Debugger listening on port 19237
+2
+blue
+\end{verbatim}
+
+\subsubsection{External Modules}\label{external-modules}
+
+In addition to TypeScript's internal module system, you can use external
+modules as well. In this section we are going to demonstrate how you can
+use external modules in TypeScript. The project files for this section
+are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/external-module}{\textbf{\texttt{angular2-intro/project-files/external-module}}}
+
+Let's say I have a JavaScript Node module defined in CommonJS format in
+a file called \texttt{common.js}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// common.js}
+\VariableTok{module}\NormalTok{.}\AttributeTok{exports} \OperatorTok{=} \KeywordTok{function} \NormalTok{() }\OperatorTok{\{}
+  \KeywordTok{this}\NormalTok{.}\AttributeTok{name} \OperatorTok{=} \StringTok{'CommonJS Module'}\OperatorTok{;}
+\OperatorTok{\};}
+\end{Highlighting}
+\end{Shaded}
+
+In order to import this we need to do two things: first, we need to
+install Node's Type Definitions. Then we need to require the module. To
+install Node's Type Definitions run the following the terminal in the
+root of your project:
+
+\begin{verbatim}
+tsd install node --save
+\end{verbatim}
+
+Now you should see a folder called \texttt{typings} containing the type
+definitions. Now that we have Node's type definitions, let's add a
+reference to it on top of \texttt{main.ts}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// main.ts}
+\CommentTok{/// <reference path="./typings/node/node.d.ts" />}
+\end{Highlighting}
+\end{Shaded}
+
+and then we are going to require the module and log it to the console:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// main.ts}
+\CommentTok{/// <reference path="./typings/node/node.d.ts" />}
+\DataTypeTok{const} \NormalTok{common = }\FunctionTok{require}\NormalTok{('./common');}
+\NormalTok{console.}\FunctionTok{log}\NormalTok{(}\FunctionTok{common}\NormalTok{()); }\CommentTok{// --> CommonJS Module}
+\end{Highlighting}
+\end{Shaded}
+
+After running the build task ( command + shift + b ), and running the
+file (F+5) you should see the following output:
+
+\begin{verbatim}
+node --debug-brk=32221 --nolazy run.js 
+Debugger listening on port 32221
+CommonJS Modules
+\end{verbatim}
+
+\textbf{Note} the configuration files that we are using:
+
+\textbf{\texttt{tsconfig.json}}
+
+\begin{verbatim}
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "outDir": "output",
+    "out": "run.js",
+    "watch": true
+  }
+}
+\end{verbatim}
+
+\textbf{\texttt{launch.json}}
+
+\begin{verbatim}
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "TS All Debugger",
+      "type": "node",
+      "program": "./run.js",
+      "stopOnEntry": false,
+      "sourceMaps": true
+    }
+  ]
+}
+\end{verbatim}
 
 \section{Angular Basics}\label{angular-basics}
 

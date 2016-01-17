@@ -29,3 +29,234 @@
 <li>you can import symbols using the file name: <code>import mymodule = require('mymodule')</code></li>
 </ul></li>
 </ul>
+<h3 id="simple-module">Simple Module</h3>
+<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/basic-module"><strong><code>angular2-intro/project-files/basic-module</code></strong></a>.</p>
+<p>First, create the <code>main.ts</code> file and copy paste the following:</p>
+<p><strong><code>main.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">module MyModule {
+  <span class="kw">class</span> Vehicle {
+    <span class="fu">constructor</span> (<span class="kw">public</span> name: string = &#39;Vehicle&#39;, <span class="kw">private</span> _distance: number = <span class="dv">0</span>) {}
+    get <span class="fu">distance</span>():number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+    set <span class="fu">distance</span>(newDistance: number) { <span class="kw">this</span>.<span class="fu">_distance</span> = newDistance; }
+    <span class="fu">move</span>() { <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span> }
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>On line 1 we are defining the module called <code>MyModule</code>.</li>
+<li>Inside this module we have defined a class called <code>Vehicle</code> that has a distance property and a setter and getter.</li>
+</ul>
+<p>Now we want to create a class and export it so that it can be imported by others:</p>
+<p><strong><code>main.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">module MyModule {
+  <span class="kw">class</span> Vehicle {
+    <span class="fu">constructor</span> (<span class="kw">public</span> name: string = &#39;Vehicle&#39;, <span class="kw">private</span> _distance: number = <span class="dv">0</span>) {}
+    get <span class="fu">distance</span>():number { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_distance</span>; }
+    set <span class="fu">distance</span>(newDistance: number) { <span class="kw">this</span>.<span class="fu">_distance</span> = newDistance; }
+    <span class="fu">move</span>() { <span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span> }
+  }
+  <span class="co">// -&gt; adding the car class</span>
+  export <span class="kw">class</span> Car <span class="kw">extends</span> Vehicle {
+    <span class="fu">constructor</span> (<span class="kw">public</span> name: string = &#39;Car&#39;) {
+      <span class="kw">super</span>();
+    }
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>On line 9 we are using the <code>export</code> keyword to indicate that the <code>Car</code> class is exposed and can be used by others.</li>
+</ul>
+<p>Now, let's create a car using the <code>Car</code> class defined in the <code>MyModule</code> module:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="dt">const</span> mycar = <span class="kw">new</span> MyModule.<span class="fu">Car</span>(&#39;My Car&#39;);
+console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code></pre></td></tr></table></div>
+<p>Note that we accessed the <code>Car</code> class using the <code>MyModule</code> symbol: <code>MyModule.Car</code>. Now we can split up the module into its own file and import it into the main file. Let's create a file called <code>MyModule.ts</code> and move the module definition to that file. Now in our main file we are just going to import the module and use the car class from it.</p>
+<p><strong><code>main.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">/// &lt;reference path=&quot;MyModule.ts&quot; /&gt;</span>
+<span class="dt">const</span> mycar = <span class="kw">new</span> MyModule.<span class="fu">Car</span>(&#39;My Car&#39;);
+console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code></pre></td></tr></table></div>
+<p>Note that we can create an alias to the <code>MyModule</code> using <code>import AliasName = MyModule</code>. Now you can reference the module name with <code>AliasName</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">/// &lt;reference path=&quot;MyModule.ts&quot; /&gt;</span>
+<span class="kw">import AliasName = MyModule;</span>
+<span class="dt">const</span> mycar = <span class="kw">new</span> AliasName.<span class="fu">Car</span>(&#39;My Car&#39;);
+console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code></pre></td></tr></table></div>
+<p>Now if we run this in debug mode, the compiler will complain that it can't find the <code>MyModule</code> reference. Because of that we need to make some changes to our config files. First, we are going to add the <code>out</code> property in the <code>tsconfig.json</code> file. This will tell the compiler to compile all the files into a single file:</p>
+<pre><code>&quot;out&quot;: &quot;output/run.js&quot;,</code></pre>
+<p>So our <code>tsconfig.json</code> file will look like this:</p>
+<pre><code>{
+  &quot;compilerOptions&quot;: {
+    &quot;experimentalDecorators&quot;: true,
+    &quot;emitDecoratorMetadata&quot;: true,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;sourceMap&quot;: true,
+    &quot;outDir&quot;: &quot;output&quot;,
+    &quot;out&quot;: &quot;output/run.js&quot;,
+    &quot;watch&quot;: true
+  }
+}</code></pre>
+<p>Now if you run the build, you should see that all the project has been compiled into <code>output/run.js</code>. In addition to the <code>tsconfig.json</code> file, we are going to update the <code>launch.json</code> file and add a new configuration field:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;TS All Debugger&quot;,
+  &quot;type&quot;: &quot;node&quot;,
+  &quot;program&quot;: &quot;output/run.js&quot;,
+  &quot;stopOnEntry&quot;: false,
+  &quot;sourceMaps&quot;: true
+}</code></pre>
+<p>Now we should be able to use the debugger and put breakpoints in our TypeScript files. Select <code>TS All Debugger</code> from the debugger dropdown and run the debugger and it should stop if you put a breakpoint in any of your TypeScript files.</p>
+<p><strong>NOTE</strong> Using the configuration files above we can compile all the TypeScript files into a single JavaScript file. But sometimes that is not what you want. Be aware that using the above configuration you will not get an output for each TypeScript file.</p>
+<h3 id="splitting-internal-modules">Splitting Internal Modules</h3>
+<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/merged-module"><strong><code>angular2-intro/project-files/merged-module</code></strong></a></p>
+<p>First, we are going to make two files: <code>A.ts</code> and <code>B.ts</code>. In each file we are going to define the <code>Merged</code> module:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// A.ts</span>
+module Merged {
+  <span class="dt">const</span> name = &#39;File A&#39;; <span class="co">// not exported</span>
+  export <span class="kw">class</span> Door {
+    <span class="fu">constructor</span> (<span class="kw">private</span> _color = &#39;white&#39;) {}
+    get <span class="fu">color</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">_color</span>; }
+    set <span class="fu">color</span>(newColor) { <span class="kw">this</span>.<span class="fu">_color</span> = newColor; }
+  }
+}</code></pre></td></tr></table></div>
+<p>and then the <code>B.ts</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// B.ts</span>
+module Merged {
+  <span class="dt">const</span> name = &#39;File B&#39;; <span class="co">// not exported</span>
+  export <span class="kw">class</span> Car {
+    <span class="fu">constructor</span>(<span class="kw">public</span> distance = <span class="dv">0</span>) {}
+    <span class="fu">move</span> () {<span class="kw">this</span>.<span class="fu">distance</span> += <span class="dv">1</span>;}
+  }
+}</code></pre></td></tr></table></div>
+<p>We just created two files called <code>A.ts</code> and <code>B.ts</code> and each file we defined the <code>Merged</code> module and added a class to each and exported it. Now we are going to make the <code>main.ts</code> file and reference these two files:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// main.ts</span>
+<span class="co">/// &lt;reference path=&quot;./A.ts&quot; /&gt;</span>
+<span class="co">/// &lt;reference path=&quot;./B.ts&quot; /&gt;</span></code></pre></td></tr></table></div>
+<p>And now we can use the classes defined in the <code>Merged</code> module, that is the <code>Car</code> and the <code>Door</code> class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">/// &lt;reference path=&quot;./A.ts&quot; /&gt;</span>
+<span class="co">/// &lt;reference path=&quot;./B.ts&quot; /&gt;</span>
+<span class="dt">const</span> car: Merged.<span class="fu">Car</span> = <span class="kw">new</span> Merged.<span class="fu">Car</span>();
+<span class="dt">const</span> door: Merged.<span class="fu">Door</span> = <span class="kw">new</span> Merged.<span class="fu">Door</span>();
+door.<span class="fu">color</span> = &#39;blue&#39;;
+car.<span class="fu">move</span>();
+car.<span class="fu">move</span>();
+console.<span class="fu">log</span>(car.<span class="fu">distance</span>);
+console.<span class="fu">log</span>(door.<span class="fu">color</span>);</code></pre></td></tr></table></div>
+<p>if you run the build task (command + shift + b) and hit F5 you should see the following output:</p>
+<pre><code>node --debug-brk=19237 --nolazy output/run.js
+Debugger listening on port 19237
+2
+blue</code></pre>
+<h3 id="external-modules">External Modules</h3>
+<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/external-module"><strong><code>angular2-intro/project-files/external-module</code></strong></a></p>
+<p>Let's say I have a JavaScript Node module defined in CommonJS format in a file called <code>common.js</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode javascript"><span class="co">// common.js</span>
+<span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+  <span class="kw">this</span>.<span class="at">name</span> <span class="op">=</span> <span class="st">&#39;CommonJS Module&#39;</span><span class="op">;</span>
+<span class="op">};</span></code></pre></td></tr></table></div>
+<p>In order to import this we need to do two things: first, we need to install Node's Type Definitions. Then we need to require the module. To install Node's Type Definitions run the following the terminal in the root of your project:</p>
+<pre><code>tsd install node --save</code></pre>
+<p>Now you should see a folder called <code>typings</code> containing the type definitions. Now that we have Node's type definitions, let's add a reference to it on top of <code>main.ts</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// main.ts</span>
+<span class="co">/// &lt;reference path=&quot;./typings/node/node.d.ts&quot; /&gt;</span></code></pre></td></tr></table></div>
+<p>and then we are going to require the module and log it to the console:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// main.ts</span>
+<span class="co">/// &lt;reference path=&quot;./typings/node/node.d.ts&quot; /&gt;</span>
+<span class="dt">const</span> common = <span class="fu">require</span>(&#39;./common&#39;);
+console.<span class="fu">log</span>(<span class="fu">common</span>()); <span class="co">// --&gt; CommonJS Module</span></code></pre></td></tr></table></div>
+<p>After running the build task ( command + shift + b ), and running the file (F+5) you should see the following output:</p>
+<pre><code>node --debug-brk=32221 --nolazy run.js 
+Debugger listening on port 32221
+CommonJS Modules</code></pre>
+<p><strong>Note</strong> the configuration files that we are using:</p>
+<p><strong><code>tsconfig.json</code></strong></p>
+<pre><code>{
+  &quot;compilerOptions&quot;: {
+    &quot;experimentalDecorators&quot;: true,
+    &quot;emitDecoratorMetadata&quot;: true,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;sourceMap&quot;: true,
+    &quot;outDir&quot;: &quot;output&quot;,
+    &quot;out&quot;: &quot;run.js&quot;,
+    &quot;watch&quot;: true
+  }
+}</code></pre>
+<p><strong><code>launch.json</code></strong></p>
+<pre><code>{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;TS All Debugger&quot;,
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;program&quot;: &quot;./run.js&quot;,
+      &quot;stopOnEntry&quot;: false,
+      &quot;sourceMaps&quot;: true
+    }
+  ]
+}</code></pre>
