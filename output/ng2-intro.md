@@ -1636,36 +1636,74 @@ following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
-Meta Data
----------
+Metadata
+--------
 
--   Angular uses Meta Data or annotations in a lot of places.
--   The most notable Meta Data is the `@component` meta data.
--   Below is a list of Angular's core meta data classes:
+-   Angular uses Metadata to decorate classes, methods and properties.
+-   The most notable Metadata is the `@component` Metadata.
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+**Directive/component Meta-data**
+
+-   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
+    used to define a component
+
+    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html):
+        used to define the template for a component
+    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html):
+        used to configure a view query
+    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html):
+        used to configure a view query
+-   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html):
+    used to define a directive
 
     -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
-    -   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
-        Used to add meta data to a class defining a component.
-    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html)
-    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html)
-    -   [Dependency](https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html)
-    -   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html)
-    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html)
-    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html)
-    -   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html)
-    -   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html)
-    -   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html)
-    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html)
-    -   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html)
-    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html)
-    -   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html)
-    -   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html)
-    -   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html)
-    -   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html)
-    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html)
-    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html)
-    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html)
-    -   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html)
+        used to grab the value of an attribute on an element hosting a
+        directive
+    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html):
+        used to configure a content query
+    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html):
+        used to configure a content query
+    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html):
+        used to define the input to a directive/component
+    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html):
+        used to define the output events of a directive/component
+    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html):
+        used to declare a host property binding
+    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html):
+        used to declare a host listener
+
+**Pipes**
+
+-   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html):
+    used to declare reusable pipe function
+
+**DI**
+
+-   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html):
+    parameter metadata that specifies a dependency.
+-   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html):
+    a marker metadata that marks a class as available to Injector
+    for creation.
+-   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html):
+    Specifies that an injector should retrieve a dependency from any
+    injector until reaching the closest host.
+-   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html):
+    parameter metadata that marks a dependency as optional
+-   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html):
+    Specifies that an Injector should retrieve a dependency only
+    from itself.
+-   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html):
+    Specifies that the dependency resolution should start from the
+    parent injector.
+-   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html):
+    Declares an injectable parameter to be a live list of directives or
+    variable bindings from the content children of a directive.
+-   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html):
+    Similar to `QueryMetadata`, but querying the component view, instead
+    of the content children.
 
 Dependency Injection
 --------------------
@@ -1790,6 +1828,11 @@ Observables
     ```
 
 -   A subscription can be canceled by calling the `unsubscribe` method.
+
+Angular Router
+--------------
+
+Angular has a stand-alone module responsible for handling routing.
 
 Angular Topics in Depth
 =======================

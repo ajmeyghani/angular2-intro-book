@@ -2223,64 +2223,112 @@ following:
 \caption{Running a basic component in the browser}
 \end{figure}
 
-\subsection{Meta Data}\label{meta-data}
+\subsection{Metadata}\label{metadata}
+
+\begin{itemize}
+\tightlist
+\item
+  Angular uses Metadata to decorate classes, methods and properties.
+\item
+  The most notable Metadata is the \texttt{@component} Metadata.
+\end{itemize}
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+\textbf{Directive/component Meta-data}
 
 \begin{itemize}
 \item
-  Angular uses Meta Data or annotations in a lot of places.
+  \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
+  used to define a component
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}:
+    used to define the template for a component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}:
+    used to configure a view query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}:
+    used to configure a view query
+  \end{itemize}
 \item
-  The most notable Meta Data is the \texttt{@component} meta data.
-\item
-  Below is a list of Angular's core meta data classes:
+  \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}:
+  used to define a directive
 
   \begin{itemize}
   \tightlist
   \item
     \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
+    used to grab the value of an attribute on an element hosting a
+    directive
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
-    Used to add meta data to a class defining a component.
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}:
+    used to configure a content query
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}:
+    used to configure a content query
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}
+    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}:
+    used to define the input to a directive/component
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html}{Dependency}
+    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}:
+    used to define the output events of a directive/component
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}
+    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}:
+    used to declare a host property binding
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}
+    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}:
+    used to declare a host listener
   \end{itemize}
+\end{itemize}
+
+\textbf{Pipes}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}:
+  used to declare reusable pipe function
+\end{itemize}
+
+\textbf{DI}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}:
+  parameter metadata that specifies a dependency.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}:
+  a marker metadata that marks a class as available to Injector for
+  creation.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}:
+  Specifies that an injector should retrieve a dependency from any
+  injector until reaching the closest host.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}:
+  parameter metadata that marks a dependency as optional
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}:
+  Specifies that an Injector should retrieve a dependency only from
+  itself.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}:
+  Specifies that the dependency resolution should start from the parent
+  injector.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}:
+  Declares an injectable parameter to be a live list of directives or
+  variable bindings from the content children of a directive.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}:
+  Similar to \texttt{QueryMetadata}, but querying the component view,
+  instead of the content children.
 \end{itemize}
 
 \subsection{Dependency Injection}\label{dependency-injection}
@@ -2451,6 +2499,10 @@ Dependency Injection.
   A subscription can be canceled by calling the \texttt{unsubscribe}
   method.
 \end{itemize}
+
+\subsection{Angular Router}\label{angular-router}
+
+Angular has a stand-alone module responsible for handling routing.
 
 \section{Angular Topics in Depth}\label{angular-topics-in-depth}
 

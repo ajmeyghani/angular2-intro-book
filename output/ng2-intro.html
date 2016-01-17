@@ -203,11 +203,12 @@
     <li><a href="#compiling-the-component">Compiling the Component</a></li>
     <li><a href="#loading-the-component">Loading the Component</a></li>
     </ul></li>
-    <li><a href="#meta-data">Meta Data</a></li>
+    <li><a href="#metadata">Metadata</a></li>
     <li><a href="#dependency-injection">Dependency Injection</a></li>
     <li><a href="#services-and-providers">Services and Providers</a></li>
     <li><a href="#data-modeling-and-state">Data Modeling and State</a></li>
     <li><a href="#observables">Observables</a></li>
+    <li><a href="#angular-router">Angular Router</a></li>
     </ul></li>
     <li><a href="#angular-topics-in-depth">Angular Topics in Depth</a><ul>
     <li><a href="#components-in-depth">Components in Depth</a><ul>
@@ -1573,36 +1574,46 @@ CommonJS Modules</code></pre>
 </div>
 </div>
 </div>
-<div id="meta-data" class="section level2">
-<h2>Meta Data</h2>
+<div id="metadata" class="section level2">
+<h2>Metadata</h2>
 <ul>
-<li>Angular uses Meta Data or annotations in a lot of places.</li>
-<li>The most notable Meta Data is the <code>@component</code> meta data.</li>
-<li><p>Below is a list of Angular's core meta data classes:</p>
+<li>Angular uses Metadata to decorate classes, methods and properties.</li>
+<li>The most notable Metadata is the <code>@component</code> Metadata.</li>
+</ul>
+<p>Below is a list of Angular's core Metadata classes categorized under directives/components, pipes and di.</p>
+<p><strong>Directive/component Meta-data</strong></p>
 <ul>
-<li><a href="https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html">Attribute</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html">Component</a>: Used to add meta data to a class defining a component.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html">ContentChild</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html">ContentChildren</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/DependencyMetadata-class.html">Dependency</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html">Directive</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html">HostBinding</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html">HostListener</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html">Host</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html">Inject</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html">Injectable</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html">Input</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html">Optional</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html">Output</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html">Pipe</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html">Self</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html">SkipSelf</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html">ViewChild</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html">ViewChildren</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html">View</a></li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a></li>
+<li><p><a href="https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html">Component</a>: used to define a component</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html">View</a>: used to define the template for a component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html">ViewChild</a>: used to configure a view query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html">ViewChildren</a>: used to configure a view query</li>
 </ul></li>
+<li><p><a href="https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html">Directive</a>: used to define a directive</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html">Attribute</a> used to grab the value of an attribute on an element hosting a directive</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html">ContentChild</a>: used to configure a content query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html">ContentChildren</a>: used to configure a content query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html">Input</a>: used to define the input to a directive/component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html">Output</a>: used to define the output events of a directive/component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html">HostBinding</a>: used to declare a host property binding</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html">HostListener</a>: used to declare a host listener</li>
+</ul></li>
+</ul>
+<p><strong>Pipes</strong></p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html">Pipe</a>: used to declare reusable pipe function</li>
+</ul>
+<p><strong>DI</strong></p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html">Inject</a>: parameter metadata that specifies a dependency.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html">Injectable</a>: a marker metadata that marks a class as available to Injector for creation.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html">Host</a>: Specifies that an injector should retrieve a dependency from any injector until reaching the closest host.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html">Optional</a>: parameter metadata that marks a dependency as optional</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html">Self</a>: Specifies that an Injector should retrieve a dependency only from itself.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html">SkipSelf</a>: Specifies that the dependency resolution should start from the parent injector.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a>: Declares an injectable parameter to be a live list of directives or variable bindings from the content children of a directive.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a>: Similar to <code>QueryMetadata</code>, but querying the component view, instead of the content children.</li>
 </ul>
 </div>
 <div id="dependency-injection" class="section level2">
@@ -1715,6 +1726,10 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Subject} from &#39;rxjs/Subject&#39;;</span></code></pre></td></tr></table></div></li>
 <li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
 </ul>
+</div>
+<div id="angular-router" class="section level2">
+<h2>Angular Router</h2>
+<p>Angular has a stand-alone module responsible for handling routing.</p>
 </div>
 </div>
 <div id="angular-topics-in-depth" class="section level1">
