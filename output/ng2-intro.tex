@@ -540,7 +540,8 @@ sudo ln -s /path/to/vscode/Code /usr/local/bin/code
 You might need to log off after the installation for the change to the
 PATH environmental variable to take effect.
 
-\subsection{Debugging App from VSCode}\label{debugging-app-from-vscode}
+\hypertarget{debugging-app-from-vscode}{\subsection{Debugging App from
+VSCode}\label{debugging-app-from-vscode}}
 
 The ``vscode-chrome-debug'' extension allows you to attach VSCode to a
 running instance of chrome. This makes it very convenient because you
@@ -1931,6 +1932,40 @@ The goal of this chapter is to get your feet wet without scaring you
 with a lot of details. Don't worry, there will be a lot coming in the
 later chapters.
 
+\hypertarget{using-angular-project-files}{\subsection{Using Angular
+Project Files}\label{using-angular-project-files}}
+
+In order to run the project files, you need to do two things:
+
+\begin{itemize}
+\item
+  First, install the server dependencies and run the server in the root
+  of the code repo:
+
+\begin{verbatim}
+npm i && npm start
+\end{verbatim}
+
+  After the dependencies are installed, it will open up the browser at
+  port 8080.
+\item
+  The next step is to install the dependencies for angular examples. Go
+  to \texttt{project-files/angular-examples} and install the
+  dependencies:
+
+\begin{verbatim}
+cd project-files/angular-examples && npm i
+\end{verbatim}
+\end{itemize}
+
+After following the steps above, you should be able to see the examples
+in the browser. For example, if you want to see the
+\texttt{basic-component} example, you can go to the following url:
+
+\begin{verbatim}
+http://localhost:8080/project-files/angular-examples/basic-component/index.html
+\end{verbatim}
+
 \subsection{Components}\label{components}
 
 Components are at the heart of Angular. The main idea is that you break
@@ -1951,15 +1986,12 @@ keep things simple.
 \subsubsection{Project Files}\label{project-files}
 
 The project files for this chapter are in
-\textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular/basic-component}{\texttt{angular2-intro/project-files/angular/basic-component}}}
+\textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component}{\texttt{angular2-intro/project-files/angular-examples/basic-component}}}
+You can either follow along or just look at the final result
 
-You can either follow along or just look at the final result. As always,
-the \texttt{node\_modules} folder is not included. You would have to
-install it with \texttt{npm\ i} in the project folder:
-
-\begin{verbatim}
-cd angular2-intro/project-files/angular/basic-component && npm i
-\end{verbatim}
+In order to run the project files, please refer to the
+\protect\hyperlink{using-angular-project-files}{Using Angular Project
+Files} section.
 
 \subsubsection{Getting Started}\label{getting-started}
 
@@ -1973,17 +2005,56 @@ mkdir ~/Desktop/hello-angular && cd $_
 Start npm in this folder with \texttt{npm\ init} and accept all the
 defaults.
 
-After that, install the dependencies with:
+After that, add the \texttt{dependencies} and \texttt{devDependencies}
+field to your \texttt{package.json} file:
 
-\begin{verbatim}
-npm i angular2 rxjs -S
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ErrorTok{"dependencies":} \FunctionTok{\{}
+  \DataTypeTok{"angular2"}\FunctionTok{:} \StringTok{"^2.0.0-beta.1"}\FunctionTok{,}
+  \DataTypeTok{"es6-promise"}\FunctionTok{:} \StringTok{"^3.0.2"}\FunctionTok{,}
+  \DataTypeTok{"es6-shim"}\FunctionTok{:} \StringTok{"^0.33.3"}\FunctionTok{,}
+  \DataTypeTok{"reflect-metadata"}\FunctionTok{:} \StringTok{"0.1.2"}\FunctionTok{,}
+  \DataTypeTok{"rxjs"}\FunctionTok{:} \StringTok{"5.0.0-beta.0"}\FunctionTok{,}
+  \DataTypeTok{"zone.js"}\FunctionTok{:} \StringTok{"0.5.10"}
+\FunctionTok{\}}\ErrorTok{,}
+\ErrorTok{"devDependencies":} \FunctionTok{\{}
+  \DataTypeTok{"systemjs"}\FunctionTok{:} \StringTok{"^0.19.16"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
-Then install the ``devDependencies'':
+your \texttt{package.json} file should look something like the
+follwoing:
 
-\begin{verbatim}
-npm i systemjs -D
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{\{}
+  \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"hello-angular"}\FunctionTok{,}
+  \DataTypeTok{"version"}\FunctionTok{:} \StringTok{"1.0.0"}\FunctionTok{,}
+  \DataTypeTok{"description"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
+  \DataTypeTok{"main"}\FunctionTok{:} \StringTok{"index.js"}\FunctionTok{,}
+  \DataTypeTok{"scripts"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"test"}\FunctionTok{:} \StringTok{"echo }\CharTok{\textbackslash{}"}\StringTok{Error: no test specified}\CharTok{\textbackslash{}"}\StringTok{ && exit 1"}
+  \FunctionTok{\},}
+  \DataTypeTok{"author"}\FunctionTok{:} \StringTok{"Stealth <st32lth@gmail.com> (http://github.com/st32lth)"}\FunctionTok{,}
+  \DataTypeTok{"license"}\FunctionTok{:} \StringTok{"ISC"}\FunctionTok{,}
+  \DataTypeTok{"dependencies"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"angular2"}\FunctionTok{:} \StringTok{"^2.0.0-beta.1"}\FunctionTok{,}
+    \DataTypeTok{"es6-promise"}\FunctionTok{:} \StringTok{"^3.0.2"}\FunctionTok{,}
+    \DataTypeTok{"es6-shim"}\FunctionTok{:} \StringTok{"^0.33.3"}\FunctionTok{,}
+    \DataTypeTok{"reflect-metadata"}\FunctionTok{:} \StringTok{"0.1.2"}\FunctionTok{,}
+    \DataTypeTok{"rxjs"}\FunctionTok{:} \StringTok{"5.0.0-beta.0"}\FunctionTok{,}
+    \DataTypeTok{"zone.js"}\FunctionTok{:} \StringTok{"0.5.10"}
+  \FunctionTok{\},}
+  \DataTypeTok{"devDependencies"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"systemjs"}\FunctionTok{:} \StringTok{"^0.19.16"}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Then run \texttt{npm\ i} to install the dependencies.
 
 After all the dependencies are installed, start VSCode in this folder
 with \texttt{code\ .}
@@ -2040,17 +2111,18 @@ project. In this file we are going to define the main component called
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Component, OnInit \} from 'angular2/core';}
+\KeywordTok{import \{Component, OnInit\} from 'angular2/core';}
 \KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
 
 \FunctionTok{@Component}\NormalTok{(\{}
   \NormalTok{selector: 'app',}
-  \NormalTok{template: `<h1> hello angular </h1> `}
-\NormalTok{\});}
-
-\KeywordTok{class} \NormalTok{HelloAngular }\KeywordTok{implements} \NormalTok{OnInit  \{}
-  \FunctionTok{constructor}\NormalTok{() \{ console.}\FunctionTok{log}\NormalTok{('constructor called'); \}}
-  \FunctionTok{ngOnInit}\NormalTok{() \{ console.}\FunctionTok{log}\NormalTok{('component initialized'); \}}
+  \NormalTok{styles: [`h1 \{ line-height: 100vh; text-align: center \}`],}
+  \NormalTok{template: `<h1>\{\{ name \}\}</h1>`}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{HelloAngular }\KeywordTok{implements} \NormalTok{OnInit \{}
+  \NormalTok{name: string;}
+  \FunctionTok{constructor}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= 'Hello Angular'; \}}
+  \FunctionTok{ngOnInit}\NormalTok{() \{ console.}\FunctionTok{log}\NormalTok{('component linked'); \}}
 \NormalTok{\}}
 
 \FunctionTok{bootstrap}\NormalTok{(HelloAngular, []);}
@@ -2067,7 +2139,7 @@ project. In this file we are going to define the main component called
   the app given a component.
 \item
   On line 4, we are defining a component using the \texttt{component}
-  annotation. The \texttt{@component} is technically a class decorator
+  decorator. The \texttt{@component} is technically a class decorator
   because it precedes the \texttt{HelloAngular} class definition.
 \item
   On line 5, we are telling angular to look out for the \texttt{app}
@@ -2223,7 +2295,80 @@ following:
 \caption{Running a basic component in the browser}
 \end{figure}
 
-\subsection{Metadata}\label{metadata}
+\subsubsection{Debugging the component}\label{debugging-the-component}
+
+You can connect chrome's debugger to VSCode using the chrome debugger
+extension for Visual Studio Code. See the
+\protect\hyperlink{debugging-app-from-vscode}{Debuggin App from VSCode}
+section in case you missed to install it. But, assuming that you have
+the extension installed, you can debug your app from VSCode. In order to
+do that, we need to create a \texttt{launch.json} file in the
+\texttt{.vscode} folder:
+
+\begin{verbatim}
+touch .vscode/launch.json
+\end{verbatim}
+
+After you created the file, put in the following configuration in the
+file:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{\{}
+  \DataTypeTok{"version"}\FunctionTok{:} \StringTok{"0.1.0"}\FunctionTok{,}
+  \DataTypeTok{"configurations"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Launch Chrome Debugger"}\FunctionTok{,}
+      \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"chrome"}\FunctionTok{,}
+      \DataTypeTok{"request"}\FunctionTok{:} \StringTok{"launch"}\FunctionTok{,}
+      \DataTypeTok{"url"}\FunctionTok{:} \StringTok{"http://127.0.0.1:8080/"}\FunctionTok{,}
+      \DataTypeTok{"sourceMaps"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+      \DataTypeTok{"webRoot"}\FunctionTok{:} \StringTok{"."}\FunctionTok{,}
+      \DataTypeTok{"runtimeExecutable"}\FunctionTok{:} \StringTok{"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}\FunctionTok{,}
+      \DataTypeTok{"runtimeArgs"}\FunctionTok{:} \OtherTok{[}
+        \StringTok{"--remote-debugging-port=9222"}\OtherTok{,}
+        \StringTok{"--incognito"}
+      \OtherTok{]}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Before running the debugger:
+
+\begin{itemize}
+\tightlist
+\item
+  Make sure that all instances of chrome are closed. It makes it easier
+  to run the debugger from VSCode itself.
+\item
+  Make sure that the \texttt{runtimeExecutable} path is valid. This
+  value would be different depending on your OS.
+\item
+  Make sure that the \texttt{url} value is valid as well. The
+  \texttt{url} value has to match the path that you see when you run a
+  server serving the files.
+\item
+  Set a breakpoint on a line in \texttt{main.ts} file and then run the
+  debugger under the debugger tab.
+\end{itemize}
+
+In order to run the debugger, select \texttt{Launch\ Chrome\ Debugger}
+in the dropdown under the debugger tab and either click on the play icon
+or hit F5 on the keyboard. After that, an instance of Chrome should be
+opened in incognito mode. In order to trigger the debugger just refresh
+the page and you should be able to see the debugger pausing in VSCode.
+If everything is set up correctly you should be able to see something
+like the following screenshot:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{images/run-debugger.png}
+\caption{Debugging the component in VSCode}
+\end{figure}
+
+\subsection{Metadata Classes}\label{metadata-classes}
 
 \begin{itemize}
 \tightlist
@@ -2231,6 +2376,9 @@ following:
   Angular uses Metadata to decorate classes, methods and properties.
 \item
   The most notable Metadata is the \texttt{@component} Metadata.
+\item
+  Metadta classes are very convenient and they make it easy to work with
+  components, services and the dependency injection system
 \end{itemize}
 
 Below is a list of Angular's core Metadata classes categorized under

@@ -1,4 +1,4 @@
-## Data Modeling and State
+## Data and State Management
 
 - Angular is flexible and doesn't prescribe a recipe for managing data in your apps
 - Since observables are integrated into Angular, you can take advantage of observables to manage data and state

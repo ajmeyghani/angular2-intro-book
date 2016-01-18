@@ -1398,6 +1398,30 @@ The goal of this chapter is to get your feet wet without scaring you
 with a lot of details. Don't worry, there will be a lot coming in the
 later chapters.
 
+Using Angular Project Files
+---------------------------
+
+In order to run the project files, you need to do two things:
+
+-   First, install the server dependencies and run the server in the
+    root of the code repo:
+
+        npm i && npm start
+
+    After the dependencies are installed, it will open up the browser at
+    port 8080.
+
+-   The next step is to install the dependencies for angular examples.
+    Go to `project-files/angular-examples` and install the dependencies:
+
+        cd project-files/angular-examples && npm i
+
+After following the steps above, you should be able to see the examples
+in the browser. For example, if you want to see the `basic-component`
+example, you can go to the following url:
+
+    http://localhost:8080/project-files/angular-examples/basic-component/index.html
+
 Components
 ----------
 
@@ -1419,13 +1443,11 @@ keep things simple.
 ### Project Files
 
 The project files for this chapter are in
-**[`angular2-intro/project-files/angular/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular/basic-component)**
+**[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)**
+You can either follow along or just look at the final result
 
-You can either follow along or just look at the final result. As always,
-the `node_modules` folder is not included. You would have to install it
-with `npm i` in the project folder:
-
-    cd angular2-intro/project-files/angular/basic-component && npm i
+In order to run the project files, please refer to the [Using Angular
+Project Files](#using-angular-project-files) section.
 
 ### Getting Started
 
@@ -1435,13 +1457,51 @@ Make a folder on your desktop called `hello-angular` and navigate to it:
 
 Start npm in this folder with `npm init` and accept all the defaults.
 
-After that, install the dependencies with:
+After that, add the `dependencies` and `devDependencies` field to your
+`package.json` file:
 
-    npm i angular2 rxjs -S
+``` {.json}
+"dependencies": {
+  "angular2": "^2.0.0-beta.1",
+  "es6-promise": "^3.0.2",
+  "es6-shim": "^0.33.3",
+  "reflect-metadata": "0.1.2",
+  "rxjs": "5.0.0-beta.0",
+  "zone.js": "0.5.10"
+},
+"devDependencies": {
+  "systemjs": "^0.19.16"
+}
+```
 
-Then install the "devDependencies":
+your `package.json` file should look something like the follwoing:
 
-    npm i systemjs -D
+``` {.json}
+{
+  "name": "hello-angular",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stealth <st32lth@gmail.com> (http://github.com/st32lth)",
+  "license": "ISC",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.1",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "0.5.10"
+  },
+  "devDependencies": {
+    "systemjs": "^0.19.16"
+  }
+}
+```
+
+Then run `npm i` to install the dependencies.
 
 After all the dependencies are installed, start VSCode in this folder
 with `code .`
@@ -1493,17 +1553,18 @@ this file we are going to define the main component called
 **`main.ts`**
 
 ``` {.typescript}
-import {Component, OnInit } from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 
 @Component({
   selector: 'app',
-  template: `<h1> hello angular </h1> `
-});
-
-class HelloAngular implements OnInit  {
-  constructor() { console.log('constructor called'); }
-  ngOnInit() { console.log('component initialized'); }
+  styles: [`h1 { line-height: 100vh; text-align: center }`],
+  template: `<h1>{{ name }}</h1>`
+})
+class HelloAngular implements OnInit {
+  name: string;
+  constructor() { this.name = 'Hello Angular'; }
+  ngOnInit() { console.log('component linked'); }
 }
 
 bootstrap(HelloAngular, []);
@@ -1514,7 +1575,7 @@ bootstrap(HelloAngular, []);
 -   On line 2 we are loading the `bootstrap` method that bootstraps the
     app given a component.
 -   On line 4, we are defining a component using the
-    `component` annotation. The `@component` is technically a class
+    `component` decorator. The `@component` is technically a class
     decorator because it precedes the `HelloAngular` class definition.
 -   On line 5, we are telling angular to look out for the `app` tag. So
     when Angular looks at the html and comes across the `<app></app>`
@@ -1636,11 +1697,70 @@ following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
-Metadata
---------
+### Debugging the component
+
+You can connect chrome's debugger to VSCode using the chrome debugger
+extension for Visual Studio Code. See the [Debuggin App from
+VSCode](#debugging-app-from-vscode) section in case you missed to
+install it. But, assuming that you have the extension installed, you can
+debug your app from VSCode. In order to do that, we need to create a
+`launch.json` file in the `.vscode` folder:
+
+    touch .vscode/launch.json
+
+After you created the file, put in the following configuration in the
+file:
+
+``` {.json}
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome Debugger",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:8080/",
+      "sourceMaps": true,
+      "webRoot": ".",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "--incognito"
+      ]
+    }
+  ]
+}
+```
+
+Before running the debugger:
+
+-   Make sure that all instances of chrome are closed. It makes it
+    easier to run the debugger from VSCode itself.
+-   Make sure that the `runtimeExecutable` path is valid. This value
+    would be different depending on your OS.
+-   Make sure that the `url` value is valid as well. The `url` value has
+    to match the path that you see when you run a server serving
+    the files.
+-   Set a breakpoint on a line in `main.ts` file and then run the
+    debugger under the debugger tab.
+
+In order to run the debugger, select `Launch Chrome Debugger` in the
+dropdown under the debugger tab and either click on the play icon or hit
+F5 on the keyboard. After that, an instance of Chrome should be opened
+in incognito mode. In order to trigger the debugger just refresh the
+page and you should be able to see the debugger pausing in VSCode. If
+everything is set up correctly you should be able to see something like
+the following screenshot:
+
+![Debugging the component in VSCode](images/run-debugger.png)
+
+Metadata Classes
+----------------
 
 -   Angular uses Metadata to decorate classes, methods and properties.
 -   The most notable Metadata is the `@component` Metadata.
+-   Metadta classes are very convenient and they make it easy to work
+    with components, services and the dependency injection system
 
 Below is a list of Angular's core Metadata classes categorized under
 directives/components, pipes and di.
