@@ -272,6 +272,6 @@ Before running the debugger:
 
 In order to run the debugger, select `Launch Chrome Debugger` in the dropdown under the debugger tab and either click on the play icon or hit F5 on the keyboard. After that, an instance of Chrome should be opened in incognito mode. In order to trigger the debugger just refresh the page and you should be able to see the debugger pausing in VSCode. If everything is set up correctly you should be able to see something like the following screenshot:
 
-![Debugging the component in VSCode](images/run-debugger.png)
+![Debugging the app with Chrome Debugger in VSCode](images/run-debugger.png)
 
 

@@ -1752,7 +1752,8 @@ page and you should be able to see the debugger pausing in VSCode. If
 everything is set up correctly you should be able to see something like
 the following screenshot:
 
-![Debugging the component in VSCode](images/run-debugger.png)
+![Debugging the app with Chrome Debugger in
+VSCode](images/run-debugger.png)
 
 Metadata Classes
 ----------------
@@ -1912,8 +1913,8 @@ Services and Providers
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
 
-Data Modeling and State
------------------------
+Data and State Management
+-------------------------
 
 -   Angular is flexible and doesn't prescribe a recipe for managing data
     in your apps
