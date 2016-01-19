@@ -1,17 +1,25 @@
-# Angular Basics
+# Angular
 
-This chapter will walk you through the basics of Angular2. We will start by looking at the basics of components, and then we move onto pipes, events and other concepts. By the end of the chapter you should have a basic understanding of the new concepts in Angular2.
+This chapter will walk you through the main concepts in Angular. We will start by looking at components, and then we move onto pipes, services, events and other concepts. By the end of the chapter you should have a basic understanding of the most important concepts in Angular.
 
-The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in the later chapters.
+The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in later chapters.
 
-## Using Angular Project Files
+## Project Files
+
+### Running the Project Files
+
+First, make sure that you have cloned the code repo somewhere on your machine:
+
+```
+cd ~/Desktop && git clone git@github.com:st32lth/angular2-intro.git
+```
 
 In order to run the project files, you need to do two things:
 
-- First, install the server dependencies and run the server in the root of the code repo:
+- First, install the server dependencies and run the server in the root of the repo:
 
     ```
-    npm i && npm start
+    cd angular2-intro && npm i && npm start
     ```
 
     After the dependencies are installed, it will open up the browser at port 8080.
@@ -28,6 +36,17 @@ After following the steps above, you should be able to see the examples in the b
 http://localhost:8080/project-files/angular-examples/basic-component/index.html
 ```
 
+### Starter Project
+
+There is a starter project in `angular-examples/starter`. You can make a copy of that folder if you want to work on something new. The steps for running the project is the same for all the projects:
+
+- Install the dependencies for the dev server in the root of the repo with `npm i` **(needed once)**
+- Start the dev server in the root of the repo with `npm start`
+- Install the dependencies for angular examples: `cd project-files/angluar-examples && npm i` **(needed once)**
+- Open your project in VSCode: `code project-files/angular-examples/starter`
+    - Close all chrome instances (quit out of Chrome)
+    - In VSCode start the build with `command + shift + b` and run the app by hitting F5 on the keyboard
+- If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: `cd project-files/angular-examples/starter && tsc -w`.
 ## Components
 
 Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.
@@ -264,7 +283,7 @@ If everything is wired up correctly, you should be able to see the following:
 
 ### Debugging the component
 
-You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the [Debuggin App from VSCode](#debugging-app-from-vscode) section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a `launch.json` file in the `.vscode` folder:
+You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the [Debugging App from VSCode](#debugging-app-from-vscode) section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a `launch.json` file in the `.vscode` folder:
 
 ```
 touch .vscode/launch.json

@@ -1921,29 +1921,38 @@ A method decorators takes a 3 arguments:
   Add decorator content for each type.
 \end{itemize}
 
-\section{Angular Basics}\label{angular-basics}
+\section{Angular}\label{angular}
 
-This chapter will walk you through the basics of Angular2. We will start
-by looking at the basics of components, and then we move onto pipes,
+This chapter will walk you through the main concepts in Angular. We will
+start by looking at components, and then we move onto pipes, services,
 events and other concepts. By the end of the chapter you should have a
-basic understanding of the new concepts in Angular2.
+basic understanding of the most important concepts in Angular.
 
 The goal of this chapter is to get your feet wet without scaring you
-with a lot of details. Don't worry, there will be a lot coming in the
-later chapters.
+with a lot of details. Don't worry, there will be a lot coming in later
+chapters.
 
-\hypertarget{using-angular-project-files}{\subsection{Using Angular
-Project Files}\label{using-angular-project-files}}
+\subsection{Project Files}\label{project-files}
+
+\subsubsection{Running the Project
+Files}\label{running-the-project-files}
+
+First, make sure that you have cloned the code repo somewhere on your
+machine:
+
+\begin{verbatim}
+cd ~/Desktop && git clone git@github.com:st32lth/angular2-intro.git
+\end{verbatim}
 
 In order to run the project files, you need to do two things:
 
 \begin{itemize}
 \item
   First, install the server dependencies and run the server in the root
-  of the code repo:
+  of the repo:
 
 \begin{verbatim}
-npm i && npm start
+cd angular2-intro && npm i && npm start
 \end{verbatim}
 
   After the dependencies are installed, it will open up the browser at
@@ -1966,6 +1975,42 @@ in the browser. For example, if you want to see the
 http://localhost:8080/project-files/angular-examples/basic-component/index.html
 \end{verbatim}
 
+\subsubsection{Starter Project}\label{starter-project}
+
+There is a starter project in \texttt{angular-examples/starter}. You can
+make a copy of that folder if you want to work on something new. The
+steps for running the project is the same for all the projects:
+
+\begin{itemize}
+\tightlist
+\item
+  Install the dependencies for the dev server in the root of the repo
+  with \texttt{npm\ i} \textbf{(needed once)}
+\item
+  Start the dev server in the root of the repo with \texttt{npm\ start}
+\item
+  Install the dependencies for angular examples:
+  \texttt{cd\ project-files/angluar-examples\ \&\&\ npm\ i}
+  \textbf{(needed once)}
+\item
+  Open your project in VSCode:
+  \texttt{code\ project-files/angular-examples/starter}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Close all chrome instances (quit out of Chrome)
+  \item
+    In VSCode start the build with \texttt{command\ +\ shift\ +\ b} and
+    run the app by hitting F5 on the keyboard
+  \end{itemize}
+\item
+  If you don't want to use VSCode, you can use any other editor that you
+  want. But make sure that you run the TypeScript compiler in the
+  project folder:
+  \texttt{cd\ project-files/angular-examples/starter\ \&\&\ tsc\ -w}.
+\end{itemize}
+
 \subsection{Components}\label{components}
 
 Components are at the heart of Angular. The main idea is that you break
@@ -1983,7 +2028,7 @@ Note that there is a lot to talk about components. We are going dive
 into components a lot more in later chapters, but for now let's just
 keep things simple.
 
-\subsubsection{Project Files}\label{project-files}
+\subsubsection{Project Files}\label{project-files-1}
 
 The project files for this chapter are in
 \textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component}{\texttt{angular2-intro/project-files/angular-examples/basic-component}}}
@@ -2299,7 +2344,7 @@ following:
 
 You can connect chrome's debugger to VSCode using the chrome debugger
 extension for Visual Studio Code. See the
-\protect\hyperlink{debugging-app-from-vscode}{Debuggin App from VSCode}
+\protect\hyperlink{debugging-app-from-vscode}{Debugging App from VSCode}
 section in case you missed to install it. But, assuming that you have
 the extension installed, you can debug your app from VSCode. In order to
 do that, we need to create a \texttt{launch.json} file in the
@@ -2368,116 +2413,312 @@ like the following screenshot:
 \caption{Debugging the app with Chrome Debugger in VSCode}
 \end{figure}
 
-\subsection{Metadata Classes}\label{metadata-classes}
+\subsection{Directives}\label{directives}
 
 \begin{itemize}
 \tightlist
 \item
-  Angular uses Metadata to decorate classes, methods and properties.
+  Directives and components hand-in-hand are the fundamental elements of
+  Angular.
 \item
-  The most notable Metadata is the \texttt{@component} Metadata.
+  Components can be defined as directives with views.
 \item
-  Metadta classes are very convenient and they make it easy to work with
-  components, services and the dependency injection system
-\end{itemize}
-
-Below is a list of Angular's core Metadata classes categorized under
-directives/components, pipes and di.
-
-\textbf{Directive/component Meta-data}
-
-\begin{itemize}
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
-  used to define a component
+  There are two types of directives in Angular:
 
   \begin{itemize}
   \tightlist
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}:
-    used to define the template for a component
+    Structural
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}:
-    used to configure a view query
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}:
-    used to configure a view query
+    Attribute
   \end{itemize}
 \item
-  \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}:
-  used to define a directive
+  A directive is defined using the \texttt{@directive} decorator
+\end{itemize}
+
+\subsection{Pipes}\label{pipes}
+
+\begin{itemize}
+\item
+  Pipes allow you to transform values in templates before they are
+  outputed to the view.
+\item
+  Pipes were formerly known as filters in Angular 1.x
+\item
+  A pipe is defined using the \texttt{@pipe} class decorator
+\item
+  The pipe decorator takes name as a parameter defining the name of the
+  pipe:
+  \texttt{@pipe(\{\ name:\ \textquotesingle{}myPipe\textquotesingle{}\ \})}
+\item
+  Every pipe class has a \texttt{transform} method that transforms input
+  to outputs:
 
   \begin{itemize}
   \tightlist
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
-    used to grab the value of an attribute on an element hosting a
-    directive
+    The first parameter is the input to the pipe
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}:
-    used to configure a content query
+    The second parameter is the list of arguments passed to the pipe
+  \end{itemize}
+\item
+  Give the following pipe in a template:
+  \texttt{\{\{\ data\ \textbar{}\ somePipe:1:\textquotesingle{}px\textquotesingle{}\}\}}:
+
+  \begin{itemize}
+  \tightlist
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}:
-    used to configure a content query
+    \texttt{data} is the input to pipe -- the first parameter of the
+    transform method
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}:
-    used to define the input to a directive/component
+    \texttt{{[}1,\ \textquotesingle{}px\textquotesingle{}{]}} is the
+    arguments to the pipe -- the second parameter of the transform
+    method
+  \end{itemize}
+\item
+  A pipe can be as simple as:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@pipe}\NormalTok{(\{name: 'simplePipe'\})}
+\KeywordTok{class} \NormalTok{MyPipe \{}
+  \FunctionTok{transform}\NormalTok{(input, args) \{ }\KeywordTok{return} \NormalTok{input + 'px'; \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  If you want to use a pipe, you need to register your pipe class with
+  the components in the pipes array:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@component}\NormalTok{(\{}
+  \NormalTok{selector: '...',}
+  \NormalTok{pipes: [MyPipe] }\CommentTok{// adding pipe to the array of pipes.}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{MyComponent \{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Pipes can be chained:
+  \texttt{input\ \textbar{}\ pipe1\ \textbar{}\ pipe2\ \textbar{}\ pipe3}
+
+  \begin{itemize}
+  \tightlist
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}:
-    used to define the output events of a directive/component
+    \texttt{input\ \textbar{}\ pipe1\ :\ output1}
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}:
-    used to declare a host property binding
+    \texttt{output1\ \textbar{}\ pipe2:\ output2}
   \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}:
-    used to declare a host listener
+    \texttt{output2\ \textbar{}\ pipe3\ :\ finalOutput}
   \end{itemize}
 \end{itemize}
 
-\textbf{Pipes}
+\subsubsection{Basic Pipe}\label{basic-pipe}
+
+Let's make a basic pipe called \texttt{pixel} that takes a value as the
+input and appends `px' to the end of it. The project files for this
+section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe}{angular2-intro/project-files/angular-examples/pipes/basic-pipe}.
+
+Start by making a copy of the ``starter'' folder and call it
+``basic-pipe'' and put it in \texttt{project-files/angular-examples}.
+Then, open the folder in VSCode:
+\texttt{code\ project-files/angular-examples/basic-pipe} and start the
+build with \texttt{command\ +\ shift\ +\ b}.
+
+Then, create a file for the pipe and call it \texttt{pixel.pipe.ts} in
+the root of the project.
+
+After that we need to do couple of things to define the pipe:
 
 \begin{itemize}
-\tightlist
 \item
-  \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}:
-  used to declare reusable pipe function
+  Import the Pipe Class Metadata from angular core:
+  \texttt{import\ \{Pipe\}\ from\ \textquotesingle{}Angular/core\textquotesingle{}}
+\item
+  Then create a class defining the Pipe:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{PixelPipe \{}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Implement the \texttt{transform} method in the class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{PixelPipe \{}
+  \FunctionTok{transform}\NormalTok{(input) \{}
+    \KeywordTok{return} \NormalTok{input + 'px';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  After implementing the method, we need to decorate the class and give
+  the pipe a name that we want to use in our templates:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Pipe}\NormalTok{(\{name: 'pixel'\}) }\CommentTok{// <- adding the decorator}
+\KeywordTok{class} \NormalTok{PixelPipe \{}
+  \FunctionTok{transform}\NormalTok{(input) \{}
+    \KeywordTok{return} \NormalTok{input + 'px';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  As the last step we are going to export the class by putting the
+  \texttt{export} keyword behind the class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{...}
+\NormalTok{export }\KeywordTok{class} \NormalTok{PixelPipe \{}
+  \NormalTok{...}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 \end{itemize}
 
-\textbf{DI}
+Now, your file should look like the following:
 
-\begin{itemize}
-\tightlist
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}:
-  parameter metadata that specifies a dependency.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}:
-  a marker metadata that marks a class as available to Injector for
-  creation.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}:
-  Specifies that an injector should retrieve a dependency from any
-  injector until reaching the closest host.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}:
-  parameter metadata that marks a dependency as optional
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}:
-  Specifies that an Injector should retrieve a dependency only from
-  itself.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}:
-  Specifies that the dependency resolution should start from the parent
-  injector.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}:
-  Declares an injectable parameter to be a live list of directives or
-  variable bindings from the content children of a directive.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}:
-  Similar to \texttt{QueryMetadata}, but querying the component view,
-  instead of the content children.
-\end{itemize}
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Pipe\} from 'angular2/core';}
+\FunctionTok{@Pipe}\NormalTok{(\{name: 'pixel'\}) }\CommentTok{// <- adding the decorator}
+\NormalTok{export }\KeywordTok{class} \NormalTok{PixelPipe \{}
+  \FunctionTok{transform}\NormalTok{(input) \{}
+    \KeywordTok{return} \NormalTok{input + 'px';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now, let's go back to the \texttt{main.ts} file and import our pipe:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Component\} from 'angular2/core';}
+\KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
+\KeywordTok{import \{PixelPipe\} from './pixel.pipe';} \CommentTok{// <- importing pipe}
+\end{Highlighting}
+\end{Shaded}
+
+After importing our pipe, we should register it with our component by
+adding it to the \texttt{pipes} array:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
+  \NormalTok{pipes: [PixelPipe] }\CommentTok{// <- registering the pipe}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+Now that we have registered the pipe, we can use it in our template in
+\texttt{templates/app.tpl.html}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h1>}\NormalTok{\{\{ name \}\}}\KeywordTok{</h1>}
+\KeywordTok{<p>}\NormalTok{Pixel value: \{\{ 25 | pixel \}\}}\KeywordTok{</p>}
+\end{Highlighting}
+\end{Shaded}
+
+You should be all set now. You can set the url in your
+\texttt{launch.json} file and hit F5:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ErrorTok{...}
+\ErrorTok{"url":} \ErrorTok{"http://localhost:8080/project-files/angular-examples/basic-pipe/index.html",}
+\ErrorTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+If your server is running you should be able to see the following
+output:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{images/basic-pipe.png}
+\caption{Running the pixelPipe in the browser}
+\end{figure}
+
+\subsubsection{Chaining Pipes}\label{chaining-pipes}
+
+Let's continue where we left off with the ``pixelPipe'' and add another
+pipe called ``round'' that rounds down given values, that is:
+
+\begin{verbatim}
+25.3 | round | pixel -> 25px
+\end{verbatim}
+
+The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining}{angular2-intro/project-files/angular-examples/pipes/pipe-chaining}.
+
+We are going to add the ``roundFilter'' to our ``basic-pipe'' project.
+Let's get started by adding the \texttt{round.pipe.ts} file in the root
+of the project:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Pipe\} from 'angular2/core';}
+\FunctionTok{@Pipe}\NormalTok{(\{name: 'round'\})}
+\NormalTok{export }\KeywordTok{class} \NormalTok{RoundPipe \{}
+  \FunctionTok{transform} \NormalTok{(input) \{}
+    \KeywordTok{return} \NormalTok{Math.}\FunctionTok{floor}\NormalTok{(+input); }\CommentTok{// <- convert input to number and then floor it.}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This Pipe is not complicated at all. We are just returning the floor of
+the input. We are also converting the input to number by putting a
+\texttt{+} before input.
+
+Now, let's import the pipe into our \texttt{main.ts} file:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Component\} from 'angular2/core';}
+\KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
+\KeywordTok{import \{PixelPipe\} from './pixel.pipe';}
+\KeywordTok{import \{RoundPipe\} from './round.pipe';} \CommentTok{// <- importing `RoundPipe`}
+\end{Highlighting}
+\end{Shaded}
+
+and then we have to add the pipe to the list of pipe array:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
+  \NormalTok{pipes: [PixelPipe, RoundPipe] }\CommentTok{// <- registering the pipe}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+after that we are going to add the following to our
+\texttt{templates/app.tpl.html} file:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<p>}\NormalTok{Pixel value: \{\{ 34.4 | round | pixel \}\}}\KeywordTok{</p>}
+\end{Highlighting}
+\end{Shaded}
+
+After running the app you should see \texttt{34.px} as the output on the
+page.
 
 \subsection{Dependency Injection}\label{dependency-injection}
 
@@ -2648,6 +2889,117 @@ Dependency Injection.
   method.
 \end{itemize}
 
+\subsection{Metadata Classes}\label{metadata-classes}
+
+\begin{itemize}
+\tightlist
+\item
+  Angular uses Metadata to decorate classes, methods and properties.
+\item
+  The most notable Metadata is the \texttt{@component} Metadata.
+\item
+  Metadta classes are very convenient and they make it easy to work with
+  components, services and the dependency injection system
+\end{itemize}
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+\textbf{Directive/component Meta-data}
+
+\begin{itemize}
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
+  used to define a component
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}:
+    used to define the template for a component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}:
+    used to configure a view query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}:
+    used to configure a view query
+  \end{itemize}
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}:
+  used to define a directive
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
+    used to grab the value of an attribute on an element hosting a
+    directive
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}:
+    used to configure a content query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}:
+    used to configure a content query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}:
+    used to define the input to a directive/component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}:
+    used to define the output events of a directive/component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}:
+    used to declare a host property binding
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}:
+    used to declare a host listener
+  \end{itemize}
+\end{itemize}
+
+\textbf{Pipes}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}:
+  used to declare reusable pipe function
+\end{itemize}
+
+\textbf{DI}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}:
+  parameter metadata that specifies a dependency.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}:
+  a marker metadata that marks a class as available to Injector for
+  creation.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}:
+  Specifies that an injector should retrieve a dependency from any
+  injector until reaching the closest host.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}:
+  parameter metadata that marks a dependency as optional
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}:
+  Specifies that an Injector should retrieve a dependency only from
+  itself.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}:
+  Specifies that the dependency resolution should start from the parent
+  injector.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}:
+  Declares an injectable parameter to be a live list of directives or
+  variable bindings from the content children of a directive.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}:
+  Similar to \texttt{QueryMetadata}, but querying the component view,
+  instead of the content children.
+\end{itemize}
+
 \subsection{Angular Router}\label{angular-router}
 
 Angular has a stand-alone module responsible for handling routing.
@@ -2666,8 +3018,6 @@ Let's deep dive into Angular concepts.
   A TypeScript class is used to define a component coupled with the
   \texttt{@component} decorator
 \end{itemize}
-
-\subsubsection{Components Options}\label{components-options}
 
 The \texttt{@component} decorator defines the following:
 

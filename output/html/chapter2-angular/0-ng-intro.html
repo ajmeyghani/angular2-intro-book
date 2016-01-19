@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
   <meta charset="UTF-8">
-  <title># Components in Depth</title>
+  <title>Angular</title>
     <style type="text/css">
     code {
       white-space: pre;
@@ -153,48 +153,35 @@
       <!-- @toc -->
     </div>
     <div class="l-all-content">
-      <h2 id="components-in-depth">Components in Depth</h2>
+      <h1 id="angular">Angular</h1>
+<p>This chapter will walk you through the main concepts in Angular. We will start by looking at components, and then we move onto pipes, services, events and other concepts. By the end of the chapter you should have a basic understanding of the most important concepts in Angular.</p>
+<p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in later chapters.</p>
+<h2 id="project-files">Project Files</h2>
+<h3 id="running-the-project-files">Running the Project Files</h3>
+<p>First, make sure that you have cloned the code repo somewhere on your machine:</p>
+<pre><code>cd ~/Desktop &amp;&amp; git clone git@github.com:st32lth/angular2-intro.git</code></pre>
+<p>In order to run the project files, you need to do two things:</p>
 <ul>
-<li>A component declares a reusable building block of an app</li>
-<li>A TypeScript class is used to define a component coupled with the <code>@component</code> decorator</li>
+<li><p>First, install the server dependencies and run the server in the root of the repo:</p>
+<pre><code>cd angular2-intro &amp;&amp; npm i &amp;&amp; npm start</code></pre>
+<p>After the dependencies are installed, it will open up the browser at port 8080.</p></li>
+<li><p>The next step is to install the dependencies for angular examples. Go to <code>project-files/angular-examples</code> and install the dependencies:</p>
+<pre><code>cd project-files/angular-examples &amp;&amp; npm i</code></pre></li>
 </ul>
-<p>The <code>@component</code> decorator defines the following:</p>
+<p>After following the steps above, you should be able to see the examples in the browser. For example, if you want to see the <code>basic-component</code> example, you can go to the following url:</p>
+<pre><code>http://localhost:8080/project-files/angular-examples/basic-component/index.html</code></pre>
+<h3 id="starter-project">Starter Project</h3>
+<p>There is a starter project in <code>angular-examples/starter</code>. You can make a copy of that folder if you want to work on something new. The steps for running the project is the same for all the projects:</p>
 <ul>
-<li>selector: <code>string</code> value defining the css selector targeting an html element</li>
-<li>inputs: <code>array of string</code> values defining the inputs to the component</li>
-<li>outputs: <code>array of string</code> values defining the output of the component</li>
-<li>properties: <code>array of string</code> values defining the properties</li>
-<li>events: <code>array of string</code> values defining the events</li>
-<li>host?: {['string']: 'string'},</li>
-<li>providers: <code>array of objects</code> defining the providers for the component</li>
-<li>exportAs: <code>string</code> value defining the exported value</li>
-<li>moduleId: <code>string</code> value defining the module id</li>
-<li>viewProviders: <code>array of objects</code> defining the providers for the view</li>
-<li>queries: {[key: string]: any},</li>
-<li><p>changeDetection: <code>ChangeDetectionStrategy</code> object defining the strategy for detecting changes:</p>
+<li>Install the dependencies for the dev server in the root of the repo with <code>npm i</code> <strong>(needed once)</strong></li>
+<li>Start the dev server in the root of the repo with <code>npm start</code></li>
+<li>Install the dependencies for angular examples: <code>cd project-files/angluar-examples &amp;&amp; npm i</code> <strong>(needed once)</strong></li>
+<li>Open your project in VSCode: <code>code project-files/angular-examples/starter</code>
 <ul>
-<li><code>ChangeDetectionStrategy.Default</code>: sets detector mode to <code>CheckAlways</code></li>
-<li><code>ChangeDetectionStrategy.OnPush</code>: sets detector mode to <code>CheckOnce</code></li>
-<li><code>ChangeDetectionStrategy.Detached</code>: change detector sub tree is not a part of the main tree and should be skipped</li>
-<li><code>ChangeDetectionStrategy.CheckAlways</code>: after calling detectChanges the mode of the change detector will remain <code>CheckAlways</code></li>
-<li><code>ChangeDetectionStrategy.Checked</code>: change detector should be skipped until its mode changes to <code>CheckOnce</code></li>
-<li><code>ChangeDetectionStrategy.CheckOnce</code>: after calling detectChanges the mode of the change detector will become <code>Checked</code></li>
+<li>Close all chrome instances (quit out of Chrome)</li>
+<li>In VSCode start the build with <code>command + shift + b</code> and run the app by hitting F5 on the keyboard</li>
 </ul></li>
-<li>templateUrl: <code>string</code> value for the url path to the template</li>
-<li>template: <code>string</code> value for the template</li>
-<li>styleUrls: <code>array of string</code> values defining url paths to css files</li>
-<li><p>styles: <code>array of string</code> values defining css styles:</p>
-<ul>
-<li>styles: ['.myclass { color: #000;}'],</li>
-</ul></li>
-<li>directives: <code>array</code> of directives used in the component</li>
-<li>pipes: <code>array</code> of pipes used in the component</li>
-<li>encapsulation: <code>ViewEncapsulation</code> value that defines template and style encapsulation options:
-<ul>
-<li><code>ViewEncapsulation.None</code>: means do not provide any style encapsulation</li>
-<li><code>ViewEncapsulation.Emulated</code>: No Shadow DOM but style encapsulation emulation using extra attributes on the DOM (default method)</li>
-<li><code>ViewEncapsulation.Native</code>: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.</li>
-</ul></li>
+<li>If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: <code>cd project-files/angular-examples/starter &amp;&amp; tsc -w</code>.</li>
 </ul>
 
     </div>

@@ -1386,27 +1386,34 @@ A method decorators takes a 3 arguments:
 
 -   Add decorator content for each type.
 
-Angular Basics
-==============
+Angular
+=======
 
-This chapter will walk you through the basics of Angular2. We will start
-by looking at the basics of components, and then we move onto pipes,
+This chapter will walk you through the main concepts in Angular. We will
+start by looking at components, and then we move onto pipes, services,
 events and other concepts. By the end of the chapter you should have a
-basic understanding of the new concepts in Angular2.
+basic understanding of the most important concepts in Angular.
 
 The goal of this chapter is to get your feet wet without scaring you
-with a lot of details. Don't worry, there will be a lot coming in the
-later chapters.
+with a lot of details. Don't worry, there will be a lot coming in later
+chapters.
 
-Using Angular Project Files
----------------------------
+Project Files
+-------------
+
+### Running the Project Files
+
+First, make sure that you have cloned the code repo somewhere on your
+machine:
+
+    cd ~/Desktop && git clone git@github.com:st32lth/angular2-intro.git
 
 In order to run the project files, you need to do two things:
 
 -   First, install the server dependencies and run the server in the
-    root of the code repo:
+    root of the repo:
 
-        npm i && npm start
+        cd angular2-intro && npm i && npm start
 
     After the dependencies are installed, it will open up the browser at
     port 8080.
@@ -1421,6 +1428,27 @@ in the browser. For example, if you want to see the `basic-component`
 example, you can go to the following url:
 
     http://localhost:8080/project-files/angular-examples/basic-component/index.html
+
+### Starter Project
+
+There is a starter project in `angular-examples/starter`. You can make a
+copy of that folder if you want to work on something new. The steps for
+running the project is the same for all the projects:
+
+-   Install the dependencies for the dev server in the root of the repo
+    with `npm i` **(needed once)**
+-   Start the dev server in the root of the repo with `npm start`
+-   Install the dependencies for angular examples:
+    `cd project-files/angluar-examples && npm i` **(needed once)**
+-   Open your project in VSCode:
+    `code project-files/angular-examples/starter`
+    -   Close all chrome instances (quit out of Chrome)
+    -   In VSCode start the build with `command + shift + b` and run the
+        app by hitting F5 on the keyboard
+-   If you don't want to use VSCode, you can use any other editor that
+    you want. But make sure that you run the TypeScript compiler in the
+    project folder:
+    `cd project-files/angular-examples/starter && tsc -w`.
 
 Components
 ----------
@@ -1700,7 +1728,7 @@ following:
 ### Debugging the component
 
 You can connect chrome's debugger to VSCode using the chrome debugger
-extension for Visual Studio Code. See the [Debuggin App from
+extension for Visual Studio Code. See the [Debugging App from
 VSCode](#debugging-app-from-vscode) section in case you missed to
 install it. But, assuming that you have the extension installed, you can
 debug your app from VSCode. In order to do that, we need to create a
@@ -1755,76 +1783,228 @@ the following screenshot:
 ![Debugging the app with Chrome Debugger in
 VSCode](images/run-debugger.png)
 
-Metadata Classes
-----------------
+Directives
+----------
 
--   Angular uses Metadata to decorate classes, methods and properties.
--   The most notable Metadata is the `@component` Metadata.
--   Metadta classes are very convenient and they make it easy to work
-    with components, services and the dependency injection system
+-   Directives and components hand-in-hand are the fundamental elements
+    of Angular.
+-   Components can be defined as directives with views.
+-   There are two types of directives in Angular:
+    -   Structural
+    -   Attribute
+-   A directive is defined using the `@directive` decorator
 
-Below is a list of Angular's core Metadata classes categorized under
-directives/components, pipes and di.
+Pipes
+-----
 
-**Directive/component Meta-data**
+-   Pipes allow you to transform values in templates before they are
+    outputed to the view.
+-   Pipes were formerly known as filters in Angular 1.x
+-   A pipe is defined using the `@pipe` class decorator
+-   The pipe decorator takes name as a parameter defining the name of
+    the pipe: `@pipe({ name: 'myPipe' })`
+-   Every pipe class has a `transform` method that transforms input to
+    outputs:
+    -   The first parameter is the input to the pipe
+    -   The second parameter is the list of arguments passed to the pipe
+-   Give the following pipe in a template:
+    `{{ data | somePipe:1:'px'}}`:
+    -   `data` is the input to pipe -- the first parameter of the
+        transform method
+    -   `[1, 'px']` is the arguments to the pipe -- the second parameter
+        of the transform method
+-   A pipe can be as simple as:
 
--   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
-    used to define a component
+    ``` {.typescript}
+    @pipe({name: 'simplePipe'})
+    class MyPipe {
+      transform(input, args) { return input + 'px'; }
+    }
+    ```
 
-    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html):
-        used to define the template for a component
-    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html):
-        used to configure a view query
-    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html):
-        used to configure a view query
--   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html):
-    used to define a directive
+-   If you want to use a pipe, you need to register your pipe class with
+    the components in the pipes array:
 
-    -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
-        used to grab the value of an attribute on an element hosting a
-        directive
-    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html):
-        used to configure a content query
-    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html):
-        used to configure a content query
-    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html):
-        used to define the input to a directive/component
-    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html):
-        used to define the output events of a directive/component
-    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html):
-        used to declare a host property binding
-    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html):
-        used to declare a host listener
+    ``` {.typescript}
+    @component({
+      selector: '...',
+      pipes: [MyPipe] // adding pipe to the array of pipes.
+    })
+    class MyComponent {}
+    ```
 
-**Pipes**
+-   Pipes can be chained: `input | pipe1 | pipe2 | pipe3`
+    -   `input | pipe1 : output1`
+    -   `output1 | pipe2: output2`
+    -   `output2 | pipe3 : finalOutput`
 
--   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html):
-    used to declare reusable pipe function
+### Basic Pipe
 
-**DI**
+Let's make a basic pipe called `pixel` that takes a value as the input
+and appends 'px' to the end of it. The project files for this section
+are in
+[angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
 
--   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html):
-    parameter metadata that specifies a dependency.
--   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html):
-    a marker metadata that marks a class as available to Injector
-    for creation.
--   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html):
-    Specifies that an injector should retrieve a dependency from any
-    injector until reaching the closest host.
--   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html):
-    parameter metadata that marks a dependency as optional
--   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html):
-    Specifies that an Injector should retrieve a dependency only
-    from itself.
--   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html):
-    Specifies that the dependency resolution should start from the
-    parent injector.
--   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html):
-    Declares an injectable parameter to be a live list of directives or
-    variable bindings from the content children of a directive.
--   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html):
-    Similar to `QueryMetadata`, but querying the component view, instead
-    of the content children.
+Start by making a copy of the "starter" folder and call it "basic-pipe"
+and put it in `project-files/angular-examples`. Then, open the folder in
+VSCode: `code project-files/angular-examples/basic-pipe` and start the
+build with `command + shift + b`.
+
+Then, create a file for the pipe and call it `pixel.pipe.ts` in the root
+of the project.
+
+After that we need to do couple of things to define the pipe:
+
+-   Import the Pipe Class Metadata from angular core:
+    `import {Pipe} from 'Angular/core'`
+-   Then create a class defining the Pipe:
+
+    ``` {.typescript}
+    class PixelPipe {
+
+    }
+    ```
+
+-   Implement the `transform` method in the class:
+
+    ``` {.typescript}
+    class PixelPipe {
+      transform(input) {
+        return input + 'px';
+      }
+    }
+    ```
+
+-   After implementing the method, we need to decorate the class and
+    give the pipe a name that we want to use in our templates:
+
+    ``` {.typescript}
+    @Pipe({name: 'pixel'}) // <- adding the decorator
+    class PixelPipe {
+      transform(input) {
+        return input + 'px';
+      }
+    }
+    ```
+
+-   As the last step we are going to export the class by putting the
+    `export` keyword behind the class:
+
+    ``` {.typescript}
+    ...
+    export class PixelPipe {
+      ...
+    }
+    ```
+
+Now, your file should look like the following:
+
+``` {.typescript}
+import {Pipe} from 'angular2/core';
+@Pipe({name: 'pixel'}) // <- adding the decorator
+export class PixelPipe {
+  transform(input) {
+    return input + 'px';
+  }
+}
+```
+
+Now, let's go back to the `main.ts` file and import our pipe:
+
+``` {.typescript}
+import {Component} from 'angular2/core';
+import {bootstrap} from 'angular2/platform/browser';
+import {PixelPipe} from './pixel.pipe'; // <- importing pipe
+```
+
+After importing our pipe, we should register it with our component by
+adding it to the `pipes` array:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  templateUrl : 'templates/app.tpl.html',
+  pipes: [PixelPipe] // <- registering the pipe
+})
+```
+
+Now that we have registered the pipe, we can use it in our template in
+`templates/app.tpl.html`:
+
+``` {.html}
+<h1>{{ name }}</h1>
+<p>Pixel value: {{ 25 | pixel }}</p>
+```
+
+You should be all set now. You can set the url in your `launch.json`
+file and hit F5:
+
+``` {.json}
+...
+"url": "http://localhost:8080/project-files/angular-examples/basic-pipe/index.html",
+...
+```
+
+If your server is running you should be able to see the following
+output:
+
+![Running the pixelPipe in the browser](images/basic-pipe.png)
+
+### Chaining Pipes
+
+Let's continue where we left off with the "pixelPipe" and add another
+pipe called "round" that rounds down given values, that is:
+
+    25.3 | round | pixel -> 25px
+
+The project files for this section are in
+[angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
+
+We are going to add the "roundFilter" to our "basic-pipe" project. Let's
+get started by adding the `round.pipe.ts` file in the root of the
+project:
+
+``` {.typescript}
+import {Pipe} from 'angular2/core';
+@Pipe({name: 'round'})
+export class RoundPipe {
+  transform (input) {
+    return Math.floor(+input); // <- convert input to number and then floor it.
+  }
+}
+```
+
+This Pipe is not complicated at all. We are just returning the floor of
+the input. We are also converting the input to number by putting a `+`
+before input.
+
+Now, let's import the pipe into our `main.ts` file:
+
+``` {.typescript}
+import {Component} from 'angular2/core';
+import {bootstrap} from 'angular2/platform/browser';
+import {PixelPipe} from './pixel.pipe';
+import {RoundPipe} from './round.pipe'; // <- importing `RoundPipe`
+```
+
+and then we have to add the pipe to the list of pipe array:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  templateUrl : 'templates/app.tpl.html',
+  pipes: [PixelPipe, RoundPipe] // <- registering the pipe
+})
+```
+
+after that we are going to add the following to our
+`templates/app.tpl.html` file:
+
+``` {.html}
+<p>Pixel value: {{ 34.4 | round | pixel }}</p>
+```
+
+After running the app you should see `34.px` as the output on the page.
 
 Dependency Injection
 --------------------
@@ -1950,6 +2130,77 @@ Observables
 
 -   A subscription can be canceled by calling the `unsubscribe` method.
 
+Metadata Classes
+----------------
+
+-   Angular uses Metadata to decorate classes, methods and properties.
+-   The most notable Metadata is the `@component` Metadata.
+-   Metadta classes are very convenient and they make it easy to work
+    with components, services and the dependency injection system
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+**Directive/component Meta-data**
+
+-   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
+    used to define a component
+
+    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html):
+        used to define the template for a component
+    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html):
+        used to configure a view query
+    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html):
+        used to configure a view query
+-   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html):
+    used to define a directive
+
+    -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
+        used to grab the value of an attribute on an element hosting a
+        directive
+    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html):
+        used to configure a content query
+    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html):
+        used to configure a content query
+    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html):
+        used to define the input to a directive/component
+    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html):
+        used to define the output events of a directive/component
+    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html):
+        used to declare a host property binding
+    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html):
+        used to declare a host listener
+
+**Pipes**
+
+-   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html):
+    used to declare reusable pipe function
+
+**DI**
+
+-   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html):
+    parameter metadata that specifies a dependency.
+-   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html):
+    a marker metadata that marks a class as available to Injector
+    for creation.
+-   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html):
+    Specifies that an injector should retrieve a dependency from any
+    injector until reaching the closest host.
+-   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html):
+    parameter metadata that marks a dependency as optional
+-   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html):
+    Specifies that an Injector should retrieve a dependency only
+    from itself.
+-   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html):
+    Specifies that the dependency resolution should start from the
+    parent injector.
+-   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html):
+    Declares an injectable parameter to be a live list of directives or
+    variable bindings from the content children of a directive.
+-   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html):
+    Similar to `QueryMetadata`, but querying the component view, instead
+    of the content children.
+
 Angular Router
 --------------
 
@@ -1966,8 +2217,6 @@ Components in Depth
 -   A component declares a reusable building block of an app
 -   A TypeScript class is used to define a component coupled with the
     `@component` decorator
-
-### Components Options
 
 The `@component` decorator defines the following:
 

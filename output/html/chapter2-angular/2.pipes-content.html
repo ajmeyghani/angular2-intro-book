@@ -1,0 +1,185 @@
+<h2 id="pipes">Pipes</h2>
+<ul>
+<li>Pipes allow you to transform values in templates before they are outputed to the view.</li>
+<li>Pipes were formerly known as filters in Angular 1.x</li>
+<li>A pipe is defined using the <code>@pipe</code> class decorator</li>
+<li>The pipe decorator takes name as a parameter defining the name of the pipe: <code>@pipe({ name: 'myPipe' })</code></li>
+<li>Every pipe class has a <code>transform</code> method that transforms input to outputs:
+<ul>
+<li>The first parameter is the input to the pipe</li>
+<li>The second parameter is the list of arguments passed to the pipe</li>
+</ul></li>
+<li>Give the following pipe in a template: <code>{{ data | somePipe:1:'px'}}</code>:
+<ul>
+<li><code>data</code> is the input to pipe -- the first parameter of the transform method</li>
+<li><code>[1, 'px']</code> is the arguments to the pipe -- the second parameter of the transform method</li>
+</ul></li>
+<li><p>A pipe can be as simple as:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@pipe</span>({name: &#39;simplePipe&#39;})
+<span class="kw">class</span> MyPipe {
+  <span class="fu">transform</span>(input, args) { <span class="kw">return</span> input + &#39;px&#39;; }
+}</code></pre></td></tr></table></div></li>
+<li><p>If you want to use a pipe, you need to register your pipe class with the components in the pipes array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@component</span>({
+  selector: &#39;...&#39;,
+  pipes: [MyPipe] <span class="co">// adding pipe to the array of pipes.</span>
+})
+<span class="kw">class</span> MyComponent {}</code></pre></td></tr></table></div></li>
+<li>Pipes can be chained: <code>input | pipe1 | pipe2 | pipe3</code>
+<ul>
+<li><code>input | pipe1 : output1</code></li>
+<li><code>output1 | pipe2: output2</code></li>
+<li><code>output2 | pipe3 : finalOutput</code></li>
+</ul></li>
+</ul>
+<h3 id="basic-pipe">Basic Pipe</h3>
+<p>Let's make a basic pipe called <code>pixel</code> that takes a value as the input and appends 'px' to the end of it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe">angular2-intro/project-files/angular-examples/pipes/basic-pipe</a>.</p>
+<p>Start by making a copy of the &quot;starter&quot; folder and call it &quot;basic-pipe&quot; and put it in <code>project-files/angular-examples</code>. Then, open the folder in VSCode: <code>code project-files/angular-examples/basic-pipe</code> and start the build with <code>command + shift + b</code>.</p>
+<p>Then, create a file for the pipe and call it <code>pixel.pipe.ts</code> in the root of the project.</p>
+<p>After that we need to do couple of things to define the pipe:</p>
+<ul>
+<li>Import the Pipe Class Metadata from angular core: <code>import {Pipe} from 'Angular/core'</code></li>
+<li><p>Then create a class defining the Pipe:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> PixelPipe {
+
+}</code></pre></td></tr></table></div></li>
+<li><p>Implement the <code>transform</code> method in the class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div></li>
+<li><p>After implementing the method, we need to decorate the class and give the pipe a name that we want to use in our templates:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Pipe</span>({name: &#39;pixel&#39;}) <span class="co">// &lt;- adding the decorator</span>
+<span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div></li>
+<li><p>As the last step we are going to export the class by putting the <code>export</code> keyword behind the class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">...
+export <span class="kw">class</span> PixelPipe {
+  ...
+}</code></pre></td></tr></table></div></li>
+</ul>
+<p>Now, your file should look like the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Pipe} from &#39;angular2/core&#39;;</span>
+<span class="fu">@Pipe</span>({name: &#39;pixel&#39;}) <span class="co">// &lt;- adding the decorator</span>
+export <span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div>
+<p>Now, let's go back to the <code>main.ts</code> file and import our pipe:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Component} from &#39;angular2/core&#39;;</span>
+<span class="kw">import {bootstrap} from &#39;angular2/platform/browser&#39;;</span>
+<span class="kw">import {PixelPipe} from &#39;./pixel.pipe&#39;;</span> <span class="co">// &lt;- importing pipe</span></code></pre></td></tr></table></div>
+<p>After importing our pipe, we should register it with our component by adding it to the <code>pipes</code> array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl : &#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  pipes: [PixelPipe] <span class="co">// &lt;- registering the pipe</span>
+})</code></pre></td></tr></table></div>
+<p>Now that we have registered the pipe, we can use it in our template in <code>templates/app.tpl.html</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h1&gt;</span>{{ name }}<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;p&gt;</span>Pixel value: {{ 25 | pixel }}<span class="kw">&lt;/p&gt;</span></code></pre></td></tr></table></div>
+<p>You should be all set now. You can set the url in your <code>launch.json</code> file and hit F5:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="er">...</span>
+<span class="er">&quot;url&quot;:</span> <span class="er">&quot;http://localhost:8080/project-files/angular-examples/basic-pipe/index.html&quot;,</span>
+<span class="er">...</span></code></pre></td></tr></table></div>
+<p>If your server is running you should be able to see the following output:</p>
+<div class="figure">
+<img src="images/basic-pipe.png" alt="Running the pixelPipe in the browser" />
+<p class="caption">Running the pixelPipe in the browser</p>
+</div>
+<h3 id="chaining-pipes">Chaining Pipes</h3>
+<p>Let's continue where we left off with the &quot;pixelPipe&quot; and add another pipe called &quot;round&quot; that rounds down given values, that is:</p>
+<pre><code>25.3 | round | pixel -&gt; 25px</code></pre>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining">angular2-intro/project-files/angular-examples/pipes/pipe-chaining</a>.</p>
+<p>We are going to add the &quot;roundFilter&quot; to our &quot;basic-pipe&quot; project. Let's get started by adding the <code>round.pipe.ts</code> file in the root of the project:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Pipe} from &#39;angular2/core&#39;;</span>
+<span class="fu">@Pipe</span>({name: &#39;round&#39;})
+export <span class="kw">class</span> RoundPipe {
+  <span class="fu">transform</span> (input) {
+    <span class="kw">return</span> Math.<span class="fu">floor</span>(+input); <span class="co">// &lt;- convert input to number and then floor it.</span>
+  }
+}</code></pre></td></tr></table></div>
+<p>This Pipe is not complicated at all. We are just returning the floor of the input. We are also converting the input to number by putting a <code>+</code> before input.</p>
+<p>Now, let's import the pipe into our <code>main.ts</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Component} from &#39;angular2/core&#39;;</span>
+<span class="kw">import {bootstrap} from &#39;angular2/platform/browser&#39;;</span>
+<span class="kw">import {PixelPipe} from &#39;./pixel.pipe&#39;;</span>
+<span class="kw">import {RoundPipe} from &#39;./round.pipe&#39;;</span> <span class="co">// &lt;- importing `RoundPipe`</span></code></pre></td></tr></table></div>
+<p>and then we have to add the pipe to the list of pipe array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl : &#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  pipes: [PixelPipe, RoundPipe] <span class="co">// &lt;- registering the pipe</span>
+})</code></pre></td></tr></table></div>
+<p>after that we are going to add the following to our <code>templates/app.tpl.html</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Pixel value: {{ 34.4 | round | pixel }}<span class="kw">&lt;/p&gt;</span></code></pre></td></tr></table></div>
+<p>After running the app you should see <code>34.px</code> as the output on the page.</p>

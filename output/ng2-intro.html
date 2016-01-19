@@ -195,27 +195,33 @@
     <li><a href="#method-decorators">Method Decorators</a></li>
     </ul></li>
     </ul></li>
-    <li><a href="#angular-basics">Angular Basics</a><ul>
-    <li><a href="#using-angular-project-files">Using Angular Project Files</a></li>
+    <li><a href="#angular">Angular</a><ul>
+    <li><a href="#project-files">Project Files</a><ul>
+    <li><a href="#running-the-project-files">Running the Project Files</a></li>
+    <li><a href="#starter-project">Starter Project</a></li>
+    </ul></li>
     <li><a href="#components">Components</a><ul>
-    <li><a href="#project-files">Project Files</a></li>
+    <li><a href="#project-files-1">Project Files</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#making-the-component">Making the Component</a></li>
     <li><a href="#compiling-the-component">Compiling the Component</a></li>
     <li><a href="#loading-the-component">Loading the Component</a></li>
     <li><a href="#debugging-the-component">Debugging the component</a></li>
     </ul></li>
-    <li><a href="#metadata-classes">Metadata Classes</a></li>
+    <li><a href="#directives">Directives</a></li>
+    <li><a href="#pipes">Pipes</a><ul>
+    <li><a href="#basic-pipe">Basic Pipe</a></li>
+    <li><a href="#chaining-pipes">Chaining Pipes</a></li>
+    </ul></li>
     <li><a href="#dependency-injection">Dependency Injection</a></li>
     <li><a href="#services-and-providers">Services and Providers</a></li>
     <li><a href="#data-and-state-management">Data and State Management</a></li>
     <li><a href="#observables">Observables</a></li>
+    <li><a href="#metadata-classes">Metadata Classes</a></li>
     <li><a href="#angular-router">Angular Router</a></li>
     </ul></li>
     <li><a href="#angular-topics-in-depth">Angular Topics in Depth</a><ul>
-    <li><a href="#components-in-depth">Components in Depth</a><ul>
-    <li><a href="#components-options">Components Options</a></li>
-    </ul></li>
+    <li><a href="#components-in-depth">Components in Depth</a></li>
     </ul></li>
     </ul>
   </div>
@@ -1353,16 +1359,20 @@ CommonJS Modules</code></pre>
 </div>
 </div>
 </div>
-<div id="angular-basics" class="section level1">
-<h1>Angular Basics</h1>
-<p>This chapter will walk you through the basics of Angular2. We will start by looking at the basics of components, and then we move onto pipes, events and other concepts. By the end of the chapter you should have a basic understanding of the new concepts in Angular2.</p>
-<p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in the later chapters.</p>
-<div id="using-angular-project-files" class="section level2">
-<h2>Using Angular Project Files</h2>
+<div id="angular" class="section level1">
+<h1>Angular</h1>
+<p>This chapter will walk you through the main concepts in Angular. We will start by looking at components, and then we move onto pipes, services, events and other concepts. By the end of the chapter you should have a basic understanding of the most important concepts in Angular.</p>
+<p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in later chapters.</p>
+<div id="project-files" class="section level2">
+<h2>Project Files</h2>
+<div id="running-the-project-files" class="section level3">
+<h3>Running the Project Files</h3>
+<p>First, make sure that you have cloned the code repo somewhere on your machine:</p>
+<pre><code>cd ~/Desktop &amp;&amp; git clone git@github.com:st32lth/angular2-intro.git</code></pre>
 <p>In order to run the project files, you need to do two things:</p>
 <ul>
-<li><p>First, install the server dependencies and run the server in the root of the code repo:</p>
-<pre><code>npm i &amp;&amp; npm start</code></pre>
+<li><p>First, install the server dependencies and run the server in the root of the repo:</p>
+<pre><code>cd angular2-intro &amp;&amp; npm i &amp;&amp; npm start</code></pre>
 <p>After the dependencies are installed, it will open up the browser at port 8080.</p></li>
 <li><p>The next step is to install the dependencies for angular examples. Go to <code>project-files/angular-examples</code> and install the dependencies:</p>
 <pre><code>cd project-files/angular-examples &amp;&amp; npm i</code></pre></li>
@@ -1370,12 +1380,28 @@ CommonJS Modules</code></pre>
 <p>After following the steps above, you should be able to see the examples in the browser. For example, if you want to see the <code>basic-component</code> example, you can go to the following url:</p>
 <pre><code>http://localhost:8080/project-files/angular-examples/basic-component/index.html</code></pre>
 </div>
+<div id="starter-project" class="section level3">
+<h3>Starter Project</h3>
+<p>There is a starter project in <code>angular-examples/starter</code>. You can make a copy of that folder if you want to work on something new. The steps for running the project is the same for all the projects:</p>
+<ul>
+<li>Install the dependencies for the dev server in the root of the repo with <code>npm i</code> <strong>(needed once)</strong></li>
+<li>Start the dev server in the root of the repo with <code>npm start</code></li>
+<li>Install the dependencies for angular examples: <code>cd project-files/angluar-examples &amp;&amp; npm i</code> <strong>(needed once)</strong></li>
+<li>Open your project in VSCode: <code>code project-files/angular-examples/starter</code>
+<ul>
+<li>Close all chrome instances (quit out of Chrome)</li>
+<li>In VSCode start the build with <code>command + shift + b</code> and run the app by hitting F5 on the keyboard</li>
+</ul></li>
+<li>If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: <code>cd project-files/angular-examples/starter &amp;&amp; tsc -w</code>.</li>
+</ul>
+</div>
+</div>
 <div id="components" class="section level2">
 <h2>Components</h2>
 <p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
-<div id="project-files" class="section level3">
+<div id="project-files-1" class="section level3">
 <h3>Project Files</h3>
 <p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
 <p>In order to run the project files, please refer to the <a href="#using-angular-project-files">Using Angular Project Files</a> section.</p>
@@ -1656,7 +1682,7 @@ CommonJS Modules</code></pre>
 </div>
 <div id="debugging-the-component" class="section level3">
 <h3>Debugging the component</h3>
-<p>You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the <a href="#debugging-app-from-vscode">Debuggin App from VSCode</a> section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a <code>launch.json</code> file in the <code>.vscode</code> folder:</p>
+<p>You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the <a href="#debugging-app-from-vscode">Debugging App from VSCode</a> section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a <code>launch.json</code> file in the <code>.vscode</code> folder:</p>
 <pre><code>touch .vscode/launch.json</code></pre>
 <p>After you created the file, put in the following configuration in the file:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -1709,48 +1735,209 @@ CommonJS Modules</code></pre>
 </div>
 </div>
 </div>
-<div id="metadata-classes" class="section level2">
-<h2>Metadata Classes</h2>
+<div id="directives" class="section level2">
+<h2>Directives</h2>
 <ul>
-<li>Angular uses Metadata to decorate classes, methods and properties.</li>
-<li>The most notable Metadata is the <code>@component</code> Metadata.</li>
-<li>Metadta classes are very convenient and they make it easy to work with components, services and the dependency injection system</li>
-</ul>
-<p>Below is a list of Angular's core Metadata classes categorized under directives/components, pipes and di.</p>
-<p><strong>Directive/component Meta-data</strong></p>
+<li>Directives and components hand-in-hand are the fundamental elements of Angular.</li>
+<li>Components can be defined as directives with views.</li>
+<li>There are two types of directives in Angular:
 <ul>
-<li><p><a href="https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html">Component</a>: used to define a component</p>
-<ul>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html">View</a>: used to define the template for a component</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html">ViewChild</a>: used to configure a view query</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html">ViewChildren</a>: used to configure a view query</li>
+<li>Structural</li>
+<li>Attribute</li>
 </ul></li>
-<li><p><a href="https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html">Directive</a>: used to define a directive</p>
+<li>A directive is defined using the <code>@directive</code> decorator</li>
+</ul>
+</div>
+<div id="pipes" class="section level2">
+<h2>Pipes</h2>
 <ul>
-<li><a href="https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html">Attribute</a> used to grab the value of an attribute on an element hosting a directive</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html">ContentChild</a>: used to configure a content query</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html">ContentChildren</a>: used to configure a content query</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html">Input</a>: used to define the input to a directive/component</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html">Output</a>: used to define the output events of a directive/component</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html">HostBinding</a>: used to declare a host property binding</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html">HostListener</a>: used to declare a host listener</li>
+<li>Pipes allow you to transform values in templates before they are outputed to the view.</li>
+<li>Pipes were formerly known as filters in Angular 1.x</li>
+<li>A pipe is defined using the <code>@pipe</code> class decorator</li>
+<li>The pipe decorator takes name as a parameter defining the name of the pipe: <code>@pipe({ name: 'myPipe' })</code></li>
+<li>Every pipe class has a <code>transform</code> method that transforms input to outputs:
+<ul>
+<li>The first parameter is the input to the pipe</li>
+<li>The second parameter is the list of arguments passed to the pipe</li>
+</ul></li>
+<li>Give the following pipe in a template: <code>{{ data | somePipe:1:'px'}}</code>:
+<ul>
+<li><code>data</code> is the input to pipe -- the first parameter of the transform method</li>
+<li><code>[1, 'px']</code> is the arguments to the pipe -- the second parameter of the transform method</li>
+</ul></li>
+<li><p>A pipe can be as simple as:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@pipe</span>({name: &#39;simplePipe&#39;})
+<span class="kw">class</span> MyPipe {
+  <span class="fu">transform</span>(input, args) { <span class="kw">return</span> input + &#39;px&#39;; }
+}</code></pre></td></tr></table></div></li>
+<li><p>If you want to use a pipe, you need to register your pipe class with the components in the pipes array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@component</span>({
+  selector: &#39;...&#39;,
+  pipes: [MyPipe] <span class="co">// adding pipe to the array of pipes.</span>
+})
+<span class="kw">class</span> MyComponent {}</code></pre></td></tr></table></div></li>
+<li>Pipes can be chained: <code>input | pipe1 | pipe2 | pipe3</code>
+<ul>
+<li><code>input | pipe1 : output1</code></li>
+<li><code>output1 | pipe2: output2</code></li>
+<li><code>output2 | pipe3 : finalOutput</code></li>
 </ul></li>
 </ul>
-<p><strong>Pipes</strong></p>
+<div id="basic-pipe" class="section level3">
+<h3>Basic Pipe</h3>
+<p>Let's make a basic pipe called <code>pixel</code> that takes a value as the input and appends 'px' to the end of it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe">angular2-intro/project-files/angular-examples/pipes/basic-pipe</a>.</p>
+<p>Start by making a copy of the &quot;starter&quot; folder and call it &quot;basic-pipe&quot; and put it in <code>project-files/angular-examples</code>. Then, open the folder in VSCode: <code>code project-files/angular-examples/basic-pipe</code> and start the build with <code>command + shift + b</code>.</p>
+<p>Then, create a file for the pipe and call it <code>pixel.pipe.ts</code> in the root of the project.</p>
+<p>After that we need to do couple of things to define the pipe:</p>
 <ul>
-<li><a href="https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html">Pipe</a>: used to declare reusable pipe function</li>
+<li>Import the Pipe Class Metadata from angular core: <code>import {Pipe} from 'Angular/core'</code></li>
+<li><p>Then create a class defining the Pipe:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> PixelPipe {
+
+}</code></pre></td></tr></table></div></li>
+<li><p>Implement the <code>transform</code> method in the class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div></li>
+<li><p>After implementing the method, we need to decorate the class and give the pipe a name that we want to use in our templates:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Pipe</span>({name: &#39;pixel&#39;}) <span class="co">// &lt;- adding the decorator</span>
+<span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div></li>
+<li><p>As the last step we are going to export the class by putting the <code>export</code> keyword behind the class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java">...
+export <span class="kw">class</span> PixelPipe {
+  ...
+}</code></pre></td></tr></table></div></li>
 </ul>
-<p><strong>DI</strong></p>
-<ul>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html">Inject</a>: parameter metadata that specifies a dependency.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html">Injectable</a>: a marker metadata that marks a class as available to Injector for creation.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html">Host</a>: Specifies that an injector should retrieve a dependency from any injector until reaching the closest host.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html">Optional</a>: parameter metadata that marks a dependency as optional</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html">Self</a>: Specifies that an Injector should retrieve a dependency only from itself.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html">SkipSelf</a>: Specifies that the dependency resolution should start from the parent injector.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a>: Declares an injectable parameter to be a live list of directives or variable bindings from the content children of a directive.</li>
-<li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a>: Similar to <code>QueryMetadata</code>, but querying the component view, instead of the content children.</li>
-</ul>
+<p>Now, your file should look like the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Pipe} from &#39;angular2/core&#39;;</span>
+<span class="fu">@Pipe</span>({name: &#39;pixel&#39;}) <span class="co">// &lt;- adding the decorator</span>
+export <span class="kw">class</span> PixelPipe {
+  <span class="fu">transform</span>(input) {
+    <span class="kw">return</span> input + &#39;px&#39;;
+  }
+}</code></pre></td></tr></table></div>
+<p>Now, let's go back to the <code>main.ts</code> file and import our pipe:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Component} from &#39;angular2/core&#39;;</span>
+<span class="kw">import {bootstrap} from &#39;angular2/platform/browser&#39;;</span>
+<span class="kw">import {PixelPipe} from &#39;./pixel.pipe&#39;;</span> <span class="co">// &lt;- importing pipe</span></code></pre></td></tr></table></div>
+<p>After importing our pipe, we should register it with our component by adding it to the <code>pipes</code> array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl : &#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  pipes: [PixelPipe] <span class="co">// &lt;- registering the pipe</span>
+})</code></pre></td></tr></table></div>
+<p>Now that we have registered the pipe, we can use it in our template in <code>templates/app.tpl.html</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h1&gt;</span>{{ name }}<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;p&gt;</span>Pixel value: {{ 25 | pixel }}<span class="kw">&lt;/p&gt;</span></code></pre></td></tr></table></div>
+<p>You should be all set now. You can set the url in your <code>launch.json</code> file and hit F5:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="er">...</span>
+<span class="er">&quot;url&quot;:</span> <span class="er">&quot;http://localhost:8080/project-files/angular-examples/basic-pipe/index.html&quot;,</span>
+<span class="er">...</span></code></pre></td></tr></table></div>
+<p>If your server is running you should be able to see the following output:</p>
+<div class="figure">
+<img src="images/basic-pipe.png" alt="Running the pixelPipe in the browser" />
+<p class="caption">Running the pixelPipe in the browser</p>
+</div>
+</div>
+<div id="chaining-pipes" class="section level3">
+<h3>Chaining Pipes</h3>
+<p>Let's continue where we left off with the &quot;pixelPipe&quot; and add another pipe called &quot;round&quot; that rounds down given values, that is:</p>
+<pre><code>25.3 | round | pixel -&gt; 25px</code></pre>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining">angular2-intro/project-files/angular-examples/pipes/pipe-chaining</a>.</p>
+<p>We are going to add the &quot;roundFilter&quot; to our &quot;basic-pipe&quot; project. Let's get started by adding the <code>round.pipe.ts</code> file in the root of the project:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Pipe} from &#39;angular2/core&#39;;</span>
+<span class="fu">@Pipe</span>({name: &#39;round&#39;})
+export <span class="kw">class</span> RoundPipe {
+  <span class="fu">transform</span> (input) {
+    <span class="kw">return</span> Math.<span class="fu">floor</span>(+input); <span class="co">// &lt;- convert input to number and then floor it.</span>
+  }
+}</code></pre></td></tr></table></div>
+<p>This Pipe is not complicated at all. We are just returning the floor of the input. We are also converting the input to number by putting a <code>+</code> before input.</p>
+<p>Now, let's import the pipe into our <code>main.ts</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Component} from &#39;angular2/core&#39;;</span>
+<span class="kw">import {bootstrap} from &#39;angular2/platform/browser&#39;;</span>
+<span class="kw">import {PixelPipe} from &#39;./pixel.pipe&#39;;</span>
+<span class="kw">import {RoundPipe} from &#39;./round.pipe&#39;;</span> <span class="co">// &lt;- importing `RoundPipe`</span></code></pre></td></tr></table></div>
+<p>and then we have to add the pipe to the list of pipe array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl : &#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  pipes: [PixelPipe, RoundPipe] <span class="co">// &lt;- registering the pipe</span>
+})</code></pre></td></tr></table></div>
+<p>after that we are going to add the following to our <code>templates/app.tpl.html</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Pixel value: {{ 34.4 | round | pixel }}<span class="kw">&lt;/p&gt;</span></code></pre></td></tr></table></div>
+<p>After running the app you should see <code>34.px</code> as the output on the page.</p>
+</div>
 </div>
 <div id="dependency-injection" class="section level2">
 <h2>Dependency Injection</h2>
@@ -1863,6 +2050,49 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
 </ul>
 </div>
+<div id="metadata-classes" class="section level2">
+<h2>Metadata Classes</h2>
+<ul>
+<li>Angular uses Metadata to decorate classes, methods and properties.</li>
+<li>The most notable Metadata is the <code>@component</code> Metadata.</li>
+<li>Metadta classes are very convenient and they make it easy to work with components, services and the dependency injection system</li>
+</ul>
+<p>Below is a list of Angular's core Metadata classes categorized under directives/components, pipes and di.</p>
+<p><strong>Directive/component Meta-data</strong></p>
+<ul>
+<li><p><a href="https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html">Component</a>: used to define a component</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html">View</a>: used to define the template for a component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html">ViewChild</a>: used to configure a view query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html">ViewChildren</a>: used to configure a view query</li>
+</ul></li>
+<li><p><a href="https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html">Directive</a>: used to define a directive</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html">Attribute</a> used to grab the value of an attribute on an element hosting a directive</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html">ContentChild</a>: used to configure a content query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html">ContentChildren</a>: used to configure a content query</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html">Input</a>: used to define the input to a directive/component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html">Output</a>: used to define the output events of a directive/component</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html">HostBinding</a>: used to declare a host property binding</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html">HostListener</a>: used to declare a host listener</li>
+</ul></li>
+</ul>
+<p><strong>Pipes</strong></p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html">Pipe</a>: used to declare reusable pipe function</li>
+</ul>
+<p><strong>DI</strong></p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html">Inject</a>: parameter metadata that specifies a dependency.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html">Injectable</a>: a marker metadata that marks a class as available to Injector for creation.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html">Host</a>: Specifies that an injector should retrieve a dependency from any injector until reaching the closest host.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html">Optional</a>: parameter metadata that marks a dependency as optional</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html">Self</a>: Specifies that an Injector should retrieve a dependency only from itself.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html">SkipSelf</a>: Specifies that the dependency resolution should start from the parent injector.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a>: Declares an injectable parameter to be a live list of directives or variable bindings from the content children of a directive.</li>
+<li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a>: Similar to <code>QueryMetadata</code>, but querying the component view, instead of the content children.</li>
+</ul>
+</div>
 <div id="angular-router" class="section level2">
 <h2>Angular Router</h2>
 <p>Angular has a stand-alone module responsible for handling routing.</p>
@@ -1877,8 +2107,6 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <li>A component declares a reusable building block of an app</li>
 <li>A TypeScript class is used to define a component coupled with the <code>@component</code> decorator</li>
 </ul>
-<div id="components-options" class="section level3">
-<h3>Components Options</h3>
 <p>The <code>@component</code> decorator defines the following:</p>
 <ul>
 <li>selector: <code>string</code> value defining the css selector targeting an html element</li>
@@ -1917,7 +2145,6 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <li><code>ViewEncapsulation.Native</code>: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.</li>
 </ul></li>
 </ul>
-</div>
 </div>
 </div> 
     </div>

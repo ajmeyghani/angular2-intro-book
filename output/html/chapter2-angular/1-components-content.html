@@ -1,0 +1,325 @@
+<h2 id="components">Components</h2>
+<p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
+<p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
+<p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
+<h3 id="project-files">Project Files</h3>
+<p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
+<p>In order to run the project files, please refer to the <a href="#using-angular-project-files">Using Angular Project Files</a> section.</p>
+<h3 id="getting-started">Getting Started</h3>
+<p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
+<pre><code>mkdir ~/Desktop/hello-angular &amp;&amp; cd $_</code></pre>
+<p>Start npm in this folder with <code>npm init</code> and accept all the defaults.</p>
+<p>After that, add the <code>dependencies</code> and <code>devDependencies</code> field to your <code>package.json</code> file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="er">&quot;dependencies&quot;:</span> <span class="fu">{</span>
+  <span class="dt">&quot;angular2&quot;</span><span class="fu">:</span> <span class="st">&quot;^2.0.0-beta.1&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;es6-promise&quot;</span><span class="fu">:</span> <span class="st">&quot;^3.0.2&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;es6-shim&quot;</span><span class="fu">:</span> <span class="st">&quot;^0.33.3&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;reflect-metadata&quot;</span><span class="fu">:</span> <span class="st">&quot;0.1.2&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;rxjs&quot;</span><span class="fu">:</span> <span class="st">&quot;5.0.0-beta.0&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;zone.js&quot;</span><span class="fu">:</span> <span class="st">&quot;0.5.10&quot;</span>
+<span class="fu">}</span><span class="er">,</span>
+<span class="er">&quot;devDependencies&quot;:</span> <span class="fu">{</span>
+  <span class="dt">&quot;systemjs&quot;</span><span class="fu">:</span> <span class="st">&quot;^0.19.16&quot;</span>
+<span class="fu">}</span></code></pre></td></tr></table></div>
+<p>your <code>package.json</code> file should look something like the follwoing:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;hello-angular&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;main&quot;</span><span class="fu">:</span> <span class="st">&quot;index.js&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;scripts&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;test&quot;</span><span class="fu">:</span> <span class="st">&quot;echo </span><span class="ch">\&quot;</span><span class="st">Error: no test specified</span><span class="ch">\&quot;</span><span class="st"> &amp;&amp; exit 1&quot;</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;author&quot;</span><span class="fu">:</span> <span class="st">&quot;Stealth &lt;st32lth@gmail.com&gt; (http://github.com/st32lth)&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;license&quot;</span><span class="fu">:</span> <span class="st">&quot;ISC&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;dependencies&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;angular2&quot;</span><span class="fu">:</span> <span class="st">&quot;^2.0.0-beta.1&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;es6-promise&quot;</span><span class="fu">:</span> <span class="st">&quot;^3.0.2&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;es6-shim&quot;</span><span class="fu">:</span> <span class="st">&quot;^0.33.3&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;reflect-metadata&quot;</span><span class="fu">:</span> <span class="st">&quot;0.1.2&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;rxjs&quot;</span><span class="fu">:</span> <span class="st">&quot;5.0.0-beta.0&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;zone.js&quot;</span><span class="fu">:</span> <span class="st">&quot;0.5.10&quot;</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;devDependencies&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;systemjs&quot;</span><span class="fu">:</span> <span class="st">&quot;^0.19.16&quot;</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></td></tr></table></div>
+<p>Then run <code>npm i</code> to install the dependencies.</p>
+<p>After all the dependencies are installed, start VSCode in this folder with <code>code .</code></p>
+<p>Then create a <code>index.html</code> file in the root of the project and put in the following:</p>
+<p><strong><code>index.html</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;html&gt;</span>
+<span class="kw">&lt;head&gt;</span>
+  <span class="kw">&lt;title&gt;</span>Hello Angular<span class="kw">&lt;/title&gt;</span>
+
+  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/angular2/bundles/angular2-polyfills.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/systemjs/dist/system.src.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/rxjs/bundles/Rx.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/angular2/bundles/angular2.dev.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+
+  <span class="co">&lt;!-- add systemjs settings later --&gt;</span>
+
+<span class="kw">&lt;/head&gt;</span>
+
+<span class="kw">&lt;body&gt;</span>
+  <span class="co">&lt;!-- add app stuff later --&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+
+<span class="kw">&lt;/html&gt;</span></code></pre></td></tr></table></div>
+<p>This loads all the necessary scripts that we need to run Angular in the browser.</p>
+<p><strong>Note</strong></p>
+<p>If you need to support older browsers, you need to include the <code>es6-shims</code> before everything else:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
+<h3 id="making-the-component">Making the Component</h3>
+<p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
+<p><strong><code>main.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Component, OnInit} from &#39;angular2/core&#39;;</span>
+<span class="kw">import {bootstrap} from &#39;angular2/platform/browser&#39;;</span>
+
+<span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  styles: [`h1 { line-height: 100vh; text-align: center }`],
+  template: `&lt;h1&gt;{{ name }}&lt;/h1&gt;`
+})
+<span class="kw">class</span> HelloAngular <span class="kw">implements</span> OnInit {
+  name: string;
+  <span class="fu">constructor</span>() { <span class="kw">this</span>.<span class="fu">name</span> = &#39;Hello Angular&#39;; }
+  <span class="fu">ngOnInit</span>() { console.<span class="fu">log</span>(&#39;component linked&#39;); }
+}
+
+<span class="fu">bootstrap</span>(HelloAngular, []);</code></pre></td></tr></table></div>
+<ul>
+<li>On line 1 we are importing the <code>component</code> meta data (annotation) and the <code>onInit</code> interface.</li>
+<li>On line 2 we are loading the <code>bootstrap</code> method that bootstraps the app given a component.</li>
+<li>On line 4, we are defining a component using the <code>component</code> decorator. The <code>@component</code> is technically a class decorator because it precedes the <code>HelloAngular</code> class definition.</li>
+<li>On line 5, we are telling angular to look out for the <code>app</code> tag. So when Angular looks at the html and comes across the <code>&lt;app&gt;&lt;/app&gt;</code> tag, it is going to load the template (on line 6) and instantiates the class for it (defined on line 9).</li>
+<li>On line 9, we are defining a class called <code>HelloAngular</code> that defines the logic of the component. And for fun, we are implementing the <code>OnInit</code> interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.</li>
+<li>Last but not least, we call the <code>bootstrap</code> method with the <code>HelloAngular</code> class as the first argument to bootstrap the app with the <code>HelloAngular</code> component.</li>
+</ul>
+<h3 id="compiling-the-component">Compiling the Component</h3>
+<p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
+<ol style="list-style-type: decimal">
+<li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
+<li><p>And the <code>tasks.json</code> file for VSCode to do the compiling</p></li>
+</ol>
+<p>Create the <code>tsconfig.json</code> file in the root of the project and put in the following:</p>
+<p><strong><code>tsconfig.json</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;compilerOptions&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;es5&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;module&quot;</span><span class="fu">:</span> <span class="st">&quot;system&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;moduleResolution&quot;</span><span class="fu">:</span> <span class="st">&quot;node&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;sourceMap&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+    <span class="dt">&quot;emitDecoratorMetadata&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+    <span class="dt">&quot;experimentalDecorators&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+    <span class="dt">&quot;removeComments&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+    <span class="dt">&quot;noImplicitAny&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+    <span class="dt">&quot;outDir&quot;</span><span class="fu">:</span> <span class="st">&quot;output&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;watch&quot;</span><span class="fu">:</span> <span class="kw">true</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;exclude&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="st">&quot;node_modules&quot;</span>
+  <span class="ot">]</span>
+<span class="fu">}</span></code></pre></td></tr></table></div>
+<p>Then create the <code>tasks.json</code> in the <code>.vscode</code> folder in the root of the project and put in the following:</p>
+<p><strong><code>.vscode/tasks.json</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;0.1.0&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;command&quot;</span><span class="fu">:</span> <span class="st">&quot;tsc&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;showOutput&quot;</span><span class="fu">:</span> <span class="st">&quot;silent&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;isShellCommand&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+  <span class="dt">&quot;problemMatcher&quot;</span><span class="fu">:</span> <span class="st">&quot;$tsc&quot;</span>
+<span class="fu">}</span></code></pre></td></tr></table></div>
+<ul>
+<li><p>Now we can build the TypeScript files as we work. We just need to start the build task with <code>command + shift + b</code> or using the prompt. If you want to use the prompt do the following:</p>
+<ul>
+<li><p>Use <code>command + shift + p</code> to open the prompt</p></li>
+<li><p>Then, type <code>&gt; run build task</code> and hit enter to start the build task.</p></li>
+</ul></li>
+<li><p>After you run the build task, you should see an <code>output</code> file generated with <code>main.js</code> and the source maps in it.</p></li>
+<li><p>The task is watching the files and compiling as you go. To stop the task, open the prompt and type:</p>
+<pre><code>&gt; terminate running task</code></pre></li>
+</ul>
+<h3 id="loading-the-component">Loading the Component</h3>
+<p>After compiling the component, we need to load it to the <code>index.html</code> file with <code>Systemjs</code>. Open the <code>index.html</code> file and replace <code>&lt;!-- add systemjs settings later --&gt;</code> with the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script&gt;</span>
+  <span class="va">System</span>.<span class="at">config</span>(<span class="op">{</span>
+    <span class="dt">packages</span><span class="op">:</span> <span class="op">{</span>
+      <span class="dt">output</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">format</span><span class="op">:</span> <span class="st">&#39;register&#39;</span><span class="op">,</span>
+        <span class="dt">defaultExtension</span><span class="op">:</span> <span class="st">&#39;js&#39;</span>
+      <span class="op">}</span>
+    <span class="op">}</span>
+  <span class="op">}</span>)<span class="op">;</span>
+  <span class="va">System</span>.<span class="at">import</span>(<span class="st">&#39;output/main&#39;</span>)
+  .<span class="at">then</span>(<span class="kw">null</span><span class="op">,</span> <span class="va">console</span>.<span class="va">error</span>.<span class="at">bind</span>(console))<span class="op">;</span>
+<span class="op">&lt;</span><span class="ss">/script&gt;</span></code></pre></td></tr></table></div>
+<p>Now we can use our component in the body of the html:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;body&gt;</span>
+  <span class="kw">&lt;app&gt;</span>Loading ...<span class="kw">&lt;/app&gt;</span>
+<span class="kw">&lt;/body&gt;</span></code></pre></td></tr></table></div>
+<p>It is finally time to serve the app. You can serve the app in the current directory using the <code>live-server</code>:</p>
+<pre><code>live-server .</code></pre>
+<p>If everything is wired up correctly, you should be able to see the following:</p>
+<div class="figure">
+<img src="images/hello-angular.png" alt="Running a basic component in the browser" />
+<p class="caption">Running a basic component in the browser</p>
+</div>
+<h3 id="debugging-the-component">Debugging the component</h3>
+<p>You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the <a href="#debugging-app-from-vscode">Debugging App from VSCode</a> section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a <code>launch.json</code> file in the <code>.vscode</code> folder:</p>
+<pre><code>touch .vscode/launch.json</code></pre>
+<p>After you created the file, put in the following configuration in the file:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines json"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;0.1.0&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;configurations&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Launch Chrome Debugger&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;chrome&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;request&quot;</span><span class="fu">:</span> <span class="st">&quot;launch&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;http://127.0.0.1:8080/&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;sourceMaps&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;webRoot&quot;</span><span class="fu">:</span> <span class="st">&quot;.&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;runtimeExecutable&quot;</span><span class="fu">:</span> <span class="st">&quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;runtimeArgs&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="st">&quot;--remote-debugging-port=9222&quot;</span><span class="ot">,</span>
+        <span class="st">&quot;--incognito&quot;</span>
+      <span class="ot">]</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span>
+<span class="fu">}</span></code></pre></td></tr></table></div>
+<p>Before running the debugger:</p>
+<ul>
+<li>Make sure that all instances of chrome are closed. It makes it easier to run the debugger from VSCode itself.</li>
+<li>Make sure that the <code>runtimeExecutable</code> path is valid. This value would be different depending on your OS.</li>
+<li>Make sure that the <code>url</code> value is valid as well. The <code>url</code> value has to match the path that you see when you run a server serving the files.</li>
+<li>Set a breakpoint on a line in <code>main.ts</code> file and then run the debugger under the debugger tab.</li>
+</ul>
+<p>In order to run the debugger, select <code>Launch Chrome Debugger</code> in the dropdown under the debugger tab and either click on the play icon or hit F5 on the keyboard. After that, an instance of Chrome should be opened in incognito mode. In order to trigger the debugger just refresh the page and you should be able to see the debugger pausing in VSCode. If everything is set up correctly you should be able to see something like the following screenshot:</p>
+<div class="figure">
+<img src="images/run-debugger.png" alt="Debugging the app with Chrome Debugger in VSCode" />
+<p class="caption">Debugging the app with Chrome Debugger in VSCode</p>
+</div>

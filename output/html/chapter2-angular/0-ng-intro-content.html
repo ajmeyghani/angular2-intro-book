@@ -1,0 +1,30 @@
+<h1 id="angular">Angular</h1>
+<p>This chapter will walk you through the main concepts in Angular. We will start by looking at components, and then we move onto pipes, services, events and other concepts. By the end of the chapter you should have a basic understanding of the most important concepts in Angular.</p>
+<p>The goal of this chapter is to get your feet wet without scaring you with a lot of details. Don't worry, there will be a lot coming in later chapters.</p>
+<h2 id="project-files">Project Files</h2>
+<h3 id="running-the-project-files">Running the Project Files</h3>
+<p>First, make sure that you have cloned the code repo somewhere on your machine:</p>
+<pre><code>cd ~/Desktop &amp;&amp; git clone git@github.com:st32lth/angular2-intro.git</code></pre>
+<p>In order to run the project files, you need to do two things:</p>
+<ul>
+<li><p>First, install the server dependencies and run the server in the root of the repo:</p>
+<pre><code>cd angular2-intro &amp;&amp; npm i &amp;&amp; npm start</code></pre>
+<p>After the dependencies are installed, it will open up the browser at port 8080.</p></li>
+<li><p>The next step is to install the dependencies for angular examples. Go to <code>project-files/angular-examples</code> and install the dependencies:</p>
+<pre><code>cd project-files/angular-examples &amp;&amp; npm i</code></pre></li>
+</ul>
+<p>After following the steps above, you should be able to see the examples in the browser. For example, if you want to see the <code>basic-component</code> example, you can go to the following url:</p>
+<pre><code>http://localhost:8080/project-files/angular-examples/basic-component/index.html</code></pre>
+<h3 id="starter-project">Starter Project</h3>
+<p>There is a starter project in <code>angular-examples/starter</code>. You can make a copy of that folder if you want to work on something new. The steps for running the project is the same for all the projects:</p>
+<ul>
+<li>Install the dependencies for the dev server in the root of the repo with <code>npm i</code> <strong>(needed once)</strong></li>
+<li>Start the dev server in the root of the repo with <code>npm start</code></li>
+<li>Install the dependencies for angular examples: <code>cd project-files/angluar-examples &amp;&amp; npm i</code> <strong>(needed once)</strong></li>
+<li>Open your project in VSCode: <code>code project-files/angular-examples/starter</code>
+<ul>
+<li>Close all chrome instances (quit out of Chrome)</li>
+<li>In VSCode start the build with <code>command + shift + b</code> and run the app by hitting F5 on the keyboard</li>
+</ul></li>
+<li>If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: <code>cd project-files/angular-examples/starter &amp;&amp; tsc -w</code>.</li>
+</ul>

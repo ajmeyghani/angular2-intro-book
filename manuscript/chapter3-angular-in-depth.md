@@ -7,8 +7,6 @@ Let's deep dive into Angular concepts.
 - A component declares a reusable building block of an app
 - A TypeScript class is used to define a component coupled with the `@component` decorator
 
-### Components Options
-
 The `@component` decorator defines the following:
 
   - selector: `string` value defining the css selector targeting an html element
