@@ -1,4 +1,4 @@
 chapter0-setup.md
 chapter1-typescript.md
-chapter2-angular-basics.md
+chapter2-angular.md
 chapter3-angular-in-depth.md
