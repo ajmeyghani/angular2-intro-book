@@ -213,6 +213,7 @@
     <li><a href="#basic-pipe">Basic Pipe</a></li>
     <li><a href="#chaining-pipes">Chaining Pipes</a></li>
     <li><a href="#pipes-with-parameters">Pipes with Parameters</a></li>
+    <li><a href="#async-pipes">Async Pipes</a></li>
     </ul></li>
     <li><a href="#dependency-injection">Dependency Injection</a></li>
     <li><a href="#services-and-providers">Services and Providers</a></li>
@@ -221,9 +222,10 @@
     <li><a href="#metadata-classes">Metadata Classes</a></li>
     <li><a href="#angular-router">Angular Router</a></li>
     </ul></li>
-    <li><a href="#angular-topics-in-depth">Angular Topics in Depth</a><ul>
+    <li><a href="#deep-dive">Deep Dive</a><ul>
     <li><a href="#components-in-depth">Components in Depth</a></li>
     </ul></li>
+    <li><a href="#rxjs">RxJS</a></li>
     </ul>
   </div>
     <div class="l-main-content">
@@ -1748,6 +1750,7 @@ CommonJS Modules</code></pre>
 </ul></li>
 <li>A directive is defined using the <code>@directive</code> decorator</li>
 </ul>
+<p><strong>TODO</strong></p>
 </div>
 <div id="pipes" class="section level2">
 <h2>Pipes</h2>
@@ -1972,11 +1975,17 @@ export <span class="kw">class</span> UnitPipe {
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html">{{ 25 | unit:&#39;em&#39;:2}}</code></pre></td></tr></table></div>
 <p>And the <code>args</code> array would be: <code>['em', 2]</code>.</p>
 </div>
+<div id="async-pipes" class="section level3">
+<h3>Async Pipes</h3>
+<p>Async Pipes can be used for values that will be resolved after some asynchronous operation like getting a value after making a http call.</p>
+<p><strong>TODO</strong></p>
+</div>
 </div>
 <div id="dependency-injection" class="section level2">
 <h2>Dependency Injection</h2>
 <p>Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.</p>
 <p>Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.</p>
+<p><strong>TODO</strong></p>
 </div>
 <div id="services-and-providers" class="section level2">
 <h2>Services and Providers</h2>
@@ -2050,7 +2059,8 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <span class="co">// and you can inject it to a component</span>
 
 <span class="kw">import</span> {Inject} from &#39;angular2/core&#39;
-<span class="fu">constructor</span>(dx: DepX, <span class="fu">@Inject</span>(&#39;coolObjToken&#39;) config)</code></pre></td></tr></table></div></li>
+<span class="fu">constructor</span>(dx: DepX, <span class="fu">@Inject</span>(&#39;coolObjToken&#39;) config)</code></pre></td></tr></table></div>
+<p><strong>TODO</strong></p></li>
 </ul>
 </div>
 <div id="data-and-state-management" class="section level2">
@@ -2083,6 +2093,7 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Subject} from &#39;rxjs/Subject&#39;;</span></code></pre></td></tr></table></div></li>
 <li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
 </ul>
+<p><strong>TODO</strong></p>
 </div>
 <div id="metadata-classes" class="section level2">
 <h2>Metadata Classes</h2>
@@ -2126,15 +2137,17 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <li><a href="https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html">Query</a>: Declares an injectable parameter to be a live list of directives or variable bindings from the content children of a directive.</li>
 <li><a href="https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html">ViewQuery</a>: Similar to <code>QueryMetadata</code>, but querying the component view, instead of the content children.</li>
 </ul>
+<p><strong>TODO</strong></p>
 </div>
 <div id="angular-router" class="section level2">
 <h2>Angular Router</h2>
 <p>Angular has a stand-alone module responsible for handling routing.</p>
+<p><strong>TODO</strong></p>
 </div>
 </div>
-<div id="angular-topics-in-depth" class="section level1">
-<h1>Angular Topics in Depth</h1>
-<p>Let's deep dive into Angular concepts.</p>
+<div id="deep-dive" class="section level1">
+<h1>Deep Dive</h1>
+<p>Let's deep dive into Angular and RxJS concepts</p>
 <div id="components-in-depth" class="section level2">
 <h2>Components in Depth</h2>
 <ul>
@@ -2179,7 +2192,16 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <li><code>ViewEncapsulation.Native</code>: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.</li>
 </ul></li>
 </ul>
+<p><strong>TODO</strong></p>
 </div>
+</div>
+<div id="rxjs" class="section level1">
+<h1>RxJS</h1>
+<ul>
+<li>RxJS is a great library for composing event streams</li>
+<li>You can perform operations on events</li>
+</ul>
+<p><strong>TODO</strong></p>
 </div> 
     </div>
 <script>

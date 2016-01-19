@@ -1,6 +1,6 @@
-# Angular Topics in Depth
+# Deep Dive
 
-Let's deep dive into Angular concepts.
+Let's deep dive into Angular and RxJS concepts
 
 ## Components in Depth
 
@@ -43,3 +43,10 @@ The `@component` decorator defines the following:
     - `ViewEncapsulation.Emulated`: No Shadow DOM but style encapsulation emulation using extra attributes on the DOM (default method)
     - `ViewEncapsulation.Native`: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.
 
+**TODO**
+# RxJS
+
+- RxJS is a great library for composing event streams
+- You can perform operations on events
+
+**TODO**

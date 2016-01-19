@@ -1794,6 +1794,8 @@ Directives
     -   Attribute
 -   A directive is defined using the `@directive` decorator
 
+**TODO**
+
 Pipes
 -----
 
@@ -2052,6 +2054,13 @@ would look like:
 
 And the `args` array would be: `['em', 2]`.
 
+### Async Pipes
+
+Async Pipes can be used for values that will be resolved after some
+asynchronous operation like getting a value after making a http call.
+
+**TODO**
+
 Dependency Injection
 --------------------
 
@@ -2065,6 +2074,8 @@ worrying about the dependencies inside the class itself.
 Angular has a standalone module that handles Dependency Injection. This
 framework can also be used in non-Angular applications to handle
 Dependency Injection.
+
+**TODO**
 
 Services and Providers
 ----------------------
@@ -2139,6 +2150,8 @@ Services and Providers
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
 
+    **TODO**
+
 Data and State Management
 -------------------------
 
@@ -2175,6 +2188,8 @@ Observables
     ```
 
 -   A subscription can be canceled by calling the `unsubscribe` method.
+
+**TODO**
 
 Metadata Classes
 ----------------
@@ -2247,15 +2262,19 @@ directives/components, pipes and di.
     Similar to `QueryMetadata`, but querying the component view, instead
     of the content children.
 
+**TODO**
+
 Angular Router
 --------------
 
 Angular has a stand-alone module responsible for handling routing.
 
-Angular Topics in Depth
-=======================
+**TODO**
 
-Let's deep dive into Angular concepts.
+Deep Dive
+=========
+
+Let's deep dive into Angular and RxJS concepts
 
 Components in Depth
 -------------------
@@ -2317,3 +2336,12 @@ The `@component` decorator defines the following:
         encapsulation and styles appear in component’s template inside
         the shadow root.
 
+**TODO**
+
+RxJS
+====
+
+-   RxJS is a great library for composing event streams
+-   You can perform operations on events
+
+**TODO**

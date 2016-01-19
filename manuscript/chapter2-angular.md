@@ -332,6 +332,8 @@ In order to run the debugger, select `Launch Chrome Debugger` in the dropdown un
     - Structural
     - Attribute
 - A directive is defined using the `@directive` decorator
+
+**TODO**
 ## Pipes
 
 - Pipes allow you to transform values in templates before they are outputed to the view.
@@ -553,13 +555,19 @@ That's basically all we have to do. Note that you can pass multiple parameters s
 
 And the `args` array would be: `['em', 2]`.
 
+### Async Pipes
 
+Async Pipes can be used for values that will be resolved after some asynchronous operation like getting a value after making a http call.
+
+**TODO**
 ## Dependency Injection
 
 Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.
 
 Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.
 
+
+**TODO**
 ## Services and Providers
 
 - A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.
@@ -616,7 +624,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     import {Inject} from 'angular2/core'
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
-
+**TODO**
 ## Data and State Management
 
 - Angular is flexible and doesn't prescribe a recipe for managing data in your apps
@@ -642,6 +650,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     ```
 - A subscription can be canceled by calling the `unsubscribe` method.
 
+**TODO**
 ## Metadata Classes
 
 - Angular uses Metadata to decorate classes, methods and properties.
@@ -683,7 +692,9 @@ Below is a list of Angular's core Metadata classes categorized under directives/
   - [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html): Declares an injectable parameter to be a live list of directives or variable bindings from the content children of a directive.
   - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html): Similar to `QueryMetadata`, but querying the component view, instead of the content children.
 
+**TODO**
 ## Angular Router
 
 Angular has a stand-alone module responsible for handling routing.
 
+**TODO**

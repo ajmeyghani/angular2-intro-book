@@ -20,3 +20,4 @@ output/html/chapter2-angular/4-metadata.html
 output/html/chapter2-angular/5-router.html
 output/html/chapter3-angular-in-depth/0.depth.intro.html
 output/html/chapter3-angular-in-depth/1.components.html
+output/html/chapter3-angular-in-depth/x.rxjs.html
