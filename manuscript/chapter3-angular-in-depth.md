@@ -44,9 +44,11 @@ The `@component` decorator defines the following:
     - `ViewEncapsulation.Native`: means provide native shadow DOM encapsulation and styles appear in component’s template inside the shadow root.
 
 **TODO**
+
 # RxJS
 
 - RxJS is a great library for composing event streams
 - You can perform operations on events
 
 **TODO**
+

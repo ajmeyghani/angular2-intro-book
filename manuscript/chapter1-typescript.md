@@ -475,6 +475,7 @@ You can play around with the code above an try passing a string when instantiati
 **TODO**
 
 - `constructor overloading`
+
 ### Class Decorators
 
 There are different types of decorators in TypeScript. In this section we are going to focus on Class Decorators.

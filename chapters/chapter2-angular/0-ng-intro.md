@@ -47,3 +47,4 @@ There is a starter project in `angular-examples/starter`. You can make a copy of
     - Close all chrome instances (quit out of Chrome)
     - In VSCode start the build with `command + shift + b` and run the app by hitting F5 on the keyboard
 - If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: `cd project-files/angular-examples/starter && tsc -w`.
+

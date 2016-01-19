@@ -47,6 +47,7 @@ There is a starter project in `angular-examples/starter`. You can make a copy of
     - Close all chrome instances (quit out of Chrome)
     - In VSCode start the build with `command + shift + b` and run the app by hitting F5 on the keyboard
 - If you don't want to use VSCode, you can use any other editor that you want. But make sure that you run the TypeScript compiler in the project folder: `cd project-files/angular-examples/starter && tsc -w`.
+
 ## Using the Docs
 
 **TODO**
@@ -338,6 +339,7 @@ In order to run the debugger, select `Launch Chrome Debugger` in the dropdown un
 - A directive is defined using the `@directive` decorator
 
 **TODO**
+
 ## Pipes
 
 - Pipes allow you to transform values in templates before they are outputed to the view.
@@ -564,6 +566,7 @@ And the `args` array would be: `['em', 2]`.
 Async Pipes can be used for values that will be resolved after some asynchronous operation like getting a value after making a http call.
 
 **TODO**
+
 ## Dependency Injection
 
 Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.
@@ -572,6 +575,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
 
 
 **TODO**
+
 ## Services and Providers
 
 - A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.
@@ -629,6 +633,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
 **TODO**
+
 ## Data and State Management
 
 - Angular is flexible and doesn't prescribe a recipe for managing data in your apps
@@ -655,6 +660,7 @@ Angular has a standalone module that handles Dependency Injection. This framewor
 - A subscription can be canceled by calling the `unsubscribe` method.
 
 **TODO**
+
 ## Metadata Classes
 
 - Angular uses Metadata to decorate classes, methods and properties.
@@ -697,8 +703,10 @@ Below is a list of Angular's core Metadata classes categorized under directives/
   - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html): Similar to `QueryMetadata`, but querying the component view, instead of the content children.
 
 **TODO**
+
 ## Angular Router
 
 Angular has a stand-alone module responsible for handling routing.
 
 **TODO**
+

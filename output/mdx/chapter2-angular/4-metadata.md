@@ -40,3 +40,4 @@ Below is a list of Angular's core Metadata classes categorized under directives/
   - [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html): Similar to `QueryMetadata`, but querying the component view, instead of the content children.
 
 **TODO**
+
