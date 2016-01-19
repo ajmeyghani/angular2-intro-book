@@ -64,7 +64,7 @@ Note that there is a lot to talk about components. We are going dive into compon
 
 The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
 
-In order to run the project files, please refer to the [Using Angular Project Files](#using-angular-project-files) section.
+In order to run the project files, please refer to the [Running the Project Files](#running-the-project-files) section.
 
 ### Getting Started
 
@@ -564,6 +564,149 @@ And the `args` array would be: `['em', 2]`.
 ### Async Pipes
 
 Async Pipes can be used for values that will be resolved after some asynchronous operation like getting a value after making a http call.
+
+**TODO**
+
+### Built-in Pipes
+
+In this section we are going to look at the pipes that Angular provides out of the box.
+
+- [AsyncPipe](https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html): used to work with asynchronous values
+- [CurrencyPipe](https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html): used to format a number as a local currency
+- [DatePipe](https://angular.io/docs/ts/latest/api/common/DatePipe-class.html): used to format a date object to a readable string
+- [DecimalPipe](https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html): used to format numbers
+- [JsonPipe](https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html): calls `JSON.stringify` on the input and useful for debugging
+- [LowerCasePipe](https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html): used to convert a string to lowercase letters
+- [PercentPipe](https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html): used to format a number as percentage
+- [SlicePipe](https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html): used to create a subset of list or string
+- [UpperCasePipe](https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html): used to transform a text to upper case
+
+#### Date
+
+```html
+{{ input | date:optionalFormat}}
+```
+
+- `input`: a date object or a number (milliseconds since UTC epoch)
+- `optionalFormat`: a string used to format the output. It specifies which components of date and time to include in the output
+
+**Using predefined formats**
+
+Usage Example: `{{ input | date:'short'}}`
+
++--------------+---------------------------+
+| Name         | Example                   |
++==============+===========================+
+| `short`      | 9/3/2010, 12:05 PM        |
++--------------+---------------------------+
+| `shortDate`  | 9/3/2010                  |
++--------------+---------------------------+
+| `medium`     | Sep 3, 2010, 12:05:08 PM  |
++--------------+---------------------------+
+| `mediumDate` | Sep 3, 2010               |
++--------------+---------------------------+
+| `longDate`   | September 3, 2010         |
++--------------+---------------------------+
+| `fullDate`   | Friday, September 3, 2010 |
++--------------+---------------------------+
+| `shortTime`  | 12:05 PM                  |
++--------------+---------------------------+
+| `mediumTime` | 12:05:08 PM               |
++--------------+---------------------------+
+
+**Using Custom Formats**
+
+- Generally speaking every date object has a year, month, day, hour, minute, and second.
+- Using a custom string, you can specify which component you would like to include in the output.
+
++------+-----------------+-----+-------------+------------+--------+--------+
+| Year | Month           | Day | Weekday     | Hour       | Minute | Second |
++======+=================+=====+=============+============+========+========+
+| y    | M, MMM, MMMM    | d   | EEE, EEEE   | j, h, H    | m      | s      |
++------+-----------------+-----+-------------+------------+--------+--------+
+| 2016 | 1, Jan, January | 1   | Sun, Sunday | 1, 1 AM, 1 | 1      | 1      |
++------+-----------------+-----+-------------+------------+--------+--------+
+
+
+Note that every single letter identifier can be used twice to denote a double digit numeric value. For example, `yy` will result in `15` for the year value. Below is a table just to be thorough:
+
+**Double Digit**
+
++------+-------+-----+----------------+--------+--------+
+| Year | Month | Day | Hour           | Minute | Second |
++======+=======+=====+================+========+========+
+| yy   | MM    | dd  | jj, hh, HH     | mm     | ss     |
++------+-------+-----+----------------+--------+--------+
+| 16   | 01    | 01  | 01,  01 AM, 01 | 01     | 01     |
++------+-------+-----+----------------+--------+--------+
+
+Details for Month/Weekday/Hour are summarized in the tables below:
+
+**Month Details**
+
++-------+-----------+-----------+
+| M     | MMM       | MMMM      |
++=======+===========+===========+
+| Digit | Abbr Name | Full Name |
++-------+-----------+-----------+
+| 1     | Jan       | January   |
++-------+-----------+-----------+
+
+
+**Weekday Details**
+
++-----------+-----------+
+| EEE       | EEEE      |
++===========+===========+
+| Abbr Name | Full Name |
++-----------+-----------+
+| Sun       | Sunday    |
++-----------+-----------+
+
+
+**Hour Details**
+
++-------+--------------+----------+
+| j     | h            | H        |
++=======+==============+==========+
+| Digit | Hour12 AM/PM | Military |
++-------+--------------+----------+
+| 13    | 1 PM         | 13       |
++-------+--------------+----------+
+
+#### Slice
+
+- The slice pipe is useful when you want a subset of a list or string. One of the common use cases are in when iterating over a list with `ngFor` for example.
+
+**TODO**
+
+#### Decimal
+
+- Used for formatting numbers given a decimal formatter
+
+**TODO**
+
+#### Percent
+
+**TODO**
+
+#### Currency
+
+**TODO**
+
+#### Async
+
+**TODO**
+
+#### Json
+
+**TODO**
+
+#### LowerCase
+
+**TODO**
+
+#### UpperCase
 
 **TODO**
 

@@ -2185,6 +2185,44 @@ Details for Month/Weekday/Hour are summarized in the tables below:
 | 13       | 1 PM            | 13          |
 +----------+-----------------+-------------+
 
+#### Slice
+
+-   The slice pipe is useful when you want a subset of a list or string.
+    One of the common use cases are in when iterating over a list with
+    `ngFor` for example.
+
+**TODO**
+
+#### Decimal
+
+-   Used for formatting numbers given a decimal formatter
+
+**TODO**
+
+#### Percent
+
+**TODO**
+
+#### Currency
+
+**TODO**
+
+#### Async
+
+**TODO**
+
+#### Json
+
+**TODO**
+
+#### LowerCase
+
+**TODO**
+
+#### UpperCase
+
+**TODO**
+
 Dependency Injection
 --------------------
 
