@@ -212,6 +212,7 @@
     <li><a href="#pipes">Pipes</a><ul>
     <li><a href="#basic-pipe">Basic Pipe</a></li>
     <li><a href="#chaining-pipes">Chaining Pipes</a></li>
+    <li><a href="#pipes-with-parameters">Pipes with Parameters</a></li>
     </ul></li>
     <li><a href="#dependency-injection">Dependency Injection</a></li>
     <li><a href="#services-and-providers">Services and Providers</a></li>
@@ -1897,7 +1898,7 @@ export <span class="kw">class</span> PixelPipe {
 <p>Let's continue where we left off with the &quot;pixelPipe&quot; and add another pipe called &quot;round&quot; that rounds down given values, that is:</p>
 <pre><code>25.3 | round | pixel -&gt; 25px</code></pre>
 <p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining">angular2-intro/project-files/angular-examples/pipes/pipe-chaining</a>.</p>
-<p>We are going to add the &quot;roundFilter&quot; to our &quot;basic-pipe&quot; project. Let's get started by adding the <code>round.pipe.ts</code> file in the root of the project:</p>
+<p>We are going to add the &quot;roundPipe&quot; to our &quot;basic-pipe&quot; project. Let's get started by adding the <code>round.pipe.ts</code> file in the root of the project:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3
@@ -1937,6 +1938,39 @@ export <span class="kw">class</span> RoundPipe {
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Pixel value: {{ 34.4 | round | pixel }}<span class="kw">&lt;/p&gt;</span></code></pre></td></tr></table></div>
 <p>After running the app you should see <code>34.px</code> as the output on the page.</p>
+</div>
+<div id="pipes-with-parameters" class="section level3">
+<h3>Pipes with Parameters</h3>
+<p>In this section we are going to extend our 'pixel' pipe to accept an optional parameter to set the unit. As a result, we are going to rename the 'pixel' pipe to 'unit' to make it more generic. This pipe will take the unit as an optional argument. If no argument is passed, it will default to 'px'. That is:</p>
+<pre><code>25 | unit -&gt; 25px
+25 | unit:&#39;em&#39; -&gt; 25em
+34.5 | round | unit:&#39;%&#39; -&gt; 34%</code></pre>
+<p>You can look at the project files in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit">angular2-intro/project-files/angular-examples/pipes/pipe-unit</a>.. AFter refactoring the name of the Pipe, we just need to change the implementation of the &quot;UnitPipe&quot;:</p>
+<p><strong><code>unit.pipe.ts</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Pipe} from &#39;angular2/core&#39;;</span>
+<span class="fu">@Pipe</span>({name: &#39;unit&#39;})
+export <span class="kw">class</span> UnitPipe {
+  <span class="fu">transform</span>(input, args:string) {
+    <span class="dt">const</span> unit = args[<span class="dv">0</span>] || &#39;px&#39;;
+    <span class="kw">return</span> input + unit;
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>On line 5, we are grabbing the first parameter that is passed in and setting it to the <code>unit</code> variable. And if the value is not set, we are setting 'px' as the default value.</li>
+<li>And finally we are returning <code>input + unit</code>.</li>
+</ul>
+<p>That's basically all we have to do. Note that you can pass multiple parameters separated by <code>:</code> and they all become available in the <code>args</code> array. So if you wanted to expand this pipe, this is how your template would look like:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html">{{ 25 | unit:&#39;em&#39;:2}}</code></pre></td></tr></table></div>
+<p>And the <code>args</code> array would be: <code>['em', 2]</code>.</p>
 </div>
 </div>
 <div id="dependency-injection" class="section level2">

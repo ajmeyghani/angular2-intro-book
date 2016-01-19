@@ -2665,7 +2665,7 @@ pipe called ``round'' that rounds down given values, that is:
 The project files for this section are in
 \href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining}{angular2-intro/project-files/angular-examples/pipes/pipe-chaining}.
 
-We are going to add the ``roundFilter'' to our ``basic-pipe'' project.
+We are going to add the ``roundPipe'' to our ``basic-pipe'' project.
 Let's get started by adding the \texttt{round.pipe.ts} file in the root
 of the project:
 
@@ -2719,6 +2719,64 @@ after that we are going to add the following to our
 
 After running the app you should see \texttt{34.px} as the output on the
 page.
+
+\subsubsection{Pipes with Parameters}\label{pipes-with-parameters}
+
+In this section we are going to extend our `pixel' pipe to accept an
+optional parameter to set the unit. As a result, we are going to rename
+the `pixel' pipe to `unit' to make it more generic. This pipe will take
+the unit as an optional argument. If no argument is passed, it will
+default to `px'. That is:
+
+\begin{verbatim}
+25 | unit -> 25px
+25 | unit:'em' -> 25em
+34.5 | round | unit:'%' -> 34%
+\end{verbatim}
+
+You can look at the project files in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit}{angular2-intro/project-files/angular-examples/pipes/pipe-unit}..
+AFter refactoring the name of the Pipe, we just need to change the
+implementation of the ``UnitPipe'':
+
+\textbf{\texttt{unit.pipe.ts}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Pipe\} from 'angular2/core';}
+\FunctionTok{@Pipe}\NormalTok{(\{name: 'unit'\})}
+\NormalTok{export }\KeywordTok{class} \NormalTok{UnitPipe \{}
+  \FunctionTok{transform}\NormalTok{(input, args:string) \{}
+    \DataTypeTok{const} \NormalTok{unit = args[}\DecValTok{0}\NormalTok{] || 'px';}
+    \KeywordTok{return} \NormalTok{input + unit;}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 5, we are grabbing the first parameter that is passed in and
+  setting it to the \texttt{unit} variable. And if the value is not set,
+  we are setting `px' as the default value.
+\item
+  And finally we are returning \texttt{input\ +\ unit}.
+\end{itemize}
+
+That's basically all we have to do. Note that you can pass multiple
+parameters separated by \texttt{:} and they all become available in the
+\texttt{args} array. So if you wanted to expand this pipe, this is how
+your template would look like:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{\{\{ 25 | unit:'em':2\}\}}
+\end{Highlighting}
+\end{Shaded}
+
+And the \texttt{args} array would be:
+\texttt{{[}\textquotesingle{}em\textquotesingle{},\ 2{]}}.
 
 \subsection{Dependency Injection}\label{dependency-injection}
 
