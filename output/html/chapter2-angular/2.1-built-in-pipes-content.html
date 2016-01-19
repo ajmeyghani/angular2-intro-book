@@ -1,0 +1,233 @@
+<h3 id="built-in-pipes">Built-in Pipes</h3>
+<p>In this section we are going to look at the pipes that Angular provides out of the box.</p>
+<ul>
+<li><a href="https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html">AsyncPipe</a>: used to work with asynchronous values</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html">CurrencyPipe</a>: used to format a number as a local currency</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/DatePipe-class.html">DatePipe</a>: used to format a date object to a readable string</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html">DecimalPipe</a>: used to format numbers</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html">JsonPipe</a>: calls <code>JSON.stringify</code> on the input and useful for debugging</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html">LowerCasePipe</a>: used to convert a string to lowercase letters</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html">PercentPipe</a>: used to format a number as percentage</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html">SlicePipe</a>: used to create a subset of list or string</li>
+<li><a href="https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html">UpperCasePipe</a>: used to transform a text to upper case</li>
+</ul>
+<h4 id="date">Date</h4>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html">{{ input | date:optionalFormat}}</code></pre></td></tr></table></div>
+<ul>
+<li><code>input</code>: a date object or a number (milliseconds since UTC epoch)</li>
+<li><code>optionalFormat</code>: a string used to format the output. It specifies which components of date and time to include in the output</li>
+</ul>
+<p><strong>Using predefined formats</strong></p>
+<p>Usage Example: <code>{{ input | date:'short'}}</code></p>
+<table style="width:60%;">
+<colgroup>
+<col width="20%" />
+<col width="38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p><code>short</code></p></td>
+<td align="left"><p>9/3/2010, 12:05 PM</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><code>shortDate</code></p></td>
+<td align="left"><p>9/3/2010</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p><code>medium</code></p></td>
+<td align="left"><p>Sep 3, 2010, 12:05:08 PM</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><code>mediumDate</code></p></td>
+<td align="left"><p>Sep 3, 2010</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p><code>longDate</code></p></td>
+<td align="left"><p>September 3, 2010</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><code>fullDate</code></p></td>
+<td align="left"><p>Friday, September 3, 2010</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p><code>shortTime</code></p></td>
+<td align="left"><p>12:05 PM</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><code>mediumTime</code></p></td>
+<td align="left"><p>12:05:08 PM</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Using Custom Formats</strong></p>
+<ul>
+<li>Generally speaking every date object has a year, month, day, hour, minute, and second.</li>
+<li>Using a custom string, you can specify which component you would like to include in the output.</li>
+</ul>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="23%" />
+<col width="7%" />
+<col width="18%" />
+<col width="17%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Month</th>
+<th align="left">Day</th>
+<th align="left">Weekday</th>
+<th align="left">Hour</th>
+<th align="left">Minute</th>
+<th align="left">Second</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>y</p></td>
+<td align="left"><p>M, MMM, MMMM</p></td>
+<td align="left"><p>d</p></td>
+<td align="left"><p>EEE, EEEE</p></td>
+<td align="left"><p>j, h, H</p></td>
+<td align="left"><p>m</p></td>
+<td align="left"><p>s</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>2016</p></td>
+<td align="left"><p>1, Jan, January</p></td>
+<td align="left"><p>1</p></td>
+<td align="left"><p>Sun, Sunday</p></td>
+<td align="left"><p>1, 1 AM, 1</p></td>
+<td align="left"><p>1</p></td>
+<td align="left"><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that every single letter identifier can be used twice to denote a double digit numeric value. For example, <code>yy</code> will result in <code>15</code> for the year value. Below is a table just to be thorough:</p>
+<p><strong>Double Digit</strong></p>
+<table style="width:78%;">
+<colgroup>
+<col width="9%" />
+<col width="11%" />
+<col width="8%" />
+<col width="23%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Month</th>
+<th align="left">Day</th>
+<th align="left">Hour</th>
+<th align="left">Minute</th>
+<th align="left">Second</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>yy</p></td>
+<td align="left"><p>MM</p></td>
+<td align="left"><p>dd</p></td>
+<td align="left"><p>jj, hh, HH</p></td>
+<td align="left"><p>mm</p></td>
+<td align="left"><p>ss</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>16</p></td>
+<td align="left"><p>01</p></td>
+<td align="left"><p>01</p></td>
+<td align="left"><p>01, 01 AM, 01</p></td>
+<td align="left"><p>01</p></td>
+<td align="left"><p>01</p></td>
+</tr>
+</tbody>
+</table>
+<p>Details for Month/Weekday/Hour are summarized in the tables below:</p>
+<p><strong>Month Details</strong></p>
+<table style="width:44%;">
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">M</th>
+<th align="left">MMM</th>
+<th align="left">MMMM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>Digit</p></td>
+<td align="left"><p>Abbr Name</p></td>
+<td align="left"><p>Full Name</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>1</p></td>
+<td align="left"><p>Jan</p></td>
+<td align="left"><p>January</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Weekday Details</strong></p>
+<table style="width:33%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">EEE</th>
+<th align="left">EEEE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>Abbr Name</p></td>
+<td align="left"><p>Full Name</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>Sun</p></td>
+<td align="left"><p>Sunday</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hour Details</strong></p>
+<table style="width:47%;">
+<colgroup>
+<col width="11%" />
+<col width="20%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">j</th>
+<th align="left">h</th>
+<th align="left">H</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>Digit</p></td>
+<td align="left"><p>Hour12 AM/PM</p></td>
+<td align="left"><p>Military</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>13</p></td>
+<td align="left"><p>1 PM</p></td>
+<td align="left"><p>13</p></td>
+</tr>
+</tbody>
+</table>

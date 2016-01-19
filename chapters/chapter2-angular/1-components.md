@@ -10,7 +10,7 @@ Note that there is a lot to talk about components. We are going dive into compon
 
 The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
 
-In order to run the project files, please refer to the [Using Angular Project Files](#using-angular-project-files) section.
+In order to run the project files, please refer to the [Running the Project Files](#running-the-project-files) section.
 
 ### Getting Started
 

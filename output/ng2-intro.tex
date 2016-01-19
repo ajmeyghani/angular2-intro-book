@@ -90,6 +90,7 @@
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\NormalTok}[1]{{#1}}
+\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -1934,8 +1935,8 @@ chapters.
 
 \subsection{Project Files}\label{project-files}
 
-\subsubsection{Running the Project
-Files}\label{running-the-project-files}
+\hypertarget{running-the-project-files}{\subsubsection{Running the
+Project Files}\label{running-the-project-files}}
 
 First, make sure that you have cloned the code repo somewhere on your
 machine:
@@ -2039,8 +2040,8 @@ The project files for this chapter are in
 You can either follow along or just look at the final result
 
 In order to run the project files, please refer to the
-\protect\hyperlink{using-angular-project-files}{Using Angular Project
-Files} section.
+\protect\hyperlink{running-the-project-files}{Running the Project Files}
+section.
 
 \subsubsection{Getting Started}\label{getting-started}
 
@@ -2790,6 +2791,376 @@ Async Pipes can be used for values that will be resolved after some
 asynchronous operation like getting a value after making a http call.
 
 \textbf{TODO}
+
+\subsubsection{Built-in Pipes}\label{built-in-pipes}
+
+In this section we are going to look at the pipes that Angular provides
+out of the box.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html}{AsyncPipe}:
+  used to work with asynchronous values
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html}{CurrencyPipe}:
+  used to format a number as a local currency
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/DatePipe-class.html}{DatePipe}:
+  used to format a date object to a readable string
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html}{DecimalPipe}:
+  used to format numbers
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html}{JsonPipe}:
+  calls \texttt{JSON.stringify} on the input and useful for debugging
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html}{LowerCasePipe}:
+  used to convert a string to lowercase letters
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html}{PercentPipe}:
+  used to format a number as percentage
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html}{SlicePipe}:
+  used to create a subset of list or string
+\item
+  \href{https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html}{UpperCasePipe}:
+  used to transform a text to upper case
+\end{itemize}
+
+\paragraph{Date}\label{date}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{\{\{ input | date:optionalFormat\}\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{input}: a date object or a number (milliseconds since UTC
+  epoch)
+\item
+  \texttt{optionalFormat}: a string used to format the output. It
+  specifies which components of date and time to include in the output
+\end{itemize}
+
+\textbf{Using predefined formats}
+
+Usage Example:
+\texttt{\{\{\ input\ \textbar{}\ date:\textquotesingle{}short\textquotesingle{}\}\}}
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+Name
+\strut\end{minipage} &
+\begin{minipage}[b]{0.37\columnwidth}\raggedright\strut
+Example
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{short}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+9/3/2010, 12:05 PM
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{shortDate}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+9/3/2010
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{medium}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+Sep 3, 2010, 12:05:08 PM
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{mediumDate}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+Sep 3, 2010
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{longDate}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+September 3, 2010
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{fullDate}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+Friday, September 3, 2010
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{shortTime}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+12:05 PM
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+\texttt{mediumTime}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
+12:05:08 PM
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Using Custom Formats}
+
+\begin{itemize}
+\tightlist
+\item
+  Generally speaking every date object has a year, month, day, hour,
+  minute, and second.
+\item
+  Using a custom string, you can specify which component you would like
+  to include in the output.
+\end{itemize}
+
+\begin{longtable}[c]{@{}lllllll@{}}
+\toprule
+\begin{minipage}[b]{0.07\columnwidth}\raggedright\strut
+Year
+\strut\end{minipage} &
+\begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+Month
+\strut\end{minipage} &
+\begin{minipage}[b]{0.06\columnwidth}\raggedright\strut
+Day
+\strut\end{minipage} &
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+Weekday
+\strut\end{minipage} &
+\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+Hour
+\strut\end{minipage} &
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+Minute
+\strut\end{minipage} &
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+Second
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
+y
+\strut\end{minipage} &
+\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+M, MMM, MMMM
+\strut\end{minipage} &
+\begin{minipage}[t]{0.06\columnwidth}\raggedright\strut
+d
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+EEE, EEEE
+\strut\end{minipage} &
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+j, h, H
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+m
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+s
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
+2016
+\strut\end{minipage} &
+\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+1, Jan, January
+\strut\end{minipage} &
+\begin{minipage}[t]{0.06\columnwidth}\raggedright\strut
+1
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+Sun, Sunday
+\strut\end{minipage} &
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+1, 1 AM, 1
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+1
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+1
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Note that every single letter identifier can be used twice to denote a
+double digit numeric value. For example, \texttt{yy} will result in
+\texttt{15} for the year value. Below is a table just to be thorough:
+
+\textbf{Double Digit}
+
+\begin{longtable}[c]{@{}llllll@{}}
+\toprule
+\begin{minipage}[b]{0.08\columnwidth}\raggedright\strut
+Year
+\strut\end{minipage} &
+\begin{minipage}[b]{0.09\columnwidth}\raggedright\strut
+Month
+\strut\end{minipage} &
+\begin{minipage}[b]{0.07\columnwidth}\raggedright\strut
+Day
+\strut\end{minipage} &
+\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
+Hour
+\strut\end{minipage} &
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+Minute
+\strut\end{minipage} &
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+Second
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+yy
+\strut\end{minipage} &
+\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
+MM
+\strut\end{minipage} &
+\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
+dd
+\strut\end{minipage} &
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+jj, hh, HH
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+mm
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+ss
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
+16
+\strut\end{minipage} &
+\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
+01
+\strut\end{minipage} &
+\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
+01
+\strut\end{minipage} &
+\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
+01, 01 AM, 01
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+01
+\strut\end{minipage} &
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+01
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Details for Month/Weekday/Hour are summarized in the tables below:
+
+\textbf{Month Details}
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+M
+\strut\end{minipage} &
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+MMM
+\strut\end{minipage} &
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+MMMM
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+Digit
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+Abbr Name
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+Full Name
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+1
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+Jan
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+January
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Weekday Details}
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
+EEE
+\strut\end{minipage} &
+\begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
+EEEE
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Abbr Name
+\strut\end{minipage} &
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Full Name
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Sun
+\strut\end{minipage} &
+\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
+Sunday
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Hour Details}
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+j
+\strut\end{minipage} &
+\begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+h
+\strut\end{minipage} &
+\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+H
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+Digit
+\strut\end{minipage} &
+\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+Hour12 AM/PM
+\strut\end{minipage} &
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+Military
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+13
+\strut\end{minipage} &
+\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+1 PM
+\strut\end{minipage} &
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+13
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \subsection{Dependency Injection}\label{dependency-injection}
 
