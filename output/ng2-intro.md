@@ -1996,7 +1996,7 @@ is fired:
 
 **Getting Started**
 
-Let's started by defining our `Adder` component:
+Let's get started by defining our `Adder` component:
 
 ``` {.typescript}
 @Component({
