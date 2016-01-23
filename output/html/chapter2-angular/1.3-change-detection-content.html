@@ -1,0 +1,15 @@
+<h2 id="change-detection">Change Detection</h2>
+<ul>
+<li>In Angular2 you can limit the change detection scope to components</li>
+<li>Using <code>chageDection</code> property we can choose a change detection strategy for a component</li>
+<li><p>The <code>changeDetection</code> field accept one of the following values:</p>
+<ul>
+<li><code>ChangeDetectionStrategy.Default</code>: sets detector mode to <code>CheckAlways</code></li>
+<li><code>ChangeDetectionStrategy.OnPush</code>: sets detector mode to <code>CheckOnce</code>. This will limit change detection to the bindings affecting the component only</li>
+<li><code>ChangeDetectionStrategy.Detached</code>: change detector sub tree is not a part of the main tree and should be skipped</li>
+<li><code>ChangeDetectionStrategy.CheckAlways</code>: after calling detectChanges the mode of the change detector will remain <code>CheckAlways</code></li>
+<li><code>ChangeDetectionStrategy.Checked</code>: change detector should be skipped until its mode changes to <code>CheckOnce</code></li>
+<li><code>ChangeDetectionStrategy.CheckOnce</code>: after calling detectChanges the mode of the change detector will become <code>Checked</code></li>
+</ul></li>
+<li><p>Having the ability to specify change detection strategy can reduce the number of checks and improve app's performance</p></li>
+</ul>

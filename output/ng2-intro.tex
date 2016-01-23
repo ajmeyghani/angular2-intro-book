@@ -2418,6 +2418,225 @@ like the following screenshot:
 \caption{Debugging the app with Chrome Debugger in VSCode}
 \end{figure}
 
+\subsection{Component Inputs}\label{component-inputs}
+
+\begin{itemize}
+\tightlist
+\item
+  You can pass data to a component.
+\item
+  You can either use the \texttt{inputs} array on a component or
+  annotate an instance variable with the \texttt{Input} decorator
+\item
+  Once you specify the inputs to your component, they become available
+  in the \texttt{ngOnInit} method
+\item
+  You can implement the \texttt{ngOnInit} and access the input instance
+  variables
+\item
+  You can use the \texttt{{[}propname{]}="data"} to set the
+  \texttt{propname} to whatever \texttt{data} evaluates to
+\item
+  Note that if you set
+  \texttt{{[}propname{]}="\textquotesingle{}data\textquotesingle{}"},
+  \texttt{propname} will be set to the literal \texttt{data} string
+\end{itemize}
+
+\textbf{Project files} for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input}{angular2-intro/project-files/angular-examples/component-input}.
+
+In order to demonstrate component inputs, we are going to create a
+\texttt{user} component and pass \texttt{name}, \texttt{lastName}, and
+\texttt{userId} to it. So our final html tag would look something like
+the following:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<user}\OtherTok{ name=}\StringTok{"Tom"}\OtherTok{ lastName=}\StringTok{"Johnson"}\OtherTok{ uesrId=}\StringTok{"1"}\KeywordTok{></user>}
+\end{Highlighting}
+\end{Shaded}
+
+And the template for the component will be:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h1>}\NormalTok{Hello, \{\{ name \}\} \{\{ lastName \}\}, id: \{\{ userId \}\}}\KeywordTok{</h1>}
+\end{Highlighting}
+\end{Shaded}
+
+which would output: \texttt{Hello,\ Tom\ Johnson\ id:\ 1}.
+
+To get started, let's define the \texttt{User} component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'user',}
+  \NormalTok{template: '<h1>Hello, \{\{ name \}\} \{\{ lastName \}\} id: \{\{ userId \}\}</h1>',}
+  \NormalTok{inputs: ['name', 'lastName', 'userId'] }\CommentTok{// <- specifying the inputs to the `User` component}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{User \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 4 we are defining the inputs as an array of strings
+\end{itemize}
+
+Then, we are going to use the \texttt{User} component inside our app's
+template:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{template: `<user name=}\StringTok{"Tom"} \NormalTok{lastName=}\StringTok{"Johnson"} \NormalTok{uesrId=}\StringTok{"1"}\NormalTok{></user>`}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{Root \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+because we are using the \texttt{User} component in the app, we need to
+register it with the app by adding \texttt{User} class to the list of
+\texttt{directives} of the app component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{template: `<user name=}\StringTok{"Tom"} \NormalTok{lastName=}\StringTok{"Johnson"} \NormalTok{userId=}\StringTok{"1"}\NormalTok{></user>`,}
+  \NormalTok{directives: [User] }\CommentTok{// <- register the component}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{Root \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+and at the end we need to bootstrap the app:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{bootstrap}\NormalTok{(Root, [])}
+\end{Highlighting}
+\end{Shaded}
+
+Now, notice that instead of adding the inputs to the \texttt{inputs}
+array, we could have decorated the instance variables with the
+\texttt{@Input} decorator:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Input\} from 'angular2/core';} \CommentTok{// <- importing the Input decorator}
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'user',}
+  \NormalTok{template: '<h1>Hello, \{\{ name \}\} \{\{ lastName \}\} id: \{\{ userId \}\}</h1>'}
+  \CommentTok{// <- removing the inputs array.}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{User \{}
+  \FunctionTok{@Input}\NormalTok{() }\KeywordTok{private} \NormalTok{name: string;}
+  \FunctionTok{@Input}\NormalTok{() }\KeywordTok{private} \NormalTok{lastName: string;}
+  \FunctionTok{@Input}\NormalTok{() }\KeywordTok{private} \NormalTok{userId: number;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now, let's see how we can bind to a property from another component. For
+this example, we are going to continue with our \texttt{User} component
+and create a new component called \texttt{Permission}. Then we are going
+to use the the \texttt{Permission} component inside the \texttt{User}
+component and set the \texttt{uid} of \texttt{Permission} by the
+\texttt{userId} of the \texttt{User}.
+
+The \texttt{Permission} component is defined as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'permission',}
+  \NormalTok{template: '<h2> Restriction is: \{\{ restriction \}\}'}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{Permission \{}
+  \FunctionTok{@Input}\NormalTok{() }\KeywordTok{private} \NormalTok{uid: string;}
+  \KeywordTok{private} \NormalTok{restriction: string;}
+  \FunctionTok{constructor}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{restriction} \NormalTok{= 'none';}
+  \NormalTok{\}}
+  \FunctionTok{ngOnInit}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{restriction} \NormalTok{= }\KeywordTok{this}\NormalTok{.}\FunctionTok{uid} \NormalTok{=== '}\DecValTok{1}\NormalTok{' ? 'admin' : 'normal';}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 6 we are defining \texttt{uid} to be an input instance
+  variable. It's value is set from outside.
+\item
+  In the constructor we are setting a default value for the restriction.
+\item
+  Then in the \texttt{ngOnInit} hook, we are evaluating the value of
+  \texttt{restriction} based on the given id provided by other
+  components, in this case the \texttt{User} component
+\item
+  In this silly example, if the passed id is \texttt{1}, we will set the
+  \texttt{restriction} to \texttt{admin}, otherwise we set it to
+  \texttt{normal}.
+\end{itemize}
+
+then we are going to register the \texttt{Permission} component with the
+\texttt{User} component so that we can use it in the \texttt{User}
+template:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'user',}
+  \CommentTok{///...}
+  \NormalTok{directives: [Permission] }\CommentTok{// <-}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{User \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+then we can update the \texttt{User} template to include the
+\texttt{Permission}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'user',}
+  \NormalTok{template: `}
+  \NormalTok{<h1>Hello, \{\{ name \}\} \{\{ lastName \}\}, id: \{\{ userId\}\}</h1>}
+  \NormalTok{<div>}
+    \NormalTok{<permission [uid]=}\StringTok{"userId"}\NormalTok{></permission>}
+  \NormalTok{</div>}
+  \NormalTok{`,}
+  \NormalTok{inputs: ['name', 'lastName', 'userId'],}
+  \NormalTok{directives: [Permission]}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{User \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Note that on line 6 we are setting the \texttt{uid} of
+  \texttt{Permission} by \texttt{userId} available from the
+  \texttt{User} component.
+\end{itemize}
+
+If you run the app you should see the following printed to the page:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{images/input-cmp.png}
+\caption{Input to components}
+\end{figure}
+
 \subsection{Directives}\label{directives}
 
 \begin{itemize}
@@ -2442,6 +2661,46 @@ like the following screenshot:
 \end{itemize}
 
 \textbf{TODO}
+
+\subsection{Change Detection}\label{change-detection}
+
+\begin{itemize}
+\item
+  In Angular2 you can limit the change detection scope to components
+\item
+  Using \texttt{chageDection} property we can choose a change detection
+  strategy for a component
+\item
+  The \texttt{changeDetection} field accept one of the following values:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{ChangeDetectionStrategy.Default}: sets detector mode to
+    \texttt{CheckAlways}
+  \item
+    \texttt{ChangeDetectionStrategy.OnPush}: sets detector mode to
+    \texttt{CheckOnce}. This will limit change detection to the bindings
+    affecting the component only
+  \item
+    \texttt{ChangeDetectionStrategy.Detached}: change detector sub tree
+    is not a part of the main tree and should be skipped
+  \item
+    \texttt{ChangeDetectionStrategy.CheckAlways}: after calling
+    detectChanges the mode of the change detector will remain
+    \texttt{CheckAlways}
+  \item
+    \texttt{ChangeDetectionStrategy.Checked}: change detector should be
+    skipped until its mode changes to \texttt{CheckOnce}
+  \item
+    \texttt{ChangeDetectionStrategy.CheckOnce}: after calling
+    detectChanges the mode of the change detector will become
+    \texttt{Checked}
+  \end{itemize}
+\item
+  Having the ability to specify change detection strategy can reduce the
+  number of checks and improve app's performance
+\end{itemize}
 
 \subsection{Pipes}\label{pipes}
 
@@ -3620,11 +3879,29 @@ The \texttt{@component} decorator defines the following:
 \begin{itemize}
 \tightlist
 \item
-  RxJS is a great library for composing event streams
+  RxJS is a library for reactive programming
 \item
-  You can perform operations on events
+  Reactive programming is a natural way of thinking about asynchronous
+  code which concerns itself with operations on event streams
+\item
+  RxJS is used in this paradigm to compose asynchronous data/event
+  streams
+\item
+  Using the reactive paradigm, you can perform operations on streams
+  using a consistent interface regardless of the data source
+\item
+  Streams of events/data are known as Observables, i.e.~a data/event
+  stream = observable
+\item
+  A program can be just composed of different data streams (observables)
 \end{itemize}
 
 \textbf{TODO}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://rxmarbles.com/}{Visualization}
+\end{itemize}
 
 \end{document}

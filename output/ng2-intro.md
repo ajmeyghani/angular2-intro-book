@@ -1788,6 +1788,171 @@ the following screenshot:
 ![Debugging the app with Chrome Debugger in
 VSCode](images/run-debugger.png)
 
+Component Inputs
+----------------
+
+-   You can pass data to a component.
+-   You can either use the `inputs` array on a component or annotate an
+    instance variable with the `Input` decorator
+-   Once you specify the inputs to your component, they become available
+    in the `ngOnInit` method
+-   You can implement the `ngOnInit` and access the input instance
+    variables
+-   You can use the `[propname]="data"` to set the `propname` to
+    whatever `data` evaluates to
+-   Note that if you set `[propname]="'data'"`, `propname` will be set
+    to the literal `data` string
+
+**Project files** for this section are in
+[angular2-intro/project-files/angular-examples/component-input](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input).
+
+In order to demonstrate component inputs, we are going to create a
+`user` component and pass `name`, `lastName`, and `userId` to it. So our
+final html tag would look something like the following:
+
+``` {.html}
+<user name="Tom" lastName="Johnson" uesrId="1"></user>
+```
+
+And the template for the component will be:
+
+``` {.html}
+<h1>Hello, {{ name }} {{ lastName }}, id: {{ userId }}</h1>
+```
+
+which would output: `Hello, Tom Johnson id: 1`.
+
+To get started, let's define the `User` component:
+
+``` {.typescript}
+@Component({
+  selector: 'user',
+  template: '<h1>Hello, {{ name }} {{ lastName }} id: {{ userId }}</h1>',
+  inputs: ['name', 'lastName', 'userId'] // <- specifying the inputs to the `User` component
+})
+class User {}
+```
+
+-   On line 4 we are defining the inputs as an array of strings
+
+Then, we are going to use the `User` component inside our app's
+template:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  template: `<user name="Tom" lastName="Johnson" uesrId="1"></user>`
+})
+class Root {}
+```
+
+because we are using the `User` component in the app, we need to
+register it with the app by adding `User` class to the list of
+`directives` of the app component:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  template: `<user name="Tom" lastName="Johnson" userId="1"></user>`,
+  directives: [User] // <- register the component
+})
+class Root {}
+```
+
+and at the end we need to bootstrap the app:
+
+``` {.typescript}
+bootstrap(Root, [])
+```
+
+Now, notice that instead of adding the inputs to the `inputs` array, we
+could have decorated the instance variables with the `@Input` decorator:
+
+``` {.typescript}
+import {Input} from 'angular2/core'; // <- importing the Input decorator
+@Component({
+  selector: 'user',
+  template: '<h1>Hello, {{ name }} {{ lastName }} id: {{ userId }}</h1>'
+  // <- removing the inputs array.
+})
+class User {
+  @Input() private name: string;
+  @Input() private lastName: string;
+  @Input() private userId: number;
+}
+```
+
+Now, let's see how we can bind to a property from another component. For
+this example, we are going to continue with our `User` component and
+create a new component called `Permission`. Then we are going to use the
+the `Permission` component inside the `User` component and set the `uid`
+of `Permission` by the `userId` of the `User`.
+
+The `Permission` component is defined as follows:
+
+``` {.typescript}
+@Component({
+  selector: 'permission',
+  template: '<h2> Restriction is: {{ restriction }}'
+})
+class Permission {
+  @Input() private uid: string;
+  private restriction: string;
+  constructor() {
+    this.restriction = 'none';
+  }
+  ngOnInit() {
+    this.restriction = this.uid === '1' ? 'admin' : 'normal';
+  }
+}
+```
+
+-   On line 6 we are defining `uid` to be an input instance variable.
+    It's value is set from outside.
+-   In the constructor we are setting a default value for
+    the restriction.
+-   Then in the `ngOnInit` hook, we are evaluating the value of
+    `restriction` based on the given id provided by other components, in
+    this case the `User` component
+-   In this silly example, if the passed id is `1`, we will set the
+    `restriction` to `admin`, otherwise we set it to `normal`.
+
+then we are going to register the `Permission` component with the `User`
+component so that we can use it in the `User` template:
+
+``` {.typescript}
+@Component({
+  selector: 'user',
+  ///...
+  directives: [Permission] // <-
+})
+class User {}
+```
+
+then we can update the `User` template to include the `Permission`:
+
+``` {.typescript}
+@Component({
+  selector: 'user',
+  template: `
+  <h1>Hello, {{ name }} {{ lastName }}, id: {{ userId}}</h1>
+  <div>
+    <permission [uid]="userId"></permission>
+  </div>
+  `,
+  inputs: ['name', 'lastName', 'userId'],
+  directives: [Permission]
+})
+class User {}
+```
+
+-   Note that on line 6 we are setting the `uid` of `Permission` by
+    `userId` available from the `User` component.
+
+If you run the app you should see the following printed to the page:
+
+![Input to components](images/input-cmp.png)
+
 Directives
 ----------
 
@@ -1800,6 +1965,31 @@ Directives
 -   A directive is defined using the `@directive` decorator
 
 **TODO**
+
+Change Detection
+----------------
+
+-   In Angular2 you can limit the change detection scope to components
+-   Using `chageDection` property we can choose a change detection
+    strategy for a component
+-   The `changeDetection` field accept one of the following values:
+
+    -   `ChangeDetectionStrategy.Default`: sets detector mode to
+        `CheckAlways`
+    -   `ChangeDetectionStrategy.OnPush`: sets detector mode to
+        `CheckOnce`. This will limit change detection to the bindings
+        affecting the component only
+    -   `ChangeDetectionStrategy.Detached`: change detector sub tree is
+        not a part of the main tree and should be skipped
+    -   `ChangeDetectionStrategy.CheckAlways`: after calling
+        detectChanges the mode of the change detector will remain
+        `CheckAlways`
+    -   `ChangeDetectionStrategy.Checked`: change detector should be
+        skipped until its mode changes to `CheckOnce`
+    -   `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges
+        the mode of the change detector will become `Checked`
+-   Having the ability to specify change detection strategy can reduce
+    the number of checks and improve app's performance
 
 Pipes
 -----
@@ -2503,7 +2693,19 @@ The `@component` decorator defines the following:
 RxJS
 ====
 
--   RxJS is a great library for composing event streams
--   You can perform operations on events
+-   RxJS is a library for reactive programming
+-   Reactive programming is a natural way of thinking about asynchronous
+    code which concerns itself with operations on event streams
+-   RxJS is used in this paradigm to compose asynchronous data/event
+    streams
+-   Using the reactive paradigm, you can perform operations on streams
+    using a consistent interface regardless of the data source
+-   Streams of events/data are known as Observables, i.e. a data/event
+    stream = observable
+-   A program can be just composed of different data
+    streams (observables)
 
 **TODO**
+
+-   [Visualization](http://rxmarbles.com/)
+

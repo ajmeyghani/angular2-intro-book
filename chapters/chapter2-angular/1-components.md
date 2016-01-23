@@ -274,4 +274,3 @@ In order to run the debugger, select `Launch Chrome Debugger` in the dropdown un
 
 ![Debugging the app with Chrome Debugger in VSCode](images/run-debugger.png)
 
-
