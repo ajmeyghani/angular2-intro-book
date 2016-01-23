@@ -1,4 +1,4 @@
-<h2 id="component-inputs">Component Inputs</h2>
+<h3 id="component-inputs">Component Inputs</h3>
 <ul>
 <li>You can pass data to a component.</li>
 <li>You can either use the <code>inputs</code> array on a component or annotate an instance variable with the <code>Input</code> decorator</li>
@@ -7,7 +7,9 @@
 <li>You can use the <code>[propname]=&quot;data&quot;</code> to set the <code>propname</code> to whatever <code>data</code> evaluates to</li>
 <li>Note that if you set <code>[propname]=&quot;'data'&quot;</code>, <code>propname</code> will be set to the literal <code>data</code> string</li>
 </ul>
-<p><strong>Project files</strong> for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
+<p><strong>Project files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
+<p><strong>Getting Started</strong></p>
 <p>In order to demonstrate component inputs, we are going to create a <code>user</code> component and pass <code>name</code>, <code>lastName</code>, and <code>userId</code> to it. So our final html tag would look something like the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;user</span><span class="ot"> name=</span><span class="st">&quot;Tom&quot;</span><span class="ot"> lastName=</span><span class="st">&quot;Johnson&quot;</span><span class="ot"> uesrId=</span><span class="st">&quot;1&quot;</span><span class="kw">&gt;&lt;/user&gt;</span></code></pre></td></tr></table></div>
@@ -81,6 +83,7 @@
   <span class="fu">@Input</span>() <span class="kw">private</span> lastName: string;
   <span class="fu">@Input</span>() <span class="kw">private</span> userId: number;
 }</code></pre></td></tr></table></div>
+<p><strong>Binding Data to Properties</strong></p>
 <p>Now, let's see how we can bind to a property from another component. For this example, we are going to continue with our <code>User</code> component and create a new component called <code>Permission</code>. Then we are going to use the the <code>Permission</code> component inside the <code>User</code> component and set the <code>uid</code> of <code>Permission</code> by the <code>userId</code> of the <code>User</code>.</p>
 <p>The <code>Permission</code> component is defined as follows:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1

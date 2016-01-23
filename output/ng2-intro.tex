@@ -2016,7 +2016,7 @@ steps for running the project is the same for all the projects:
 
 \textbf{TODO}
 
-\subsection{Components}\label{components}
+\subsection{Component Basics}\label{component-basics}
 
 Components are at the heart of Angular. The main idea is that you break
 down your application into different cohesive components and let the
@@ -2033,8 +2033,6 @@ Note that there is a lot to talk about components. We are going dive
 into components a lot more in later chapters, but for now let's just
 keep things simple.
 
-\subsubsection{Project Files}\label{project-files-1}
-
 The project files for this chapter are in
 \textbf{\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component}{\texttt{angular2-intro/project-files/angular-examples/basic-component}}}
 You can either follow along or just look at the final result
@@ -2043,7 +2041,7 @@ In order to run the project files, please refer to the
 \protect\hyperlink{running-the-project-files}{Running the Project Files}
 section.
 
-\subsubsection{Getting Started}\label{getting-started}
+\textbf{Getting Started}
 
 Make a folder on your desktop called \texttt{hello-angular} and navigate
 to it:
@@ -2151,7 +2149,8 @@ If you need to support older browsers, you need to include the
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Making the Component}\label{making-the-component}
+\subsubsection{Making a Simple
+Component}\label{making-a-simple-component}
 
 Let's start by making the \texttt{main.ts} file in the root of the
 project. In this file we are going to define the main component called
@@ -2209,7 +2208,7 @@ project. In this file we are going to define the main component called
   with the \texttt{HelloAngular} component.
 \end{itemize}
 
-\subsubsection{Compiling the Component}\label{compiling-the-component}
+\textbf{Compiling the Component}
 
 Now we need to compile the file to JavaScript. We can do it from the
 terminal, but let's stick to VSCode. In order to that, we need to make
@@ -2294,7 +2293,7 @@ the root of the project and put in the following:
 \end{verbatim}
 \end{itemize}
 
-\subsubsection{Loading the Component}\label{loading-the-component}
+\textbf{Loading the Component}
 
 After compiling the component, we need to load it to the
 \texttt{index.html} file with \texttt{Systemjs}. Open the
@@ -2345,7 +2344,7 @@ following:
 \caption{Running a basic component in the browser}
 \end{figure}
 
-\subsubsection{Debugging the component}\label{debugging-the-component}
+\textbf{Debugging the component}
 
 You can connect chrome's debugger to VSCode using the chrome debugger
 extension for Visual Studio Code. See the
@@ -2418,7 +2417,7 @@ like the following screenshot:
 \caption{Debugging the app with Chrome Debugger in VSCode}
 \end{figure}
 
-\subsection{Component Inputs}\label{component-inputs}
+\subsubsection{Component Inputs}\label{component-inputs}
 
 \begin{itemize}
 \tightlist
@@ -2442,8 +2441,12 @@ like the following screenshot:
   \texttt{propname} will be set to the literal \texttt{data} string
 \end{itemize}
 
-\textbf{Project files} for this section are in
+\textbf{Project files}
+
+The project files for this section are in
 \href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input}{angular2-intro/project-files/angular-examples/component-input}.
+
+\textbf{Getting Started}
 
 In order to demonstrate component inputs, we are going to create a
 \texttt{user} component and pass \texttt{name}, \texttt{lastName}, and
@@ -2541,6 +2544,8 @@ array, we could have decorated the instance variables with the
 \end{Highlighting}
 \end{Shaded}
 
+\textbf{Binding Data to Properties}
+
 Now, let's see how we can bind to a property from another component. For
 this example, we are going to continue with our \texttt{User} component
 and create a new component called \texttt{Permission}. Then we are going
@@ -2636,6 +2641,242 @@ If you run the app you should see the following printed to the page:
 \includegraphics{images/input-cmp.png}
 \caption{Input to components}
 \end{figure}
+
+\subsubsection{Component Output/Events}\label{component-outputevents}
+
+\begin{itemize}
+\tightlist
+\item
+  Events can be emitted from components. These events can be either
+  custom or they could be DOM events
+\item
+  The syntax is \texttt{(eventname)="fn()"} where \texttt{eventname} is
+  the name of the event and \texttt{fn} is the handler function
+\item
+  The handler function is called when the event is fired
+\item
+  For example, if you want to handle a click event you can do:
+  \texttt{(click)="handler()"}. In this case the \texttt{hander} is
+  called whenever the click event is fired off
+\item
+  You can use Angular's \texttt{EventEmitter} to fire off custom events
+\end{itemize}
+
+\textbf{Project Files}
+
+The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events}{angular2-intro/project-files/angular-examples/component-output-events}.
+
+\textbf{Final Result}
+
+The goal of this section is to show you how to create a component that
+contains a button that when is clicked, calls a handler defined by the
+component's class. The final html will look like the following:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<p>}\NormalTok{Value: \{\{ value \}\}}\KeywordTok{</p>}
+\KeywordTok{<button} \ErrorTok{(click)}\OtherTok{=}\StringTok{addOne()}\KeywordTok{>}\NormalTok{Add +}\KeywordTok{</button>}
+\end{Highlighting}
+\end{Shaded}
+
+That idea is very simple: every time we click on the button we want to
+increment the value by one. In addition to that, we want to be able to
+hook into a custom event and run the \texttt{addOne} method whenever the
+event is fired:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<p>}\NormalTok{Value: \{\{ value \}\}}\KeywordTok{</p>}
+\KeywordTok{<span}\OtherTok{ adder-auto} \ErrorTok{(myevent)}\OtherTok{=}\StringTok{addOne()}\KeywordTok{>}\NormalTok{adding ...}\KeywordTok{</span>}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Getting Started}
+
+Let's started by defining our \texttt{Adder} component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'adder',}
+  \NormalTok{template:`}
+  \NormalTok{<p>Value: \{\{ value \}\}</p>}
+  \NormalTok{<}\FunctionTok{button} \NormalTok{(click)=}\FunctionTok{addOne}\NormalTok{()>Add +</button>}
+  \NormalTok{`}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{Adder \{}
+  \KeywordTok{private} \NormalTok{value: number;}
+  \FunctionTok{constructor}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{value} \NormalTok{= }\DecValTok{0}\NormalTok{;}
+  \NormalTok{\}}
+  \FunctionTok{addOne}\NormalTok{() \{}
+  \KeywordTok{this}\NormalTok{.}\FunctionTok{value} \NormalTok{+= }\DecValTok{1}\NormalTok{;}
+  \NormalTok{console.}\FunctionTok{log}\NormalTok{(}\KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{);}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now, we are just going to register \texttt{Adder} with our root
+component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{directives: [Adder],}
+  \NormalTok{template: '<adder></adder>'}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{App \{\}}
+\end{Highlighting}
+\end{Shaded}
+
+after you bootstrap the app and run it you should be able to see a
+button that when clicked increments the value by one.
+
+\textbf{Using EventEmitter}
+
+Now, let's see how we can use the \texttt{EventEmitter} to increment the
+value by one every time a custom event is fired every second. In order
+to achieve that, we are going to create an attribute directive called
+\texttt{AdderAuto}. Start by importing the \texttt{Directive} metadata
+class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Directive\} from 'angular2/core';}
+\end{Highlighting}
+\end{Shaded}
+
+and then define the selector for the directive:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Directive}\NormalTok{(\{}
+  \NormalTok{selector: '[adder-auto]'}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{selector:\ \textquotesingle{}{[}adder-auto{]}\textquotesingle{}}
+  means that angular will target any element that has the
+  \texttt{adder-auto} attribute and will create an instance of the
+  class. Now we need to define the class for our directive:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{AdderAuto \{}
+  \CommentTok{// custom event definition}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In this class we need to define a custom event output hook. We are going
+to call it \texttt{myevent}. The same way that you can hook into
+\texttt{(click)}, we want to be able to use \texttt{(myevent)}. To
+achieve that, we need to create an instance variable and decorate it
+with the \texttt{Output} decorator:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{// -> importing `EventEmitter` and `Output` decorator.}
+\KeywordTok{import \{EventEmitter, Output\} from 'angular2/core';}
+\KeywordTok{class} \NormalTok{AdderAuto \{}
+  \FunctionTok{@Output}\NormalTok{() myevent: EventEmitter<string>;}
+  \FunctionTok{constructor}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{myevent} \NormalTok{= }\KeywordTok{new} \FunctionTok{EventEmitter}\NormalTok{();}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  If you notice, \texttt{myevent} is of type \texttt{EventEmitter} that
+  emit events of type string
+\item
+  In the constructor we are creating an instance of
+  \texttt{EventEmitter}. So now we can use \texttt{myevent} to emit
+  events
+\item
+  We can use \texttt{setInterval} to emit event from our custom event
+  every second
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{AdderAuto \{}
+  \FunctionTok{@Output}\NormalTok{() myevent: EventEmitter<string>;}
+  \FunctionTok{constructor}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{myevent} \NormalTok{= }\KeywordTok{new} \FunctionTok{EventEmitter}\NormalTok{();}
+    \FunctionTok{setInterval}\NormalTok{(()=> \{}\KeywordTok{this}\NormalTok{.}\FunctionTok{myevent}\NormalTok{.}\FunctionTok{emit}\NormalTok{('myevename')\}, }\DecValTok{1000}\NormalTok{);}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can register \texttt{AdderAuto} with the \texttt{Adder} component
+and run the \texttt{addOne} method every second:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'adder',}
+  \NormalTok{...}
+  \NormalTok{directives: [AdderAuto] }\CommentTok{// <- register `AdderAuto`}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+and then we can update the template:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<p>}\NormalTok{Value: \{\{ value \}\}}\KeywordTok{</p>}
+\KeywordTok{<button} \ErrorTok{(click)}\OtherTok{=}\StringTok{"addOne()"}\KeywordTok{>}\NormalTok{Add +}\KeywordTok{</button>}
+\CommentTok{<!-- using the event. -->}
+\KeywordTok{<h2>}\NormalTok{Using Emitter}\KeywordTok{</h2>}
+\KeywordTok{<span}\OtherTok{ adder-auto} \ErrorTok{(myevent)}\OtherTok{=}\StringTok{"addOne($event)"}\KeywordTok{>} \NormalTok{EVENT: }\KeywordTok{</span>}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  first we are adding the attribute directive \texttt{adder-auto} on the
+  span
+\item
+  second, we are using the \texttt{myevent} hook and attaching
+  \texttt{addOne} handler to it. This means that whenever the
+  \texttt{myevent} event is triggered, run the \texttt{addOne} handler.
+\end{itemize}
+
+The \texttt{Adder} component now looks like the following with the
+updated template:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'adder',}
+  \NormalTok{template:`}
+  \NormalTok{<p>Value: \{\{ value \}\}</p>}
+  \NormalTok{<}\FunctionTok{button} \NormalTok{(click)=}\StringTok{"addOne()"}\NormalTok{>Add +</button>}
+  \NormalTok{<h2>Using Emitter</h2>}
+  \NormalTok{<span adder-}\FunctionTok{auto} \NormalTok{(myevent)=}\StringTok{"addOne($event)"}\NormalTok{> EVENT: </span>}
+  \NormalTok{`,}
+  \NormalTok{directives: [AdderAuto]}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+Now if you run the code, you should be able to see the number
+incrementing by one every second.
 
 \subsection{Directives}\label{directives}
 

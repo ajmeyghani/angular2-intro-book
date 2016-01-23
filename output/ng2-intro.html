@@ -204,15 +204,11 @@
     <li><a href="#starter-project">Starter Project</a></li>
     </ul></li>
     <li><a href="#using-the-docs">Using the Docs</a></li>
-    <li><a href="#components">Components</a><ul>
-    <li><a href="#project-files-1">Project Files</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#making-the-component">Making the Component</a></li>
-    <li><a href="#compiling-the-component">Compiling the Component</a></li>
-    <li><a href="#loading-the-component">Loading the Component</a></li>
-    <li><a href="#debugging-the-component">Debugging the component</a></li>
-    </ul></li>
+    <li><a href="#component-basics">Component Basics</a><ul>
+    <li><a href="#making-a-simple-component">Making a Simple Component</a></li>
     <li><a href="#component-inputs">Component Inputs</a></li>
+    <li><a href="#component-outputevents">Component Output/Events</a></li>
+    </ul></li>
     <li><a href="#directives">Directives</a></li>
     <li><a href="#change-detection">Change Detection</a></li>
     <li><a href="#pipes">Pipes</a><ul>
@@ -1420,18 +1416,14 @@ CommonJS Modules</code></pre>
 <h2>Using the Docs</h2>
 <p><strong>TODO</strong></p>
 </div>
-<div id="components" class="section level2">
-<h2>Components</h2>
+<div id="component-basics" class="section level2">
+<h2>Component Basics</h2>
 <p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
-<div id="project-files-1" class="section level3">
-<h3>Project Files</h3>
 <p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
 <p>In order to run the project files, please refer to the <a href="#running-the-project-files">Running the Project Files</a> section.</p>
-</div>
-<div id="getting-started" class="section level3">
-<h3>Getting Started</h3>
+<p><strong>Getting Started</strong></p>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
 <pre><code>mkdir ~/Desktop/hello-angular &amp;&amp; cd $_</code></pre>
 <p>Start npm in this folder with <code>npm init</code> and accept all the defaults.</p>
@@ -1548,9 +1540,8 @@ CommonJS Modules</code></pre>
 <p>If you need to support older browsers, you need to include the <code>es6-shims</code> before everything else:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
-</div>
-<div id="making-the-component" class="section level3">
-<h3>Making the Component</h3>
+<div id="making-a-simple-component" class="section level3">
+<h3>Making a Simple Component</h3>
 <p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -1591,9 +1582,7 @@ CommonJS Modules</code></pre>
 <li>On line 9, we are defining a class called <code>HelloAngular</code> that defines the logic of the component. And for fun, we are implementing the <code>OnInit</code> interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.</li>
 <li>Last but not least, we call the <code>bootstrap</code> method with the <code>HelloAngular</code> class as the first argument to bootstrap the app with the <code>HelloAngular</code> component.</li>
 </ul>
-</div>
-<div id="compiling-the-component" class="section level3">
-<h3>Compiling the Component</h3>
+<p><strong>Compiling the Component</strong></p>
 <p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
 <ol style="list-style-type: decimal">
 <li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
@@ -1661,9 +1650,7 @@ CommonJS Modules</code></pre>
 <li><p>The task is watching the files and compiling as you go. To stop the task, open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>
-</div>
-<div id="loading-the-component" class="section level3">
-<h3>Loading the Component</h3>
+<p><strong>Loading the Component</strong></p>
 <p>After compiling the component, we need to load it to the <code>index.html</code> file with <code>Systemjs</code>. Open the <code>index.html</code> file and replace <code>&lt;!-- add systemjs settings later --&gt;</code> with the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1703,9 +1690,7 @@ CommonJS Modules</code></pre>
 <img src="images/hello-angular.png" alt="Running a basic component in the browser" />
 <p class="caption">Running a basic component in the browser</p>
 </div>
-</div>
-<div id="debugging-the-component" class="section level3">
-<h3>Debugging the component</h3>
+<p><strong>Debugging the component</strong></p>
 <p>You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the <a href="#debugging-app-from-vscode">Debugging App from VSCode</a> section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a <code>launch.json</code> file in the <code>.vscode</code> folder:</p>
 <pre><code>touch .vscode/launch.json</code></pre>
 <p>After you created the file, put in the following configuration in the file:</p>
@@ -1758,9 +1743,8 @@ CommonJS Modules</code></pre>
 <p class="caption">Debugging the app with Chrome Debugger in VSCode</p>
 </div>
 </div>
-</div>
-<div id="component-inputs" class="section level2">
-<h2>Component Inputs</h2>
+<div id="component-inputs" class="section level3">
+<h3>Component Inputs</h3>
 <ul>
 <li>You can pass data to a component.</li>
 <li>You can either use the <code>inputs</code> array on a component or annotate an instance variable with the <code>Input</code> decorator</li>
@@ -1769,7 +1753,9 @@ CommonJS Modules</code></pre>
 <li>You can use the <code>[propname]=&quot;data&quot;</code> to set the <code>propname</code> to whatever <code>data</code> evaluates to</li>
 <li>Note that if you set <code>[propname]=&quot;'data'&quot;</code>, <code>propname</code> will be set to the literal <code>data</code> string</li>
 </ul>
-<p><strong>Project files</strong> for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
+<p><strong>Project files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
+<p><strong>Getting Started</strong></p>
 <p>In order to demonstrate component inputs, we are going to create a <code>user</code> component and pass <code>name</code>, <code>lastName</code>, and <code>userId</code> to it. So our final html tag would look something like the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;user</span><span class="ot"> name=</span><span class="st">&quot;Tom&quot;</span><span class="ot"> lastName=</span><span class="st">&quot;Johnson&quot;</span><span class="ot"> uesrId=</span><span class="st">&quot;1&quot;</span><span class="kw">&gt;&lt;/user&gt;</span></code></pre></td></tr></table></div>
@@ -1843,6 +1829,7 @@ CommonJS Modules</code></pre>
   <span class="fu">@Input</span>() <span class="kw">private</span> lastName: string;
   <span class="fu">@Input</span>() <span class="kw">private</span> userId: number;
 }</code></pre></td></tr></table></div>
+<p><strong>Binding Data to Properties</strong></p>
 <p>Now, let's see how we can bind to a property from another component. For this example, we are going to continue with our <code>User</code> component and create a new component called <code>Permission</code>. Then we are going to use the the <code>Permission</code> component inside the <code>User</code> component and set the <code>uid</code> of <code>Permission</code> by the <code>userId</code> of the <code>User</code>.</p>
 <p>The <code>Permission</code> component is defined as follows:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -1924,6 +1911,184 @@ CommonJS Modules</code></pre>
 <div class="figure">
 <img src="images/input-cmp.png" alt="Input to components" />
 <p class="caption">Input to components</p>
+</div>
+</div>
+<div id="component-outputevents" class="section level3">
+<h3>Component Output/Events</h3>
+<ul>
+<li>Events can be emitted from components. These events can be either custom or they could be DOM events</li>
+<li>The syntax is <code>(eventname)=&quot;fn()&quot;</code> where <code>eventname</code> is the name of the event and <code>fn</code> is the handler function</li>
+<li>The handler function is called when the event is fired</li>
+<li>For example, if you want to handle a click event you can do: <code>(click)=&quot;handler()&quot;</code>. In this case the <code>hander</code> is called whenever the click event is fired off</li>
+<li>You can use Angular's <code>EventEmitter</code> to fire off custom events</li>
+</ul>
+<p><strong>Project Files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events">angular2-intro/project-files/angular-examples/component-output-events</a>.</p>
+<p><strong>Final Result</strong></p>
+<p>The goal of this section is to show you how to create a component that contains a button that when is clicked, calls a handler defined by the component's class. The final html will look like the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">addOne()</span><span class="kw">&gt;</span>Add +<span class="kw">&lt;/button&gt;</span></code></pre></td></tr></table></div>
+<p>That idea is very simple: every time we click on the button we want to increment the value by one. In addition to that, we want to be able to hook into a custom event and run the <code>addOne</code> method whenever the event is fired:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> adder-auto</span> <span class="er">(myevent)</span><span class="ot">=</span><span class="st">addOne()</span><span class="kw">&gt;</span>adding ...<span class="kw">&lt;/span&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Getting Started</strong></p>
+<p>Let's started by defining our <code>Adder</code> component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  template:`
+  &lt;p&gt;Value: {{ value }}&lt;/p&gt;
+  &lt;<span class="fu">button</span> (click)=<span class="fu">addOne</span>()&gt;Add +&lt;/button&gt;
+  `
+})
+<span class="kw">class</span> Adder {
+  <span class="kw">private</span> value: number;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">value</span> = <span class="dv">0</span>;
+  }
+  <span class="fu">addOne</span>() {
+  <span class="kw">this</span>.<span class="fu">value</span> += <span class="dv">1</span>;
+  console.<span class="fu">log</span>(<span class="kw">this</span>.<span class="fu">value</span>);
+  }
+}</code></pre></td></tr></table></div>
+<p>Now, we are just going to register <code>Adder</code> with our root component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  directives: [Adder],
+  template: &#39;&lt;adder&gt;&lt;/adder&gt;&#39;
+})
+<span class="kw">class</span> App {}</code></pre></td></tr></table></div>
+<p>after you bootstrap the app and run it you should be able to see a button that when clicked increments the value by one.</p>
+<p><strong>Using EventEmitter</strong></p>
+<p>Now, let's see how we can use the <code>EventEmitter</code> to increment the value by one every time a custom event is fired every second. In order to achieve that, we are going to create an attribute directive called <code>AdderAuto</code>. Start by importing the <code>Directive</code> metadata class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Directive} from &#39;angular2/core&#39;;</span></code></pre></td></tr></table></div>
+<p>and then define the selector for the directive:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Directive</span>({
+  selector: &#39;[adder-auto]&#39;
+})</code></pre></td></tr></table></div>
+<ul>
+<li><code>selector: '[adder-auto]'</code> means that angular will target any element that has the <code>adder-auto</code> attribute and will create an instance of the class. Now we need to define the class for our directive:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> AdderAuto {
+  <span class="co">// custom event definition</span>
+}</code></pre></td></tr></table></div>
+<p>In this class we need to define a custom event output hook. We are going to call it <code>myevent</code>. The same way that you can hook into <code>(click)</code>, we want to be able to use <code>(myevent)</code>. To achieve that, we need to create an instance variable and decorate it with the <code>Output</code> decorator:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// -&gt; importing `EventEmitter` and `Output` decorator.</span>
+<span class="kw">import {EventEmitter, Output} from &#39;angular2/core&#39;;</span>
+<span class="kw">class</span> AdderAuto {
+  <span class="fu">@Output</span>() myevent: EventEmitter&lt;string&gt;;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">myevent</span> = <span class="kw">new</span> <span class="fu">EventEmitter</span>();
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>If you notice, <code>myevent</code> is of type <code>EventEmitter</code> that emit events of type string</li>
+<li>In the constructor we are creating an instance of <code>EventEmitter</code>. So now we can use <code>myevent</code> to emit events</li>
+<li>We can use <code>setInterval</code> to emit event from our custom event every second</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> AdderAuto {
+  <span class="fu">@Output</span>() myevent: EventEmitter&lt;string&gt;;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">myevent</span> = <span class="kw">new</span> <span class="fu">EventEmitter</span>();
+    <span class="fu">setInterval</span>(()=&gt; {<span class="kw">this</span>.<span class="fu">myevent</span>.<span class="fu">emit</span>(&#39;myevename&#39;)}, <span class="dv">1000</span>);
+  }
+}</code></pre></td></tr></table></div>
+<p>Now we can register <code>AdderAuto</code> with the <code>Adder</code> component and run the <code>addOne</code> method every second:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  ...
+  directives: [AdderAuto] <span class="co">// &lt;- register `AdderAuto`</span>
+})</code></pre></td></tr></table></div>
+<p>and then we can update the template:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;addOne()&quot;</span><span class="kw">&gt;</span>Add +<span class="kw">&lt;/button&gt;</span>
+<span class="co">&lt;!-- using the event. --&gt;</span>
+<span class="kw">&lt;h2&gt;</span>Using Emitter<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> adder-auto</span> <span class="er">(myevent)</span><span class="ot">=</span><span class="st">&quot;addOne($event)&quot;</span><span class="kw">&gt;</span> EVENT: <span class="kw">&lt;/span&gt;</span></code></pre></td></tr></table></div>
+<ul>
+<li>first we are adding the attribute directive <code>adder-auto</code> on the span</li>
+<li>second, we are using the <code>myevent</code> hook and attaching <code>addOne</code> handler to it. This means that whenever the <code>myevent</code> event is triggered, run the <code>addOne</code> handler.</li>
+</ul>
+<p>The <code>Adder</code> component now looks like the following with the updated template:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  template:`
+  &lt;p&gt;Value: {{ value }}&lt;/p&gt;
+  &lt;<span class="fu">button</span> (click)=<span class="st">&quot;addOne()&quot;</span>&gt;Add +&lt;/button&gt;
+  &lt;h2&gt;Using Emitter&lt;/h2&gt;
+  &lt;span adder-<span class="fu">auto</span> (myevent)=<span class="st">&quot;addOne($event)&quot;</span>&gt; EVENT: &lt;/span&gt;
+  `,
+  directives: [AdderAuto]
+})</code></pre></td></tr></table></div>
+<p>Now if you run the code, you should be able to see the number incrementing by one every second.</p>
 </div>
 </div>
 <div id="directives" class="section level2">

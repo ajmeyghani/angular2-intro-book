@@ -1455,8 +1455,8 @@ Using the Docs
 
 **TODO**
 
-Components
-----------
+Component Basics
+----------------
 
 Components are at the heart of Angular. The main idea is that you break
 down your application into different cohesive components and let the
@@ -1473,8 +1473,6 @@ Note that there is a lot to talk about components. We are going dive
 into components a lot more in later chapters, but for now let's just
 keep things simple.
 
-### Project Files
-
 The project files for this chapter are in
 **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)**
 You can either follow along or just look at the final result
@@ -1482,7 +1480,7 @@ You can either follow along or just look at the final result
 In order to run the project files, please refer to the [Running the
 Project Files](#running-the-project-files) section.
 
-### Getting Started
+**Getting Started**
 
 Make a folder on your desktop called `hello-angular` and navigate to it:
 
@@ -1577,7 +1575,7 @@ If you need to support older browsers, you need to include the
 <script src="/node_modules/es6-shim/es6-shim.js"></script>
 ```
 
-### Making the Component
+### Making a Simple Component
 
 Let's start by making the `main.ts` file in the root of the project. In
 this file we are going to define the main component called
@@ -1623,7 +1621,7 @@ bootstrap(HelloAngular, []);
     `HelloAngular` class as the first argument to bootstrap the app with
     the `HelloAngular` component.
 
-### Compiling the Component
+**Compiling the Component**
 
 Now we need to compile the file to JavaScript. We can do it from the
 terminal, but let's stick to VSCode. In order to that, we need to make
@@ -1691,7 +1689,7 @@ project and put in the following:
 
         > terminate running task
 
-### Loading the Component
+**Loading the Component**
 
 After compiling the component, we need to load it to the `index.html`
 file with `Systemjs`. Open the `index.html` file and replace
@@ -1730,7 +1728,7 @@ following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
-### Debugging the component
+**Debugging the component**
 
 You can connect chrome's debugger to VSCode using the chrome debugger
 extension for Visual Studio Code. See the [Debugging App from
@@ -1788,8 +1786,7 @@ the following screenshot:
 ![Debugging the app with Chrome Debugger in
 VSCode](images/run-debugger.png)
 
-Component Inputs
-----------------
+### Component Inputs
 
 -   You can pass data to a component.
 -   You can either use the `inputs` array on a component or annotate an
@@ -1803,8 +1800,12 @@ Component Inputs
 -   Note that if you set `[propname]="'data'"`, `propname` will be set
     to the literal `data` string
 
-**Project files** for this section are in
+**Project files**
+
+The project files for this section are in
 [angular2-intro/project-files/angular-examples/component-input](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input).
+
+**Getting Started**
 
 In order to demonstrate component inputs, we are going to create a
 `user` component and pass `name`, `lastName`, and `userId` to it. So our
@@ -1882,6 +1883,8 @@ class User {
 }
 ```
 
+**Binding Data to Properties**
+
 Now, let's see how we can bind to a property from another component. For
 this example, we are going to continue with our `User` component and
 create a new component called `Permission`. Then we are going to use the
@@ -1952,6 +1955,190 @@ class User {}
 If you run the app you should see the following printed to the page:
 
 ![Input to components](images/input-cmp.png)
+
+### Component Output/Events
+
+-   Events can be emitted from components. These events can be either
+    custom or they could be DOM events
+-   The syntax is `(eventname)="fn()"` where `eventname` is the name of
+    the event and `fn` is the handler function
+-   The handler function is called when the event is fired
+-   For example, if you want to handle a click event you can do:
+    `(click)="handler()"`. In this case the `hander` is called whenever
+    the click event is fired off
+-   You can use Angular's `EventEmitter` to fire off custom events
+
+**Project Files**
+
+The project files for this section are in
+[angular2-intro/project-files/angular-examples/component-output-events](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events).
+
+**Final Result**
+
+The goal of this section is to show you how to create a component that
+contains a button that when is clicked, calls a handler defined by the
+component's class. The final html will look like the following:
+
+``` {.html}
+<p>Value: {{ value }}</p>
+<button (click)=addOne()>Add +</button>
+```
+
+That idea is very simple: every time we click on the button we want to
+increment the value by one. In addition to that, we want to be able to
+hook into a custom event and run the `addOne` method whenever the event
+is fired:
+
+``` {.html}
+<p>Value: {{ value }}</p>
+<span adder-auto (myevent)=addOne()>adding ...</span>
+```
+
+**Getting Started**
+
+Let's started by defining our `Adder` component:
+
+``` {.typescript}
+@Component({
+  selector: 'adder',
+  template:`
+  <p>Value: {{ value }}</p>
+  <button (click)=addOne()>Add +</button>
+  `
+})
+class Adder {
+  private value: number;
+  constructor() {
+    this.value = 0;
+  }
+  addOne() {
+  this.value += 1;
+  console.log(this.value);
+  }
+}
+```
+
+Now, we are just going to register `Adder` with our root component:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  directives: [Adder],
+  template: '<adder></adder>'
+})
+class App {}
+```
+
+after you bootstrap the app and run it you should be able to see a
+button that when clicked increments the value by one.
+
+**Using EventEmitter**
+
+Now, let's see how we can use the `EventEmitter` to increment the value
+by one every time a custom event is fired every second. In order to
+achieve that, we are going to create an attribute directive called
+`AdderAuto`. Start by importing the `Directive` metadata class:
+
+``` {.typescript}
+import {Directive} from 'angular2/core';
+```
+
+and then define the selector for the directive:
+
+``` {.typescript}
+@Directive({
+  selector: '[adder-auto]'
+})
+```
+
+-   `selector: '[adder-auto]'` means that angular will target any
+    element that has the `adder-auto` attribute and will create an
+    instance of the class. Now we need to define the class for our
+    directive:
+
+``` {.typescript}
+class AdderAuto {
+  // custom event definition
+}
+```
+
+In this class we need to define a custom event output hook. We are going
+to call it `myevent`. The same way that you can hook into `(click)`, we
+want to be able to use `(myevent)`. To achieve that, we need to create
+an instance variable and decorate it with the `Output` decorator:
+
+``` {.typescript}
+// -> importing `EventEmitter` and `Output` decorator.
+import {EventEmitter, Output} from 'angular2/core';
+class AdderAuto {
+  @Output() myevent: EventEmitter<string>;
+  constructor() {
+    this.myevent = new EventEmitter();
+  }
+}
+```
+
+-   If you notice, `myevent` is of type `EventEmitter` that emit events
+    of type string
+-   In the constructor we are creating an instance of `EventEmitter`. So
+    now we can use `myevent` to emit events
+-   We can use `setInterval` to emit event from our custom event every
+    second
+
+``` {.typescript}
+class AdderAuto {
+  @Output() myevent: EventEmitter<string>;
+  constructor() {
+    this.myevent = new EventEmitter();
+    setInterval(()=> {this.myevent.emit('myevename')}, 1000);
+  }
+}
+```
+
+Now we can register `AdderAuto` with the `Adder` component and run the
+`addOne` method every second:
+
+``` {.typescript}
+@Component({
+  selector: 'adder',
+  ...
+  directives: [AdderAuto] // <- register `AdderAuto`
+})
+```
+
+and then we can update the template:
+
+``` {.html}
+<p>Value: {{ value }}</p>
+<button (click)="addOne()">Add +</button>
+<!-- using the event. -->
+<h2>Using Emitter</h2>
+<span adder-auto (myevent)="addOne($event)"> EVENT: </span>
+```
+
+-   first we are adding the attribute directive `adder-auto` on the span
+-   second, we are using the `myevent` hook and attaching `addOne`
+    handler to it. This means that whenever the `myevent` event is
+    triggered, run the `addOne` handler.
+
+The `Adder` component now looks like the following with the updated
+template:
+
+``` {.typescript}
+@Component({
+  selector: 'adder',
+  template:`
+  <p>Value: {{ value }}</p>
+  <button (click)="addOne()">Add +</button>
+  <h2>Using Emitter</h2>
+  <span adder-auto (myevent)="addOne($event)"> EVENT: </span>
+  `,
+  directives: [AdderAuto]
+})
+```
+
+Now if you run the code, you should be able to see the number
+incrementing by one every second.
 
 Directives
 ----------

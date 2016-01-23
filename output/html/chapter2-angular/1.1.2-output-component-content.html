@@ -1,0 +1,175 @@
+<h3 id="component-outputevents">Component Output/Events</h3>
+<ul>
+<li>Events can be emitted from components. These events can be either custom or they could be DOM events</li>
+<li>The syntax is <code>(eventname)=&quot;fn()&quot;</code> where <code>eventname</code> is the name of the event and <code>fn</code> is the handler function</li>
+<li>The handler function is called when the event is fired</li>
+<li>For example, if you want to handle a click event you can do: <code>(click)=&quot;handler()&quot;</code>. In this case the <code>hander</code> is called whenever the click event is fired off</li>
+<li>You can use Angular's <code>EventEmitter</code> to fire off custom events</li>
+</ul>
+<p><strong>Project Files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events">angular2-intro/project-files/angular-examples/component-output-events</a>.</p>
+<p><strong>Final Result</strong></p>
+<p>The goal of this section is to show you how to create a component that contains a button that when is clicked, calls a handler defined by the component's class. The final html will look like the following:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">addOne()</span><span class="kw">&gt;</span>Add +<span class="kw">&lt;/button&gt;</span></code></pre></td></tr></table></div>
+<p>That idea is very simple: every time we click on the button we want to increment the value by one. In addition to that, we want to be able to hook into a custom event and run the <code>addOne</code> method whenever the event is fired:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> adder-auto</span> <span class="er">(myevent)</span><span class="ot">=</span><span class="st">addOne()</span><span class="kw">&gt;</span>adding ...<span class="kw">&lt;/span&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Getting Started</strong></p>
+<p>Let's started by defining our <code>Adder</code> component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  template:`
+  &lt;p&gt;Value: {{ value }}&lt;/p&gt;
+  &lt;<span class="fu">button</span> (click)=<span class="fu">addOne</span>()&gt;Add +&lt;/button&gt;
+  `
+})
+<span class="kw">class</span> Adder {
+  <span class="kw">private</span> value: number;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">value</span> = <span class="dv">0</span>;
+  }
+  <span class="fu">addOne</span>() {
+  <span class="kw">this</span>.<span class="fu">value</span> += <span class="dv">1</span>;
+  console.<span class="fu">log</span>(<span class="kw">this</span>.<span class="fu">value</span>);
+  }
+}</code></pre></td></tr></table></div>
+<p>Now, we are just going to register <code>Adder</code> with our root component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  directives: [Adder],
+  template: &#39;&lt;adder&gt;&lt;/adder&gt;&#39;
+})
+<span class="kw">class</span> App {}</code></pre></td></tr></table></div>
+<p>after you bootstrap the app and run it you should be able to see a button that when clicked increments the value by one.</p>
+<p><strong>Using EventEmitter</strong></p>
+<p>Now, let's see how we can use the <code>EventEmitter</code> to increment the value by one every time a custom event is fired every second. In order to achieve that, we are going to create an attribute directive called <code>AdderAuto</code>. Start by importing the <code>Directive</code> metadata class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Directive} from &#39;angular2/core&#39;;</span></code></pre></td></tr></table></div>
+<p>and then define the selector for the directive:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Directive</span>({
+  selector: &#39;[adder-auto]&#39;
+})</code></pre></td></tr></table></div>
+<ul>
+<li><code>selector: '[adder-auto]'</code> means that angular will target any element that has the <code>adder-auto</code> attribute and will create an instance of the class. Now we need to define the class for our directive:</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> AdderAuto {
+  <span class="co">// custom event definition</span>
+}</code></pre></td></tr></table></div>
+<p>In this class we need to define a custom event output hook. We are going to call it <code>myevent</code>. The same way that you can hook into <code>(click)</code>, we want to be able to use <code>(myevent)</code>. To achieve that, we need to create an instance variable and decorate it with the <code>Output</code> decorator:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">// -&gt; importing `EventEmitter` and `Output` decorator.</span>
+<span class="kw">import {EventEmitter, Output} from &#39;angular2/core&#39;;</span>
+<span class="kw">class</span> AdderAuto {
+  <span class="fu">@Output</span>() myevent: EventEmitter&lt;string&gt;;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">myevent</span> = <span class="kw">new</span> <span class="fu">EventEmitter</span>();
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>If you notice, <code>myevent</code> is of type <code>EventEmitter</code> that emit events of type string</li>
+<li>In the constructor we are creating an instance of <code>EventEmitter</code>. So now we can use <code>myevent</code> to emit events</li>
+<li>We can use <code>setInterval</code> to emit event from our custom event every second</li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> AdderAuto {
+  <span class="fu">@Output</span>() myevent: EventEmitter&lt;string&gt;;
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">myevent</span> = <span class="kw">new</span> <span class="fu">EventEmitter</span>();
+    <span class="fu">setInterval</span>(()=&gt; {<span class="kw">this</span>.<span class="fu">myevent</span>.<span class="fu">emit</span>(&#39;myevename&#39;)}, <span class="dv">1000</span>);
+  }
+}</code></pre></td></tr></table></div>
+<p>Now we can register <code>AdderAuto</code> with the <code>Adder</code> component and run the <code>addOne</code> method every second:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  ...
+  directives: [AdderAuto] <span class="co">// &lt;- register `AdderAuto`</span>
+})</code></pre></td></tr></table></div>
+<p>and then we can update the template:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Value: {{ value }}<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;addOne()&quot;</span><span class="kw">&gt;</span>Add +<span class="kw">&lt;/button&gt;</span>
+<span class="co">&lt;!-- using the event. --&gt;</span>
+<span class="kw">&lt;h2&gt;</span>Using Emitter<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> adder-auto</span> <span class="er">(myevent)</span><span class="ot">=</span><span class="st">&quot;addOne($event)&quot;</span><span class="kw">&gt;</span> EVENT: <span class="kw">&lt;/span&gt;</span></code></pre></td></tr></table></div>
+<ul>
+<li>first we are adding the attribute directive <code>adder-auto</code> on the span</li>
+<li>second, we are using the <code>myevent</code> hook and attaching <code>addOne</code> handler to it. This means that whenever the <code>myevent</code> event is triggered, run the <code>addOne</code> handler.</li>
+</ul>
+<p>The <code>Adder</code> component now looks like the following with the updated template:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;adder&#39;,
+  template:`
+  &lt;p&gt;Value: {{ value }}&lt;/p&gt;
+  &lt;<span class="fu">button</span> (click)=<span class="st">&quot;addOne()&quot;</span>&gt;Add +&lt;/button&gt;
+  &lt;h2&gt;Using Emitter&lt;/h2&gt;
+  &lt;span adder-<span class="fu">auto</span> (myevent)=<span class="st">&quot;addOne($event)&quot;</span>&gt; EVENT: &lt;/span&gt;
+  `,
+  directives: [AdderAuto]
+})</code></pre></td></tr></table></div>
+<p>Now if you run the code, you should be able to see the number incrementing by one every second.</p>

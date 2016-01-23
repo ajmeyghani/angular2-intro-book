@@ -1,11 +1,10 @@
-<h2 id="components">Components</h2>
+<h2 id="component-basics">Component Basics</h2>
 <p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
-<h3 id="project-files">Project Files</h3>
 <p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
 <p>In order to run the project files, please refer to the <a href="#running-the-project-files">Running the Project Files</a> section.</p>
-<h3 id="getting-started">Getting Started</h3>
+<p><strong>Getting Started</strong></p>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
 <pre><code>mkdir ~/Desktop/hello-angular &amp;&amp; cd $_</code></pre>
 <p>Start npm in this folder with <code>npm init</code> and accept all the defaults.</p>
@@ -122,7 +121,7 @@
 <p>If you need to support older browsers, you need to include the <code>es6-shims</code> before everything else:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/es6-shim/es6-shim.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
-<h3 id="making-the-component">Making the Component</h3>
+<h3 id="making-a-simple-component">Making a Simple Component</h3>
 <p>Let's start by making the <code>main.ts</code> file in the root of the project. In this file we are going to define the main component called <code>HelloAngular</code> and then bootstrap the app with it:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -163,7 +162,7 @@
 <li>On line 9, we are defining a class called <code>HelloAngular</code> that defines the logic of the component. And for fun, we are implementing the <code>OnInit</code> interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.</li>
 <li>Last but not least, we call the <code>bootstrap</code> method with the <code>HelloAngular</code> class as the first argument to bootstrap the app with the <code>HelloAngular</code> component.</li>
 </ul>
-<h3 id="compiling-the-component">Compiling the Component</h3>
+<p><strong>Compiling the Component</strong></p>
 <p>Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:</p>
 <ol style="list-style-type: decimal">
 <li><p>First is the standard <a href="http://json.schemastore.org/tsconfig"><code>tsconfig.json</code></a> file</p></li>
@@ -231,7 +230,7 @@
 <li><p>The task is watching the files and compiling as you go. To stop the task, open the prompt and type:</p>
 <pre><code>&gt; terminate running task</code></pre></li>
 </ul>
-<h3 id="loading-the-component">Loading the Component</h3>
+<p><strong>Loading the Component</strong></p>
 <p>After compiling the component, we need to load it to the <code>index.html</code> file with <code>Systemjs</code>. Open the <code>index.html</code> file and replace <code>&lt;!-- add systemjs settings later --&gt;</code> with the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -271,7 +270,7 @@
 <img src="images/hello-angular.png" alt="Running a basic component in the browser" />
 <p class="caption">Running a basic component in the browser</p>
 </div>
-<h3 id="debugging-the-component">Debugging the component</h3>
+<p><strong>Debugging the component</strong></p>
 <p>You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the <a href="#debugging-app-from-vscode">Debugging App from VSCode</a> section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a <code>launch.json</code> file in the <code>.vscode</code> folder:</p>
 <pre><code>touch .vscode/launch.json</code></pre>
 <p>After you created the file, put in the following configuration in the file:</p>

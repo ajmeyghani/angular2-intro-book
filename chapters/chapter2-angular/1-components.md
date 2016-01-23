@@ -1,4 +1,4 @@
-## Components
+## Component Basics
 
 Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.
 
@@ -6,13 +6,12 @@ In this section we are going to write a simple `HelloAngular` component, compile
 
 Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.
 
-### Project Files
 
 The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
 
 In order to run the project files, please refer to the [Running the Project Files](#running-the-project-files) section.
 
-### Getting Started
+**Getting Started**
 
 Make a folder on your desktop called `hello-angular` and navigate to it:
 
@@ -104,7 +103,7 @@ If you need to support older browsers, you need to include the `es6-shims` befor
 <script src="/node_modules/es6-shim/es6-shim.js"></script>
 ```
 
-### Making the Component
+### Making a Simple Component
 
 Let's start by making the `main.ts` file in the root of the project. In this file we are going to define the main component called `HelloAngular` and then bootstrap the app with it:
 
@@ -135,7 +134,7 @@ bootstrap(HelloAngular, []);
 - On line 9, we are defining a class called `HelloAngular` that defines the logic of the component. And for fun, we are implementing the `OnInit` interface to log something to the console when the component is ready with its data. We will learn more about the lifeCycle hooks later.
 - Last but not least, we call the `bootstrap` method with the `HelloAngular` class as the first argument to bootstrap the app with the `HelloAngular` component.
 
-### Compiling the Component
+**Compiling the Component**
 
 Now we need to compile the file to JavaScript. We can do it from the terminal, but let's stick to VSCode. In order to that, we need to make two config files:
 
@@ -195,7 +194,7 @@ Then create the `tasks.json` in the `.vscode` folder in the root of the project 
     > terminate running task
     ```
 
-### Loading the Component
+**Loading the Component**
 
 After compiling the component, we need to load it to the `index.html` file with `Systemjs`. Open the `index.html` file and replace `<!-- add systemjs settings later -->` with the following:
 
@@ -232,7 +231,7 @@ If everything is wired up correctly, you should be able to see the following:
 
 ![Running a basic component in the browser](images/hello-angular.png)
 
-### Debugging the component
+**Debugging the component**
 
 You can connect chrome's debugger to VSCode using the chrome debugger extension for Visual Studio Code. See the [Debugging App from VSCode](#debugging-app-from-vscode) section in case you missed to install it. But, assuming that you have the extension installed, you can debug your app from VSCode. In order to do that, we need to create a `launch.json` file in the `.vscode` folder:
 
