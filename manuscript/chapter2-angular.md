@@ -630,6 +630,7 @@ The `Adder` component now looks like the following with the updated template:
 ```
 
 Now if you run the code, you should be able to see the number incrementing by one every second.
+
 ## Directives
 
 - Directives and components hand-in-hand are the fundamental elements of Angular.
@@ -655,6 +656,7 @@ Now if you run the code, you should be able to see the number incrementing by on
     - `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`
 
 - Having the ability to specify change detection strategy can reduce the number of checks and improve app's performance
+
 ## Pipes
 
 - Pipes allow you to transform values in templates before they are outputed to the view.
@@ -1090,7 +1092,105 @@ Angular has a standalone module that handles Dependency Injection. This framewor
     import {Inject} from 'angular2/core'
     constructor(dx: DepX, @Inject('coolObjToken') config)
     ```
-**TODO**
+
+### Simple Service
+
+In this section we are going to make a simple service and use it in our root component.
+
+**Project Files**
+
+The project files for this section are in [angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
+
+**Getting Started**
+
+Let's get started by creating a class, called `StudentSvc` that represents our service:
+
+```typescript
+class StudentSvc {
+  private students: any[];
+  constructor() {
+    this.students = [
+      {name: 'Tom', id: 1},
+      {name: 'John', id: 2},
+      {name: 'Kim', id: 3},
+      {name: 'Liz', id: 4}
+    ];
+  }
+  getAll() {
+    return this.students;
+  }
+}
+```
+
+There is nothing special about this class. It's just a class the has a method to return the list of all students. Now, we are going to make it special by decorating it with the `Injectable` decorator. But, first we need to import `Injectable` from Angular:
+
+```typescript
+import {Injectable} from 'angular2/core';
+```
+
+After importing the `Injectable` metadata class, we can decorate our class:
+
+```typescript
+/**
+ * Student service
+ */
+@Injectable() // <- decorating with `Injectable`
+class StudentSvc {
+  private students: any[];
+  constructor() {
+   // ...
+  }
+  // ...
+}
+```
+
+Now we have an injectable class and the injector would know how to create an instance of it when we need to inject it. And that's what we are going to do next. We are going to add `StudentSvc` in the list of `viewProviders` of the root component:
+
+```typescript
+@Component({
+  selector: 'app',
+  templateUrl : 'templates/app.tpl.html',
+  viewProviders: [StudentSvc] // <- registering the service
+})
+```
+
+The last thing we need to do is to inject the service in the constructor of our root component:
+
+```typescript
+class Root  {
+  private name: string;
+  private students: any[];
+  constructor (studentSvc: StudentSvc) { // <- injecting the service
+    this.name = 'Simple Service Demo';
+    this.students = studentSvc.getAll(); // <- calling the `getAll` method
+  }
+}
+```
+
+- In the constructor, we are defining a variable to be of type `StudentSvc`. By doing that the injector will create an instance from the `StudentSvc` to be used
+
+- And on line 6 we are calling the `getAll` method from the service to get a list of all students.
+
+Finally, we can verify that the `getAll` method is actually called by printing the students in the template:
+
+**`app.tpl.html`**
+
+```html
+<h1>{{ name }}</h1>
+
+<ul>
+  <li *ngFor="#student of students">Name: {{ student.name }}, id: {{ student.id }}</li>
+</ul>
+```
+
+and it would output:
+
+```
+Name: Tom, id: 1
+Name: John, id: 2
+Name: Kim, id: 3
+Name: Liz, id: 4
+```
 
 ## Data and State Management
 

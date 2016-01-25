@@ -3812,9 +3812,136 @@ Dependency Injection.
 \FunctionTok{constructor}\NormalTok{(dx: DepX, }\FunctionTok{@Inject}\NormalTok{('coolObjToken') config)}
 \end{Highlighting}
 \end{Shaded}
-
-  \textbf{TODO}
 \end{itemize}
+
+\subsubsection{Simple Service}\label{simple-service}
+
+In this section we are going to make a simple service and use it in our
+root component.
+
+\textbf{Project Files}
+
+The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service}{angular2-intro/project-files/angular-examples/services/simple-service};
+
+\textbf{Getting Started}
+
+Let's get started by creating a class, called \texttt{StudentSvc} that
+represents our service:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{StudentSvc \{}
+  \KeywordTok{private} \NormalTok{students: any[];}
+  \FunctionTok{constructor}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{students} \NormalTok{= [}
+      \NormalTok{\{name: 'Tom', id: }\DecValTok{1}\NormalTok{\},}
+      \NormalTok{\{name: 'John', id: }\DecValTok{2}\NormalTok{\},}
+      \NormalTok{\{name: 'Kim', id: }\DecValTok{3}\NormalTok{\},}
+      \NormalTok{\{name: 'Liz', id: }\DecValTok{4}\NormalTok{\}}
+    \NormalTok{];}
+  \NormalTok{\}}
+  \FunctionTok{getAll}\NormalTok{() \{}
+    \KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{students}\NormalTok{;}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+There is nothing special about this class. It's just a class the has a
+method to return the list of all students. Now, we are going to make it
+special by decorating it with the \texttt{Injectable} decorator. But,
+first we need to import \texttt{Injectable} from Angular:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{import \{Injectable\} from 'angular2/core';}
+\end{Highlighting}
+\end{Shaded}
+
+After importing the \texttt{Injectable} metadata class, we can decorate
+our class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{/**}
+\CommentTok{ * Student service}
+\CommentTok{ */}
+\FunctionTok{@Injectable}\NormalTok{() }\CommentTok{// <- decorating with `Injectable`}
+\KeywordTok{class} \NormalTok{StudentSvc \{}
+  \KeywordTok{private} \NormalTok{students: any[];}
+  \FunctionTok{constructor}\NormalTok{() \{}
+   \CommentTok{// ...}
+  \NormalTok{\}}
+  \CommentTok{// ...}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we have an injectable class and the injector would know how to
+create an instance of it when we need to inject it. And that's what we
+are going to do next. We are going to add \texttt{StudentSvc} in the
+list of \texttt{viewProviders} of the root component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
+  \NormalTok{viewProviders: [StudentSvc] }\CommentTok{// <- registering the service}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+The last thing we need to do is to inject the service in the constructor
+of our root component:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class} \NormalTok{Root  \{}
+  \KeywordTok{private} \NormalTok{name: string;}
+  \KeywordTok{private} \NormalTok{students: any[];}
+  \FunctionTok{constructor} \NormalTok{(studentSvc: StudentSvc) \{ }\CommentTok{// <- injecting the service}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= 'Simple Service Demo';}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{students} \NormalTok{= studentSvc.}\FunctionTok{getAll}\NormalTok{(); }\CommentTok{// <- calling the `getAll` method}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  In the constructor, we are defining a variable to be of type
+  \texttt{StudentSvc}. By doing that the injector will create an
+  instance from the \texttt{StudentSvc} to be used
+\item
+  And on line 6 we are calling the \texttt{getAll} method from the
+  service to get a list of all students.
+\end{itemize}
+
+Finally, we can verify that the \texttt{getAll} method is actually
+called by printing the students in the template:
+
+\textbf{\texttt{app.tpl.html}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h1>}\NormalTok{\{\{ name \}\}}\KeywordTok{</h1>}
+
+\KeywordTok{<ul>}
+  \KeywordTok{<li} \ErrorTok{*ngFor}\OtherTok{=}\StringTok{"#student of students"}\KeywordTok{>}\NormalTok{Name: \{\{ student.name \}\}, id: \{\{ student.id \}\}}\KeywordTok{</li>}
+\KeywordTok{</ul>}
+\end{Highlighting}
+\end{Shaded}
+
+and it would output:
+
+\begin{verbatim}
+Name: Tom, id: 1
+Name: John, id: 2
+Name: Kim, id: 3
+Name: Liz, id: 4
+\end{verbatim}
 
 \subsection{Data and State Management}\label{data-and-state-management}
 

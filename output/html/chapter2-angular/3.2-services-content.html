@@ -69,6 +69,114 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <span class="co">// and you can inject it to a component</span>
 
 <span class="kw">import</span> {Inject} from &#39;angular2/core&#39;
-<span class="fu">constructor</span>(dx: DepX, <span class="fu">@Inject</span>(&#39;coolObjToken&#39;) config)</code></pre></td></tr></table></div>
-<p><strong>TODO</strong></p></li>
+<span class="fu">constructor</span>(dx: DepX, <span class="fu">@Inject</span>(&#39;coolObjToken&#39;) config)</code></pre></td></tr></table></div></li>
 </ul>
+<h3 id="simple-service">Simple Service</h3>
+<p>In this section we are going to make a simple service and use it in our root component.</p>
+<p><strong>Project Files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service">angular2-intro/project-files/angular-examples/services/simple-service</a>;</p>
+<p><strong>Getting Started</strong></p>
+<p>Let's get started by creating a class, called <code>StudentSvc</code> that represents our service:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> StudentSvc {
+  <span class="kw">private</span> students: any[];
+  <span class="fu">constructor</span>() {
+    <span class="kw">this</span>.<span class="fu">students</span> = [
+      {name: &#39;Tom&#39;, id: <span class="dv">1</span>},
+      {name: &#39;John&#39;, id: <span class="dv">2</span>},
+      {name: &#39;Kim&#39;, id: <span class="dv">3</span>},
+      {name: &#39;Liz&#39;, id: <span class="dv">4</span>}
+    ];
+  }
+  <span class="fu">getAll</span>() {
+    <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">students</span>;
+  }
+}</code></pre></td></tr></table></div>
+<p>There is nothing special about this class. It's just a class the has a method to return the list of all students. Now, we are going to make it special by decorating it with the <code>Injectable</code> decorator. But, first we need to import <code>Injectable</code> from Angular:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Injectable} from &#39;angular2/core&#39;;</span></code></pre></td></tr></table></div>
+<p>After importing the <code>Injectable</code> metadata class, we can decorate our class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="co">/**</span>
+<span class="co"> * Student service</span>
+<span class="co"> */</span>
+<span class="fu">@Injectable</span>() <span class="co">// &lt;- decorating with `Injectable`</span>
+<span class="kw">class</span> StudentSvc {
+  <span class="kw">private</span> students: any[];
+  <span class="fu">constructor</span>() {
+   <span class="co">// ...</span>
+  }
+  <span class="co">// ...</span>
+}</code></pre></td></tr></table></div>
+<p>Now we have an injectable class and the injector would know how to create an instance of it when we need to inject it. And that's what we are going to do next. We are going to add <code>StudentSvc</code> in the list of <code>viewProviders</code> of the root component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl : &#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  viewProviders: [StudentSvc] <span class="co">// &lt;- registering the service</span>
+})</code></pre></td></tr></table></div>
+<p>The last thing we need to do is to inject the service in the constructor of our root component:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">class</span> Root  {
+  <span class="kw">private</span> name: string;
+  <span class="kw">private</span> students: any[];
+  <span class="fu">constructor</span> (studentSvc: StudentSvc) { <span class="co">// &lt;- injecting the service</span>
+    <span class="kw">this</span>.<span class="fu">name</span> = &#39;Simple Service Demo&#39;;
+    <span class="kw">this</span>.<span class="fu">students</span> = studentSvc.<span class="fu">getAll</span>(); <span class="co">// &lt;- calling the `getAll` method</span>
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li><p>In the constructor, we are defining a variable to be of type <code>StudentSvc</code>. By doing that the injector will create an instance from the <code>StudentSvc</code> to be used</p></li>
+<li><p>And on line 6 we are calling the <code>getAll</code> method from the service to get a list of all students.</p></li>
+</ul>
+<p>Finally, we can verify that the <code>getAll</code> method is actually called by printing the students in the template:</p>
+<p><strong><code>app.tpl.html</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h1&gt;</span>{{ name }}<span class="kw">&lt;/h1&gt;</span>
+
+<span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;li</span> <span class="er">*ngFor</span><span class="ot">=</span><span class="st">&quot;#student of students&quot;</span><span class="kw">&gt;</span>Name: {{ student.name }}, id: {{ student.id }}<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></td></tr></table></div>
+<p>and it would output:</p>
+<pre><code>Name: Tom, id: 1
+Name: John, id: 2
+Name: Kim, id: 3
+Name: Liz, id: 4</code></pre>
