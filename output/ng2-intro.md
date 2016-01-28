@@ -1455,6 +1455,79 @@ Using the Docs
 
 **TODO**
 
+Metadata Classes
+----------------
+
+-   Angular uses Metadata to decorate classes, methods and properties.
+-   The most notable Metadata is the `@component` Metadata.
+-   Metadta classes are very convenient and they make it easy to work
+    with components, services and the dependency injection system
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+**Directive/component Meta-data**
+
+-   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
+    used to define a component
+
+    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html):
+        used to define the template for a component
+    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html):
+        used to configure a view query
+    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html):
+        used to configure a view query
+-   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html):
+    used to define a directive
+
+    -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
+        used to grab the value of an attribute on an element hosting a
+        directive
+    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html):
+        used to configure a content query
+    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html):
+        used to configure a content query
+    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html):
+        used to define the input to a directive/component
+    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html):
+        used to define the output events of a directive/component
+    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html):
+        used to declare a host property binding
+    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html):
+        used to declare a host listener
+
+**Pipes**
+
+-   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html):
+    used to declare reusable pipe function
+
+**DI**
+
+-   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html):
+    parameter metadata that specifies a dependency.
+-   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html):
+    a marker metadata that marks a class as available to Injector
+    for creation.
+-   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html):
+    Specifies that an injector should retrieve a dependency from any
+    injector until reaching the closest host.
+-   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html):
+    parameter metadata that marks a dependency as optional
+-   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html):
+    Specifies that an Injector should retrieve a dependency only
+    from itself.
+-   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html):
+    Specifies that the dependency resolution should start from the
+    parent injector.
+-   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html):
+    Declares an injectable parameter to be a live list of directives or
+    variable bindings from the content children of a directive.
+-   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html):
+    Similar to `QueryMetadata`, but querying the component view, instead
+    of the content children.
+
+**TODO**
+
 Component Basics
 ----------------
 
@@ -1956,6 +2029,13 @@ If you run the app you should see the following printed to the page:
 
 ![Input to components](images/input-cmp.png)
 
+### Binding to DOM Properties
+
+-   `[style.color]="done ? 'green' : 'red' "`
+-   `[class.name]="done ? 'done' : 'pending'"`
+
+**TODO**
+
 ### Component Output/Events
 
 -   Events can be emitted from components. These events can be either
@@ -1967,6 +2047,8 @@ If you run the app you should see the following printed to the page:
     `(click)="handler()"`. In this case the `hander` is called whenever
     the click event is fired off
 -   You can use Angular's `EventEmitter` to fire off custom events
+
+#### Custom Output Events
 
 **Project Files**
 
@@ -2140,18 +2222,74 @@ template:
 Now if you run the code, you should be able to see the number
 incrementing by one every second.
 
+#### Native DOM Output Events
+
+**TODO**
+
 Directives
 ----------
 
--   Directives and components hand-in-hand are the fundamental elements
-    of Angular.
--   Components can be defined as directives with views.
+-   Directives and components hand-in-hand are the fundamental building
+    blocks of any Angular app
+-   Directives are components without templates. Conversely, components
+    are directives without templates
+-   Directives allow you to attach behavior to elements in the DOM
+-   A directive is defined using the `@directive` decorator
 -   There are two types of directives in Angular:
     -   Structural
     -   Attribute
--   A directive is defined using the `@directive` decorator
+-   The `selector` attribute uses a css selector to find the element.
+    However, parent-child relationship selectors are not supported
+-   You can use the following possible selectors:
+    -   `element`
+    -   `[attribute]`
+    -   `.classname`
+    -   `:not()`
+    -   `.some-class:not(div)`
+
+### Shadow DOM Basics
+
+**TODO** (shadow dom, light dom, etc.)
+
+### Simple Directive
+
+**TODO** (writing a custom directive)
+
+### Accessing Directives from Parents
+
+**TODO** (access directives on parent elements)
+
+### Accessing Directives from Children
+
+**TODO** (access directives on children and descendants)
+
+### Built-in Directives
+
+Angular has a couple of useful built-in directives.
+
+**TODO**(Note on directive names, docs and template usage)
+
+#### `NgClass`
+
+-   `import {NgClass} from 'angular2/common';`, `directives: [NgClass]`
+-   Template Usage:
+    `<div class="button" [ngClass]="{active: isActive, disabled: !isActive}"`
+    **Note** that we are using `ngClass` in the template, but not
+    `NgClass`
+
+#### `NgIf`
 
 **TODO**
+
+#### `NgSwitch`
+
+**TODO**
+
+#### `NgFor`
+
+-   Usage: `<ul> <li *ngFor="#item of items"> ... </li> </ul>`
+
+**TODO**(Details)
 
 Change Detection
 ----------------
@@ -2822,9 +2960,11 @@ Data and State Management
     -   Defining the service
     -   Defining the component
 
-Observables
------------
+### Observables
 
+-   Observables can help manage async data
+-   Observables are similar to Promises but with a lot of differences
+-   Observables emit multiple values over time as opposed to one
 -   Angular embraces observables using the RxJS library.
 -   Observables emit events and observers observe observables.
 -   An observer *subscribes* to events emitted from an observable.
@@ -2840,78 +2980,114 @@ Observables
 
 **TODO**
 
-Metadata Classes
-----------------
+### State Management with Observables
 
--   Angular uses Metadata to decorate classes, methods and properties.
--   The most notable Metadata is the `@component` Metadata.
--   Metadta classes are very convenient and they make it easy to work
-    with components, services and the dependency injection system
-
-Below is a list of Angular's core Metadata classes categorized under
-directives/components, pipes and di.
-
-**Directive/component Meta-data**
-
--   [Component](https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html):
-    used to define a component
-
-    -   [View](https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html):
-        used to define the template for a component
-    -   [ViewChild](https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html):
-        used to configure a view query
-    -   [ViewChildren](https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html):
-        used to configure a view query
--   [Directive](https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html):
-    used to define a directive
-
-    -   [Attribute](https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html)
-        used to grab the value of an attribute on an element hosting a
-        directive
-    -   [ContentChild](https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html):
-        used to configure a content query
-    -   [ContentChildren](https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html):
-        used to configure a content query
-    -   [Input](https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html):
-        used to define the input to a directive/component
-    -   [Output](https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html):
-        used to define the output events of a directive/component
-    -   [HostBinding](https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html):
-        used to declare a host property binding
-    -   [HostListener](https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html):
-        used to declare a host listener
-
-**Pipes**
-
--   [Pipe](https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html):
-    used to declare reusable pipe function
-
-**DI**
-
--   [Inject](https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html):
-    parameter metadata that specifies a dependency.
--   [Injectable](https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html):
-    a marker metadata that marks a class as available to Injector
-    for creation.
--   [Host](https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html):
-    Specifies that an injector should retrieve a dependency from any
-    injector until reaching the closest host.
--   [Optional](https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html):
-    parameter metadata that marks a dependency as optional
--   [Self](https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html):
-    Specifies that an Injector should retrieve a dependency only
-    from itself.
--   [SkipSelf](https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html):
-    Specifies that the dependency resolution should start from the
-    parent injector.
--   [Query](https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html):
-    Declares an injectable parameter to be a live list of directives or
-    variable bindings from the content children of a directive.
--   [ViewQuery](https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html):
-    Similar to `QueryMetadata`, but querying the component view, instead
-    of the content children.
+-   There are several ways to manage state, one of them is using
+    observables
+-   Observables can be used to represent the state of the app
+-   Changes in the state are represented as an observable
 
 **TODO**
+
+Http
+----
+
+-   Using the `Http` class, you can interact with API endpoints
+-   Http is available as an injectable class
+-   `Http` has a request method that returns an Observable which will
+    emit a single Response when a response is received.
+-   You can inject `http` in the constructor of a class:
+    `constructor(http: Http) {...}`
+
+### Getting Data from Server
+
+In this section we are going to use the `http` class to get a list of
+students from a server by hitting `/api/students`
+
+**Project Files**
+
+The project files for this section are in
+[angular2-intro/project-files/angular-examples/http/get-students](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
+
+**Getting Started**
+
+First, we are going to make a service that handles getting data from the
+endpoint. We are going to call this `StudentSvc`:
+
+``` {.typescript}
+@Injectable()
+class StudentSvc {
+  constructor(private http: Http) {} /* Inject Http */
+  getStudents(): Observable<Response> {
+    return this.http.get('/api/students');
+  }
+}
+```
+
+-   On line 1, we are using the `Injectable` decorator to make our class
+    injectable
+-   In the constructor we are injecting the `Http` service and making a
+    reference to it in a private variable `http`
+-   The `getStudents` method makes a `GET` call to our local endpoint an
+    returns an `Observable`
+
+Now that we have the `StudentSvc` service, we can create a component and
+inject the `StudentSvc` to it:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  templateUrl :'templates/app.tpl.html',
+  providers: [StudentSvc] // <- adding to the list of providers
+})
+```
+
+In addition to the `StudentSvc`, we also need to add `HTTP_PROVIDERS` in
+the providers array:
+
+``` {.typescript}
+@Component({
+  selector: 'app',
+  templateUrl :'templates/app.tpl.html',
+  providers: [HTTP_PROVIDERS, StudentSvc] // <- adding `HTTP_PROVIDERS`
+})
+```
+
+After adding the providers, we can define the component class:
+
+``` {.typescript}
+@Component({...})
+class HttpGetExample  {
+  private name: string;
+  private students: Observable<Response>;
+  constructor (studentSvc: StudentSvc) {
+    this.name = 'HTTP Get';
+    studentSvc.getStudents().subscribe(resp => this.students = resp.json());
+  }
+}
+```
+
+If you notice, we are injecting the `StudentSvc` in the constructor and
+we are calling the `getStudents` method in the constructor. The
+`getStudents` returns an observable that we can subscribe to get the
+data out as they arrive. We also call the `json` method on each response
+to get the JSON data.
+
+After getting the data, we can print the result in the view:
+
+**`app.tpl.html`**
+
+``` {.html}
+<h1>{{ name }}</h1>
+<ul>
+  <li *ngFor="#student of students">
+    {{ student.name }}, {{ student.lastname }}
+  </li>
+</ul>
+```
+
+Here we are using the built-in `ngFor` directive to loop through the
+array of students and print their name and last name to the page.
 
 Angular Router
 --------------
@@ -2943,12 +3119,13 @@ The `@component` decorator defines the following:
 -   properties: `array of string` values defining the properties
 -   events: `array of string` values defining the events
 -   host?: {\['string'\]: 'string'},
--   providers: `array of objects` defining the providers for the
-    component
+-   providers: `array of objects`: defines the set of injectable objects
+    that are visible to a directive/component and its light
+    DOM children.
 -   exportAs: `string` value defining the exported value
 -   moduleId: `string` value defining the module id
--   viewProviders: `array of objects` defining the providers for the
-    view
+-   viewProviders?: `array of objects`: defines the set of injectable
+    objects that are visible to a directive/component view DOM children.
 -   queries: {\[key: string\]: any},
 -   changeDetection: `ChangeDetectionStrategy` object defining the
     strategy for detecting changes:

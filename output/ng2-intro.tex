@@ -2016,6 +2016,119 @@ steps for running the project is the same for all the projects:
 
 \textbf{TODO}
 
+\subsection{Metadata Classes}\label{metadata-classes}
+
+\begin{itemize}
+\tightlist
+\item
+  Angular uses Metadata to decorate classes, methods and properties.
+\item
+  The most notable Metadata is the \texttt{@component} Metadata.
+\item
+  Metadta classes are very convenient and they make it easy to work with
+  components, services and the dependency injection system
+\end{itemize}
+
+Below is a list of Angular's core Metadata classes categorized under
+directives/components, pipes and di.
+
+\textbf{Directive/component Meta-data}
+
+\begin{itemize}
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
+  used to define a component
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}:
+    used to define the template for a component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}:
+    used to configure a view query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}:
+    used to configure a view query
+  \end{itemize}
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}:
+  used to define a directive
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
+    used to grab the value of an attribute on an element hosting a
+    directive
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}:
+    used to configure a content query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}:
+    used to configure a content query
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}:
+    used to define the input to a directive/component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}:
+    used to define the output events of a directive/component
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}:
+    used to declare a host property binding
+  \item
+    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}:
+    used to declare a host listener
+  \end{itemize}
+\end{itemize}
+
+\textbf{Pipes}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}:
+  used to declare reusable pipe function
+\end{itemize}
+
+\textbf{DI}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}:
+  parameter metadata that specifies a dependency.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}:
+  a marker metadata that marks a class as available to Injector for
+  creation.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}:
+  Specifies that an injector should retrieve a dependency from any
+  injector until reaching the closest host.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}:
+  parameter metadata that marks a dependency as optional
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}:
+  Specifies that an Injector should retrieve a dependency only from
+  itself.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}:
+  Specifies that the dependency resolution should start from the parent
+  injector.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}:
+  Declares an injectable parameter to be a live list of directives or
+  variable bindings from the content children of a directive.
+\item
+  \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}:
+  Similar to \texttt{QueryMetadata}, but querying the component view,
+  instead of the content children.
+\end{itemize}
+
+\textbf{TODO}
+
 \subsection{Component Basics}\label{component-basics}
 
 Components are at the heart of Angular. The main idea is that you break
@@ -2642,6 +2755,19 @@ If you run the app you should see the following printed to the page:
 \caption{Input to components}
 \end{figure}
 
+\subsubsection{Binding to DOM
+Properties}\label{binding-to-dom-properties}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{{[}style.color{]}="done\ ?\ \textquotesingle{}green\textquotesingle{}\ :\ \textquotesingle{}red\textquotesingle{}\ "}
+\item
+  \texttt{{[}class.name{]}="done\ ?\ \textquotesingle{}done\textquotesingle{}\ :\ \textquotesingle{}pending\textquotesingle{}"}
+\end{itemize}
+
+\textbf{TODO}
+
 \subsubsection{Component Output/Events}\label{component-outputevents}
 
 \begin{itemize}
@@ -2661,6 +2787,8 @@ If you run the app you should see the following printed to the page:
 \item
   You can use Angular's \texttt{EventEmitter} to fire off custom events
 \end{itemize}
+
+\paragraph{Custom Output Events}\label{custom-output-events}
 
 \textbf{Project Files}
 
@@ -2878,15 +3006,24 @@ updated template:
 Now if you run the code, you should be able to see the number
 incrementing by one every second.
 
+\paragraph{Native DOM Output Events}\label{native-dom-output-events}
+
+\textbf{TODO}
+
 \subsection{Directives}\label{directives}
 
 \begin{itemize}
 \tightlist
 \item
-  Directives and components hand-in-hand are the fundamental elements of
-  Angular.
+  Directives and components hand-in-hand are the fundamental building
+  blocks of any Angular app
 \item
-  Components can be defined as directives with views.
+  Directives are components without templates. Conversely, components
+  are directives without templates
+\item
+  Directives allow you to attach behavior to elements in the DOM
+\item
+  A directive is defined using the \texttt{@directive} decorator
 \item
   There are two types of directives in Angular:
 
@@ -2898,10 +3035,83 @@ incrementing by one every second.
     Attribute
   \end{itemize}
 \item
-  A directive is defined using the \texttt{@directive} decorator
+  The \texttt{selector} attribute uses a css selector to find the
+  element. However, parent-child relationship selectors are not
+  supported
+\item
+  You can use the following possible selectors:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{element}
+  \item
+    \texttt{{[}attribute{]}}
+  \item
+    \texttt{.classname}
+  \item
+    \texttt{:not()}
+  \item
+    \texttt{.some-class:not(div)}
+  \end{itemize}
 \end{itemize}
 
+\subsubsection{Shadow DOM Basics}\label{shadow-dom-basics}
+
+\textbf{TODO} (shadow dom, light dom, etc.)
+
+\subsubsection{Simple Directive}\label{simple-directive}
+
+\textbf{TODO} (writing a custom directive)
+
+\subsubsection{Accessing Directives from
+Parents}\label{accessing-directives-from-parents}
+
+\textbf{TODO} (access directives on parent elements)
+
+\subsubsection{Accessing Directives from
+Children}\label{accessing-directives-from-children}
+
+\textbf{TODO} (access directives on children and descendants)
+
+\subsubsection{Built-in Directives}\label{built-in-directives}
+
+Angular has a couple of useful built-in directives.
+
+\textbf{TODO}(Note on directive names, docs and template usage)
+
+\paragraph{\texorpdfstring{\texttt{NgClass}}{NgClass}}\label{ngclass}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{import\ \{NgClass\}\ from\ \textquotesingle{}angular2/common\textquotesingle{};},
+  \texttt{directives:\ {[}NgClass{]}}
+\item
+  Template Usage:
+  \texttt{\textless{}div\ class="button"\ {[}ngClass{]}="\{active:\ isActive,\ disabled:\ !isActive\}"}
+  \textbf{Note} that we are using \texttt{ngClass} in the template, but
+  not \texttt{NgClass}
+\end{itemize}
+
+\paragraph{\texorpdfstring{\texttt{NgIf}}{NgIf}}\label{ngif}
+
 \textbf{TODO}
+
+\paragraph{\texorpdfstring{\texttt{NgSwitch}}{NgSwitch}}\label{ngswitch}
+
+\textbf{TODO}
+
+\paragraph{\texorpdfstring{\texttt{NgFor}}{NgFor}}\label{ngfor}
+
+\begin{itemize}
+\tightlist
+\item
+  Usage:
+  \texttt{\textless{}ul\textgreater{}\ \textless{}li\ *ngFor="\#item\ of\ items"\textgreater{}\ ...\ \textless{}/li\textgreater{}\ \textless{}/ul\textgreater{}}
+\end{itemize}
+
+\textbf{TODO}(Details)
 
 \subsection{Change Detection}\label{change-detection}
 
@@ -3984,9 +4194,15 @@ Name: Liz, id: 4
   \end{itemize}
 \end{itemize}
 
-\subsection{Observables}\label{observables}
+\subsubsection{Observables}\label{observables}
 
 \begin{itemize}
+\item
+  Observables can help manage async data
+\item
+  Observables are similar to Promises but with a lot of differences
+\item
+  Observables emit multiple values over time as opposed to one
 \item
   Angular embraces observables using the RxJS library.
 \item
@@ -4010,118 +4226,143 @@ Name: Liz, id: 4
 
 \textbf{TODO}
 
-\subsection{Metadata Classes}\label{metadata-classes}
+\subsubsection{State Management with
+Observables}\label{state-management-with-observables}
 
 \begin{itemize}
 \tightlist
 \item
-  Angular uses Metadata to decorate classes, methods and properties.
+  There are several ways to manage state, one of them is using
+  observables
 \item
-  The most notable Metadata is the \texttt{@component} Metadata.
+  Observables can be used to represent the state of the app
 \item
-  Metadta classes are very convenient and they make it easy to work with
-  components, services and the dependency injection system
-\end{itemize}
-
-Below is a list of Angular's core Metadata classes categorized under
-directives/components, pipes and di.
-
-\textbf{Directive/component Meta-data}
-
-\begin{itemize}
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html}{Component}:
-  used to define a component
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewMetadata-class.html}{View}:
-    used to define the template for a component
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildMetadata-class.html}{ViewChild}:
-    used to configure a view query
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ViewChildrenMetadata-class.html}{ViewChildren}:
-    used to configure a view query
-  \end{itemize}
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/DirectiveMetadata-class.html}{Directive}:
-  used to define a directive
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/AttributeMetadata-class.html}{Attribute}
-    used to grab the value of an attribute on an element hosting a
-    directive
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildMetadata-class.html}{ContentChild}:
-    used to configure a content query
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/ContentChildrenMetadata-class.html}{ContentChildren}:
-    used to configure a content query
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/InputMetadata-class.html}{Input}:
-    used to define the input to a directive/component
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/OutputMetadata-class.html}{Output}:
-    used to define the output events of a directive/component
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostBindingMetadata-class.html}{HostBinding}:
-    used to declare a host property binding
-  \item
-    \href{https://angular.io/docs/ts/latest/api/core/HostListenerMetadata-class.html}{HostListener}:
-    used to declare a host listener
-  \end{itemize}
-\end{itemize}
-
-\textbf{Pipes}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/PipeMetadata-class.html}{Pipe}:
-  used to declare reusable pipe function
-\end{itemize}
-
-\textbf{DI}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/InjectMetadata-class.html}{Inject}:
-  parameter metadata that specifies a dependency.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/InjectableMetadata-class.html}{Injectable}:
-  a marker metadata that marks a class as available to Injector for
-  creation.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/HostMetadata-class.html}{Host}:
-  Specifies that an injector should retrieve a dependency from any
-  injector until reaching the closest host.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/OptionalMetadata-class.html}{Optional}:
-  parameter metadata that marks a dependency as optional
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/SelfMetadata-class.html}{Self}:
-  Specifies that an Injector should retrieve a dependency only from
-  itself.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/SkipSelfMetadata-class.html}{SkipSelf}:
-  Specifies that the dependency resolution should start from the parent
-  injector.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/QueryMetadata-class.html}{Query}:
-  Declares an injectable parameter to be a live list of directives or
-  variable bindings from the content children of a directive.
-\item
-  \href{https://angular.io/docs/ts/latest/api/core/ViewQueryMetadata-class.html}{ViewQuery}:
-  Similar to \texttt{QueryMetadata}, but querying the component view,
-  instead of the content children.
+  Changes in the state are represented as an observable
 \end{itemize}
 
 \textbf{TODO}
+
+\subsection{Http}\label{http}
+
+\begin{itemize}
+\tightlist
+\item
+  Using the \texttt{Http} class, you can interact with API endpoints
+\item
+  Http is available as an injectable class
+\item
+  \texttt{Http} has a request method that returns an Observable which
+  will emit a single Response when a response is received.
+\item
+  You can inject \texttt{http} in the constructor of a class:
+  \texttt{constructor(http:\ Http)\ \{...\}}
+\end{itemize}
+
+\subsubsection{Getting Data from Server}\label{getting-data-from-server}
+
+In this section we are going to use the \texttt{http} class to get a
+list of students from a server by hitting \texttt{/api/students}
+
+\textbf{Project Files}
+
+The project files for this section are in
+\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students}{angular2-intro/project-files/angular-examples/http/get-students}
+
+\textbf{Getting Started}
+
+First, we are going to make a service that handles getting data from the
+endpoint. We are going to call this \texttt{StudentSvc}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Injectable}\NormalTok{()}
+\KeywordTok{class} \NormalTok{StudentSvc \{}
+  \FunctionTok{constructor}\NormalTok{(}\KeywordTok{private} \NormalTok{http: Http) \{\} }\CommentTok{/* Inject Http */}
+  \FunctionTok{getStudents}\NormalTok{(): Observable<Response> \{}
+    \KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{http}\NormalTok{.}\FunctionTok{get}\NormalTok{('/api/students');}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  On line 1, we are using the \texttt{Injectable} decorator to make our
+  class injectable
+\item
+  In the constructor we are injecting the \texttt{Http} service and
+  making a reference to it in a private variable \texttt{http}
+\item
+  The \texttt{getStudents} method makes a \texttt{GET} call to our local
+  endpoint an returns an \texttt{Observable}
+\end{itemize}
+
+Now that we have the \texttt{StudentSvc} service, we can create a
+component and inject the \texttt{StudentSvc} to it:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{templateUrl :'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
+  \NormalTok{providers: [StudentSvc] }\CommentTok{// <- adding to the list of providers}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+In addition to the \texttt{StudentSvc}, we also need to add
+\texttt{HTTP\_PROVIDERS} in the providers array:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{}
+  \NormalTok{selector: 'app',}
+  \NormalTok{templateUrl :'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
+  \NormalTok{providers: [HTTP_PROVIDERS, StudentSvc] }\CommentTok{// <- adding `HTTP_PROVIDERS`}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+After adding the providers, we can define the component class:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Component}\NormalTok{(\{...\})}
+\KeywordTok{class} \NormalTok{HttpGetExample  \{}
+  \KeywordTok{private} \NormalTok{name: string;}
+  \KeywordTok{private} \NormalTok{students: Observable<Response>;}
+  \FunctionTok{constructor} \NormalTok{(studentSvc: StudentSvc) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= 'HTTP Get';}
+    \NormalTok{studentSvc.}\FunctionTok{getStudents}\NormalTok{().}\FunctionTok{subscribe}\NormalTok{(resp => }\KeywordTok{this}\NormalTok{.}\FunctionTok{students} \NormalTok{= resp.}\FunctionTok{json}\NormalTok{());}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+If you notice, we are injecting the \texttt{StudentSvc} in the
+constructor and we are calling the \texttt{getStudents} method in the
+constructor. The \texttt{getStudents} returns an observable that we can
+subscribe to get the data out as they arrive. We also call the
+\texttt{json} method on each response to get the JSON data.
+
+After getting the data, we can print the result in the view:
+
+\textbf{\texttt{app.tpl.html}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h1>}\NormalTok{\{\{ name \}\}}\KeywordTok{</h1>}
+\KeywordTok{<ul>}
+  \KeywordTok{<li} \ErrorTok{*ngFor}\OtherTok{=}\StringTok{"#student of students"}\KeywordTok{>}
+    \NormalTok{\{\{ student.name \}\}, \{\{ student.lastname \}\}}
+  \KeywordTok{</li>}
+\KeywordTok{</ul>}
+\end{Highlighting}
+\end{Shaded}
+
+Here we are using the built-in \texttt{ngFor} directive to loop through
+the array of students and print their name and last name to the page.
 
 \subsection{Angular Router}\label{angular-router}
 
@@ -4163,15 +4404,17 @@ The \texttt{@component} decorator defines the following:
 \item
   host?: \{{[}`string'{]}: `string'\},
 \item
-  providers: \texttt{array\ of\ objects} defining the providers for the
-  component
+  providers: \texttt{array\ of\ objects}: defines the set of injectable
+  objects that are visible to a directive/component and its light DOM
+  children.
 \item
   exportAs: \texttt{string} value defining the exported value
 \item
   moduleId: \texttt{string} value defining the module id
 \item
-  viewProviders: \texttt{array\ of\ objects} defining the providers for
-  the view
+  viewProviders?: \texttt{array\ of\ objects}: defines the set of
+  injectable objects that are visible to a directive/component view DOM
+  children.
 \item
   queries: \{{[}key: string{]}: any\},
 \item

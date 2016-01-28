@@ -173,8 +173,11 @@
 <li>Defining the component</li>
 </ul></li>
 </ul>
-<h2 id="observables">Observables</h2>
+<h3 id="observables">Observables</h3>
 <ul>
+<li>Observables can help manage async data</li>
+<li>Observables are similar to Promises but with a lot of differences</li>
+<li>Observables emit multiple values over time as opposed to one</li>
 <li>Angular embraces observables using the RxJS library.</li>
 <li>Observables emit events and observers observe observables.</li>
 <li>An observer <em>subscribes</em> to events emitted from an observable.</li>
@@ -182,6 +185,13 @@
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 </pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">import {Subject} from &#39;rxjs/Subject&#39;;</span></code></pre></td></tr></table></div></li>
 <li><p>A subscription can be canceled by calling the <code>unsubscribe</code> method.</p></li>
+</ul>
+<p><strong>TODO</strong></p>
+<h3 id="state-management-with-observables">State Management with Observables</h3>
+<ul>
+<li>There are several ways to manage state, one of them is using observables</li>
+<li>Observables can be used to represent the state of the app</li>
+<li>Changes in the state are represented as an observable</li>
 </ul>
 <p><strong>TODO</strong></p>
 

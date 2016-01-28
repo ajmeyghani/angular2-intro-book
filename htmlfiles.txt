@@ -11,9 +11,10 @@ output/html/chapter1-typescript/3.modules.html
 output/html/chapter1-typescript/4.decorators.html
 output/html/chapter2-angular/0-ng-intro.html
 output/html/chapter2-angular/0.1-using-the-docs.html
+output/html/chapter2-angular/0.2-metadataclasses.html
 output/html/chapter2-angular/1-components.html
-output/html/chapter2-angular/1.1.1-input-component.html
-output/html/chapter2-angular/1.1.2-output-component.html
+output/html/chapter2-angular/1.1.1-component-inputs.html
+output/html/chapter2-angular/1.1.2-component-outputs.html
 output/html/chapter2-angular/1.2-directives.html
 output/html/chapter2-angular/1.3-change-detection.html
 output/html/chapter2-angular/2.0-pipes.html
@@ -21,7 +22,7 @@ output/html/chapter2-angular/2.1-built-in-pipes.html
 output/html/chapter2-angular/3-di.html
 output/html/chapter2-angular/3.2-services.html
 output/html/chapter2-angular/3.3-state-data.html
-output/html/chapter2-angular/4-metadata.html
+output/html/chapter2-angular/4.http.html
 output/html/chapter2-angular/5-router.html
 output/html/chapter3-angular-in-depth/0.depth.intro.html
 output/html/chapter3-angular-in-depth/1.components.html

@@ -1,0 +1,89 @@
+<h2 id="http">Http</h2>
+<ul>
+<li>Using the <code>Http</code> class, you can interact with API endpoints</li>
+<li>Http is available as an injectable class</li>
+<li><code>Http</code> has a request method that returns an Observable which will emit a single Response when a response is received.</li>
+<li>You can inject <code>http</code> in the constructor of a class: <code>constructor(http: Http) {...}</code></li>
+</ul>
+<h3 id="getting-data-from-server">Getting Data from Server</h3>
+<p>In this section we are going to use the <code>http</code> class to get a list of students from a server by hitting <code>/api/students</code></p>
+<p><strong>Project Files</strong></p>
+<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students">angular2-intro/project-files/angular-examples/http/get-students</a></p>
+<p><strong>Getting Started</strong></p>
+<p>First, we are going to make a service that handles getting data from the endpoint. We are going to call this <code>StudentSvc</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Injectable</span>()
+<span class="kw">class</span> StudentSvc {
+  <span class="fu">constructor</span>(<span class="kw">private</span> http: Http) {} <span class="co">/* Inject Http */</span>
+  <span class="fu">getStudents</span>(): Observable&lt;Response&gt; {
+    <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">http</span>.<span class="fu">get</span>(&#39;/api/students&#39;);
+  }
+}</code></pre></td></tr></table></div>
+<ul>
+<li>On line 1, we are using the <code>Injectable</code> decorator to make our class injectable</li>
+<li>In the constructor we are injecting the <code>Http</code> service and making a reference to it in a private variable <code>http</code></li>
+<li>The <code>getStudents</code> method makes a <code>GET</code> call to our local endpoint an returns an <code>Observable</code></li>
+</ul>
+<p>Now that we have the <code>StudentSvc</code> service, we can create a component and inject the <code>StudentSvc</code> to it:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl :&#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  providers: [StudentSvc] <span class="co">// &lt;- adding to the list of providers</span>
+})</code></pre></td></tr></table></div>
+<p>In addition to the <code>StudentSvc</code>, we also need to add <code>HTTP_PROVIDERS</code> in the providers array:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({
+  selector: &#39;app&#39;,
+  templateUrl :&#39;templates/app.<span class="fu">tpl</span>.<span class="fu">html</span>&#39;,
+  providers: [HTTP_PROVIDERS, StudentSvc] <span class="co">// &lt;- adding `HTTP_PROVIDERS`</span>
+})</code></pre></td></tr></table></div>
+<p>After adding the providers, we can define the component class:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Component</span>({...})
+<span class="kw">class</span> HttpGetExample  {
+  <span class="kw">private</span> name: string;
+  <span class="kw">private</span> students: Observable&lt;Response&gt;;
+  <span class="fu">constructor</span> (studentSvc: StudentSvc) {
+    <span class="kw">this</span>.<span class="fu">name</span> = &#39;HTTP Get&#39;;
+    studentSvc.<span class="fu">getStudents</span>().<span class="fu">subscribe</span>(resp =&gt; <span class="kw">this</span>.<span class="fu">students</span> = resp.<span class="fu">json</span>());
+  }
+}</code></pre></td></tr></table></div>
+<p>If you notice, we are injecting the <code>StudentSvc</code> in the constructor and we are calling the <code>getStudents</code> method in the constructor. The <code>getStudents</code> returns an observable that we can subscribe to get the data out as they arrive. We also call the <code>json</code> method on each response to get the JSON data.</p>
+<p>After getting the data, we can print the result in the view:</p>
+<p><strong><code>app.tpl.html</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h1&gt;</span>{{ name }}<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;li</span> <span class="er">*ngFor</span><span class="ot">=</span><span class="st">&quot;#student of students&quot;</span><span class="kw">&gt;</span>
+    {{ student.name }}, {{ student.lastname }}
+  <span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></td></tr></table></div>
+<p>Here we are using the built-in <code>ngFor</code> directive to loop through the array of students and print their name and last name to the page.</p>

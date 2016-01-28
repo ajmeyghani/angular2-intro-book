@@ -15,10 +15,10 @@ The `@component` decorator defines the following:
   - properties: `array of string` values defining the properties
   - events: `array of string` values defining the events
   - host?: {['string']: 'string'},
-  - providers: `array of objects` defining the providers for the component
+  - providers: `array of objects`: defines the set of injectable objects that are visible to a directive/component and its light DOM children.
   - exportAs: `string` value defining the exported value
   - moduleId: `string` value defining the module id
-  - viewProviders: `array of objects` defining the providers for the view
+  - viewProviders?: `array of objects`: defines the set of injectable objects that are visible to a directive/component view DOM children.
   - queries: {[key: string]: any},
   - changeDetection: `ChangeDetectionStrategy` object defining the strategy for detecting changes:
 
