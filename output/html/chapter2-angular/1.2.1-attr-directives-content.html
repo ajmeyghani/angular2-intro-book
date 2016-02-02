@@ -1,0 +1,87 @@
+<h3 id="attribute-directives">Attribute Directives</h3>
+<ul>
+<li>The Attribute directive changes the appearance or behavior of an element.</li>
+<li>Angular has several built-in attribute directives, namely <code>NgClass</code> and <code>NgStyle</code></li>
+<li>It is a good idea to prefix your directives with a prefix. You cannot use the <code>ng</code> prefix since it's already used by Angular.</li>
+<li>When you apply the attribute directive to an element, the element will be knownn as the <strong>host</strong>.</li>
+<li>For example, if you had a directive called <code>my-directive</code> and applied it in <code>&lt;div class=&quot;hello&quot;&gt; &lt;span my-directive&gt; ... &lt;/span&gt; &lt;/div&gt;</code>, the <code>span</code> would be the <strong>host</strong>.</li>
+</ul>
+<p><strong>TODO</strong> (writing a custom attribute directive)</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Directive</span>({
+  selector: &#39;[simple-directive]&#39;,
+  host: {
+    &#39;(mouseleave)&#39;: &#39;<span class="fu">onMouseLeave</span>()&#39;,
+    &#39;(click)&#39;: &#39;<span class="fu">onClick</span>()&#39;,
+    &#39;[hidden]&#39;: &#39;isHidden&#39;,
+    &#39;[<span class="kw">class</span>.<span class="fu">done</span>]&#39;: &#39;isDone&#39;,
+    &#39;role&#39;: &#39;button&#39;
+  }
+})
+<span class="kw">class</span> SimpleDirective <span class="kw">implements</span> OnInit {
+  <span class="fu">@Input</span>() <span class="kw">private</span> color: string
+  <span class="fu">@Output</span>() myevent: EventEmitter&lt;string&gt;;
+  <span class="kw">private</span> isHidden: <span class="dt">boolean</span> = <span class="kw">false</span>;
+  <span class="kw">private</span> isDone: <span class="dt">boolean</span> = <span class="kw">false</span>;
+  <span class="kw">private</span> defaultColor:string = &#39;magenta&#39;;
+  <span class="kw">private</span> elm: any;
+
+  <span class="fu">constructor</span>(<span class="kw">private</span> elmRef: ElementRef, <span class="kw">private</span> renderer: Renderer) {
+    <span class="kw">this</span>.<span class="fu">elm</span> = elmRef.<span class="fu">nativeElement</span>;
+    <span class="kw">this</span>.<span class="fu">myevent</span> = <span class="kw">new</span> <span class="fu">EventEmitter</span>();
+    <span class="fu">setInterval</span>(() =&gt; {<span class="kw">this</span>.<span class="fu">myevent</span>.<span class="fu">emit</span>(&#39;myevename&#39;)}, <span class="dv">1000</span>);
+  }
+  <span class="fu">ngOnInit</span>() {
+    <span class="kw">this</span>.<span class="fu">defaultColor</span> = <span class="kw">this</span>.<span class="fu">color</span> || <span class="kw">this</span>.<span class="fu">defaultColor</span>;
+    <span class="kw">this</span>.<span class="fu">setColor</span>(<span class="kw">this</span>.<span class="fu">color</span> || <span class="kw">this</span>.<span class="fu">defaultColor</span>);
+  }
+  <span class="kw">private</span> <span class="fu">setColor</span>(color: string) {
+    <span class="kw">this</span>.<span class="fu">renderer</span>.<span class="fu">setElementStyle</span>(<span class="kw">this</span>.<span class="fu">elm</span>, &#39;color&#39;, color);
+  }
+  set <span class="fu">setIsHidden</span>(state) { <span class="kw">this</span>.<span class="fu">isHidden</span> = state; }
+  set <span class="fu">setIsDone</span>(state) { <span class="kw">this</span>.<span class="fu">isDone</span> = state; }
+
+  <span class="fu">onMouseLeave</span>() { <span class="kw">this</span>.<span class="fu">setColor</span>(<span class="kw">this</span>.<span class="fu">defaultColor</span>); }
+  <span class="fu">onClick</span>() { <span class="kw">this</span>.<span class="fu">setColor</span>(&#39;orange&#39;) }
+}</code></pre></td></tr></table></div>
+<p><strong>selector</strong> TODO: details</p>
+<p><strong>host</strong> TODO: details</p>
+<p><strong>Input</strong> TODO: details</p>
+<p><strong>Output</strong> TODO: details</p>
+<p><strong>ElementRef</strong> TODO: details**</p>
+<p><strong>Renderer</strong> TODO: details**</p>

@@ -162,10 +162,17 @@
 <li>Directives are components without templates. Conversely, components are directives without templates</li>
 <li>Directives allow you to attach behavior to elements in the DOM</li>
 <li>A directive is defined using the <code>@directive</code> decorator</li>
-<li>There are two types of directives in Angular:
+<li>There are three types of directives in Angular:
 <ul>
 <li>Structural</li>
 <li>Attribute</li>
+<li>Components</li>
+</ul></li>
+<li>Evey directive metadata, has the following options:
+<ul>
+<li>selector</li>
+<li>host</li>
+<li>...</li>
 </ul></li>
 <li>The <code>selector</code> attribute uses a css selector to find the element. However, parent-child relationship selectors are not supported</li>
 <li>You can use the following possible selectors:
@@ -176,32 +183,14 @@
 <li><code>:not()</code></li>
 <li><code>.some-class:not(div)</code></li>
 </ul></li>
-</ul>
-<h3 id="shadow-dom-basics">Shadow DOM Basics</h3>
-<p><strong>TODO</strong> (shadow dom, light dom, etc.)</p>
-<h3 id="simple-directive">Simple Directive</h3>
-<p><strong>TODO</strong> (writing a custom directive)</p>
-<h3 id="accessing-directives-from-parents">Accessing Directives from Parents</h3>
-<p><strong>TODO</strong> (access directives on parent elements)</p>
-<h3 id="accessing-directives-from-children">Accessing Directives from Children</h3>
-<p><strong>TODO</strong> (access directives on children and descendants)</p>
-<h3 id="built-in-directives">Built-in Directives</h3>
-<p>Angular has a couple of useful built-in directives.</p>
-<p><strong>TODO</strong>(Note on directive names, docs and template usage)</p>
-<h4 id="ngclass"><code>NgClass</code></h4>
+<li>The <code>host</code> option defines:
 <ul>
-<li><code>import {NgClass} from 'angular2/common';</code>, <code>directives: [NgClass]</code></li>
-<li>Template Usage: <code>&lt;div class=&quot;button&quot; [ngClass]=&quot;{active: isActive, disabled: !isActive}&quot;</code> <strong>Note</strong> that we are using <code>ngClass</code> in the template, but not <code>NgClass</code></li>
+<li>Property bindings</li>
+<li>Event handlers</li>
+<li>attributes</li>
+</ul></li>
 </ul>
-<h4 id="ngif"><code>NgIf</code></h4>
-<p><strong>TODO</strong></p>
-<h4 id="ngswitch"><code>NgSwitch</code></h4>
-<p><strong>TODO</strong></p>
-<h4 id="ngfor"><code>NgFor</code></h4>
-<ul>
-<li>Usage: <code>&lt;ul&gt; &lt;li *ngFor=&quot;#item of items&quot;&gt; ... &lt;/li&gt; &lt;/ul&gt;</code></li>
-</ul>
-<p><strong>TODO</strong>(Details)</p>
+<p><strong>TODO</strong>(other decorator options)</p>
 
     </div>
   </body>

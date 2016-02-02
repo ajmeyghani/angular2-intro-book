@@ -1,0 +1,61 @@
+<h3 id="structural-directives">Structural Directives</h3>
+<ul>
+<li>The Structural directive changes the DOM layout by adding and removing DOM elements</li>
+<li>Angular has several built-in structural directives, namely <code>NgIf</code>, <code>NgSwitch</code>, and <code>NgFor</code></li>
+<li>When working with structural directives, we should ask ourselves to think carefully about the consequences of adding and removing elements and of creating and destroying components</li>
+<li>Angular uses the html5 <code>&lt;template&gt;</code> tag to add or remove DOM elements</li>
+<li>By default, Angular replaces <code>&lt;template&gt;</code> with <code>&lt;script&gt;</code> tag if no behavior is attached</li>
+<li>The <code>*</code> before a directive name is a shorthand for including the directive content in the <code>&lt;template&gt;</code> tag</li>
+<li>Below you can see the built-in <code>NgIf</code> directive with and without the asterisks <code>*</code>:</li>
+</ul>
+<p><strong>With <code>*</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;p</span> <span class="er">*ngIf</span><span class="ot">=</span><span class="st">&quot;condition&quot;</span><span class="kw">&gt;&lt;/p&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Without <code>*</code></strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;template</span> <span class="er">[ngIf]</span><span class="ot">=</span><span class="st">&quot;condition&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;p&gt;&lt;/p&gt;</span>
+<span class="kw">&lt;/template&gt;</span></code></pre></td></tr></table></div>
+<p>Notice how the <code>&lt;p&gt;</code> tag is wrapped with a <code>&lt;template&gt;</code> and the condition is bound to the <code>[ngIf]</code> property of the directive</p>
+<p><strong>TODO</strong> (writing a custom structural directive)</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">@Directive</span>({
+  selector: &#39;[myUnless]&#39;
+})
+<span class="kw">class</span> UnlessDirective {
+
+  <span class="fu">constructor</span>(
+    <span class="kw">private</span> tRef: TemplateRef,
+    <span class="kw">private</span> vContainer: ViewContainerRef
+  ) { }
+
+  <span class="fu">@Input</span>() set <span class="fu">myUnless</span>(condition: <span class="dt">boolean</span>) {
+    <span class="kw">if</span> (!condition) {
+      <span class="kw">this</span>.<span class="fu">vContainer</span>.<span class="fu">createEmbeddedView</span>(<span class="kw">this</span>.<span class="fu">tRef</span>);
+    } <span class="kw">else</span> {
+      <span class="kw">this</span>.<span class="fu">vContainer</span>.<span class="fu">clear</span>();
+    }
+  }
+}</code></pre></td></tr></table></div>
+<p><strong>TemplateRef</strong>: TODO: details</p>
+<p><strong>ViewContainerRef</strong>: TODO: details</p>
+<p><strong><code>@Input() set myUnless(condition: boolean) {}</code></strong>: TODO: details</p>

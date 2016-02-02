@@ -50,6 +50,28 @@ There is a starter project in `angular-examples/starter`. You can make a copy of
 
 ## Using the Docs
 
+Angular API reference can be found at: [https://angular.io/docs/ts/latest/api](https://angular.io/docs/ts/latest/api).
+
+If you are looking for annotations or decorators, look for the keyword followed by `metdata`. For example, if you want to look up the Component decorator, you would look for: `ComponentMetadata`. Below are the common metadata class names:
+
+- `ComponentMetadata`
+- `DirectiveMetadata`
+- `PipeMetadata`
+- `InjectMetadata`
+- `InjectableMetadata`
+
+**TODO**
+
+**Common Interfaces**
+
+- `OnInit`
+
+**TODO**
+
+**Common Enums**
+
+- `ChangeDetectionStrategy`
+
 **TODO**
 
 ## Metadata Classes
@@ -521,6 +543,7 @@ If you run the app you should see the following printed to the page:
 
 - `[style.color]="done ? 'green' : 'red' "`
 - `[class.name]="done ? 'done' : 'pending'"`
+- `[hidden]=isLoaded ? true : false`
 
 **TODO**
 ### Component Output/Events
@@ -690,9 +713,14 @@ Now if you run the code, you should be able to see the number incrementing by on
 - Directives are components without templates. Conversely, components are directives without templates
 - Directives allow you to attach behavior to elements in the DOM
 - A directive is defined using the `@directive` decorator
-- There are two types of directives in Angular:
+- There are three types of directives in Angular:
     - Structural
     - Attribute
+    - Components
+- Evey directive metadata, has the following options:
+    - selector
+    - host
+    - ...
 - The `selector` attribute uses a css selector to find the element. However, parent-child relationship selectors are not supported
 - You can use the following possible selectors:
     - `element`
@@ -700,22 +728,131 @@ Now if you run the code, you should be able to see the number incrementing by on
     - `.classname`
     - `:not()`
     - `.some-class:not(div)`
+- The `host` option defines:
+    - Property bindings
+    - Event handlers
+    - attributes
 
-### Shadow DOM Basics
+**TODO**(other decorator options)
 
-**TODO** (shadow dom, light dom, etc.)
+### Web Components and Shadow DOM Basics
 
-### Simple Directive
+**TODO** (shadow dom, light dom, <template>, etc...)
 
-**TODO** (writing a custom directive)
+### Attribute Directives
 
-### Accessing Directives from Parents
+- The Attribute directive changes the appearance or behavior of an element.
+- Angular has several built-in attribute directives, namely `NgClass` and `NgStyle`
+- It is a good idea to prefix your directives with a prefix. You cannot use the `ng` prefix since it's already used by Angular.
+- When you apply the attribute directive to an element, the element will be knownn as the **host**.
+- For example, if you had a directive called `my-directive` and applied it in `<div class="hello"> <span my-directive> ... </span> </div>`, the `span` would be the **host**.
 
-**TODO** (access directives on parent elements)
+**TODO** (writing a custom attribute directive)
 
-### Accessing Directives from Children
+```typescript
+@Directive({
+  selector: '[simple-directive]',
+  host: {
+    '(mouseleave)': 'onMouseLeave()',
+    '(click)': 'onClick()',
+    '[hidden]': 'isHidden',
+    '[class.done]': 'isDone',
+    'role': 'button'
+  }
+})
+class SimpleDirective implements OnInit {
+  @Input() private color: string
+  @Output() myevent: EventEmitter<string>;
+  private isHidden: boolean = false;
+  private isDone: boolean = false;
+  private defaultColor:string = 'magenta';
+  private elm: any;
 
-**TODO** (access directives on children and descendants)
+  constructor(private elmRef: ElementRef, private renderer: Renderer) {
+    this.elm = elmRef.nativeElement;
+    this.myevent = new EventEmitter();
+    setInterval(() => {this.myevent.emit('myevename')}, 1000);
+  }
+  ngOnInit() {
+    this.defaultColor = this.color || this.defaultColor;
+    this.setColor(this.color || this.defaultColor);
+  }
+  private setColor(color: string) {
+    this.renderer.setElementStyle(this.elm, 'color', color);
+  }
+  set setIsHidden(state) { this.isHidden = state; }
+  set setIsDone(state) { this.isDone = state; }
+
+  onMouseLeave() { this.setColor(this.defaultColor); }
+  onClick() { this.setColor('orange') }
+}
+```
+
+**selector** TODO: details
+
+**host** TODO: details
+
+**Input** TODO: details
+
+**Output** TODO: details
+
+**ElementRef** TODO: details**
+
+**Renderer** TODO: details**
+### Structural Directives
+
+- The Structural directive changes the DOM layout by adding and removing DOM elements
+- Angular has several built-in structural directives, namely `NgIf`, `NgSwitch`, and `NgFor`
+- When working with structural directives, we should ask ourselves to think carefully about the consequences of adding and removing elements and of creating and destroying components
+- Angular uses the html5 `<template>` tag to add or remove DOM elements
+- By default, Angular replaces `<template>` with `<script>` tag if no behavior is attached
+- The `*` before a directive name is a shorthand for including the directive content in the `<template>` tag
+- Below you can see the built-in `NgIf` directive with and without the asterisks `*`:
+
+**With `*`**
+
+```html
+<p *ngIf="condition"></p>
+```
+
+**Without `*`**
+
+```html
+<template [ngIf]="condition">
+  <p></p>
+</template>
+```
+
+Notice how the `<p>` tag is wrapped with a `<template>` and the condition is bound to the `[ngIf]` property of the directive
+
+**TODO** (writing a custom structural directive)
+
+```typescript
+@Directive({
+  selector: '[myUnless]'
+})
+class UnlessDirective {
+
+  constructor(
+    private tRef: TemplateRef,
+    private vContainer: ViewContainerRef
+  ) { }
+
+  @Input() set myUnless(condition: boolean) {
+    if (!condition) {
+      this.vContainer.createEmbeddedView(this.tRef);
+    } else {
+      this.vContainer.clear();
+    }
+  }
+}
+```
+
+**TemplateRef**: TODO: details
+
+**ViewContainerRef**: TODO: details
+
+**`@Input() set myUnless(condition: boolean) {}`**: TODO: details
 
 ### Built-in Directives
 
@@ -731,17 +868,81 @@ Angular has a couple of useful built-in directives.
 
 #### `NgIf`
 
-**TODO**
+**Usage**
+
+```html
+<div *ngIf="isDone">{{ list }}</div>
+```
+
+or in long-hand form:
+
+```html
+<template>
+  <div [ngIf]="isDone">{{ list }}</div>
+</template>
+```
+
+**Details**
+
+From the docs: "The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty <script> tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.
+
+The difference matters. When we hide an element, the component's behavior continues. It remains attached to its DOM element. It continues to listen to events. Angular keeps checking for changes that could affect data bindings. Whatever the component was doing it keeps doing.
+
+Although invisible, the component — and all of its descendant components — tie up resources that might be more useful elsewhere. The performance and memory burden can be substantial and the user may not benefit at all.
+
+On the positive side, showing the element again is very quick. The component's previous state is preserved and ready to display. The component doesn't re-initialize — an operation that could be expensive.
+
+ngIf is different. Setting ngIf to false does affect the component's resource consumption. Angular removes the element from DOM, stops change detection for the associated component, detaches it from DOM events (the attachments that it made) and destroys the component. The component can be garbage-collected (we hope) and free up memory.
+
+Components often have child components which themselves have children. All of them are destroyed when ngIf destroys the common ancestor. This cleanup effort is usually a good thing.
+
+Of course it isn't always a good thing. It might be a bad thing if we need that particular component again soon.
+
+The component's state might be expensive to re-construct. When ngIf becomes true again, Angular recreates the component and its subtree. Angular runs every component's initialization logic again. That could be expensive ... as when a component re-fetches data that had been in memory just moments ago."
 
 #### `NgSwitch`
+
+**Usage**
+
+```html
+<div [ngSwitch]="status">
+  <template [ngSwitchWhen]="'inProgress'">In Progress</template>
+  <template [ngSwitchWhen]="'isDone'">Finished</template>
+  <template ngSwitchDefault>Unknown</template>
+</div>
+```
 
 **TODO**
 
 #### `NgFor`
 
-- Usage: `<ul> <li *ngFor="#item of items"> ... </li> </ul>`
+**Usage**
+
+```html
+<ul>
+   <li *ngFor="#item of items">{{ item }}</li>
+</ul>
+```
+
+or in long-hand form:
+
+```html
+<ul>
+  <template ngFor #item [ngForOf]="items">
+    <li>{{ item }}</li>
+  </template>
+</ul>
+```
 
 **TODO**(Details)
+
+### Accessing Directives from Parents
+
+**TODO** (access directives on parent elements)
+
+### Accessing Directives from Children
+
+**TODO** (access directives on children and descendants)
 
 ## Change Detection
 
@@ -1349,7 +1550,13 @@ The project files for this section are in [angular2-intro/project-files/angular-
 
 **Getting Started**
 
-First, we are going to make a service that handles getting data from the endpoint. We are going to call this `StudentSvc`:
+Before anything, let's add the `http.js` file from Angular's bundle. In your `index.html` file add the following to the head tag:
+
+```html
+<script src="/node_modules/angular2/bundles/http.js"></script>
+```
+
+After that, we are going to make a service that handles getting data from the endpoint. We are going to call this `StudentSvc`:
 
 ```typescript
 @Injectable()
@@ -1414,9 +1621,21 @@ After getting the data, we can print the result in the view:
 ```
 
 Here we are using the built-in `ngFor` directive to loop through the array of students and print their name and last name to the page.
+## Working with Forms
+
+Angular has convenient methods for working with forms, including validation.
+
+**TODO**
+
 ## Angular Router
 
 Angular has a stand-alone module responsible for handling routing.
+
+**TODO**
+
+## Unit Testing
+
+Unit testing with Angular requires some set up. First, let's gather all the libraries and modules that we need.
 
 **TODO**
 

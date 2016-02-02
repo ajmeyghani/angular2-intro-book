@@ -168,7 +168,10 @@
 <p><strong>Project Files</strong></p>
 <p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students">angular2-intro/project-files/angular-examples/http/get-students</a></p>
 <p><strong>Getting Started</strong></p>
-<p>First, we are going to make a service that handles getting data from the endpoint. We are going to call this <code>StudentSvc</code>:</p>
+<p>Before anything, let's add the <code>http.js</code> file from Angular's bundle. In your <code>index.html</code> file add the following to the head tag:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;/node_modules/angular2/bundles/http.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div>
+<p>After that, we are going to make a service that handles getting data from the endpoint. We are going to call this <code>StudentSvc</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3

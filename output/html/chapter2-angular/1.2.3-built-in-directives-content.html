@@ -1,0 +1,63 @@
+<h3 id="built-in-directives">Built-in Directives</h3>
+<p>Angular has a couple of useful built-in directives.</p>
+<p><strong>TODO</strong>(Note on directive names, docs and template usage)</p>
+<h4 id="ngclass"><code>NgClass</code></h4>
+<ul>
+<li><code>import {NgClass} from 'angular2/common';</code>, <code>directives: [NgClass]</code></li>
+<li>Template Usage: <code>&lt;div class=&quot;button&quot; [ngClass]=&quot;{active: isActive, disabled: !isActive}&quot;</code> <strong>Note</strong> that we are using <code>ngClass</code> in the template, but not <code>NgClass</code></li>
+</ul>
+<h4 id="ngif"><code>NgIf</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">*ngIf</span><span class="ot">=</span><span class="st">&quot;isDone&quot;</span><span class="kw">&gt;</span>{{ list }}<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p>or in long-hand form:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;template&gt;</span>
+  <span class="kw">&lt;div</span> <span class="er">[ngIf]</span><span class="ot">=</span><span class="st">&quot;isDone&quot;</span><span class="kw">&gt;</span>{{ list }}<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/template&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Details</strong></p>
+From the docs: &quot;The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty
+<script>
+<p>tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.</p>
+<p>The difference matters. When we hide an element, the component's behavior continues. It remains attached to its DOM element. It continues to listen to events. Angular keeps checking for changes that could affect data bindings. Whatever the component was doing it keeps doing.</p>
+<p>Although invisible, the component — and all of its descendant components — tie up resources that might be more useful elsewhere. The performance and memory burden can be substantial and the user may not benefit at all.</p>
+<p>On the positive side, showing the element again is very quick. The component's previous state is preserved and ready to display. The component doesn't re-initialize — an operation that could be expensive.</p>
+<p>ngIf is different. Setting ngIf to false does affect the component's resource consumption. Angular removes the element from DOM, stops change detection for the associated component, detaches it from DOM events (the attachments that it made) and destroys the component. The component can be garbage-collected (we hope) and free up memory.</p>
+<p>Components often have child components which themselves have children. All of them are destroyed when ngIf destroys the common ancestor. This cleanup effort is usually a good thing.</p>
+<p>Of course it isn't always a good thing. It might be a bad thing if we need that particular component again soon.</p>
+<p>The component's state might be expensive to re-construct. When ngIf becomes true again, Angular recreates the component and its subtree. Angular runs every component's initialization logic again. That could be expensive ... as when a component re-fetches data that had been in memory just moments ago.&quot;</p>
+<h4 id="ngswitch"><code>NgSwitch</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[ngSwitch]</span><span class="ot">=</span><span class="st">&quot;status&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;template</span> <span class="er">[ngSwitchWhen]</span><span class="ot">=</span><span class="st">&quot;&#39;inProgress&#39;&quot;</span><span class="kw">&gt;</span>In Progress<span class="kw">&lt;/template&gt;</span>
+  <span class="kw">&lt;template</span> <span class="er">[ngSwitchWhen]</span><span class="ot">=</span><span class="st">&quot;&#39;isDone&#39;&quot;</span><span class="kw">&gt;</span>Finished<span class="kw">&lt;/template&gt;</span>
+  <span class="kw">&lt;template</span><span class="ot"> ngSwitchDefault</span><span class="kw">&gt;</span>Unknown<span class="kw">&lt;/template&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>TODO</strong></p>
+<h4 id="ngfor"><code>NgFor</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;ul&gt;</span>
+   <span class="kw">&lt;li</span> <span class="er">*ngFor</span><span class="ot">=</span><span class="st">&quot;#item of items&quot;</span><span class="kw">&gt;</span>{{ item }}<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></td></tr></table></div>
+<p>or in long-hand form:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;template</span><span class="ot"> ngFor</span> <span class="er">#item</span> <span class="er">[ngForOf]</span><span class="ot">=</span><span class="st">&quot;items&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>{{ item }}<span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;/template&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></td></tr></table></div>
+<p><strong>TODO</strong>(Details)</p>

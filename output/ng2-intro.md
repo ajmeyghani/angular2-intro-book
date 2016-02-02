@@ -1453,6 +1453,32 @@ running the project is the same for all the projects:
 Using the Docs
 --------------
 
+Angular API reference can be found at:
+<https://angular.io/docs/ts/latest/api>.
+
+If you are looking for annotations or decorators, look for the keyword
+followed by `metdata`. For example, if you want to look up the Component
+decorator, you would look for: `ComponentMetadata`. Below are the common
+metadata class names:
+
+-   `ComponentMetadata`
+-   `DirectiveMetadata`
+-   `PipeMetadata`
+-   `InjectMetadata`
+-   `InjectableMetadata`
+
+**TODO**
+
+**Common Interfaces**
+
+-   `OnInit`
+
+**TODO**
+
+**Common Enums**
+
+-   `ChangeDetectionStrategy`
+
 **TODO**
 
 Metadata Classes
@@ -2033,6 +2059,7 @@ If you run the app you should see the following printed to the page:
 
 -   `[style.color]="done ? 'green' : 'red' "`
 -   `[class.name]="done ? 'done' : 'pending'"`
+-   `[hidden]=isLoaded ? true : false`
 
 **TODO**
 
@@ -2226,6 +2253,53 @@ incrementing by one every second.
 
 **TODO**
 
+`ng-content`
+------------
+
+`ng-contentn` is similar to transclusion in Angular 1.
+
+Let's say you have a component called `my-component` that prints
+`lorem ipsum`:
+
+``` {.typescript}
+@Component({
+  selector: 'my-component',
+  template: '<div> lorem ipsum </div>'
+})
+class MyComponent {}
+```
+
+``` {.html}
+<section>
+  <p>...</p>
+  <my-component>Content inside template</my-component>
+</section>
+```
+
+in order to include the content inside the `my-component` tag, we can
+use the `<ng-content></ng-content>`:
+
+``` {.typescript}
+@Component({
+  selector: 'my-component',
+  template: '<div> lorem ipsum <ng-content></ng-content></div>'
+})
+class MyComponent {}
+```
+
+and now the component will output:
+
+``` {.html}
+lorem ipsum Content inside template
+```
+
+**Note** that there should be no space between `<ng-content>` and
+`</ng-content>`. That is, it should be just `<ng-content></ng-content>`.
+Otherwise, Angular will complain about it and won't compile the
+template.
+
+**TODO** (ng-content for html elements example)
+
 Directives
 ----------
 
@@ -2235,9 +2309,14 @@ Directives
     are directives without templates
 -   Directives allow you to attach behavior to elements in the DOM
 -   A directive is defined using the `@directive` decorator
--   There are two types of directives in Angular:
+-   There are three types of directives in Angular:
     -   Structural
     -   Attribute
+    -   Components
+-   Evey directive metadata, has the following options:
+    -   selector
+    -   host
+    -   ...
 -   The `selector` attribute uses a css selector to find the element.
     However, parent-child relationship selectors are not supported
 -   You can use the following possible selectors:
@@ -2246,22 +2325,148 @@ Directives
     -   `.classname`
     -   `:not()`
     -   `.some-class:not(div)`
+-   The `host` option defines:
+    -   Property bindings
+    -   Event handlers
+    -   attributes
 
-### Shadow DOM Basics
+**TODO**(other decorator options)
 
-**TODO** (shadow dom, light dom, etc.)
+### Web Components and Shadow DOM Basics
 
-### Simple Directive
+**TODO** (shadow dom, light dom, <template>, etc...)
 
-**TODO** (writing a custom directive)
+### Attribute Directives
 
-### Accessing Directives from Parents
+-   The Attribute directive changes the appearance or behavior of
+    an element.
+-   Angular has several built-in attribute directives, namely `NgClass`
+    and `NgStyle`
+-   It is a good idea to prefix your directives with a prefix. You
+    cannot use the `ng` prefix since it's already used by Angular.
+-   When you apply the attribute directive to an element, the element
+    will be knownn as the **host**.
+-   For example, if you had a directive called `my-directive` and
+    applied it in
+    `<div class="hello"> <span my-directive> ... </span> </div>`, the
+    `span` would be the **host**.
 
-**TODO** (access directives on parent elements)
+**TODO** (writing a custom attribute directive)
 
-### Accessing Directives from Children
+``` {.typescript}
+@Directive({
+  selector: '[simple-directive]',
+  host: {
+    '(mouseleave)': 'onMouseLeave()',
+    '(click)': 'onClick()',
+    '[hidden]': 'isHidden',
+    '[class.done]': 'isDone',
+    'role': 'button'
+  }
+})
+class SimpleDirective implements OnInit {
+  @Input() private color: string
+  @Output() myevent: EventEmitter<string>;
+  private isHidden: boolean = false;
+  private isDone: boolean = false;
+  private defaultColor:string = 'magenta';
+  private elm: any;
 
-**TODO** (access directives on children and descendants)
+  constructor(private elmRef: ElementRef, private renderer: Renderer) {
+    this.elm = elmRef.nativeElement;
+    this.myevent = new EventEmitter();
+    setInterval(() => {this.myevent.emit('myevename')}, 1000);
+  }
+  ngOnInit() {
+    this.defaultColor = this.color || this.defaultColor;
+    this.setColor(this.color || this.defaultColor);
+  }
+  private setColor(color: string) {
+    this.renderer.setElementStyle(this.elm, 'color', color);
+  }
+  set setIsHidden(state) { this.isHidden = state; }
+  set setIsDone(state) { this.isDone = state; }
+
+  onMouseLeave() { this.setColor(this.defaultColor); }
+  onClick() { this.setColor('orange') }
+}
+```
+
+**selector** TODO: details
+
+**host** TODO: details
+
+**Input** TODO: details
+
+**Output** TODO: details
+
+**ElementRef** TODO: details\*\*
+
+**Renderer** TODO: details\*\*
+
+### Structural Directives
+
+-   The Structural directive changes the DOM layout by adding and
+    removing DOM elements
+-   Angular has several built-in structural directives, namely `NgIf`,
+    `NgSwitch`, and `NgFor`
+-   When working with structural directives, we should ask ourselves to
+    think carefully about the consequences of adding and removing
+    elements and of creating and destroying components
+-   Angular uses the html5 `<template>` tag to add or remove DOM
+    elements
+-   By default, Angular replaces `<template>` with `<script>` tag if no
+    behavior is attached
+-   The `*` before a directive name is a shorthand for including the
+    directive content in the `<template>` tag
+-   Below you can see the built-in `NgIf` directive with and without the
+    asterisks `*`:
+
+**With `*`**
+
+``` {.html}
+<p *ngIf="condition"></p>
+```
+
+**Without `*`**
+
+``` {.html}
+<template [ngIf]="condition">
+  <p></p>
+</template>
+```
+
+Notice how the `<p>` tag is wrapped with a `<template>` and the
+condition is bound to the `[ngIf]` property of the directive
+
+**TODO** (writing a custom structural directive)
+
+``` {.typescript}
+@Directive({
+  selector: '[myUnless]'
+})
+class UnlessDirective {
+
+  constructor(
+    private tRef: TemplateRef,
+    private vContainer: ViewContainerRef
+  ) { }
+
+  @Input() set myUnless(condition: boolean) {
+    if (!condition) {
+      this.vContainer.createEmbeddedView(this.tRef);
+    } else {
+      this.vContainer.clear();
+    }
+  }
+}
+```
+
+**TemplateRef**: TODO: details
+
+**ViewContainerRef**: TODO: details
+
+**`@Input() set myUnless(condition: boolean) {}`**: TODO: details
 
 ### Built-in Directives
 
@@ -2279,75 +2484,128 @@ Angular has a couple of useful built-in directives.
 
 #### `NgIf`
 
-**TODO**
+**Usage**
+
+``` {.html}
+<div *ngIf="isDone">{{ list }}</div>
+```
+
+or in long-hand form:
+
+``` {.html}
+<template>
+  <div [ngIf]="isDone">{{ list }}</div>
+</template>
+```
+
+**Details**
+
+From the docs: "The ngIf directive does not hide the element. Using
+browser developer tools we can see that, when the condition is true, the
+top paragraph is in the DOM and the bottom disused paragraph is
+completely absent from the DOM! In its place are empty
+<script> tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.
+
+The difference matters. When we hide an element, the component's behavior continues. It remains attached to its DOM element. It continues to listen to events. Angular keeps checking for changes that could affect data bindings. Whatever the component was doing it keeps doing.
+
+Although invisible, the component — and all of its descendant components — tie up resources that might be more useful elsewhere. The performance and memory burden can be substantial and the user may not benefit at all.
+
+On the positive side, showing the element again is very quick. The component's previous state is preserved and ready to display. The component doesn't re-initialize — an operation that could be expensive.
+
+ngIf is different. Setting ngIf to false does affect the component's resource consumption. Angular removes the element from DOM, stops change detection for the associated component, detaches it from DOM events (the attachments that it made) and destroys the component. The component can be garbage-collected (we hope) and free up memory.
+
+Components often have child components which themselves have children. All of them are destroyed when ngIf destroys the common ancestor. This cleanup effort is usually a good thing.
+
+Of course it isn't always a good thing. It might be a bad thing if we need that particular component again soon.
+
+The component's state might be expensive to re-construct. When ngIf becomes true again, Angular recreates the component and its subtree. Angular runs every component's initialization logic again. That could be expensive ... as when a component re-fetches data that had been in memory just moments ago."
 
 #### `NgSwitch`
+
+**Usage**
+
+```html
+<div [ngSwitch]="status">
+  <template [ngSwitchWhen]="'inProgress'">In Progress</template>
+  <template [ngSwitchWhen]="'isDone'">Finished</template>
+  <template ngSwitchDefault>Unknown</template>
+</div>
+```
 
 **TODO**
 
 #### `NgFor`
 
--   Usage: `<ul> <li *ngFor="#item of items"> ... </li> </ul>`
+**Usage**
+
+```html
+<ul>
+   <li *ngFor="#item of items">{{ item }}</li>
+</ul>
+```
+
+or in long-hand form:
+
+```html
+<ul>
+  <template ngFor #item [ngForOf]="items">
+    <li>{{ item }}</li>
+  </template>
+</ul>
+```
 
 **TODO**(Details)
 
-Change Detection
-----------------
 
--   In Angular2 you can limit the change detection scope to components
--   Using `chageDection` property we can choose a change detection
-    strategy for a component
--   The `changeDetection` field accept one of the following values:
+### Accessing Directives from Parents
 
-    -   `ChangeDetectionStrategy.Default`: sets detector mode to
-        `CheckAlways`
-    -   `ChangeDetectionStrategy.OnPush`: sets detector mode to
-        `CheckOnce`. This will limit change detection to the bindings
-        affecting the component only
-    -   `ChangeDetectionStrategy.Detached`: change detector sub tree is
-        not a part of the main tree and should be skipped
-    -   `ChangeDetectionStrategy.CheckAlways`: after calling
-        detectChanges the mode of the change detector will remain
-        `CheckAlways`
-    -   `ChangeDetectionStrategy.Checked`: change detector should be
-        skipped until its mode changes to `CheckOnce`
-    -   `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges
-        the mode of the change detector will become `Checked`
--   Having the ability to specify change detection strategy can reduce
-    the number of checks and improve app's performance
+**TODO** (access directives on parent elements)
 
-Pipes
------
+### Accessing Directives from Children
 
--   Pipes allow you to transform values in templates before they are
-    outputed to the view.
--   Pipes were formerly known as filters in Angular 1.x
--   A pipe is defined using the `@pipe` class decorator
--   The pipe decorator takes name as a parameter defining the name of
-    the pipe: `@pipe({ name: 'myPipe' })`
--   Every pipe class has a `transform` method that transforms input to
-    outputs:
-    -   The first parameter is the input to the pipe
-    -   The second parameter is the list of arguments passed to the pipe
--   Give the following pipe in a template:
-    `{{ data | somePipe:1:'px'}}`:
-    -   `data` is the input to pipe -- the first parameter of the
-        transform method
-    -   `[1, 'px']` is the arguments to the pipe -- the second parameter
-        of the transform method
--   A pipe can be as simple as:
+**TODO** (access directives on children and descendants)
 
-    ``` {.typescript}
+
+## Change Detection
+
+- In Angular2 you can limit the change detection scope to components
+- Using `chageDection` property we can choose a change detection strategy for a component
+- The `changeDetection` field accept one of the following values:
+
+    - `ChangeDetectionStrategy.Default`: sets detector mode to `CheckAlways`
+    - `ChangeDetectionStrategy.OnPush`: sets detector mode to `CheckOnce`. This will limit change detection to the bindings affecting the component only
+    - `ChangeDetectionStrategy.Detached`: change detector sub tree is not a part of the main tree and should be skipped
+    - `ChangeDetectionStrategy.CheckAlways`: after calling detectChanges the mode of the change detector will remain `CheckAlways`
+    - `ChangeDetectionStrategy.Checked`: change detector should be skipped until its mode changes to `CheckOnce`
+    - `ChangeDetectionStrategy.CheckOnce`: after calling detectChanges the mode of the change detector will become `Checked`
+
+- Having the ability to specify change detection strategy can reduce the number of checks and improve app's performance
+
+
+## Pipes
+
+- Pipes allow you to transform values in templates before they are outputed to the view.
+- Pipes were formerly known as filters in Angular 1.x
+- A pipe is defined using the `@pipe` class decorator
+- The pipe decorator takes name as a parameter defining the name of the pipe: `@pipe({ name: 'myPipe' })`
+- Every pipe class has a `transform` method that transforms input to outputs:
+    - The first parameter is the input to the pipe
+    - The second parameter is the list of arguments passed to the pipe
+- Give the following pipe in a template: `{{ data | somePipe:1:'px'}}`:
+    - `data` is the input to pipe --  the first parameter of the transform method
+    - `[1, 'px']` is the arguments to the pipe -- the second parameter of the transform method
+- A pipe can be as simple as:
+
+    ```typescript
     @pipe({name: 'simplePipe'})
     class MyPipe {
       transform(input, args) { return input + 'px'; }
     }
     ```
 
--   If you want to use a pipe, you need to register your pipe class with
-    the components in the pipes array:
+- If you want to use a pipe, you need to register your pipe class with the components in the pipes array:
 
-    ``` {.typescript}
+    ```typescript
     @component({
       selector: '...',
       pipes: [MyPipe] // adding pipe to the array of pipes.
@@ -2355,41 +2613,33 @@ Pipes
     class MyComponent {}
     ```
 
--   Pipes can be chained: `input | pipe1 | pipe2 | pipe3`
-    -   `input | pipe1 : output1`
-    -   `output1 | pipe2: output2`
-    -   `output2 | pipe3 : finalOutput`
+- Pipes can be chained: `input | pipe1 | pipe2 | pipe3 `
+    - `input | pipe1 : output1`
+    - `output1 | pipe2: output2`
+    - `output2 | pipe3 : finalOutput`
 
 ### Basic Pipe
 
-Let's make a basic pipe called `pixel` that takes a value as the input
-and appends 'px' to the end of it. The project files for this section
-are in
-[angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
+Let's make a basic pipe called `pixel` that takes a value as the input and appends 'px' to the end of it. The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
 
-Start by making a copy of the "starter" folder and call it "basic-pipe"
-and put it in `project-files/angular-examples`. Then, open the folder in
-VSCode: `code project-files/angular-examples/basic-pipe` and start the
-build with `command + shift + b`.
+Start by making a copy of the "starter" folder and call it "basic-pipe" and put it in `project-files/angular-examples`. Then, open the folder in VSCode: `code project-files/angular-examples/basic-pipe` and start the build with `command + shift + b`.
 
-Then, create a file for the pipe and call it `pixel.pipe.ts` in the root
-of the project.
+Then, create a file for the pipe and call it `pixel.pipe.ts` in the root of the project.
 
 After that we need to do couple of things to define the pipe:
 
--   Import the Pipe Class Metadata from angular core:
-    `import {Pipe} from 'Angular/core'`
--   Then create a class defining the Pipe:
+- Import the Pipe Class Metadata from angular core: `import {Pipe} from 'Angular/core'`
+- Then create a class defining the Pipe:
 
-    ``` {.typescript}
+    ```typescript
     class PixelPipe {
 
     }
     ```
 
--   Implement the `transform` method in the class:
+- Implement the `transform` method in the class:
 
-    ``` {.typescript}
+    ```typescript
     class PixelPipe {
       transform(input) {
         return input + 'px';
@@ -2397,10 +2647,9 @@ After that we need to do couple of things to define the pipe:
     }
     ```
 
--   After implementing the method, we need to decorate the class and
-    give the pipe a name that we want to use in our templates:
+- After implementing the method, we need to decorate the class and give the pipe a name that we want to use in our templates:
 
-    ``` {.typescript}
+    ```typescript
     @Pipe({name: 'pixel'}) // <- adding the decorator
     class PixelPipe {
       transform(input) {
@@ -2409,10 +2658,9 @@ After that we need to do couple of things to define the pipe:
     }
     ```
 
--   As the last step we are going to export the class by putting the
-    `export` keyword behind the class:
+- As the last step we are going to export the class by putting the `export` keyword behind the class:
 
-    ``` {.typescript}
+    ```typescript
     ...
     export class PixelPipe {
       ...
@@ -2421,7 +2669,7 @@ After that we need to do couple of things to define the pipe:
 
 Now, your file should look like the following:
 
-``` {.typescript}
+```typescript
 import {Pipe} from 'angular2/core';
 @Pipe({name: 'pixel'}) // <- adding the decorator
 export class PixelPipe {
@@ -2433,16 +2681,15 @@ export class PixelPipe {
 
 Now, let's go back to the `main.ts` file and import our pipe:
 
-``` {.typescript}
+```typescript
 import {Component} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 import {PixelPipe} from './pixel.pipe'; // <- importing pipe
 ```
 
-After importing our pipe, we should register it with our component by
-adding it to the `pipes` array:
+After importing our pipe, we should register it with our component by adding it to the `pipes` array:
 
-``` {.typescript}
+```typescript
 @Component({
   selector: 'app',
   templateUrl : 'templates/app.tpl.html',
@@ -2450,43 +2697,38 @@ adding it to the `pipes` array:
 })
 ```
 
-Now that we have registered the pipe, we can use it in our template in
-`templates/app.tpl.html`:
+Now that we have registered the pipe, we can use it in our template in `templates/app.tpl.html`:
 
-``` {.html}
+```html
 <h1>{{ name }}</h1>
 <p>Pixel value: {{ 25 | pixel }}</p>
 ```
 
-You should be all set now. You can set the url in your `launch.json`
-file and hit F5:
+You should be all set now. You can set the url in your `launch.json` file and hit F5:
 
-``` {.json}
+```json
 ...
 "url": "http://localhost:8080/project-files/angular-examples/basic-pipe/index.html",
 ...
 ```
 
-If your server is running you should be able to see the following
-output:
+If your server is running you should be able to see the following output:
 
 ![Running the pixelPipe in the browser](images/basic-pipe.png)
 
 ### Chaining Pipes
 
-Let's continue where we left off with the "pixelPipe" and add another
-pipe called "round" that rounds down given values, that is:
+Let's continue where we left off with the "pixelPipe" and add another pipe called "round" that rounds down given values, that is:
 
-    25.3 | round | pixel -> 25px
+```
+25.3 | round | pixel -> 25px
+```
 
-The project files for this section are in
-[angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
+The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
 
-We are going to add the "roundPipe" to our "basic-pipe" project. Let's
-get started by adding the `round.pipe.ts` file in the root of the
-project:
+We are going to add the "roundPipe" to our "basic-pipe" project. Let's get started by adding the `round.pipe.ts` file in the root of the project:
 
-``` {.typescript}
+```typescript
 import {Pipe} from 'angular2/core';
 @Pipe({name: 'round'})
 export class RoundPipe {
@@ -2496,13 +2738,11 @@ export class RoundPipe {
 }
 ```
 
-This Pipe is not complicated at all. We are just returning the floor of
-the input. We are also converting the input to number by putting a `+`
-before input.
+This Pipe is not complicated at all. We are just returning the floor of the input. We are also converting the input to number by putting a `+` before input.
 
 Now, let's import the pipe into our `main.ts` file:
 
-``` {.typescript}
+```typescript
 import {Component} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 import {PixelPipe} from './pixel.pipe';
@@ -2511,7 +2751,7 @@ import {RoundPipe} from './round.pipe'; // <- importing `RoundPipe`
 
 and then we have to add the pipe to the list of pipe array:
 
-``` {.typescript}
+```typescript
 @Component({
   selector: 'app',
   templateUrl : 'templates/app.tpl.html',
@@ -2519,10 +2759,9 @@ and then we have to add the pipe to the list of pipe array:
 })
 ```
 
-after that we are going to add the following to our
-`templates/app.tpl.html` file:
+after that we are going to add the following to our `templates/app.tpl.html` file:
 
-``` {.html}
+```html
 <p>Pixel value: {{ 34.4 | round | pixel }}</p>
 ```
 
@@ -2530,24 +2769,19 @@ After running the app you should see `34.px` as the output on the page.
 
 ### Pipes with Parameters
 
-In this section we are going to extend our 'pixel' pipe to accept an
-optional parameter to set the unit. As a result, we are going to rename
-the 'pixel' pipe to 'unit' to make it more generic. This pipe will take
-the unit as an optional argument. If no argument is passed, it will
-default to 'px'. That is:
+In this section we are going to extend our 'pixel' pipe to accept an optional parameter to set the unit. As a result, we are going to rename the 'pixel' pipe to 'unit' to make it more generic. This pipe will take the unit as an optional argument. If no argument is passed, it will default to 'px'. That is:
 
-    25 | unit -> 25px
-    25 | unit:'em' -> 25em
-    34.5 | round | unit:'%' -> 34%
+```
+25 | unit -> 25px
+25 | unit:'em' -> 25em
+34.5 | round | unit:'%' -> 34%
+```
 
-You can look at the project files in
-[angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit)..
-AFter refactoring the name of the Pipe, we just need to change the
-implementation of the "UnitPipe":
+You can look at the project files in [angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit).. AFter refactoring the name of the Pipe, we just need to change the implementation of the "UnitPipe":
 
 **`unit.pipe.ts`**
 
-``` {.typescript}
+```typescript
 import {Pipe} from 'angular2/core';
 @Pipe({name: 'unit'})
 export class UnitPipe {
@@ -2558,17 +2792,12 @@ export class UnitPipe {
 }
 ```
 
--   On line 5, we are grabbing the first parameter that is passed in and
-    setting it to the `unit` variable. And if the value is not set, we
-    are setting 'px' as the default value.
--   And finally we are returning `input + unit`.
+- On line 5, we are grabbing the first parameter that is passed in and setting it to the `unit` variable. And if the value is not set, we are setting 'px' as the default value.
+- And finally we are returning `input + unit`.
 
-That's basically all we have to do. Note that you can pass multiple
-parameters separated by `:` and they all become available in the `args`
-array. So if you wanted to expand this pipe, this is how your template
-would look like:
+That's basically all we have to do. Note that you can pass multiple parameters separated by `:` and they all become available in the `args` array. So if you wanted to expand this pipe, this is how your template would look like:
 
-``` {.html}
+```html
 {{ 25 | unit:'em':2}}
 ```
 
@@ -2576,141 +2805,127 @@ And the `args` array would be: `['em', 2]`.
 
 ### Async Pipes
 
-Async Pipes can be used for values that will be resolved after some
-asynchronous operation like getting a value after making a http call.
+Async Pipes can be used for values that will be resolved after some asynchronous operation like getting a value after making a http call.
 
 **TODO**
 
+
 ### Built-in Pipes
 
-In this section we are going to look at the pipes that Angular provides
-out of the box.
+In this section we are going to look at the pipes that Angular provides out of the box.
 
--   [AsyncPipe](https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html):
-    used to work with asynchronous values
--   [CurrencyPipe](https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html):
-    used to format a number as a local currency
--   [DatePipe](https://angular.io/docs/ts/latest/api/common/DatePipe-class.html):
-    used to format a date object to a readable string
--   [DecimalPipe](https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html):
-    used to format numbers
--   [JsonPipe](https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html):
-    calls `JSON.stringify` on the input and useful for debugging
--   [LowerCasePipe](https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html):
-    used to convert a string to lowercase letters
--   [PercentPipe](https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html):
-    used to format a number as percentage
--   [SlicePipe](https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html):
-    used to create a subset of list or string
--   [UpperCasePipe](https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html):
-    used to transform a text to upper case
+- [AsyncPipe](https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html): used to work with asynchronous values
+- [CurrencyPipe](https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html): used to format a number as a local currency
+- [DatePipe](https://angular.io/docs/ts/latest/api/common/DatePipe-class.html): used to format a date object to a readable string
+- [DecimalPipe](https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html): used to format numbers
+- [JsonPipe](https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html): calls `JSON.stringify` on the input and useful for debugging
+- [LowerCasePipe](https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html): used to convert a string to lowercase letters
+- [PercentPipe](https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html): used to format a number as percentage
+- [SlicePipe](https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html): used to create a subset of list or string
+- [UpperCasePipe](https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html): used to transform a text to upper case
 
 #### Date
 
-``` {.html}
+```html
 {{ input | date:optionalFormat}}
 ```
 
--   `input`: a date object or a number (milliseconds since UTC epoch)
--   `optionalFormat`: a string used to format the output. It specifies
-    which components of date and time to include in the output
+- `input`: a date object or a number (milliseconds since UTC epoch)
+- `optionalFormat`: a string used to format the output. It specifies which components of date and time to include in the output
 
 **Using predefined formats**
 
 Usage Example: `{{ input | date:'short'}}`
 
-+-----------------+------------------------------+
-| Name            | Example                      |
-+=================+==============================+
-| `short`         | 9/3/2010, 12:05 PM           |
-+-----------------+------------------------------+
-| `shortDate`     | 9/3/2010                     |
-+-----------------+------------------------------+
-| `medium`        | Sep 3, 2010, 12:05:08 PM     |
-+-----------------+------------------------------+
-| `mediumDate`    | Sep 3, 2010                  |
-+-----------------+------------------------------+
-| `longDate`      | September 3, 2010            |
-+-----------------+------------------------------+
-| `fullDate`      | Friday, September 3, 2010    |
-+-----------------+------------------------------+
-| `shortTime`     | 12:05 PM                     |
-+-----------------+------------------------------+
-| `mediumTime`    | 12:05:08 PM                  |
-+-----------------+------------------------------+
++--------------+---------------------------+
+| Name         | Example                   |
++==============+===========================+
+| `short`      | 9/3/2010, 12:05 PM        |
++--------------+---------------------------+
+| `shortDate`  | 9/3/2010                  |
++--------------+---------------------------+
+| `medium`     | Sep 3, 2010, 12:05:08 PM  |
++--------------+---------------------------+
+| `mediumDate` | Sep 3, 2010               |
++--------------+---------------------------+
+| `longDate`   | September 3, 2010         |
++--------------+---------------------------+
+| `fullDate`   | Friday, September 3, 2010 |
++--------------+---------------------------+
+| `shortTime`  | 12:05 PM                  |
++--------------+---------------------------+
+| `mediumTime` | 12:05:08 PM               |
++--------------+---------------------------+
 
 **Using Custom Formats**
 
--   Generally speaking every date object has a year, month, day, hour,
-    minute, and second.
--   Using a custom string, you can specify which component you would
-    like to include in the output.
+- Generally speaking every date object has a year, month, day, hour, minute, and second.
+- Using a custom string, you can specify which component you would like to include in the output.
 
-+--------+-------------------+-------+---------------+--------------+----------+----------+
-| Year   | Month             | Day   | Weekday       | Hour         | Minute   | Second   |
-+========+===================+=======+===============+==============+==========+==========+
-| y      | M, MMM, MMMM      | d     | EEE, EEEE     | j, h, H      | m        | s        |
-+--------+-------------------+-------+---------------+--------------+----------+----------+
-| 2016   | 1, Jan, January   | 1     | Sun, Sunday   | 1, 1 AM, 1   | 1        | 1        |
-+--------+-------------------+-------+---------------+--------------+----------+----------+
++------+-----------------+-----+-------------+------------+--------+--------+
+| Year | Month           | Day | Weekday     | Hour       | Minute | Second |
++======+=================+=====+=============+============+========+========+
+| y    | M, MMM, MMMM    | d   | EEE, EEEE   | j, h, H    | m      | s      |
++------+-----------------+-----+-------------+------------+--------+--------+
+| 2016 | 1, Jan, January | 1   | Sun, Sunday | 1, 1 AM, 1 | 1      | 1      |
++------+-----------------+-----+-------------+------------+--------+--------+
 
-Note that every single letter identifier can be used twice to denote a
-double digit numeric value. For example, `yy` will result in `15` for
-the year value. Below is a table just to be thorough:
+
+Note that every single letter identifier can be used twice to denote a double digit numeric value. For example, `yy` will result in `15` for the year value. Below is a table just to be thorough:
 
 **Double Digit**
 
-+---------+----------+--------+-------------------+-----------+-----------+
-| Year    | Month    | Day    | Hour              | Minute    | Second    |
-+=========+==========+========+===================+===========+===========+
-| yy      | MM       | dd     | jj, hh, HH        | mm        | ss        |
-+---------+----------+--------+-------------------+-----------+-----------+
-| 16      | 01       | 01     | 01, 01 AM, 01     | 01        | 01        |
-+---------+----------+--------+-------------------+-----------+-----------+
++------+-------+-----+----------------+--------+--------+
+| Year | Month | Day | Hour           | Minute | Second |
++======+=======+=====+================+========+========+
+| yy   | MM    | dd  | jj, hh, HH     | mm     | ss     |
++------+-------+-----+----------------+--------+--------+
+| 16   | 01    | 01  | 01,  01 AM, 01 | 01     | 01     |
++------+-------+-----+----------------+--------+--------+
 
 Details for Month/Weekday/Hour are summarized in the tables below:
 
 **Month Details**
 
-+----------+--------------+--------------+
-| M        | MMM          | MMMM         |
-+==========+==============+==============+
-| Digit    | Abbr Name    | Full Name    |
-+----------+--------------+--------------+
-| 1        | Jan          | January      |
-+----------+--------------+--------------+
++-------+-----------+-----------+
+| M     | MMM       | MMMM      |
++=======+===========+===========+
+| Digit | Abbr Name | Full Name |
++-------+-----------+-----------+
+| 1     | Jan       | January   |
++-------+-----------+-----------+
+
 
 **Weekday Details**
 
-+--------------+--------------+
-| EEE          | EEEE         |
-+==============+==============+
-| Abbr Name    | Full Name    |
-+--------------+--------------+
-| Sun          | Sunday       |
-+--------------+--------------+
++-----------+-----------+
+| EEE       | EEEE      |
++===========+===========+
+| Abbr Name | Full Name |
++-----------+-----------+
+| Sun       | Sunday    |
++-----------+-----------+
+
 
 **Hour Details**
 
-+----------+-----------------+-------------+
-| j        | h               | H           |
-+==========+=================+=============+
-| Digit    | Hour12 AM/PM    | Military    |
-+----------+-----------------+-------------+
-| 13       | 1 PM            | 13          |
-+----------+-----------------+-------------+
++-------+--------------+----------+
+| j     | h            | H        |
++=======+==============+==========+
+| Digit | Hour12 AM/PM | Military |
++-------+--------------+----------+
+| 13    | 1 PM         | 13       |
++-------+--------------+----------+
 
 #### Slice
 
--   The slice pipe is useful when you want a subset of a list or string.
-    One of the common use cases are in when iterating over a list with
-    `ngFor` for example.
+- The slice pipe is useful when you want a subset of a list or string. One of the common use cases are in when iterating over a list with `ngFor` for example.
 
 **TODO**
 
 #### Decimal
 
--   Used for formatting numbers given a decimal formatter
+- Used for formatting numbers given a decimal formatter
 
 **TODO**
 
@@ -2738,63 +2953,44 @@ Details for Month/Weekday/Hour are summarized in the tables below:
 
 **TODO**
 
-Dependency Injection
---------------------
 
-Dependency Injection is a coding pattern in which a class receives its
-dependencies from external sources rather than creating them itself. In
-order to achieve Dependency Injection we need a Dependency
-InjectionFramework to handle the dependencies for us. Using a DI
-framework, you simply ask for a class from the injector instead of
-worrying about the dependencies inside the class itself.
+## Dependency Injection
 
-Angular has a standalone module that handles Dependency Injection. This
-framework can also be used in non-Angular applications to handle
-Dependency Injection.
+Dependency Injection is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself. In order to achieve Dependency Injection we need a Dependency InjectionFramework to handle the dependencies for us. Using a DI framework, you simply ask for a class from the injector instead of worrying about the dependencies inside the class itself.
+
+Angular has a standalone module that handles Dependency Injection. This framework can also be used in non-Angular applications to handle Dependency Injection.
+
 
 **TODO**
 
-Services and Providers
-----------------------
 
--   A service is nothing more than a class in Angular 2. It remains
-    nothing more than a class until we register it with the
-    Angular injector.
--   When you bootstrap your app, Angular creates an injector on the fly
-    that can inject services and other dependencies throughout the app.
--   You can register the service or the dependencies during when
-    bootstrapping the app or when defining a component.
--   If you have a class called `MyService`, you can register it with the
-    Injector and then you can inject it everywhere:
+## Services and Providers
 
-    ``` {.typescript}
+- A service is nothing more than a class in Angular 2. It remains nothing more than a class until we register it with the Angular injector.
+- When you bootstrap your app, Angular creates an injector on the fly that can inject services and other dependencies throughout the app.
+- You can register the service or the dependencies during when bootstrapping the app or when defining a component.
+- If you have a class called `MyService`, you can register it with the Injector and then you can inject it everywhere:
+
+    ```typescript
     bootstrap(App, [MyService]); // second param is an array of providers
     ```
+- Providers is a way to specify what services are available inside the component in a hierarchical fashion.
+- A provider can be a class, a value or a factory.
+- Providers create the instances of the things that we ask the injector to inject.
+- `[SomeService];` is short for `[provide(SomeService, {useClass:SomeService})];` where the first param is the token, and the second is the definition object.
+- A simple object can be passed to the Injector to create a Value Provider:
 
--   Providers is a way to specify what services are available inside the
-    component in a hierarchical fashion.
--   A provider can be a class, a value or a factory.
--   Providers create the instances of the things that we ask the
-    injector to inject.
--   `[SomeService];` is short for
-    `[provide(SomeService, {useClass:SomeService})];` where the first
-    param is the token, and the second is the definition object.
--   A simple object can be passed to the Injector to create a Value
-    Provider:
-
-    ``` {.typescript}
+    ```typescript
     beforeEachProviders(() => {
       let someService = { getData: () => [] };
       // using `useValue` instead of `useClass`
       return [ provide(SomeSvc, {useValue: someService}) ];
     });
     ```
+- You can also use a factory as a provider.
+- You can use a factory function that creates a properly configured Service:
 
--   You can also use a factory as a provider.
--   You can use a factory function that creates a properly configured
-    Service:
-
-    ``` {.typescript}
+    ```typescript
     let myServiceFactory = (dx: DepX, dy: DepY) => {
       return new MyService(dx, dy.value);
     }
@@ -2810,11 +3006,9 @@ Services and Providers
     bootstrap(AppComponent, [myServiceProvider, DepX, DepY]);
     ```
 
--   Defining object dependencies is simple. You can make a plain
-    JavaScript object available for injection using a string-based token
-    and the `@Inject` decorator:
+- Defining object dependencies is simple. You can make a plain JavaScript object available for injection using a string-based token and the `@Inject` decorator:
 
-    ``` {.typescript}
+    ```typescript
     var myObj = {};
 
     bootstrap(AppComponent, [
@@ -2829,20 +3023,17 @@ Services and Providers
 
 ### Simple Service
 
-In this section we are going to make a simple service and use it in our
-root component.
+In this section we are going to make a simple service and use it in our root component.
 
 **Project Files**
 
-The project files for this section are in
-[angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
+The project files for this section are in [angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
 
 **Getting Started**
 
-Let's get started by creating a class, called `StudentSvc` that
-represents our service:
+Let's get started by creating a class, called `StudentSvc` that represents our service:
 
-``` {.typescript}
+```typescript
 class StudentSvc {
   private students: any[];
   constructor() {
@@ -2859,19 +3050,15 @@ class StudentSvc {
 }
 ```
 
-There is nothing special about this class. It's just a class the has a
-method to return the list of all students. Now, we are going to make it
-special by decorating it with the `Injectable` decorator. But, first we
-need to import `Injectable` from Angular:
+There is nothing special about this class. It's just a class the has a method to return the list of all students. Now, we are going to make it special by decorating it with the `Injectable` decorator. But, first we need to import `Injectable` from Angular:
 
-``` {.typescript}
+```typescript
 import {Injectable} from 'angular2/core';
 ```
 
-After importing the `Injectable` metadata class, we can decorate our
-class:
+After importing the `Injectable` metadata class, we can decorate our class:
 
-``` {.typescript}
+```typescript
 /**
  * Student service
  */
@@ -2885,12 +3072,9 @@ class StudentSvc {
 }
 ```
 
-Now we have an injectable class and the injector would know how to
-create an instance of it when we need to inject it. And that's what we
-are going to do next. We are going to add `StudentSvc` in the list of
-`viewProviders` of the root component:
+Now we have an injectable class and the injector would know how to create an instance of it when we need to inject it. And that's what we are going to do next. We are going to add `StudentSvc` in the list of `viewProviders` of the root component:
 
-``` {.typescript}
+```typescript
 @Component({
   selector: 'app',
   templateUrl : 'templates/app.tpl.html',
@@ -2898,10 +3082,9 @@ are going to do next. We are going to add `StudentSvc` in the list of
 })
 ```
 
-The last thing we need to do is to inject the service in the constructor
-of our root component:
+The last thing we need to do is to inject the service in the constructor of our root component:
 
-``` {.typescript}
+```typescript
 class Root  {
   private name: string;
   private students: any[];
@@ -2912,19 +3095,15 @@ class Root  {
 }
 ```
 
--   In the constructor, we are defining a variable to be of type
-    `StudentSvc`. By doing that the injector will create an instance
-    from the `StudentSvc` to be used
+- In the constructor, we are defining a variable to be of type `StudentSvc`. By doing that the injector will create an instance from the `StudentSvc` to be used
 
--   And on line 6 we are calling the `getAll` method from the service to
-    get a list of all students.
+- And on line 6 we are calling the `getAll` method from the service to get a list of all students.
 
-Finally, we can verify that the `getAll` method is actually called by
-printing the students in the template:
+Finally, we can verify that the `getAll` method is actually called by printing the students in the template:
 
 **`app.tpl.html`**
 
-``` {.html}
+```html
 <h1>{{ name }}</h1>
 
 <ul>
@@ -2934,85 +3113,79 @@ printing the students in the template:
 
 and it would output:
 
-    Name: Tom, id: 1
-    Name: John, id: 2
-    Name: Kim, id: 3
-    Name: Liz, id: 4
+```
+Name: Tom, id: 1
+Name: John, id: 2
+Name: Kim, id: 3
+Name: Liz, id: 4
+```
 
-Data and State Management
--------------------------
 
--   Angular is flexible and doesn't prescribe a recipe for managing data
-    in your apps
--   Since observables are integrated into Angular, you can take
-    advantage of observables to manage data and state
--   You ca use services to manage streams that emit models
--   Components can subscribe to the streams maintained by services and
-    render accordingly.
-    -   For example, you can have a service for a Todo app that contains
-        a stream of todos and a `ListComponent` can listen for todos and
-        render when a new task is added.
-    -   You may have another component that listens for the user that
-        has been assigned to a task provided by a service.
--   The steps for creating different parts of an app can be summarized
-    in three steps:
-    -   Defining a Model using a class
-    -   Defining the service
-    -   Defining the component
+## Data and State Management
+
+- Angular is flexible and doesn't prescribe a recipe for managing data in your apps
+- Since observables are integrated into Angular, you can take advantage of observables to manage data and state
+- You ca use services to manage streams that emit models
+- Components can subscribe to the streams maintained by services and render accordingly.
+    - For example, you can have a service for a Todo app that contains a stream of todos and a `ListComponent` can listen for todos and render when a new task is added.
+    - You may have another component that listens for the user that has been assigned to a task provided by a service.
+- The steps for creating different parts of an app can be summarized in three steps:
+    - Defining a Model using a class
+    - Defining the service
+    - Defining the component
 
 ### Observables
 
--   Observables can help manage async data
--   Observables are similar to Promises but with a lot of differences
--   Observables emit multiple values over time as opposed to one
--   Angular embraces observables using the RxJS library.
--   Observables emit events and observers observe observables.
--   An observer *subscribes* to events emitted from an observable.
--   RxJS has an object called *subject* that can be used both as an
-    observer or an observable. *Subject* can be imported from `RxJS`
-    very easily:
+- Observables can help manage async data
+- Observables are similar to Promises but with a lot of differences
+- Observables emit multiple values over time as opposed to one
+- Angular embraces observables using the RxJS library.
+- Observables emit events and observers observe observables.
+- An observer *subscribes* to events emitted from an observable.
+- RxJS has an object called *subject* that can be used both as an observer or an observable. *Subject* can be imported from `RxJS` very easily:
 
-    ``` {.typescript}
+    ```typescript
     import {Subject} from 'rxjs/Subject';
     ```
-
--   A subscription can be canceled by calling the `unsubscribe` method.
+- A subscription can be canceled by calling the `unsubscribe` method.
 
 **TODO**
 
 ### State Management with Observables
 
--   There are several ways to manage state, one of them is using
-    observables
--   Observables can be used to represent the state of the app
--   Changes in the state are represented as an observable
+- There are several ways to manage state, one of them is using observables
+- Observables can be used to represent the state of the app
+- Changes in the state are represented as an observable
 
 **TODO**
 
-Http
-----
 
--   Using the `Http` class, you can interact with API endpoints
--   Http is available as an injectable class
--   `Http` has a request method that returns an Observable which will
-    emit a single Response when a response is received.
--   You can inject `http` in the constructor of a class:
-    `constructor(http: Http) {...}`
+
+## Http
+
+- Using the `Http` class, you can interact with API endpoints
+- Http is available as an injectable class
+- `Http` has a request method that returns an Observable which will emit a single Response when a response is received.
+- You can inject `http` in the constructor of a class: `constructor(http: Http) {...}`
 
 ### Getting Data from Server
 
-In this section we are going to use the `http` class to get a list of
-students from a server by hitting `/api/students`
+In this section we are going to use the `http` class to get a list of students from a server by hitting `/api/students`
 
 **Project Files**
 
-The project files for this section are in
-[angular2-intro/project-files/angular-examples/http/get-students](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
+The project files for this section are in [angular2-intro/project-files/angular-examples/http/get-students](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
 
 **Getting Started**
 
-First, we are going to make a service that handles getting data from the
-endpoint. We are going to call this `StudentSvc`:
+Before anything, let's add the `http.js` file from Angular's bundle. In your `index.html` file add the following to the head tag:
+
+```html
+<script src="/node_modules/angular2/bundles/http.js"></script>
+\`\`\`
+
+After that, we are going to make a service that handles getting data
+from the endpoint. We are going to call this `StudentSvc`:
 
 ``` {.typescript}
 @Injectable()
@@ -3089,10 +3262,26 @@ After getting the data, we can print the result in the view:
 Here we are using the built-in `ngFor` directive to loop through the
 array of students and print their name and last name to the page.
 
+Working with Forms
+------------------
+
+Angular has convenient methods for working with forms, including
+validation.
+
+**TODO**
+
 Angular Router
 --------------
 
 Angular has a stand-alone module responsible for handling routing.
+
+**TODO**
+
+Unit Testing
+------------
+
+Unit testing with Angular requires some set up. First, let's gather all
+the libraries and modules that we need.
 
 **TODO**
 

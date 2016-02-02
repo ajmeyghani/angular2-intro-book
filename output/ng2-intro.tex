@@ -90,7 +90,6 @@
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\NormalTok}[1]{{#1}}
-\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -2014,6 +2013,48 @@ steps for running the project is the same for all the projects:
 
 \subsection{Using the Docs}\label{using-the-docs}
 
+Angular API reference can be found at:
+\url{https://angular.io/docs/ts/latest/api}.
+
+If you are looking for annotations or decorators, look for the keyword
+followed by \texttt{metdata}. For example, if you want to look up the
+Component decorator, you would look for: \texttt{ComponentMetadata}.
+Below are the common metadata class names:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ComponentMetadata}
+\item
+  \texttt{DirectiveMetadata}
+\item
+  \texttt{PipeMetadata}
+\item
+  \texttt{InjectMetadata}
+\item
+  \texttt{InjectableMetadata}
+\end{itemize}
+
+\textbf{TODO}
+
+\textbf{Common Interfaces}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{OnInit}
+\end{itemize}
+
+\textbf{TODO}
+
+\textbf{Common Enums}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ChangeDetectionStrategy}
+\end{itemize}
+
 \textbf{TODO}
 
 \subsection{Metadata Classes}\label{metadata-classes}
@@ -2764,6 +2805,8 @@ Properties}\label{binding-to-dom-properties}
   \texttt{{[}style.color{]}="done\ ?\ \textquotesingle{}green\textquotesingle{}\ :\ \textquotesingle{}red\textquotesingle{}\ "}
 \item
   \texttt{{[}class.name{]}="done\ ?\ \textquotesingle{}done\textquotesingle{}\ :\ \textquotesingle{}pending\textquotesingle{}"}
+\item
+  \texttt{{[}hidden{]}=isLoaded\ ?\ true\ :\ false}
 \end{itemize}
 
 \textbf{TODO}
@@ -3025,7 +3068,7 @@ incrementing by one every second.
 \item
   A directive is defined using the \texttt{@directive} decorator
 \item
-  There are two types of directives in Angular:
+  There are three types of directives in Angular:
 
   \begin{itemize}
   \tightlist
@@ -3033,6 +3076,20 @@ incrementing by one every second.
     Structural
   \item
     Attribute
+  \item
+    Components
+  \end{itemize}
+\item
+  Evey directive metadata, has the following options:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    selector
+  \item
+    host
+  \item
+    \ldots{}
   \end{itemize}
 \item
   The \texttt{selector} attribute uses a css selector to find the
@@ -3054,25 +3111,189 @@ incrementing by one every second.
   \item
     \texttt{.some-class:not(div)}
   \end{itemize}
+\item
+  The \texttt{host} option defines:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Property bindings
+  \item
+    Event handlers
+  \item
+    attributes
+  \end{itemize}
 \end{itemize}
 
-\subsubsection{Shadow DOM Basics}\label{shadow-dom-basics}
+\textbf{TODO}(other decorator options)
 
-\textbf{TODO} (shadow dom, light dom, etc.)
+\subsubsection{Web Components and Shadow DOM
+Basics}\label{web-components-and-shadow-dom-basics}
 
-\subsubsection{Simple Directive}\label{simple-directive}
+\textbf{TODO} (shadow dom, light dom, , etc\ldots{})
 
-\textbf{TODO} (writing a custom directive)
+\subsubsection{Attribute Directives}\label{attribute-directives}
 
-\subsubsection{Accessing Directives from
-Parents}\label{accessing-directives-from-parents}
+\begin{itemize}
+\tightlist
+\item
+  The Attribute directive changes the appearance or behavior of an
+  element.
+\item
+  Angular has several built-in attribute directives, namely
+  \texttt{NgClass} and \texttt{NgStyle}
+\item
+  It is a good idea to prefix your directives with a prefix. You cannot
+  use the \texttt{ng} prefix since it's already used by Angular.
+\item
+  When you apply the attribute directive to an element, the element will
+  be knownn as the \textbf{host}.
+\item
+  For example, if you had a directive called \texttt{my-directive} and
+  applied it in
+  \texttt{\textless{}div\ class="hello"\textgreater{}\ \textless{}span\ my-directive\textgreater{}\ ...\ \textless{}/span\textgreater{}\ \textless{}/div\textgreater{}},
+  the \texttt{span} would be the \textbf{host}.
+\end{itemize}
 
-\textbf{TODO} (access directives on parent elements)
+\textbf{TODO} (writing a custom attribute directive)
 
-\subsubsection{Accessing Directives from
-Children}\label{accessing-directives-from-children}
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Directive}\NormalTok{(\{}
+  \NormalTok{selector: '[simple-directive]',}
+  \NormalTok{host: \{}
+    \NormalTok{'(mouseleave)': '}\FunctionTok{onMouseLeave}\NormalTok{()',}
+    \NormalTok{'(click)': '}\FunctionTok{onClick}\NormalTok{()',}
+    \NormalTok{'[hidden]': 'isHidden',}
+    \NormalTok{'[}\KeywordTok{class}\NormalTok{.}\FunctionTok{done}\NormalTok{]': 'isDone',}
+    \NormalTok{'role': 'button'}
+  \NormalTok{\}}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{SimpleDirective }\KeywordTok{implements} \NormalTok{OnInit \{}
+  \FunctionTok{@Input}\NormalTok{() }\KeywordTok{private} \NormalTok{color: string}
+  \FunctionTok{@Output}\NormalTok{() myevent: EventEmitter<string>;}
+  \KeywordTok{private} \NormalTok{isHidden: }\DataTypeTok{boolean} \NormalTok{= }\KeywordTok{false}\NormalTok{;}
+  \KeywordTok{private} \NormalTok{isDone: }\DataTypeTok{boolean} \NormalTok{= }\KeywordTok{false}\NormalTok{;}
+  \KeywordTok{private} \NormalTok{defaultColor:string = 'magenta';}
+  \KeywordTok{private} \NormalTok{elm: any;}
 
-\textbf{TODO} (access directives on children and descendants)
+  \FunctionTok{constructor}\NormalTok{(}\KeywordTok{private} \NormalTok{elmRef: ElementRef, }\KeywordTok{private} \NormalTok{renderer: Renderer) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{elm} \NormalTok{= elmRef.}\FunctionTok{nativeElement}\NormalTok{;}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{myevent} \NormalTok{= }\KeywordTok{new} \FunctionTok{EventEmitter}\NormalTok{();}
+    \FunctionTok{setInterval}\NormalTok{(() => \{}\KeywordTok{this}\NormalTok{.}\FunctionTok{myevent}\NormalTok{.}\FunctionTok{emit}\NormalTok{('myevename')\}, }\DecValTok{1000}\NormalTok{);}
+  \NormalTok{\}}
+  \FunctionTok{ngOnInit}\NormalTok{() \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{defaultColor} \NormalTok{= }\KeywordTok{this}\NormalTok{.}\FunctionTok{color} \NormalTok{|| }\KeywordTok{this}\NormalTok{.}\FunctionTok{defaultColor}\NormalTok{;}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{setColor}\NormalTok{(}\KeywordTok{this}\NormalTok{.}\FunctionTok{color} \NormalTok{|| }\KeywordTok{this}\NormalTok{.}\FunctionTok{defaultColor}\NormalTok{);}
+  \NormalTok{\}}
+  \KeywordTok{private} \FunctionTok{setColor}\NormalTok{(color: string) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{renderer}\NormalTok{.}\FunctionTok{setElementStyle}\NormalTok{(}\KeywordTok{this}\NormalTok{.}\FunctionTok{elm}\NormalTok{, 'color', color);}
+  \NormalTok{\}}
+  \NormalTok{set }\FunctionTok{setIsHidden}\NormalTok{(state) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{isHidden} \NormalTok{= state; \}}
+  \NormalTok{set }\FunctionTok{setIsDone}\NormalTok{(state) \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{isDone} \NormalTok{= state; \}}
+
+  \FunctionTok{onMouseLeave}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{setColor}\NormalTok{(}\KeywordTok{this}\NormalTok{.}\FunctionTok{defaultColor}\NormalTok{); \}}
+  \FunctionTok{onClick}\NormalTok{() \{ }\KeywordTok{this}\NormalTok{.}\FunctionTok{setColor}\NormalTok{('orange') \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{selector} TODO: details
+
+\textbf{host} TODO: details
+
+\textbf{Input} TODO: details
+
+\textbf{Output} TODO: details
+
+\textbf{ElementRef} TODO: details**
+
+\textbf{Renderer} TODO: details**
+
+\subsubsection{Structural Directives}\label{structural-directives}
+
+\begin{itemize}
+\tightlist
+\item
+  The Structural directive changes the DOM layout by adding and removing
+  DOM elements
+\item
+  Angular has several built-in structural directives, namely
+  \texttt{NgIf}, \texttt{NgSwitch}, and \texttt{NgFor}
+\item
+  When working with structural directives, we should ask ourselves to
+  think carefully about the consequences of adding and removing elements
+  and of creating and destroying components
+\item
+  Angular uses the html5 \texttt{\textless{}template\textgreater{}} tag
+  to add or remove DOM elements
+\item
+  By default, Angular replaces
+  \texttt{\textless{}template\textgreater{}} with
+  \texttt{\textless{}script\textgreater{}} tag if no behavior is
+  attached
+\item
+  The \texttt{*} before a directive name is a shorthand for including
+  the directive content in the
+  \texttt{\textless{}template\textgreater{}} tag
+\item
+  Below you can see the built-in \texttt{NgIf} directive with and
+  without the asterisks \texttt{*}:
+\end{itemize}
+
+\textbf{With \texttt{*}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<p} \ErrorTok{*ngIf}\OtherTok{=}\StringTok{"condition"}\KeywordTok{></p>}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Without \texttt{*}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<template} \ErrorTok{[ngIf]}\OtherTok{=}\StringTok{"condition"}\KeywordTok{>}
+  \KeywordTok{<p></p>}
+\KeywordTok{</template>}
+\end{Highlighting}
+\end{Shaded}
+
+Notice how the \texttt{\textless{}p\textgreater{}} tag is wrapped with a
+\texttt{\textless{}template\textgreater{}} and the condition is bound to
+the \texttt{{[}ngIf{]}} property of the directive
+
+\textbf{TODO} (writing a custom structural directive)
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{@Directive}\NormalTok{(\{}
+  \NormalTok{selector: '[myUnless]'}
+\NormalTok{\})}
+\KeywordTok{class} \NormalTok{UnlessDirective \{}
+
+  \FunctionTok{constructor}\NormalTok{(}
+    \KeywordTok{private} \NormalTok{tRef: TemplateRef,}
+    \KeywordTok{private} \NormalTok{vContainer: ViewContainerRef}
+  \NormalTok{) \{ \}}
+
+  \FunctionTok{@Input}\NormalTok{() set }\FunctionTok{myUnless}\NormalTok{(condition: }\DataTypeTok{boolean}\NormalTok{) \{}
+    \KeywordTok{if} \NormalTok{(!condition) \{}
+      \KeywordTok{this}\NormalTok{.}\FunctionTok{vContainer}\NormalTok{.}\FunctionTok{createEmbeddedView}\NormalTok{(}\KeywordTok{this}\NormalTok{.}\FunctionTok{tRef}\NormalTok{);}
+    \NormalTok{\} }\KeywordTok{else} \NormalTok{\{}
+      \KeywordTok{this}\NormalTok{.}\FunctionTok{vContainer}\NormalTok{.}\FunctionTok{clear}\NormalTok{();}
+    \NormalTok{\}}
+  \NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{TemplateRef}: TODO: details
+
+\textbf{ViewContainerRef}: TODO: details
+
+\textbf{\texttt{@Input()\ set\ myUnless(condition:\ boolean)\ \{\}}}:
+TODO: details
 
 \subsubsection{Built-in Directives}\label{built-in-directives}
 
@@ -3096,1194 +3317,44 @@ Angular has a couple of useful built-in directives.
 
 \paragraph{\texorpdfstring{\texttt{NgIf}}{NgIf}}\label{ngif}
 
-\textbf{TODO}
-
-\paragraph{\texorpdfstring{\texttt{NgSwitch}}{NgSwitch}}\label{ngswitch}
-
-\textbf{TODO}
-
-\paragraph{\texorpdfstring{\texttt{NgFor}}{NgFor}}\label{ngfor}
-
-\begin{itemize}
-\tightlist
-\item
-  Usage:
-  \texttt{\textless{}ul\textgreater{}\ \textless{}li\ *ngFor="\#item\ of\ items"\textgreater{}\ ...\ \textless{}/li\textgreater{}\ \textless{}/ul\textgreater{}}
-\end{itemize}
-
-\textbf{TODO}(Details)
-
-\subsection{Change Detection}\label{change-detection}
-
-\begin{itemize}
-\item
-  In Angular2 you can limit the change detection scope to components
-\item
-  Using \texttt{chageDection} property we can choose a change detection
-  strategy for a component
-\item
-  The \texttt{changeDetection} field accept one of the following values:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{ChangeDetectionStrategy.Default}: sets detector mode to
-    \texttt{CheckAlways}
-  \item
-    \texttt{ChangeDetectionStrategy.OnPush}: sets detector mode to
-    \texttt{CheckOnce}. This will limit change detection to the bindings
-    affecting the component only
-  \item
-    \texttt{ChangeDetectionStrategy.Detached}: change detector sub tree
-    is not a part of the main tree and should be skipped
-  \item
-    \texttt{ChangeDetectionStrategy.CheckAlways}: after calling
-    detectChanges the mode of the change detector will remain
-    \texttt{CheckAlways}
-  \item
-    \texttt{ChangeDetectionStrategy.Checked}: change detector should be
-    skipped until its mode changes to \texttt{CheckOnce}
-  \item
-    \texttt{ChangeDetectionStrategy.CheckOnce}: after calling
-    detectChanges the mode of the change detector will become
-    \texttt{Checked}
-  \end{itemize}
-\item
-  Having the ability to specify change detection strategy can reduce the
-  number of checks and improve app's performance
-\end{itemize}
-
-\subsection{Pipes}\label{pipes}
-
-\begin{itemize}
-\item
-  Pipes allow you to transform values in templates before they are
-  outputed to the view.
-\item
-  Pipes were formerly known as filters in Angular 1.x
-\item
-  A pipe is defined using the \texttt{@pipe} class decorator
-\item
-  The pipe decorator takes name as a parameter defining the name of the
-  pipe:
-  \texttt{@pipe(\{\ name:\ \textquotesingle{}myPipe\textquotesingle{}\ \})}
-\item
-  Every pipe class has a \texttt{transform} method that transforms input
-  to outputs:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    The first parameter is the input to the pipe
-  \item
-    The second parameter is the list of arguments passed to the pipe
-  \end{itemize}
-\item
-  Give the following pipe in a template:
-  \texttt{\{\{\ data\ \textbar{}\ somePipe:1:\textquotesingle{}px\textquotesingle{}\}\}}:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{data} is the input to pipe -- the first parameter of the
-    transform method
-  \item
-    \texttt{{[}1,\ \textquotesingle{}px\textquotesingle{}{]}} is the
-    arguments to the pipe -- the second parameter of the transform
-    method
-  \end{itemize}
-\item
-  A pipe can be as simple as:
+\textbf{Usage}
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\FunctionTok{@pipe}\NormalTok{(\{name: 'simplePipe'\})}
-\KeywordTok{class} \NormalTok{MyPipe \{}
-  \FunctionTok{transform}\NormalTok{(input, args) \{ }\KeywordTok{return} \NormalTok{input + 'px'; \}}
-\NormalTok{\}}
+\KeywordTok{<div} \ErrorTok{*ngIf}\OtherTok{=}\StringTok{"isDone"}\KeywordTok{>}\NormalTok{\{\{ list \}\}}\KeywordTok{</div>}
 \end{Highlighting}
 \end{Shaded}
-\item
-  If you want to use a pipe, you need to register your pipe class with
-  the components in the pipes array:
+
+or in long-hand form:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\FunctionTok{@component}\NormalTok{(\{}
-  \NormalTok{selector: '...',}
-  \NormalTok{pipes: [MyPipe] }\CommentTok{// adding pipe to the array of pipes.}
-\NormalTok{\})}
-\KeywordTok{class} \NormalTok{MyComponent \{\}}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Pipes can be chained:
-  \texttt{input\ \textbar{}\ pipe1\ \textbar{}\ pipe2\ \textbar{}\ pipe3}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{input\ \textbar{}\ pipe1\ :\ output1}
-  \item
-    \texttt{output1\ \textbar{}\ pipe2:\ output2}
-  \item
-    \texttt{output2\ \textbar{}\ pipe3\ :\ finalOutput}
-  \end{itemize}
-\end{itemize}
-
-\subsubsection{Basic Pipe}\label{basic-pipe}
-
-Let's make a basic pipe called \texttt{pixel} that takes a value as the
-input and appends `px' to the end of it. The project files for this
-section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe}{angular2-intro/project-files/angular-examples/pipes/basic-pipe}.
-
-Start by making a copy of the ``starter'' folder and call it
-``basic-pipe'' and put it in \texttt{project-files/angular-examples}.
-Then, open the folder in VSCode:
-\texttt{code\ project-files/angular-examples/basic-pipe} and start the
-build with \texttt{command\ +\ shift\ +\ b}.
-
-Then, create a file for the pipe and call it \texttt{pixel.pipe.ts} in
-the root of the project.
-
-After that we need to do couple of things to define the pipe:
-
-\begin{itemize}
-\item
-  Import the Pipe Class Metadata from angular core:
-  \texttt{import\ \{Pipe\}\ from\ \textquotesingle{}Angular/core\textquotesingle{}}
-\item
-  Then create a class defining the Pipe:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{class} \NormalTok{PixelPipe \{}
-
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Implement the \texttt{transform} method in the class:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{class} \NormalTok{PixelPipe \{}
-  \FunctionTok{transform}\NormalTok{(input) \{}
-    \KeywordTok{return} \NormalTok{input + 'px';}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-\item
-  After implementing the method, we need to decorate the class and give
-  the pipe a name that we want to use in our templates:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{@Pipe}\NormalTok{(\{name: 'pixel'\}) }\CommentTok{// <- adding the decorator}
-\KeywordTok{class} \NormalTok{PixelPipe \{}
-  \FunctionTok{transform}\NormalTok{(input) \{}
-    \KeywordTok{return} \NormalTok{input + 'px';}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-\item
-  As the last step we are going to export the class by putting the
-  \texttt{export} keyword behind the class:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{...}
-\NormalTok{export }\KeywordTok{class} \NormalTok{PixelPipe \{}
-  \NormalTok{...}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-\end{itemize}
-
-Now, your file should look like the following:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Pipe\} from 'angular2/core';}
-\FunctionTok{@Pipe}\NormalTok{(\{name: 'pixel'\}) }\CommentTok{// <- adding the decorator}
-\NormalTok{export }\KeywordTok{class} \NormalTok{PixelPipe \{}
-  \FunctionTok{transform}\NormalTok{(input) \{}
-    \KeywordTok{return} \NormalTok{input + 'px';}
-  \NormalTok{\}}
-\NormalTok{\}}
+\KeywordTok{<template>}
+  \KeywordTok{<div} \ErrorTok{[ngIf]}\OtherTok{=}\StringTok{"isDone"}\KeywordTok{>}\NormalTok{\{\{ list \}\}}\KeywordTok{</div>}
+\KeywordTok{</template>}
 \end{Highlighting}
 \end{Shaded}
 
-Now, let's go back to the \texttt{main.ts} file and import our pipe:
+\textbf{Details}
 
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Component\} from 'angular2/core';}
-\KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
-\KeywordTok{import \{PixelPipe\} from './pixel.pipe';} \CommentTok{// <- importing pipe}
-\end{Highlighting}
-\end{Shaded}
-
-After importing our pipe, we should register it with our component by
-adding it to the \texttt{pipes} array:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{@Component}\NormalTok{(\{}
-  \NormalTok{selector: 'app',}
-  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
-  \NormalTok{pipes: [PixelPipe] }\CommentTok{// <- registering the pipe}
-\NormalTok{\})}
-\end{Highlighting}
-\end{Shaded}
-
-Now that we have registered the pipe, we can use it in our template in
-\texttt{templates/app.tpl.html}:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{<h1>}\NormalTok{\{\{ name \}\}}\KeywordTok{</h1>}
-\KeywordTok{<p>}\NormalTok{Pixel value: \{\{ 25 | pixel \}\}}\KeywordTok{</p>}
-\end{Highlighting}
-\end{Shaded}
-
-You should be all set now. You can set the url in your
-\texttt{launch.json} file and hit F5:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\ErrorTok{...}
-\ErrorTok{"url":} \ErrorTok{"http://localhost:8080/project-files/angular-examples/basic-pipe/index.html",}
-\ErrorTok{...}
-\end{Highlighting}
-\end{Shaded}
-
-If your server is running you should be able to see the following
-output:
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{images/basic-pipe.png}
-\caption{Running the pixelPipe in the browser}
-\end{figure}
-
-\subsubsection{Chaining Pipes}\label{chaining-pipes}
-
-Let's continue where we left off with the ``pixelPipe'' and add another
-pipe called ``round'' that rounds down given values, that is:
+From the docs: ``The ngIf directive does not hide the element. Using
+browser developer tools we can see that, when the condition is true, the
+top paragraph is in the DOM and the bottom disused paragraph is
+completely absent from the DOM! In its place are empty
 
 \begin{verbatim}
-25.3 | round | pixel -> 25px
+
+After that, we are going to make a service that handles getting data from the endpoint. We are going to call this `StudentSvc`:
+
+~~~~{.numberLines .java startFrom="1"}
+@Injectable()
+class StudentSvc {
+  constructor(private http: Http) {} /* Inject Http */
+  getStudents(): Observable<Response> {
+    return this.http.get('/api/students');
+  }
+}
 \end{verbatim}
-
-The project files for this section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining}{angular2-intro/project-files/angular-examples/pipes/pipe-chaining}.
-
-We are going to add the ``roundPipe'' to our ``basic-pipe'' project.
-Let's get started by adding the \texttt{round.pipe.ts} file in the root
-of the project:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Pipe\} from 'angular2/core';}
-\FunctionTok{@Pipe}\NormalTok{(\{name: 'round'\})}
-\NormalTok{export }\KeywordTok{class} \NormalTok{RoundPipe \{}
-  \FunctionTok{transform} \NormalTok{(input) \{}
-    \KeywordTok{return} \NormalTok{Math.}\FunctionTok{floor}\NormalTok{(+input); }\CommentTok{// <- convert input to number and then floor it.}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-This Pipe is not complicated at all. We are just returning the floor of
-the input. We are also converting the input to number by putting a
-\texttt{+} before input.
-
-Now, let's import the pipe into our \texttt{main.ts} file:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Component\} from 'angular2/core';}
-\KeywordTok{import \{bootstrap\} from 'angular2/platform/browser';}
-\KeywordTok{import \{PixelPipe\} from './pixel.pipe';}
-\KeywordTok{import \{RoundPipe\} from './round.pipe';} \CommentTok{// <- importing `RoundPipe`}
-\end{Highlighting}
-\end{Shaded}
-
-and then we have to add the pipe to the list of pipe array:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{@Component}\NormalTok{(\{}
-  \NormalTok{selector: 'app',}
-  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
-  \NormalTok{pipes: [PixelPipe, RoundPipe] }\CommentTok{// <- registering the pipe}
-\NormalTok{\})}
-\end{Highlighting}
-\end{Shaded}
-
-after that we are going to add the following to our
-\texttt{templates/app.tpl.html} file:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{<p>}\NormalTok{Pixel value: \{\{ 34.4 | round | pixel \}\}}\KeywordTok{</p>}
-\end{Highlighting}
-\end{Shaded}
-
-After running the app you should see \texttt{34.px} as the output on the
-page.
-
-\subsubsection{Pipes with Parameters}\label{pipes-with-parameters}
-
-In this section we are going to extend our `pixel' pipe to accept an
-optional parameter to set the unit. As a result, we are going to rename
-the `pixel' pipe to `unit' to make it more generic. This pipe will take
-the unit as an optional argument. If no argument is passed, it will
-default to `px'. That is:
-
-\begin{verbatim}
-25 | unit -> 25px
-25 | unit:'em' -> 25em
-34.5 | round | unit:'%' -> 34%
-\end{verbatim}
-
-You can look at the project files in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit}{angular2-intro/project-files/angular-examples/pipes/pipe-unit}..
-AFter refactoring the name of the Pipe, we just need to change the
-implementation of the ``UnitPipe'':
-
-\textbf{\texttt{unit.pipe.ts}}
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Pipe\} from 'angular2/core';}
-\FunctionTok{@Pipe}\NormalTok{(\{name: 'unit'\})}
-\NormalTok{export }\KeywordTok{class} \NormalTok{UnitPipe \{}
-  \FunctionTok{transform}\NormalTok{(input, args:string) \{}
-    \DataTypeTok{const} \NormalTok{unit = args[}\DecValTok{0}\NormalTok{] || 'px';}
-    \KeywordTok{return} \NormalTok{input + unit;}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  On line 5, we are grabbing the first parameter that is passed in and
-  setting it to the \texttt{unit} variable. And if the value is not set,
-  we are setting `px' as the default value.
-\item
-  And finally we are returning \texttt{input\ +\ unit}.
-\end{itemize}
-
-That's basically all we have to do. Note that you can pass multiple
-parameters separated by \texttt{:} and they all become available in the
-\texttt{args} array. So if you wanted to expand this pipe, this is how
-your template would look like:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{\{\{ 25 | unit:'em':2\}\}}
-\end{Highlighting}
-\end{Shaded}
-
-And the \texttt{args} array would be:
-\texttt{{[}\textquotesingle{}em\textquotesingle{},\ 2{]}}.
-
-\subsubsection{Async Pipes}\label{async-pipes}
-
-Async Pipes can be used for values that will be resolved after some
-asynchronous operation like getting a value after making a http call.
-
-\textbf{TODO}
-
-\subsubsection{Built-in Pipes}\label{built-in-pipes}
-
-In this section we are going to look at the pipes that Angular provides
-out of the box.
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/AsyncPipe-class.html}{AsyncPipe}:
-  used to work with asynchronous values
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/CurrencyPipe-class.html}{CurrencyPipe}:
-  used to format a number as a local currency
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/DatePipe-class.html}{DatePipe}:
-  used to format a date object to a readable string
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/DecimalPipe-class.html}{DecimalPipe}:
-  used to format numbers
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/JsonPipe-class.html}{JsonPipe}:
-  calls \texttt{JSON.stringify} on the input and useful for debugging
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/LowerCasePipe-class.html}{LowerCasePipe}:
-  used to convert a string to lowercase letters
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/PercentPipe-class.html}{PercentPipe}:
-  used to format a number as percentage
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/SlicePipe-class.html}{SlicePipe}:
-  used to create a subset of list or string
-\item
-  \href{https://angular.io/docs/ts/latest/api/common/UpperCasePipe-class.html}{UpperCasePipe}:
-  used to transform a text to upper case
-\end{itemize}
-
-\paragraph{Date}\label{date}
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{\{\{ input | date:optionalFormat\}\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{input}: a date object or a number (milliseconds since UTC
-  epoch)
-\item
-  \texttt{optionalFormat}: a string used to format the output. It
-  specifies which components of date and time to include in the output
-\end{itemize}
-
-\textbf{Using predefined formats}
-
-Usage Example:
-\texttt{\{\{\ input\ \textbar{}\ date:\textquotesingle{}short\textquotesingle{}\}\}}
-
-\begin{longtable}[c]{@{}ll@{}}
-\toprule
-\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
-Name
-\strut\end{minipage} &
-\begin{minipage}[b]{0.37\columnwidth}\raggedright\strut
-Example
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{short}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-9/3/2010, 12:05 PM
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{shortDate}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-9/3/2010
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{medium}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-Sep 3, 2010, 12:05:08 PM
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{mediumDate}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-Sep 3, 2010
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{longDate}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-September 3, 2010
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{fullDate}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-Friday, September 3, 2010
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{shortTime}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-12:05 PM
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-\texttt{mediumTime}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.37\columnwidth}\raggedright\strut
-12:05:08 PM
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\textbf{Using Custom Formats}
-
-\begin{itemize}
-\tightlist
-\item
-  Generally speaking every date object has a year, month, day, hour,
-  minute, and second.
-\item
-  Using a custom string, you can specify which component you would like
-  to include in the output.
-\end{itemize}
-
-\begin{longtable}[c]{@{}lllllll@{}}
-\toprule
-\begin{minipage}[b]{0.07\columnwidth}\raggedright\strut
-Year
-\strut\end{minipage} &
-\begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
-Month
-\strut\end{minipage} &
-\begin{minipage}[b]{0.06\columnwidth}\raggedright\strut
-Day
-\strut\end{minipage} &
-\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
-Weekday
-\strut\end{minipage} &
-\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
-Hour
-\strut\end{minipage} &
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Minute
-\strut\end{minipage} &
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Second
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
-y
-\strut\end{minipage} &
-\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
-M, MMM, MMMM
-\strut\end{minipage} &
-\begin{minipage}[t]{0.06\columnwidth}\raggedright\strut
-d
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-EEE, EEEE
-\strut\end{minipage} &
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-j, h, H
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-m
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-s
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
-2016
-\strut\end{minipage} &
-\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
-1, Jan, January
-\strut\end{minipage} &
-\begin{minipage}[t]{0.06\columnwidth}\raggedright\strut
-1
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-Sun, Sunday
-\strut\end{minipage} &
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-1, 1 AM, 1
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-1
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-1
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-Note that every single letter identifier can be used twice to denote a
-double digit numeric value. For example, \texttt{yy} will result in
-\texttt{15} for the year value. Below is a table just to be thorough:
-
-\textbf{Double Digit}
-
-\begin{longtable}[c]{@{}llllll@{}}
-\toprule
-\begin{minipage}[b]{0.08\columnwidth}\raggedright\strut
-Year
-\strut\end{minipage} &
-\begin{minipage}[b]{0.09\columnwidth}\raggedright\strut
-Month
-\strut\end{minipage} &
-\begin{minipage}[b]{0.07\columnwidth}\raggedright\strut
-Day
-\strut\end{minipage} &
-\begin{minipage}[b]{0.20\columnwidth}\raggedright\strut
-Hour
-\strut\end{minipage} &
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Minute
-\strut\end{minipage} &
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-Second
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
-yy
-\strut\end{minipage} &
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-MM
-\strut\end{minipage} &
-\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
-dd
-\strut\end{minipage} &
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-jj, hh, HH
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-mm
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-ss
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.08\columnwidth}\raggedright\strut
-16
-\strut\end{minipage} &
-\begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
-01
-\strut\end{minipage} &
-\begin{minipage}[t]{0.07\columnwidth}\raggedright\strut
-01
-\strut\end{minipage} &
-\begin{minipage}[t]{0.20\columnwidth}\raggedright\strut
-01, 01 AM, 01
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-01
-\strut\end{minipage} &
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-01
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-Details for Month/Weekday/Hour are summarized in the tables below:
-
-\textbf{Month Details}
-
-\begin{longtable}[c]{@{}lll@{}}
-\toprule
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-M
-\strut\end{minipage} &
-\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
-MMM
-\strut\end{minipage} &
-\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
-MMMM
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-Digit
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-Abbr Name
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-Full Name
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-1
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-Jan
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
-January
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\textbf{Weekday Details}
-
-\begin{longtable}[c]{@{}ll@{}}
-\toprule
-\begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
-EEE
-\strut\end{minipage} &
-\begin{minipage}[b]{0.16\columnwidth}\raggedright\strut
-EEEE
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
-Abbr Name
-\strut\end{minipage} &
-\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
-Full Name
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
-Sun
-\strut\end{minipage} &
-\begin{minipage}[t]{0.16\columnwidth}\raggedright\strut
-Sunday
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\textbf{Hour Details}
-
-\begin{longtable}[c]{@{}lll@{}}
-\toprule
-\begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
-j
-\strut\end{minipage} &
-\begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
-h
-\strut\end{minipage} &
-\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
-H
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-Digit
-\strut\end{minipage} &
-\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
-Hour12 AM/PM
-\strut\end{minipage} &
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-Military
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
-13
-\strut\end{minipage} &
-\begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
-1 PM
-\strut\end{minipage} &
-\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
-13
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\paragraph{Slice}\label{slice}
-
-\begin{itemize}
-\tightlist
-\item
-  The slice pipe is useful when you want a subset of a list or string.
-  One of the common use cases are in when iterating over a list with
-  \texttt{ngFor} for example.
-\end{itemize}
-
-\textbf{TODO}
-
-\paragraph{Decimal}\label{decimal}
-
-\begin{itemize}
-\tightlist
-\item
-  Used for formatting numbers given a decimal formatter
-\end{itemize}
-
-\textbf{TODO}
-
-\paragraph{Percent}\label{percent}
-
-\textbf{TODO}
-
-\paragraph{Currency}\label{currency}
-
-\textbf{TODO}
-
-\paragraph{Async}\label{async}
-
-\textbf{TODO}
-
-\paragraph{Json}\label{json}
-
-\textbf{TODO}
-
-\paragraph{LowerCase}\label{lowercase}
-
-\textbf{TODO}
-
-\paragraph{UpperCase}\label{uppercase}
-
-\textbf{TODO}
-
-\subsection{Dependency Injection}\label{dependency-injection}
-
-Dependency Injection is a coding pattern in which a class receives its
-dependencies from external sources rather than creating them itself. In
-order to achieve Dependency Injection we need a Dependency
-InjectionFramework to handle the dependencies for us. Using a DI
-framework, you simply ask for a class from the injector instead of
-worrying about the dependencies inside the class itself.
-
-Angular has a standalone module that handles Dependency Injection. This
-framework can also be used in non-Angular applications to handle
-Dependency Injection.
-
-\textbf{TODO}
-
-\subsection{Services and Providers}\label{services-and-providers}
-
-\begin{itemize}
-\item
-  A service is nothing more than a class in Angular 2. It remains
-  nothing more than a class until we register it with the Angular
-  injector.
-\item
-  When you bootstrap your app, Angular creates an injector on the fly
-  that can inject services and other dependencies throughout the app.
-\item
-  You can register the service or the dependencies during when
-  bootstrapping the app or when defining a component.
-\item
-  If you have a class called \texttt{MyService}, you can register it
-  with the Injector and then you can inject it everywhere:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{bootstrap}\NormalTok{(App, [MyService]); }\CommentTok{// second param is an array of providers}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Providers is a way to specify what services are available inside the
-  component in a hierarchical fashion.
-\item
-  A provider can be a class, a value or a factory.
-\item
-  Providers create the instances of the things that we ask the injector
-  to inject.
-\item
-  \texttt{{[}SomeService{]};} is short for
-  \texttt{{[}provide(SomeService,\ \{useClass:SomeService\}){]};} where
-  the first param is the token, and the second is the definition object.
-\item
-  A simple object can be passed to the Injector to create a Value
-  Provider:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{beforeEachProviders}\NormalTok{(() => \{}
-  \NormalTok{let someService = \{ getData: () => [] \};}
-  \CommentTok{// using `useValue` instead of `useClass`}
-  \KeywordTok{return} \NormalTok{[ }\FunctionTok{provide}\NormalTok{(SomeSvc, \{useValue: someService\}) ];}
-\NormalTok{\});}
-\end{Highlighting}
-\end{Shaded}
-\item
-  You can also use a factory as a provider.
-\item
-  You can use a factory function that creates a properly configured
-  Service:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{let myServiceFactory = (dx: DepX, dy: DepY) => \{}
-  \KeywordTok{return} \KeywordTok{new} \FunctionTok{MyService}\NormalTok{(dx, dy.}\FunctionTok{value}\NormalTok{);}
-\NormalTok{\}}
-
-\CommentTok{// provider definition object.}
-\NormalTok{let myServiceDefinition = \{}
-   \NormalTok{useFactory: myServiceFactory,}
-   \NormalTok{deps: [DepX, DepY]}
-\NormalTok{\};}
-
-\CommentTok{// create provider and bootstrap}
-\NormalTok{let myServiceProvider = }\FunctionTok{provide}\NormalTok{(MyService, myServiceDefinition);}
-\FunctionTok{bootstrap}\NormalTok{(AppComponent, [myServiceProvider, DepX, DepY]);}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Defining object dependencies is simple. You can make a plain
-  JavaScript object available for injection using a string-based token
-  and the \texttt{@Inject} decorator:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{var myObj = \{\};}
-
-\FunctionTok{bootstrap}\NormalTok{(AppComponent, [}
-  \FunctionTok{provide}\NormalTok{('coolObjToken', \{useValue: myObj\})}
-\NormalTok{]);}
-
-\CommentTok{// and you can inject it to a component}
-
-\KeywordTok{import} \NormalTok{\{Inject\} from 'angular2/core'}
-\FunctionTok{constructor}\NormalTok{(dx: DepX, }\FunctionTok{@Inject}\NormalTok{('coolObjToken') config)}
-\end{Highlighting}
-\end{Shaded}
-\end{itemize}
-
-\subsubsection{Simple Service}\label{simple-service}
-
-In this section we are going to make a simple service and use it in our
-root component.
-
-\textbf{Project Files}
-
-The project files for this section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service}{angular2-intro/project-files/angular-examples/services/simple-service};
-
-\textbf{Getting Started}
-
-Let's get started by creating a class, called \texttt{StudentSvc} that
-represents our service:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{class} \NormalTok{StudentSvc \{}
-  \KeywordTok{private} \NormalTok{students: any[];}
-  \FunctionTok{constructor}\NormalTok{() \{}
-    \KeywordTok{this}\NormalTok{.}\FunctionTok{students} \NormalTok{= [}
-      \NormalTok{\{name: 'Tom', id: }\DecValTok{1}\NormalTok{\},}
-      \NormalTok{\{name: 'John', id: }\DecValTok{2}\NormalTok{\},}
-      \NormalTok{\{name: 'Kim', id: }\DecValTok{3}\NormalTok{\},}
-      \NormalTok{\{name: 'Liz', id: }\DecValTok{4}\NormalTok{\}}
-    \NormalTok{];}
-  \NormalTok{\}}
-  \FunctionTok{getAll}\NormalTok{() \{}
-    \KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{students}\NormalTok{;}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-There is nothing special about this class. It's just a class the has a
-method to return the list of all students. Now, we are going to make it
-special by decorating it with the \texttt{Injectable} decorator. But,
-first we need to import \texttt{Injectable} from Angular:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Injectable\} from 'angular2/core';}
-\end{Highlighting}
-\end{Shaded}
-
-After importing the \texttt{Injectable} metadata class, we can decorate
-our class:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\CommentTok{/**}
-\CommentTok{ * Student service}
-\CommentTok{ */}
-\FunctionTok{@Injectable}\NormalTok{() }\CommentTok{// <- decorating with `Injectable`}
-\KeywordTok{class} \NormalTok{StudentSvc \{}
-  \KeywordTok{private} \NormalTok{students: any[];}
-  \FunctionTok{constructor}\NormalTok{() \{}
-   \CommentTok{// ...}
-  \NormalTok{\}}
-  \CommentTok{// ...}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Now we have an injectable class and the injector would know how to
-create an instance of it when we need to inject it. And that's what we
-are going to do next. We are going to add \texttt{StudentSvc} in the
-list of \texttt{viewProviders} of the root component:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{@Component}\NormalTok{(\{}
-  \NormalTok{selector: 'app',}
-  \NormalTok{templateUrl : 'templates/app.}\FunctionTok{tpl}\NormalTok{.}\FunctionTok{html}\NormalTok{',}
-  \NormalTok{viewProviders: [StudentSvc] }\CommentTok{// <- registering the service}
-\NormalTok{\})}
-\end{Highlighting}
-\end{Shaded}
-
-The last thing we need to do is to inject the service in the constructor
-of our root component:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{class} \NormalTok{Root  \{}
-  \KeywordTok{private} \NormalTok{name: string;}
-  \KeywordTok{private} \NormalTok{students: any[];}
-  \FunctionTok{constructor} \NormalTok{(studentSvc: StudentSvc) \{ }\CommentTok{// <- injecting the service}
-    \KeywordTok{this}\NormalTok{.}\FunctionTok{name} \NormalTok{= 'Simple Service Demo';}
-    \KeywordTok{this}\NormalTok{.}\FunctionTok{students} \NormalTok{= studentSvc.}\FunctionTok{getAll}\NormalTok{(); }\CommentTok{// <- calling the `getAll` method}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\item
-  In the constructor, we are defining a variable to be of type
-  \texttt{StudentSvc}. By doing that the injector will create an
-  instance from the \texttt{StudentSvc} to be used
-\item
-  And on line 6 we are calling the \texttt{getAll} method from the
-  service to get a list of all students.
-\end{itemize}
-
-Finally, we can verify that the \texttt{getAll} method is actually
-called by printing the students in the template:
-
-\textbf{\texttt{app.tpl.html}}
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{<h1>}\NormalTok{\{\{ name \}\}}\KeywordTok{</h1>}
-
-\KeywordTok{<ul>}
-  \KeywordTok{<li} \ErrorTok{*ngFor}\OtherTok{=}\StringTok{"#student of students"}\KeywordTok{>}\NormalTok{Name: \{\{ student.name \}\}, id: \{\{ student.id \}\}}\KeywordTok{</li>}
-\KeywordTok{</ul>}
-\end{Highlighting}
-\end{Shaded}
-
-and it would output:
-
-\begin{verbatim}
-Name: Tom, id: 1
-Name: John, id: 2
-Name: Kim, id: 3
-Name: Liz, id: 4
-\end{verbatim}
-
-\subsection{Data and State Management}\label{data-and-state-management}
-
-\begin{itemize}
-\tightlist
-\item
-  Angular is flexible and doesn't prescribe a recipe for managing data
-  in your apps
-\item
-  Since observables are integrated into Angular, you can take advantage
-  of observables to manage data and state
-\item
-  You ca use services to manage streams that emit models
-\item
-  Components can subscribe to the streams maintained by services and
-  render accordingly.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    For example, you can have a service for a Todo app that contains a
-    stream of todos and a \texttt{ListComponent} can listen for todos
-    and render when a new task is added.
-  \item
-    You may have another component that listens for the user that has
-    been assigned to a task provided by a service.
-  \end{itemize}
-\item
-  The steps for creating different parts of an app can be summarized in
-  three steps:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Defining a Model using a class
-  \item
-    Defining the service
-  \item
-    Defining the component
-  \end{itemize}
-\end{itemize}
-
-\subsubsection{Observables}\label{observables}
-
-\begin{itemize}
-\item
-  Observables can help manage async data
-\item
-  Observables are similar to Promises but with a lot of differences
-\item
-  Observables emit multiple values over time as opposed to one
-\item
-  Angular embraces observables using the RxJS library.
-\item
-  Observables emit events and observers observe observables.
-\item
-  An observer \emph{subscribes} to events emitted from an observable.
-\item
-  RxJS has an object called \emph{subject} that can be used both as an
-  observer or an observable. \emph{Subject} can be imported from
-  \texttt{RxJS} very easily:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\KeywordTok{import \{Subject\} from 'rxjs/Subject';}
-\end{Highlighting}
-\end{Shaded}
-\item
-  A subscription can be canceled by calling the \texttt{unsubscribe}
-  method.
-\end{itemize}
-
-\textbf{TODO}
-
-\subsubsection{State Management with
-Observables}\label{state-management-with-observables}
-
-\begin{itemize}
-\tightlist
-\item
-  There are several ways to manage state, one of them is using
-  observables
-\item
-  Observables can be used to represent the state of the app
-\item
-  Changes in the state are represented as an observable
-\end{itemize}
-
-\textbf{TODO}
-
-\subsection{Http}\label{http}
-
-\begin{itemize}
-\tightlist
-\item
-  Using the \texttt{Http} class, you can interact with API endpoints
-\item
-  Http is available as an injectable class
-\item
-  \texttt{Http} has a request method that returns an Observable which
-  will emit a single Response when a response is received.
-\item
-  You can inject \texttt{http} in the constructor of a class:
-  \texttt{constructor(http:\ Http)\ \{...\}}
-\end{itemize}
-
-\subsubsection{Getting Data from Server}\label{getting-data-from-server}
-
-In this section we are going to use the \texttt{http} class to get a
-list of students from a server by hitting \texttt{/api/students}
-
-\textbf{Project Files}
-
-The project files for this section are in
-\href{https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students}{angular2-intro/project-files/angular-examples/http/get-students}
-
-\textbf{Getting Started}
-
-First, we are going to make a service that handles getting data from the
-endpoint. We are going to call this \texttt{StudentSvc}:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\FunctionTok{@Injectable}\NormalTok{()}
-\KeywordTok{class} \NormalTok{StudentSvc \{}
-  \FunctionTok{constructor}\NormalTok{(}\KeywordTok{private} \NormalTok{http: Http) \{\} }\CommentTok{/* Inject Http */}
-  \FunctionTok{getStudents}\NormalTok{(): Observable<Response> \{}
-    \KeywordTok{return} \KeywordTok{this}\NormalTok{.}\FunctionTok{http}\NormalTok{.}\FunctionTok{get}\NormalTok{('/api/students');}
-  \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{itemize}
 \tightlist
@@ -4364,9 +3435,23 @@ After getting the data, we can print the result in the view:
 Here we are using the built-in \texttt{ngFor} directive to loop through
 the array of students and print their name and last name to the page.
 
+\subsection{Working with Forms}\label{working-with-forms}
+
+Angular has convenient methods for working with forms, including
+validation.
+
+\textbf{TODO}
+
 \subsection{Angular Router}\label{angular-router}
 
 Angular has a stand-alone module responsible for handling routing.
+
+\textbf{TODO}
+
+\subsection{Unit Testing}\label{unit-testing}
+
+Unit testing with Angular requires some set up. First, let's gather all
+the libraries and modules that we need.
 
 \textbf{TODO}
 
