@@ -3403,21 +3403,29 @@ Name: Liz, id: 4</code></pre>
 </ul>
 </div> 
     </div>
-<script>
-var isToggle = 1;
-document.getElementsByClassName('l-main-content')[0].style.left = 0;
-document.getElementById('TOC').style.display = 'none';
-document.getElementById('js-toggle-content').addEventListener('click', function () {
-  isToggle = !isToggle;
-  if (isToggle) {
+    <style type="text/css">
+    #TOC, .l-main-content {
+      transition: all ease-in-out 250ms;
+    }
+    </style>
+    <script>
+    var isToggle = 1;
+    var toc = document.getElementById('TOC');
+    var mainContent = document.getElementsByClassName('l-main-content')[0];
     document.getElementsByClassName('l-main-content')[0].style.left = 0;
-    document.getElementById('TOC').style.display = 'none';
-  } else {
-    document.getElementsByClassName('l-main-content')[0].style.left = '333px';
-    document.getElementById('TOC').style.display = 'block';
-  }
-});
-</script>
+    toc.style.display = 'none';
+    document.getElementById('js-toggle-content').addEventListener('click', function () {
+      isToggle = !isToggle;
+      toc.style.display = 'block';
+      if (isToggle) {
+        mainContent.style.left = '0';
+        toc.style.left = '-333px';
+      } else {
+        mainContent.style.left = '333px';
+        toc.style.left = '0';
+      }
+    });
+    </script>
 </body>
 
 </html>
