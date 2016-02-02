@@ -4,8 +4,9 @@
 <h4 id="ngclass"><code>NgClass</code></h4>
 <ul>
 <li><code>import {NgClass} from 'angular2/common';</code>, <code>directives: [NgClass]</code></li>
-<li>Template Usage: <code>&lt;div class=&quot;button&quot; [ngClass]=&quot;{active: isActive, disabled: !isActive}&quot;</code> <strong>Note</strong> that we are using <code>ngClass</code> in the template, but not <code>NgClass</code></li>
+<li>Template Usage: <code>&lt;div class=&quot;button&quot; [ngClass]=&quot;{active: isActive, disabled: !isActive}&quot;</code></li>
 </ul>
+<p><strong>Note</strong> that we are using <code>ngClass</code> in the template, but not <code>NgClass</code></p>
 <h4 id="ngif"><code>NgIf</code></h4>
 <p><strong>Usage</strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -18,9 +19,7 @@
   <span class="kw">&lt;div</span> <span class="er">[ngIf]</span><span class="ot">=</span><span class="st">&quot;isDone&quot;</span><span class="kw">&gt;</span>{{ list }}<span class="kw">&lt;/div&gt;</span>
 <span class="kw">&lt;/template&gt;</span></code></pre></td></tr></table></div>
 <p><strong>Details</strong></p>
-From the docs: &quot;The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty
-<script>
-<p>tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.</p>
+<p>From the docs: &quot;The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty <code>&lt;script&gt;</code> tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.</p>
 <p>The difference matters. When we hide an element, the component's behavior continues. It remains attached to its DOM element. It continues to listen to events. Angular keeps checking for changes that could affect data bindings. Whatever the component was doing it keeps doing.</p>
 <p>Although invisible, the component — and all of its descendant components — tie up resources that might be more useful elsewhere. The performance and memory burden can be substantial and the user may not benefit at all.</p>
 <p>On the positive side, showing the element again is very quick. The component's previous state is preserved and ready to display. The component doesn't re-initialize — an operation that could be expensive.</p>
