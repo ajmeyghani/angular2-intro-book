@@ -1,5 +1,7 @@
 #!/bin/bash
-./build.sh --pdf
+# uncomment if need pdf for each section .... .
+# ./build.sh --pdf
+./build.sh
 ./lean.sh
 ./udy.sh
 git add --all
