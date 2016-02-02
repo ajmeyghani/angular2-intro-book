@@ -215,7 +215,7 @@
     </ul></li>
     </ul></li>
     <li><a href="#directives">Directives</a><ul>
-    <li><a href="#web-components-and-shadow-dom-basics">Web Components and Shadow DOM Basics</a></li>
+    <li><a href="#web-components-basics">Web Components Basics</a></li>
     <li><a href="#attribute-directives">Attribute Directives</a></li>
     <li><a href="#structural-directives">Structural Directives</a></li>
     <li><a href="#built-in-directives">Built-in Directives</a><ul>
@@ -2231,9 +2231,32 @@ CommonJS Modules</code></pre>
 </ul></li>
 </ul>
 <p><strong>TODO</strong>(other decorator options)</p>
-<div id="web-components-and-shadow-dom-basics" class="section level3">
-<h3>Web Components and Shadow DOM Basics</h3>
-<p><strong>TODO</strong> (shadow dom, light dom, <code>&lt;template&gt;</code>, etc...)</p>
+<div id="web-components-basics" class="section level3">
+<h3>Web Components Basics</h3>
+<p>Web Components are made up four specifications:</p>
+<ul>
+<li>Custom Elements: enabling custom html tags</li>
+<li>Shadow DOM: enabling isolation for custom elements</li>
+<li>HTML Templates: enabling to define html template fragments</li>
+<li>HTML Imports: enabling html fragment imports</li>
+</ul>
+<p><strong>Custom Elements</strong></p>
+<p><strong>TODO</strong></p>
+<p><strong>Shadow DOM</strong></p>
+<ul>
+<li>Enables a node to express three subtrees:
+<ul>
+<li>Light DOM: visible DOM notes inside the custom element tag/DOM supplied by the consumer</li>
+<li>Shadow DOM: private to the element and hidden from others and attached to the element's shadow root</li>
+<li>Composed DOM: Rendered by the browser by distributing the light DOM into the Shadow DOM</li>
+<li><em>Logical DOM</em> = Light DOM + Shadow DOM. The developer interacts with this layer</li>
+</ul></li>
+</ul>
+<p><strong>TODO</strong></p>
+<p><strong>HTML Templates</strong></p>
+<p><strong>TODO</strong></p>
+<p><strong>HTML Imports</strong></p>
+<p><strong>TODO</strong></p>
 </div>
 <div id="attribute-directives" class="section level3">
 <h3>Attribute Directives</h3>

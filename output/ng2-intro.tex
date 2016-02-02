@@ -3128,11 +3128,59 @@ incrementing by one every second.
 
 \textbf{TODO}(other decorator options)
 
-\subsubsection{Web Components and Shadow DOM
-Basics}\label{web-components-and-shadow-dom-basics}
+\subsubsection{Web Components Basics}\label{web-components-basics}
 
-\textbf{TODO} (shadow dom, light dom,
-\texttt{\textless{}template\textgreater{}}, etc\ldots{})
+Web Components are made up four specifications:
+
+\begin{itemize}
+\tightlist
+\item
+  Custom Elements: enabling custom html tags
+\item
+  Shadow DOM: enabling isolation for custom elements
+\item
+  HTML Templates: enabling to define html template fragments
+\item
+  HTML Imports: enabling html fragment imports
+\end{itemize}
+
+\textbf{Custom Elements}
+
+\textbf{TODO}
+
+\textbf{Shadow DOM}
+
+\begin{itemize}
+\tightlist
+\item
+  Enables a node to express three subtrees:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Light DOM: visible DOM notes inside the custom element tag/DOM
+    supplied by the consumer
+  \item
+    Shadow DOM: private to the element and hidden from others and
+    attached to the element's shadow root
+  \item
+    Composed DOM: Rendered by the browser by distributing the light DOM
+    into the Shadow DOM
+  \item
+    \emph{Logical DOM} = Light DOM + Shadow DOM. The developer interacts
+    with this layer
+  \end{itemize}
+\end{itemize}
+
+\textbf{TODO}
+
+\textbf{HTML Templates}
+
+\textbf{TODO}
+
+\textbf{HTML Imports}
+
+\textbf{TODO}
 
 \subsubsection{Attribute Directives}\label{attribute-directives}
 

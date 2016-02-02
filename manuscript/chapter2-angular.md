@@ -546,6 +546,7 @@ If you run the app you should see the following printed to the page:
 - `[hidden]=isLoaded ? true : false`
 
 **TODO**
+
 ### Component Output/Events
 
 - Events can be emitted from components. These events can be either custom or they could be DOM events
@@ -707,6 +708,7 @@ Now if you run the code, you should be able to see the number incrementing by on
 #### Native DOM Output Events
 
 **TODO**
+
 ## Directives
 
 - Directives and components hand-in-hand are the fundamental building blocks of any Angular app
@@ -735,9 +737,36 @@ Now if you run the code, you should be able to see the number incrementing by on
 
 **TODO**(other decorator options)
 
-### Web Components and Shadow DOM Basics
+### Web Components Basics
 
-**TODO** (shadow dom, light dom, `<template>`, etc...)
+Web Components are made up four specifications:
+
+- Custom Elements: enabling custom html tags
+- Shadow DOM: enabling isolation for custom elements
+- HTML Templates: enabling to define html template fragments
+- HTML Imports: enabling html fragment imports
+
+**Custom Elements**
+
+**TODO**
+
+**Shadow DOM**
+
+- Enables a node to express three subtrees:
+    - Light DOM: visible DOM notes inside the custom element tag/DOM supplied by the consumer
+    - Shadow DOM: private to the element and hidden from others and attached to the element's shadow root
+    - Composed DOM: Rendered by the browser by distributing the light DOM into the Shadow DOM
+    - *Logical DOM* = Light DOM + Shadow DOM. The developer interacts with this layer
+
+**TODO**
+
+**HTML Templates**
+
+**TODO**
+
+**HTML Imports**
+
+**TODO**
 
 ### Attribute Directives
 
@@ -1624,6 +1653,7 @@ After getting the data, we can print the result in the view:
 ```
 
 Here we are using the built-in `ngFor` directive to loop through the array of students and print their name and last name to the page.
+
 ## Working with Forms
 
 Angular has convenient methods for working with forms, including validation.
