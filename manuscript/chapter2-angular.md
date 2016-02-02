@@ -737,7 +737,7 @@ Now if you run the code, you should be able to see the number incrementing by on
 
 ### Web Components and Shadow DOM Basics
 
-**TODO** (shadow dom, light dom, <template>, etc...)
+**TODO** (shadow dom, light dom, `<template>`, etc...)
 
 ### Attribute Directives
 
@@ -799,6 +799,7 @@ class SimpleDirective implements OnInit {
 **ElementRef** TODO: details**
 
 **Renderer** TODO: details**
+
 ### Structural Directives
 
 - The Structural directive changes the DOM layout by adding and removing DOM elements
@@ -854,6 +855,7 @@ class UnlessDirective {
 
 **`@Input() set myUnless(condition: boolean) {}`**: TODO: details
 
+
 ### Built-in Directives
 
 Angular has a couple of useful built-in directives.
@@ -864,6 +866,7 @@ Angular has a couple of useful built-in directives.
 
 - `import {NgClass} from 'angular2/common';`, `directives: [NgClass]`
 - Template Usage: `<div class="button" [ngClass]="{active: isActive, disabled: !isActive}"`
+
 **Note** that we are using `ngClass` in the template, but not `NgClass`
 
 #### `NgIf`
@@ -884,7 +887,7 @@ or in long-hand form:
 
 **Details**
 
-From the docs: "The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty <script> tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.
+From the docs: "The ngIf directive does not hide the element. Using browser developer tools we can see that, when the condition is true, the top paragraph is in the DOM and the bottom disused paragraph is completely absent from the DOM! In its place are empty `<script>` tags. We could hide the unwanted paragraph by setting its css display style to none. The element would remain in the DOM while invisible. Instead we removed it with ngIf.
 
 The difference matters. When we hide an element, the component's behavior continues. It remains attached to its DOM element. It continues to listen to events. Angular keeps checking for changes that could affect data bindings. Whatever the component was doing it keeps doing.
 
