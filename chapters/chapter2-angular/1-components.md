@@ -1,11 +1,12 @@
 ## Component Basics
 
-Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.
+- Technically speaking components are directives that extend directives with views
+- A component encapsulates a specific piece of functionality and components work together to deliver app's functionality
+- Generally speaking, every app has a root component that bootstraps the application. And when the app is bootstraped, Angular starts from the root component and resolves the sub trees of components
 
 In this section we are going to write a simple `HelloAngular` component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.
 
 Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.
-
 
 The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
 
