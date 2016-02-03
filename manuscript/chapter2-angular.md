@@ -808,7 +808,7 @@ When an event is raised by an element, by default it bubbles up the html hierarc
 ```html
 <pre>{{rowClicked}}</pre>
 
-<table (click)="delegate($event)">
+<table (click)="catchBubbledEvent($event)">
   <tr>
     <td>1</td>
   </tr>

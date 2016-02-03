@@ -2368,7 +2368,7 @@ delegation, detecting the row that was clicked on the table:
 ``` {.html}
 <pre>{{rowClicked}}</pre>
 
-<table (click)="delegate($event)">
+<table (click)="catchBubbledEvent($event)">
   <tr>
     <td>1</td>
   </tr>
