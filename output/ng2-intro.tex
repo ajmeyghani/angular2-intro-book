@@ -2058,7 +2058,8 @@ Below are the common metadata class names:
 
 \textbf{TODO}
 
-\subsection{Metadata Classes}\label{metadata-classes}
+\subsection{Metadata Classes
+Cheatsheet}\label{metadata-classes-cheatsheet}
 
 \begin{itemize}
 \tightlist
@@ -2173,12 +2174,19 @@ directives/components, pipes and di.
 
 \subsection{Component Basics}\label{component-basics}
 
-Components are at the heart of Angular. The main idea is that you break
-down your application into different cohesive components and let the
-components handle the rest. Every component has a controller defined by
-a class and a template defined by html. In addition, a component's job
-is to enable the user experience and delegate everything non-trivial to
-services.
+\begin{itemize}
+\tightlist
+\item
+  Technically speaking components are directives that extend directives
+  with views
+\item
+  A component encapsulates a specific piece of functionality and
+  components work together to deliver app's functionality
+\item
+  Generally speaking, every app has a root component that bootstraps the
+  application. And when the app is bootstraped, Angular starts from the
+  root component and resolves the sub trees of components
+\end{itemize}
 
 In this section we are going to write a simple \texttt{HelloAngular}
 component, compile it and run it in the browser. In addition, we will
@@ -2800,17 +2808,60 @@ If you run the app you should see the following printed to the page:
 \subsubsection{Binding to DOM
 Properties}\label{binding-to-dom-properties}
 
-\begin{itemize}
-\tightlist
-\item
-  \texttt{{[}style.color{]}="done\ ?\ \textquotesingle{}green\textquotesingle{}\ :\ \textquotesingle{}red\textquotesingle{}\ "}
-\item
-  \texttt{{[}class.name{]}="done\ ?\ \textquotesingle{}done\textquotesingle{}\ :\ \textquotesingle{}pending\textquotesingle{}"}
-\item
-  \texttt{{[}hidden{]}=isLoaded\ ?\ true\ :\ false}
-\end{itemize}
+In addition to custom properties, you can bind to DOM properties. Below
+are some examples:
 
-\textbf{TODO}
+\textbf{Binding to \texttt{style}}
+
+We can bind to the style property of DOM nodes. In the example below, if
+the value of \texttt{isDone} is true, we set the
+\texttt{style.textDecoration} to \texttt{line-through}, otherwise we
+won't set it to anything
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<div} \ErrorTok{[style.textDecoration]}\OtherTok{=}\StringTok{"isDone ? 'line-through' : ''"}\KeywordTok{>} \NormalTok{Todo Item }\KeywordTok{</div>}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Binding to \texttt{class}}
+
+In addition to the \texttt{style} property, we can also bind to the
+\texttt{class} property. In the example below, we are setting the class
+name to ``collapsed'' if the \texttt{isCollapsed} value is true and
+\texttt{expanded} if the the value is false:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<div} \ErrorTok{[className]}\OtherTok{=}\StringTok{"isCollapsed ? 'collapsed' : 'expanded'"}\KeywordTok{>}\NormalTok{Element}\KeywordTok{</div>}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Binding to `hidden'}
+
+You can bind to the hidden property of a DOM node and show or hide the
+element. In the example below, we are hiding the element if the
+\texttt{isVisible} value is true:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<div} \ErrorTok{[hidden]}\OtherTok{=}\StringTok{"isVisible"}\KeywordTok{>}\NormalTok{To Hide element}\KeywordTok{</div>}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Binding to \texttt{textContent}}
+
+We can bind to the \texttt{textContent} property and set the text
+content of a node. In the example below, we are setting the text content
+by reading the value of an input:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<div} \ErrorTok{[textContent]}\OtherTok{=}\StringTok{"textValue"}\KeywordTok{></div>}
+\KeywordTok{<input}\OtherTok{ type=}\StringTok{"text"} \ErrorTok{#contentInput}\KeywordTok{>}
+\KeywordTok{<button} \ErrorTok{(click)}\OtherTok{=}\StringTok{"setTextContent()"}\KeywordTok{>}\NormalTok{Set Text Content}\KeywordTok{</button>}
+\end{Highlighting}
+\end{Shaded}
 
 \subsubsection{Component Output/Events}\label{component-outputevents}
 
@@ -3050,7 +3101,172 @@ updated template:
 Now if you run the code, you should be able to see the number
 incrementing by one every second.
 
-\paragraph{Native DOM Output Events}\label{native-dom-output-events}
+\paragraph{Binding to DOM Events}\label{binding-to-dom-events}
+
+In addition to custom output events, we can bind to almost all of the
+native DOM events. Below you can find some common events with examples:
+
+\textbf{Inputs}
+
+\begin{itemize}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/keyup}{keyup}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<input}\OtherTok{ type=}\StringTok{"text"} \ErrorTok{#inputField2} \ErrorTok{(keyup)}\OtherTok{=}\StringTok{"setInputFieldValue2(inputField2.value)"}\KeywordTok{>}
+\KeywordTok{<pre>} \NormalTok{\{\{ keyupValue \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/input}{input}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<input}\OtherTok{ type=}\StringTok{"text"} \ErrorTok{#inputField} \ErrorTok{(input)}\OtherTok{=}\StringTok{"setInputFieldValue(inputField.value)"}\KeywordTok{>}
+\KeywordTok{<pre>} \NormalTok{\{\{ inputValue \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\textbf{Mouse}
+
+\begin{itemize}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/click}{click}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<button} \ErrorTok{(click)}\OtherTok{=}\StringTok{"sayHello()"}\KeywordTok{>} \NormalTok{Say Hello! }\KeywordTok{</button>}
+\KeywordTok{<pre>}\NormalTok{\{\{ hello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/dblclick}{dblclick}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<button} \ErrorTok{(dblclick)}\OtherTok{=}\StringTok{"sayDoubleHello()"}\KeywordTok{>} \NormalTok{Say Hello! }\KeywordTok{</button>}
+\KeywordTok{<pre>}\NormalTok{\{\{ doubleHello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/mousedown}{mousedown}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<button} \ErrorTok{(mousedown)}\OtherTok{=}\StringTok{"sayDownHello()"}\KeywordTok{>}\NormalTok{Say Hello !}\KeywordTok{</button>}
+\KeywordTok{<pre>}\NormalTok{\{\{ downHello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/mouseup}{mouseup}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<button} \ErrorTok{(mouseup)}\OtherTok{=}\StringTok{"sayUpHello()"}\KeywordTok{>}\NormalTok{Say Hello !}\KeywordTok{</button>}
+\KeywordTok{<pre>}\NormalTok{\{\{ upHello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter}{mouseenter}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h2} \ErrorTok{(mouseenter)}\OtherTok{=}\StringTok{"sayEnterHello()"} \ErrorTok{(mouseleave)}\OtherTok{=}\StringTok{"clearEnterHello()"}\KeywordTok{>}\NormalTok{Mouseenter/leave}\KeywordTok{</h2>}
+\KeywordTok{<pre>}\NormalTok{\{\{ enterHello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \href{https://developer.mozilla.org/en-US/docs/Web/Events/mouseleave}{mouseleave}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<h2} \ErrorTok{(mouseenter)}\OtherTok{=}\StringTok{"sayEnterHello()"} \ErrorTok{(mouseleave)}\OtherTok{=}\StringTok{"clearEnterHello()"}\KeywordTok{>}\NormalTok{Mouseenter/leave}\KeywordTok{</h2>}
+\KeywordTok{<pre>}\NormalTok{\{\{ enterHello \}\}}\KeywordTok{</pre>}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\paragraph{Event Delegation/Bubbling}\label{event-delegationbubbling}
+
+When an event is raised by an element, by default it bubbles up the html
+hierarchy. For example, if you have a table and attached a click handler
+to the table itself, you can catch the row that was clicked by only
+attaching a single handler. This method is useful when you are dealing
+with situations where you don't want to attach event handlers to every
+elements, and you just want to attach one. Below is an example of event
+delegation, detecting the row that was clicked on the table:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{<pre>}\NormalTok{\{\{rowClicked\}\}}\KeywordTok{</pre>}
+
+\KeywordTok{<table} \ErrorTok{(click)}\OtherTok{=}\StringTok{"delegate($event)"}\KeywordTok{>}
+  \KeywordTok{<tr>}
+    \KeywordTok{<td>}\NormalTok{1}\KeywordTok{</td>}
+  \KeywordTok{</tr>}
+  \KeywordTok{<tr>}
+    \KeywordTok{<td>}\NormalTok{2}\KeywordTok{</td>}
+  \KeywordTok{</tr>}
+  \KeywordTok{<tr>}
+    \KeywordTok{<td>}\NormalTok{3}\KeywordTok{</td>}
+  \KeywordTok{</tr>}
+  \KeywordTok{<tr>}
+    \KeywordTok{<td>}\NormalTok{4}\KeywordTok{</td>}
+  \KeywordTok{</tr>}
+\KeywordTok{</table>}
+\end{Highlighting}
+\end{Shaded}
+
+Notice how we have a single \texttt{click} handler only on the table
+itself. The \texttt{\$event} is the bubbled event that we can catch to
+do interesting stuff with. In this case we are just reading the
+\texttt{textContent} from the target: \texttt{event.target.textContent}:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\FunctionTok{catchBubbledEvent}\NormalTok{(event) \{}
+  \KeywordTok{this}\NormalTok{.}\FunctionTok{rowClicked} \NormalTok{= event.}\FunctionTok{target}\NormalTok{.}\FunctionTok{nodeName} \NormalTok{=== 'TD' ? event.}\FunctionTok{target}\NormalTok{.}\FunctionTok{textContent} \NormalTok{: '';}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In the method above we are checking if a \texttt{td} was clicked on. If
+so, we set the \texttt{this.rowClicked} to the td's value, otherwise we
+set it to an empty string.
+
+\subsubsection{ViewChildren}\label{viewchildren}
+
+\begin{itemize}
+\tightlist
+\item
+  The children elements located inside of its template of a component
+  are called
+\item
+  Metadata classes: \texttt{@ViewChildren}, \texttt{@ViewChild}
+\end{itemize}
+
+\textbf{TODO}
+
+\subsubsection{ContentChildren}\label{contentchildren}
+
+\begin{itemize}
+\tightlist
+\item
+  Elements used between the opening and closing tags of the host element
+  of a given component
+\item
+  Metadata classes: \texttt{@ContentChildren}, \texttt{@ContentChild}
+\end{itemize}
+
+\textbf{TODO}
+
+\subsubsection{ViewProviders}\label{viewproviders}
+
+\textbf{TODO}
+
+\subsubsection{Providers}\label{providers}
 
 \textbf{TODO}
 

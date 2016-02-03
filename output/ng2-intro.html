@@ -204,15 +204,20 @@
     <li><a href="#starter-project">Starter Project</a></li>
     </ul></li>
     <li><a href="#using-the-docs">Using the Docs</a></li>
-    <li><a href="#metadata-classes">Metadata Classes</a></li>
+    <li><a href="#metadata-classes-cheatsheet">Metadata Classes Cheatsheet</a></li>
     <li><a href="#component-basics">Component Basics</a><ul>
     <li><a href="#making-a-simple-component">Making a Simple Component</a></li>
     <li><a href="#component-inputs">Component Inputs</a></li>
     <li><a href="#binding-to-dom-properties">Binding to DOM Properties</a></li>
     <li><a href="#component-outputevents">Component Output/Events</a><ul>
     <li><a href="#custom-output-events">Custom Output Events</a></li>
-    <li><a href="#native-dom-output-events">Native DOM Output Events</a></li>
+    <li><a href="#binding-to-dom-events">Binding to DOM Events</a></li>
+    <li><a href="#event-delegationbubbling">Event Delegation/Bubbling</a></li>
     </ul></li>
+    <li><a href="#viewchildren">ViewChildren</a></li>
+    <li><a href="#contentchildren">ContentChildren</a></li>
+    <li><a href="#viewproviders">ViewProviders</a></li>
+    <li><a href="#providers">Providers</a></li>
     </ul></li>
     <li><a href="#directives">Directives</a><ul>
     <li><a href="#web-components-basics">Web Components Basics</a></li>
@@ -1460,8 +1465,8 @@ CommonJS Modules</code></pre>
 </ul>
 <p><strong>TODO</strong></p>
 </div>
-<div id="metadata-classes" class="section level2">
-<h2>Metadata Classes</h2>
+<div id="metadata-classes-cheatsheet" class="section level2">
+<h2>Metadata Classes Cheatsheet</h2>
 <ul>
 <li>Angular uses Metadata to decorate classes, methods and properties.</li>
 <li>The most notable Metadata is the <code>@component</code> Metadata.</li>
@@ -1506,7 +1511,11 @@ CommonJS Modules</code></pre>
 </div>
 <div id="component-basics" class="section level2">
 <h2>Component Basics</h2>
-<p>Components are at the heart of Angular. The main idea is that you break down your application into different cohesive components and let the components handle the rest. Every component has a controller defined by a class and a template defined by html. In addition, a component's job is to enable the user experience and delegate everything non-trivial to services.</p>
+<ul>
+<li>Technically speaking components are directives that extend directives with views</li>
+<li>A component encapsulates a specific piece of functionality and components work together to deliver app's functionality</li>
+<li>Generally speaking, every app has a root component that bootstraps the application. And when the app is bootstraped, Angular starts from the root component and resolves the sub trees of components</li>
+</ul>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
 <p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
@@ -2003,12 +2012,27 @@ CommonJS Modules</code></pre>
 </div>
 <div id="binding-to-dom-properties" class="section level3">
 <h3>Binding to DOM Properties</h3>
-<ul>
-<li><code>[style.color]=&quot;done ? 'green' : 'red' &quot;</code></li>
-<li><code>[class.name]=&quot;done ? 'done' : 'pending'&quot;</code></li>
-<li><code>[hidden]=isLoaded ? true : false</code></li>
-</ul>
-<p><strong>TODO</strong></p>
+<p>In addition to custom properties, you can bind to DOM properties. Below are some examples:</p>
+<p><strong>Binding to <code>style</code></strong></p>
+<p>We can bind to the style property of DOM nodes. In the example below, if the value of <code>isDone</code> is true, we set the <code>style.textDecoration</code> to <code>line-through</code>, otherwise we won't set it to anything</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[style.textDecoration]</span><span class="ot">=</span><span class="st">&quot;isDone ? &#39;line-through&#39; : &#39;&#39;&quot;</span><span class="kw">&gt;</span> Todo Item <span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to <code>class</code></strong></p>
+<p>In addition to the <code>style</code> property, we can also bind to the <code>class</code> property. In the example below, we are setting the class name to &quot;collapsed&quot; if the <code>isCollapsed</code> value is true and <code>expanded</code> if the the value is false:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[className]</span><span class="ot">=</span><span class="st">&quot;isCollapsed ? &#39;collapsed&#39; : &#39;expanded&#39;&quot;</span><span class="kw">&gt;</span>Element<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to 'hidden'</strong></p>
+<p>You can bind to the hidden property of a DOM node and show or hide the element. In the example below, we are hiding the element if the <code>isVisible</code> value is true:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[hidden]</span><span class="ot">=</span><span class="st">&quot;isVisible&quot;</span><span class="kw">&gt;</span>To Hide element<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to <code>textContent</code></strong></p>
+<p>We can bind to the <code>textContent</code> property and set the text content of a node. In the example below, we are setting the text content by reading the value of an input:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[textContent]</span><span class="ot">=</span><span class="st">&quot;textValue&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
+<span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#contentInput</span><span class="kw">&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;setTextContent()&quot;</span><span class="kw">&gt;</span>Set Text Content<span class="kw">&lt;/button&gt;</span></code></pre></td></tr></table></div>
 </div>
 <div id="component-outputevents" class="section level3">
 <h3>Component Output/Events</h3>
@@ -2189,10 +2213,124 @@ CommonJS Modules</code></pre>
 })</code></pre></td></tr></table></div>
 <p>Now if you run the code, you should be able to see the number incrementing by one every second.</p>
 </div>
-<div id="native-dom-output-events" class="section level4">
-<h4>Native DOM Output Events</h4>
+<div id="binding-to-dom-events" class="section level4">
+<h4>Binding to DOM Events</h4>
+<p>In addition to custom output events, we can bind to almost all of the native DOM events. Below you can find some common events with examples:</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/keyup">keyup</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#inputField2</span> <span class="er">(keyup)</span><span class="ot">=</span><span class="st">&quot;setInputFieldValue2(inputField2.value)&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;pre&gt;</span> {{ keyupValue }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/input">input</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#inputField</span> <span class="er">(input)</span><span class="ot">=</span><span class="st">&quot;setInputFieldValue(inputField.value)&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;pre&gt;</span> {{ inputValue }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+</ul>
+<p><strong>Mouse</strong></p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/click">click</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;sayHello()&quot;</span><span class="kw">&gt;</span> Say Hello! <span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ hello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/dblclick">dblclick</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(dblclick)</span><span class="ot">=</span><span class="st">&quot;sayDoubleHello()&quot;</span><span class="kw">&gt;</span> Say Hello! <span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ doubleHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mousedown">mousedown</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(mousedown)</span><span class="ot">=</span><span class="st">&quot;sayDownHello()&quot;</span><span class="kw">&gt;</span>Say Hello !<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ downHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup">mouseup</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(mouseup)</span><span class="ot">=</span><span class="st">&quot;sayUpHello()&quot;</span><span class="kw">&gt;</span>Say Hello !<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ upHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter">mouseenter</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h2</span> <span class="er">(mouseenter)</span><span class="ot">=</span><span class="st">&quot;sayEnterHello()&quot;</span> <span class="er">(mouseleave)</span><span class="ot">=</span><span class="st">&quot;clearEnterHello()&quot;</span><span class="kw">&gt;</span>Mouseenter/leave<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ enterHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseleave">mouseleave</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h2</span> <span class="er">(mouseenter)</span><span class="ot">=</span><span class="st">&quot;sayEnterHello()&quot;</span> <span class="er">(mouseleave)</span><span class="ot">=</span><span class="st">&quot;clearEnterHello()&quot;</span><span class="kw">&gt;</span>Mouseenter/leave<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ enterHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+</ul>
+</div>
+<div id="event-delegationbubbling" class="section level4">
+<h4>Event Delegation/Bubbling</h4>
+<p>When an event is raised by an element, by default it bubbles up the html hierarchy. For example, if you have a table and attached a click handler to the table itself, you can catch the row that was clicked by only attaching a single handler. This method is useful when you are dealing with situations where you don't want to attach event handlers to every elements, and you just want to attach one. Below is an example of event delegation, detecting the row that was clicked on the table:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;pre&gt;</span>{{rowClicked}}<span class="kw">&lt;/pre&gt;</span>
+
+<span class="kw">&lt;table</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;delegate($event)&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>1<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>2<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>3<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>4<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+<span class="kw">&lt;/table&gt;</span></code></pre></td></tr></table></div>
+<p>Notice how we have a single <code>click</code> handler only on the table itself. The <code>$event</code> is the bubbled event that we can catch to do interesting stuff with. In this case we are just reading the <code>textContent</code> from the target: <code>event.target.textContent</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">catchBubbledEvent</span>(event) {
+  <span class="kw">this</span>.<span class="fu">rowClicked</span> = event.<span class="fu">target</span>.<span class="fu">nodeName</span> === &#39;TD&#39; ? event.<span class="fu">target</span>.<span class="fu">textContent</span> : &#39;&#39;;
+}</code></pre></td></tr></table></div>
+<p>In the method above we are checking if a <code>td</code> was clicked on. If so, we set the <code>this.rowClicked</code> to the td's value, otherwise we set it to an empty string.</p>
+</div>
+</div>
+<div id="viewchildren" class="section level3">
+<h3>ViewChildren</h3>
+<ul>
+<li>The children elements located inside of its template of a component are called</li>
+<li>Metadata classes: <code>@ViewChildren</code>, <code>@ViewChild</code></li>
+</ul>
 <p><strong>TODO</strong></p>
 </div>
+<div id="contentchildren" class="section level3">
+<h3>ContentChildren</h3>
+<ul>
+<li>Elements used between the opening and closing tags of the host element of a given component</li>
+<li>Metadata classes: <code>@ContentChildren</code>, <code>@ContentChild</code></li>
+</ul>
+<p><strong>TODO</strong></p>
+</div>
+<div id="viewproviders" class="section level3">
+<h3>ViewProviders</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="providers" class="section level3">
+<h3>Providers</h3>
+<p><strong>TODO</strong></p>
 </div>
 </div>
 <div id="directives" class="section level2">

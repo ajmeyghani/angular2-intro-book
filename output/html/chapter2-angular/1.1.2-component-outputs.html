@@ -332,8 +332,96 @@
   directives: [AdderAuto]
 })</code></pre></td></tr></table></div>
 <p>Now if you run the code, you should be able to see the number incrementing by one every second.</p>
-<h4 id="native-dom-output-events">Native DOM Output Events</h4>
-<p><strong>TODO</strong></p>
+<h4 id="binding-to-dom-events">Binding to DOM Events</h4>
+<p>In addition to custom output events, we can bind to almost all of the native DOM events. Below you can find some common events with examples:</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/keyup">keyup</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#inputField2</span> <span class="er">(keyup)</span><span class="ot">=</span><span class="st">&quot;setInputFieldValue2(inputField2.value)&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;pre&gt;</span> {{ keyupValue }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/input">input</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#inputField</span> <span class="er">(input)</span><span class="ot">=</span><span class="st">&quot;setInputFieldValue(inputField.value)&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;pre&gt;</span> {{ inputValue }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+</ul>
+<p><strong>Mouse</strong></p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/click">click</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;sayHello()&quot;</span><span class="kw">&gt;</span> Say Hello! <span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ hello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/dblclick">dblclick</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(dblclick)</span><span class="ot">=</span><span class="st">&quot;sayDoubleHello()&quot;</span><span class="kw">&gt;</span> Say Hello! <span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ doubleHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mousedown">mousedown</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(mousedown)</span><span class="ot">=</span><span class="st">&quot;sayDownHello()&quot;</span><span class="kw">&gt;</span>Say Hello !<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ downHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup">mouseup</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">(mouseup)</span><span class="ot">=</span><span class="st">&quot;sayUpHello()&quot;</span><span class="kw">&gt;</span>Say Hello !<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ upHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter">mouseenter</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h2</span> <span class="er">(mouseenter)</span><span class="ot">=</span><span class="st">&quot;sayEnterHello()&quot;</span> <span class="er">(mouseleave)</span><span class="ot">=</span><span class="st">&quot;clearEnterHello()&quot;</span><span class="kw">&gt;</span>Mouseenter/leave<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ enterHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseleave">mouseleave</a></p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;h2</span> <span class="er">(mouseenter)</span><span class="ot">=</span><span class="st">&quot;sayEnterHello()&quot;</span> <span class="er">(mouseleave)</span><span class="ot">=</span><span class="st">&quot;clearEnterHello()&quot;</span><span class="kw">&gt;</span>Mouseenter/leave<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;pre&gt;</span>{{ enterHello }}<span class="kw">&lt;/pre&gt;</span></code></pre></td></tr></table></div></li>
+</ul>
+<h4 id="event-delegationbubbling">Event Delegation/Bubbling</h4>
+<p>When an event is raised by an element, by default it bubbles up the html hierarchy. For example, if you have a table and attached a click handler to the table itself, you can catch the row that was clicked by only attaching a single handler. This method is useful when you are dealing with situations where you don't want to attach event handlers to every elements, and you just want to attach one. Below is an example of event delegation, detecting the row that was clicked on the table:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;pre&gt;</span>{{rowClicked}}<span class="kw">&lt;/pre&gt;</span>
+
+<span class="kw">&lt;table</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;delegate($event)&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>1<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>2<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>3<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;tr&gt;</span>
+    <span class="kw">&lt;td&gt;</span>4<span class="kw">&lt;/td&gt;</span>
+  <span class="kw">&lt;/tr&gt;</span>
+<span class="kw">&lt;/table&gt;</span></code></pre></td></tr></table></div>
+<p>Notice how we have a single <code>click</code> handler only on the table itself. The <code>$event</code> is the bubbled event that we can catch to do interesting stuff with. In this case we are just reading the <code>textContent</code> from the target: <code>event.target.textContent</code>:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="fu">catchBubbledEvent</span>(event) {
+  <span class="kw">this</span>.<span class="fu">rowClicked</span> = event.<span class="fu">target</span>.<span class="fu">nodeName</span> === &#39;TD&#39; ? event.<span class="fu">target</span>.<span class="fu">textContent</span> : &#39;&#39;;
+}</code></pre></td></tr></table></div>
+<p>In the method above we are checking if a <code>td</code> was clicked on. If so, we set the <code>this.rowClicked</code> to the td's value, otherwise we set it to an empty string.</p>
 
     </div>
   </body>

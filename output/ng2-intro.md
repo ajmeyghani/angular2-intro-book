@@ -1481,8 +1481,8 @@ metadata class names:
 
 **TODO**
 
-Metadata Classes
-----------------
+Metadata Classes Cheatsheet
+---------------------------
 
 -   Angular uses Metadata to decorate classes, methods and properties.
 -   The most notable Metadata is the `@component` Metadata.
@@ -1557,12 +1557,13 @@ directives/components, pipes and di.
 Component Basics
 ----------------
 
-Components are at the heart of Angular. The main idea is that you break
-down your application into different cohesive components and let the
-components handle the rest. Every component has a controller defined by
-a class and a template defined by html. In addition, a component's job
-is to enable the user experience and delegate everything non-trivial to
-services.
+-   Technically speaking components are directives that extend
+    directives with views
+-   A component encapsulates a specific piece of functionality and
+    components work together to deliver app's functionality
+-   Generally speaking, every app has a root component that bootstraps
+    the application. And when the app is bootstraped, Angular starts
+    from the root component and resolves the sub trees of components
 
 In this section we are going to write a simple `HelloAngular` component,
 compile it and run it in the browser. In addition, we will configure
@@ -2057,11 +2058,51 @@ If you run the app you should see the following printed to the page:
 
 ### Binding to DOM Properties
 
--   `[style.color]="done ? 'green' : 'red' "`
--   `[class.name]="done ? 'done' : 'pending'"`
--   `[hidden]=isLoaded ? true : false`
+In addition to custom properties, you can bind to DOM properties. Below
+are some examples:
 
-**TODO**
+**Binding to `style`**
+
+We can bind to the style property of DOM nodes. In the example below, if
+the value of `isDone` is true, we set the `style.textDecoration` to
+`line-through`, otherwise we won't set it to anything
+
+``` {.html}
+<div [style.textDecoration]="isDone ? 'line-through' : ''"> Todo Item </div>
+```
+
+**Binding to `class`**
+
+In addition to the `style` property, we can also bind to the `class`
+property. In the example below, we are setting the class name to
+"collapsed" if the `isCollapsed` value is true and `expanded` if the the
+value is false:
+
+``` {.html}
+<div [className]="isCollapsed ? 'collapsed' : 'expanded'">Element</div>
+```
+
+**Binding to 'hidden'**
+
+You can bind to the hidden property of a DOM node and show or hide the
+element. In the example below, we are hiding the element if the
+`isVisible` value is true:
+
+``` {.html}
+<div [hidden]="isVisible">To Hide element</div>
+```
+
+**Binding to `textContent`**
+
+We can bind to the `textContent` property and set the text content of a
+node. In the example below, we are setting the text content by reading
+the value of an input:
+
+``` {.html}
+<div [textContent]="textValue"></div>
+<input type="text" #contentInput>
+<button (click)="setTextContent()">Set Text Content</button>
+```
 
 ### Component Output/Events
 
@@ -2249,14 +2290,120 @@ template:
 Now if you run the code, you should be able to see the number
 incrementing by one every second.
 
-#### Native DOM Output Events
+#### Binding to DOM Events
 
-**TODO**
+In addition to custom output events, we can bind to almost all of the
+native DOM events. Below you can find some common events with examples:
 
-`ng-content`
-------------
+**Inputs**
 
-`ng-contentn` is similar to transclusion in Angular 1.
+-   [keyup](https://developer.mozilla.org/en-US/docs/Web/Events/keyup)
+
+    ``` {.html}
+    <input type="text" #inputField2 (keyup)="setInputFieldValue2(inputField2.value)">
+    <pre> {{ keyupValue }}</pre>
+    ```
+
+-   [input](https://developer.mozilla.org/en-US/docs/Web/Events/input)
+
+    ``` {.html}
+    <input type="text" #inputField (input)="setInputFieldValue(inputField.value)">
+    <pre> {{ inputValue }}</pre>
+    ```
+
+**Mouse**
+
+-   [click](https://developer.mozilla.org/en-US/docs/Web/Events/click)
+
+    ``` {.html}
+    <button (click)="sayHello()"> Say Hello! </button>
+    <pre>{{ hello }}</pre>
+    ```
+
+-   [dblclick](https://developer.mozilla.org/en-US/docs/Web/Events/dblclick)
+
+    ``` {.html}
+    <button (dblclick)="sayDoubleHello()"> Say Hello! </button>
+    <pre>{{ doubleHello }}</pre>
+    ```
+
+-   [mousedown](https://developer.mozilla.org/en-US/docs/Web/Events/mousedown)
+
+    ``` {.html}
+    <button (mousedown)="sayDownHello()">Say Hello !</button>
+    <pre>{{ downHello }}</pre>
+    ```
+
+-   [mouseup](https://developer.mozilla.org/en-US/docs/Web/Events/mouseup)
+
+    ``` {.html}
+    <button (mouseup)="sayUpHello()">Say Hello !</button>
+    <pre>{{ upHello }}</pre>
+    ```
+
+-   [mouseenter](https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter)
+
+    ``` {.html}
+    <h2 (mouseenter)="sayEnterHello()" (mouseleave)="clearEnterHello()">Mouseenter/leave</h2>
+    <pre>{{ enterHello }}</pre>
+    ```
+
+-   [mouseleave](https://developer.mozilla.org/en-US/docs/Web/Events/mouseleave)
+
+    ``` {.html}
+    <h2 (mouseenter)="sayEnterHello()" (mouseleave)="clearEnterHello()">Mouseenter/leave</h2>
+    <pre>{{ enterHello }}</pre>
+    ```
+
+#### Event Delegation/Bubbling
+
+When an event is raised by an element, by default it bubbles up the html
+hierarchy. For example, if you have a table and attached a click handler
+to the table itself, you can catch the row that was clicked by only
+attaching a single handler. This method is useful when you are dealing
+with situations where you don't want to attach event handlers to every
+elements, and you just want to attach one. Below is an example of event
+delegation, detecting the row that was clicked on the table:
+
+``` {.html}
+<pre>{{rowClicked}}</pre>
+
+<table (click)="delegate($event)">
+  <tr>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>4</td>
+  </tr>
+</table>
+```
+
+Notice how we have a single `click` handler only on the table itself.
+The `$event` is the bubbled event that we can catch to do interesting
+stuff with. In this case we are just reading the `textContent` from the
+target: `event.target.textContent`:
+
+``` {.typescript}
+catchBubbledEvent(event) {
+  this.rowClicked = event.target.nodeName === 'TD' ? event.target.textContent : '';
+}
+```
+
+In the method above we are checking if a `td` was clicked on. If so, we
+set the `this.rowClicked` to the td's value, otherwise we set it to an
+empty string.
+
+### `ng-content`
+
+-   `ng-content` is similar to transclusion in Angular 1.
+-   Instead of transclusion, you can think of "projecting" content into
+    a component's view
 
 Let's say you have a component called `my-component` that prints
 `lorem ipsum`:
@@ -2299,6 +2446,62 @@ Otherwise, Angular will complain about it and won't compile the
 template.
 
 **TODO** (ng-content for html elements example)
+
+**Using Select**
+
+Using the `select` attribute, you can specify which elements to be
+included. For example given a `article` tag inside `my-component`, you
+can use `select` to specify that you want to include or project the
+`article`:
+
+``` {.html}
+<section>
+  <p>...</p>
+  <my-component>
+    <article>
+      ...
+    </article>
+  </my-component>
+</section>
+```
+
+and select inside the component:
+
+``` {.typescript}
+@Component({
+  selector: 'my-component',
+  template: '<div> lorem ipsum <ng-content select="article"></ng-content></div>'
+})
+class MyComponent {}
+```
+
+Note how we are selecting `article` in
+`<ng-content select="article"></ng-content>`. It is also worth nothing
+that `select` is a css selector.
+
+### ViewChildren
+
+-   The children elements located inside of its template of a component
+    are called
+-   Metadata classes: `@ViewChildren`, `@ViewChild`
+
+**TODO**
+
+### ContentChildren
+
+-   Elements used between the opening and closing tags of the host
+    element of a given component
+-   Metadata classes: `@ContentChildren`, `@ContentChild`
+
+**TODO**
+
+### ViewProviders
+
+**TODO**
+
+### Providers
+
+**TODO**
 
 Directives
 ----------

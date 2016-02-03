@@ -325,12 +325,27 @@
 <p class="caption">Input to components</p>
 </div>
 <h3 id="binding-to-dom-properties">Binding to DOM Properties</h3>
-<ul>
-<li><code>[style.color]=&quot;done ? 'green' : 'red' &quot;</code></li>
-<li><code>[class.name]=&quot;done ? 'done' : 'pending'&quot;</code></li>
-<li><code>[hidden]=isLoaded ? true : false</code></li>
-</ul>
-<p><strong>TODO</strong></p>
+<p>In addition to custom properties, you can bind to DOM properties. Below are some examples:</p>
+<p><strong>Binding to <code>style</code></strong></p>
+<p>We can bind to the style property of DOM nodes. In the example below, if the value of <code>isDone</code> is true, we set the <code>style.textDecoration</code> to <code>line-through</code>, otherwise we won't set it to anything</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[style.textDecoration]</span><span class="ot">=</span><span class="st">&quot;isDone ? &#39;line-through&#39; : &#39;&#39;&quot;</span><span class="kw">&gt;</span> Todo Item <span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to <code>class</code></strong></p>
+<p>In addition to the <code>style</code> property, we can also bind to the <code>class</code> property. In the example below, we are setting the class name to &quot;collapsed&quot; if the <code>isCollapsed</code> value is true and <code>expanded</code> if the the value is false:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[className]</span><span class="ot">=</span><span class="st">&quot;isCollapsed ? &#39;collapsed&#39; : &#39;expanded&#39;&quot;</span><span class="kw">&gt;</span>Element<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to 'hidden'</strong></p>
+<p>You can bind to the hidden property of a DOM node and show or hide the element. In the example below, we are hiding the element if the <code>isVisible</code> value is true:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[hidden]</span><span class="ot">=</span><span class="st">&quot;isVisible&quot;</span><span class="kw">&gt;</span>To Hide element<span class="kw">&lt;/div&gt;</span></code></pre></td></tr></table></div>
+<p><strong>Binding to <code>textContent</code></strong></p>
+<p>We can bind to the <code>textContent</code> property and set the text content of a node. In the example below, we are setting the text content by reading the value of an input:</p>
+<div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">[textContent]</span><span class="ot">=</span><span class="st">&quot;textValue&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
+<span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span> <span class="er">#contentInput</span><span class="kw">&gt;</span>
+<span class="kw">&lt;button</span> <span class="er">(click)</span><span class="ot">=</span><span class="st">&quot;setTextContent()&quot;</span><span class="kw">&gt;</span>Set Text Content<span class="kw">&lt;/button&gt;</span></code></pre></td></tr></table></div>
 
     </div>
   </body>
