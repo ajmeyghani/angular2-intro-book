@@ -855,6 +855,7 @@ In the method above we are checking if a `td` was clicked on. If so, we set the 
 ### Providers
 
 **TODO**
+
 ## Directives
 
 - Directives and components hand-in-hand are the fundamental building blocks of any Angular app
@@ -913,6 +914,15 @@ Web Components are made up four specifications:
 **HTML Imports**
 
 **TODO**
+
+### host
+
+**TODO**
+
+### selector
+
+**TODO**
+
 
 ### Attribute Directives
 

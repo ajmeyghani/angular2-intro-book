@@ -2570,6 +2570,14 @@ Web Components are made up four specifications:
 
 **TODO**
 
+### host
+
+**TODO**
+
+### selector
+
+**TODO**
+
 ### Attribute Directives
 
 -   The Attribute directive changes the appearance or behavior of
