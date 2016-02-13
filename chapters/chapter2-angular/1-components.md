@@ -49,7 +49,7 @@ your `package.json` file should look something like the follwoing:
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Stealth <st32lth@gmail.com> (http://github.com/st32lth)",
+  "author": "Amin Meyghani <meyghania@gmail.com> (http://github.com/aminmeyghani)",
   "license": "ISC",
   "dependencies": {
     "angular2": "^2.0.0-beta.1",
