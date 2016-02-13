@@ -2,7 +2,7 @@
 
 - The book assumes that you are working in a Unix-like environment. If you are on Windows you can use [Cygwin](https://www.cygwin.com/) so that you can follow along with the bash terminal commands.
 
-- All the project files for the book are hosted on github: [https://github.com/st32lth/angular2-intro](https://github.com/st32lth/angular2-intro). You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, `angular2-intro/project-files/hello-angular` refers to the `hello-angular` folder inside the `project-files` folder.
+- All the project files for the book are hosted on github: [https://github.com/aminmeyghani/angular2-intro](https://github.com/aminmeyghani/angular2-intro). You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, `angular2-intro/project-files/hello-angular` refers to the `hello-angular` folder inside the `project-files` folder.
 
 - Make sure you have `git` installed on your machine. That is, make sure you get an output for `git --version`.
 
