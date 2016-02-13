@@ -1,6 +1,6 @@
 # TypeScript Crash-course
 
-In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement. The project files for this chapter are in [**`angular2-intro/project-files/typescript`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript).
+In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement. The project files for this chapter are in [**`angular2-intro/project-files/typescript`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript).
 
 ## TypeScript Basics
 
@@ -104,7 +104,7 @@ An then we create a point of type `point3d` and assign a value to it. We read th
 - Classes can inherit functionality from other classes, but you should [favor composition over inheritance](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh) or make sure you know [when to use it](https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e)
 - Classes can implement interfaces
 
-Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
+Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
 
 ### Adding an Instance Variable
 
@@ -388,7 +388,7 @@ The above example is silly, but it shows the point that a class can implement on
 
 ### Inheritance
 
-In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at O'Reilly's Fluent Conference. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
+In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at O'Reilly's Fluent Conference. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
 
 Let's get started by creating a base class called `Vehicle`. This class is going to be the base class for other classes that we create later.
 
@@ -507,11 +507,11 @@ There are different types of decorators in TypeScript. In this section we are go
     - instead of the `reference` tag, you can use the `import` keyword to define the relationship between modules
     - you can import symbols using the file name: `import mymodule = require('mymodule')`
 
-The project files for this chapter are in [**`angular2-intro/project-files/typescript/modules`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules).
+The project files for this chapter are in [**`angular2-intro/project-files/typescript/modules`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules).
 
 ### Simple Module
 
-Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/basic-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module).
+Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/basic-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/basic-module).
 
 First, create the `main.ts` file and copy paste the following:
 
@@ -622,7 +622,7 @@ Now we should be able to use the debugger and put breakpoints in our TypeScript 
 
 ### Splitting Internal Modules
 
-Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called `Merged`. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/merged-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module).
+Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called `Merged`. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/merged-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/merged-module).
 
 First, we are going to make two files: `A.ts` and `B.ts`. In each file we are going to define the `Merged` module:
 
@@ -684,7 +684,7 @@ blue
 
 ### External Modules
 
-In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/external-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module).
+In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in [**`angular2-intro/project-files/typescript/modules/external-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/external-module).
 
 Let's say I have a JavaScript Node module defined in CommonJS format in a file called `common.js`:
 

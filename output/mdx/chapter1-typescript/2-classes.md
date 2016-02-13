@@ -14,7 +14,7 @@
 - Classes can inherit functionality from other classes, but you should [favor composition over inheritance](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh) or make sure you know [when to use it](https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e)
 - Classes can implement interfaces
 
-Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
+Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
 
 ### Adding an Instance Variable
 
@@ -298,7 +298,7 @@ The above example is silly, but it shows the point that a class can implement on
 
 ### Inheritance
 
-In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at O'Reilly's Fluent Conference. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
+In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at O'Reilly's Fluent Conference. The project files for this section are in [**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
 
 Let's get started by creating a base class called `Vehicle`. This class is going to be the base class for other classes that we create later.
 

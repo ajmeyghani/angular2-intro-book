@@ -29,9 +29,9 @@
 <li>you can import symbols using the file name: <code>import mymodule = require('mymodule')</code></li>
 </ul></li>
 </ul>
-<p>The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules"><strong><code>angular2-intro/project-files/typescript/modules</code></strong></a>.</p>
+<p>The project files for this chapter are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules"><strong><code>angular2-intro/project-files/typescript/modules</code></strong></a>.</p>
 <h3 id="simple-module">Simple Module</h3>
-<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module"><strong><code>angular2-intro/project-files/typescript/modules/basic-module</code></strong></a>.</p>
+<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/basic-module"><strong><code>angular2-intro/project-files/typescript/modules/basic-module</code></strong></a>.</p>
 <p>First, create the <code>main.ts</code> file and copy paste the following:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -135,7 +135,7 @@ console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code><
 <p>Now we should be able to use the debugger and put breakpoints in our TypeScript files. Select <code>TS All Debugger</code> from the debugger dropdown and run the debugger and it should stop if you put a breakpoint in any of your TypeScript files.</p>
 <p><strong>NOTE</strong> Using the configuration files above we can compile all the TypeScript files into a single JavaScript file. But sometimes that is not what you want. Be aware that using the above configuration you will not get an output for each TypeScript file.</p>
 <h3 id="splitting-internal-modules">Splitting Internal Modules</h3>
-<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module"><strong><code>angular2-intro/project-files/typescript/modules/merged-module</code></strong></a>.</p>
+<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/merged-module"><strong><code>angular2-intro/project-files/typescript/modules/merged-module</code></strong></a>.</p>
 <p>First, we are going to make two files: <code>A.ts</code> and <code>B.ts</code>. In each file we are going to define the <code>Merged</code> module:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -204,7 +204,7 @@ Debugger listening on port 19237
 2
 blue</code></pre>
 <h3 id="external-modules">External Modules</h3>
-<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module"><strong><code>angular2-intro/project-files/typescript/modules/external-module</code></strong></a>.</p>
+<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/external-module"><strong><code>angular2-intro/project-files/typescript/modules/external-module</code></strong></a>.</p>
 <p>Let's say I have a JavaScript Node module defined in CommonJS format in a file called <code>common.js</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2

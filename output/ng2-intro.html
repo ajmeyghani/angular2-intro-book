@@ -278,11 +278,11 @@
 <h1>Notes</h1>
 <ul>
 <li><p>The book assumes that you are working in a Unix-like environment. If you are on Windows you can use <a href="https://www.cygwin.com/">Cygwin</a> so that you can follow along with the bash terminal commands.</p></li>
-<li><p>All the project files for the book are hosted on github: <a href="https://github.com/st32lth/angular2-intro" class="uri">https://github.com/st32lth/angular2-intro</a>. You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, <code>angular2-intro/project-files/hello-angular</code> refers to the <code>hello-angular</code> folder inside the <code>project-files</code> folder.</p></li>
+<li><p>All the project files for the book are hosted on github: <a href="https://github.com/aminmeyghani/angular2-intro" class="uri">https://github.com/aminmeyghani/angular2-intro</a>. You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, <code>angular2-intro/project-files/hello-angular</code> refers to the <code>hello-angular</code> folder inside the <code>project-files</code> folder.</p></li>
 <li><p>Make sure you have <code>git</code> installed on your machine. That is, make sure you get an output for <code>git --version</code>.</p></li>
 <li><p>The book assumes that you have a working knowledge of JavaScript and Angular 1.x</p></li>
 <li><p>Node is heavily used throughout the book. Make sure that you follow the &quot;Node&quot; chapter to install Node and set permissions correctly.</p></li>
-<li><p>All the keyboard shortcuts are mac-based. But if you are using a non-mac machine, you can almost always replace <code>command</code> with <code>ctrl</code> and you should be good. For example, if you a see a shortcut like <code>command + shift + b</code>, you can use <code>ctrl + shift + b</code> where <code>ctrl</code> is obviously the <code>control</code> key.</p></li>
+<li><p>All the keyboard shortcuts are mac-based. But if you are using a non-mac machine, you can almost always replace <code>command</code> with <code>ctrl</code> and you should be good. For example, if you a see a shortcut like <code>command + shift + b</code>, you can use <code>ctrl + shift + b</code> where <code>ctrl</code> is obviously the <code>control</code> key!</p></li>
 </ul>
 </div>
 <div id="installing-node" class="section level1">
@@ -348,7 +348,7 @@ live-server .</code></pre>
 </div>
 <div id="setting-up-vscode-for-typescript" class="section level2">
 <h2>Setting up VSCode for TypeScript</h2>
-<p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode"><strong><code>angular2-intro/project-files/vscode</code></strong></a>. You can either follow along or check out the folder to see the final result.</p>
+<p>In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/vscode"><strong><code>angular2-intro/project-files/vscode</code></strong></a>. You can either follow along or check out the folder to see the final result.</p>
 <div id="installing-typescript" class="section level3">
 <h3>Installing TypeScript</h3>
 <p>Before anything, we need to install the TypeScript compiler. You can install the TypeScript compiler with npm:</p>
@@ -518,7 +518,7 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
 </div>
 <div id="typescript-crash-course" class="section level1">
 <h1>TypeScript Crash-course</h1>
-<p>In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement. The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript"><strong><code>angular2-intro/project-files/typescript</code></strong></a>.</p>
+<p>In this chapter we will quickly go through the most important concepts in TypeScript so that you can have a better understanding of Angular code that you will write. Knowing TypeScript definitely helps to understand Angular, but again it is not a requirement. The project files for this chapter are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript"><strong><code>angular2-intro/project-files/typescript</code></strong></a>.</p>
 <div id="typescript-basics" class="section level2">
 <h2>TypeScript Basics</h2>
 <ul>
@@ -639,7 +639,7 @@ console.<span class="fu">log</span>(point3d.<span class="fu">x</span>); <span cl
 <li>Classes can inherit functionality from other classes, but you should <a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3#.oc5pdevwh">favor composition over inheritance</a> or make sure you know <a href="https://medium.com/@dtinth/es6-class-classical-inheritance-20f4726f4c4#.xdif2m42e">when to use it</a></li>
 <li>Classes can implement interfaces</li>
 </ul>
-<p>Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class"><strong><code>angular2-intro/project-files/typescript/classes/basic-class</code></strong></a>.</p>
+<p>Let's make a class definition for a car and incrementally add more things to it. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/basic-class"><strong><code>angular2-intro/project-files/typescript/classes/basic-class</code></strong></a>.</p>
 <div id="adding-an-instance-variable" class="section level3">
 <h3>Adding an Instance Variable</h3>
 <p>The <code>Car</code> class definition can be very simple and can define only a single instance variable that all cars can have:</p>
@@ -955,7 +955,7 @@ console.<span class="fu">log</span>(Car.<span class="fu">isAuto</span>()); <span
 </div>
 <div id="inheritance" class="section level3">
 <h3>Inheritance</h3>
-<p>In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's <a href="https://www.youtube.com/watch?v=lKCCZTUx0sI">talk</a> at O'Reilly's Fluent Conference. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance"><strong><code>angular2-intro/project-files/typescript/classes/inheritance</code></strong></a>.</p>
+<p>In Object-oriented programming, a class can inherit from another class which helps to define shared attributes and methods among objects. Although this pattern is very useful, it should be used cautiously as it can lead to code that is hard to maintain. You can learn more about classical inheritance and prototypical inheritance by watching Eric Elliot's <a href="https://www.youtube.com/watch?v=lKCCZTUx0sI">talk</a> at O'Reilly's Fluent Conference. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/inheritance"><strong><code>angular2-intro/project-files/typescript/classes/inheritance</code></strong></a>.</p>
 <p>Let's get started by creating a base class called <code>Vehicle</code>. This class is going to be the base class for other classes that we create later.</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1105,10 +1105,10 @@ Truck</code></pre>
 <li>you can import symbols using the file name: <code>import mymodule = require('mymodule')</code></li>
 </ul></li>
 </ul>
-<p>The project files for this chapter are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules"><strong><code>angular2-intro/project-files/typescript/modules</code></strong></a>.</p>
+<p>The project files for this chapter are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules"><strong><code>angular2-intro/project-files/typescript/modules</code></strong></a>.</p>
 <div id="simple-module" class="section level3">
 <h3>Simple Module</h3>
-<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module"><strong><code>angular2-intro/project-files/typescript/modules/basic-module</code></strong></a>.</p>
+<p>Let's create a simple module that contains two classes. The first class is a vehicle class and the second is a car class that inherits from the vehicle class. Then we are going to expose the car class to the outside world and import it from another file. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/basic-module"><strong><code>angular2-intro/project-files/typescript/modules/basic-module</code></strong></a>.</p>
 <p>First, create the <code>main.ts</code> file and copy paste the following:</p>
 <p><strong><code>main.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -1214,7 +1214,7 @@ console.<span class="fu">log</span>(mycar.<span class="fu">name</span>);</code><
 </div>
 <div id="splitting-internal-modules" class="section level3">
 <h3>Splitting Internal Modules</h3>
-<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module"><strong><code>angular2-intro/project-files/typescript/modules/merged-module</code></strong></a>.</p>
+<p>Internal modules in TypeScript are open ended. This means that you can define a module with the same name in different files and keep adding to it. This is also known as merging. In this section we are going to demonstrate merging multiple files that contribute to a single module called <code>Merged</code>. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/merged-module"><strong><code>angular2-intro/project-files/typescript/modules/merged-module</code></strong></a>.</p>
 <p>First, we are going to make two files: <code>A.ts</code> and <code>B.ts</code>. In each file we are going to define the <code>Merged</code> module:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1285,7 +1285,7 @@ blue</code></pre>
 </div>
 <div id="external-modules" class="section level3">
 <h3>External Modules</h3>
-<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module"><strong><code>angular2-intro/project-files/typescript/modules/external-module</code></strong></a>.</p>
+<p>In addition to TypeScript's internal module system, you can use external modules as well. In this section we are going to demonstrate how you can use external modules in TypeScript. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/external-module"><strong><code>angular2-intro/project-files/typescript/modules/external-module</code></strong></a>.</p>
 <p>Let's say I have a JavaScript Node module defined in CommonJS format in a file called <code>common.js</code>:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines javascript"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1520,7 +1520,7 @@ CommonJS Modules</code></pre>
 </ul>
 <p>In this section we are going to write a simple <code>HelloAngular</code> component, compile it and run it in the browser. In addition, we will configure VSCode to build the TypeScript files as we go.</p>
 <p>Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.</p>
-<p>The project files for this chapter are in <strong><a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
+<p>The project files for this chapter are in <strong><a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/basic-component"><code>angular2-intro/project-files/angular-examples/basic-component</code></a></strong> You can either follow along or just look at the final result</p>
 <p>In order to run the project files, please refer to the <a href="#running-the-project-files">Running the Project Files</a> section.</p>
 <p><strong>Getting Started</strong></p>
 <p>Make a folder on your desktop called <code>hello-angular</code> and navigate to it:</p>
@@ -1853,7 +1853,7 @@ CommonJS Modules</code></pre>
 <li>Note that if you set <code>[propname]=&quot;'data'&quot;</code>, <code>propname</code> will be set to the literal <code>data</code> string</li>
 </ul>
 <p><strong>Project files</strong></p>
-<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
+<p>The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-input">angular2-intro/project-files/angular-examples/component-input</a>.</p>
 <p><strong>Getting Started</strong></p>
 <p>In order to demonstrate component inputs, we are going to create a <code>user</code> component and pass <code>name</code>, <code>lastName</code>, and <code>userId</code> to it. So our final html tag would look something like the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -2048,7 +2048,7 @@ CommonJS Modules</code></pre>
 <div id="custom-output-events" class="section level4">
 <h4>Custom Output Events</h4>
 <p><strong>Project Files</strong></p>
-<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events">angular2-intro/project-files/angular-examples/component-output-events</a>.</p>
+<p>The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-output-events">angular2-intro/project-files/angular-examples/component-output-events</a>.</p>
 <p><strong>Final Result</strong></p>
 <p>The goal of this section is to show you how to create a component that contains a button that when is clicked, calls a handler defined by the component's class. The final html will look like the following:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -2702,7 +2702,7 @@ CommonJS Modules</code></pre>
 </ul>
 <div id="basic-pipe" class="section level3">
 <h3>Basic Pipe</h3>
-<p>Let's make a basic pipe called <code>pixel</code> that takes a value as the input and appends 'px' to the end of it. The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe">angular2-intro/project-files/angular-examples/pipes/basic-pipe</a>.</p>
+<p>Let's make a basic pipe called <code>pixel</code> that takes a value as the input and appends 'px' to the end of it. The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe">angular2-intro/project-files/angular-examples/pipes/basic-pipe</a>.</p>
 <p>Start by making a copy of the &quot;starter&quot; folder and call it &quot;basic-pipe&quot; and put it in <code>project-files/angular-examples</code>. Then, open the folder in VSCode: <code>code project-files/angular-examples/basic-pipe</code> and start the build with <code>command + shift + b</code>.</p>
 <p>Then, create a file for the pipe and call it <code>pixel.pipe.ts</code> in the root of the project.</p>
 <p>After that we need to do couple of things to define the pipe:</p>
@@ -2804,7 +2804,7 @@ export <span class="kw">class</span> PixelPipe {
 <h3>Chaining Pipes</h3>
 <p>Let's continue where we left off with the &quot;pixelPipe&quot; and add another pipe called &quot;round&quot; that rounds down given values, that is:</p>
 <pre><code>25.3 | round | pixel -&gt; 25px</code></pre>
-<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining">angular2-intro/project-files/angular-examples/pipes/pipe-chaining</a>.</p>
+<p>The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining">angular2-intro/project-files/angular-examples/pipes/pipe-chaining</a>.</p>
 <p>We are going to add the &quot;roundPipe&quot; to our &quot;basic-pipe&quot; project. Let's get started by adding the <code>round.pipe.ts</code> file in the root of the project:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -2852,7 +2852,7 @@ export <span class="kw">class</span> RoundPipe {
 <pre><code>25 | unit -&gt; 25px
 25 | unit:&#39;em&#39; -&gt; 25em
 34.5 | round | unit:&#39;%&#39; -&gt; 34%</code></pre>
-<p>You can look at the project files in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit">angular2-intro/project-files/angular-examples/pipes/pipe-unit</a>.. AFter refactoring the name of the Pipe, we just need to change the implementation of the &quot;UnitPipe&quot;:</p>
+<p>You can look at the project files in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit">angular2-intro/project-files/angular-examples/pipes/pipe-unit</a>.. AFter refactoring the name of the Pipe, we just need to change the implementation of the &quot;UnitPipe&quot;:</p>
 <p><strong><code>unit.pipe.ts</code></strong></p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -3244,7 +3244,7 @@ let myServiceProvider = <span class="fu">provide</span>(MyService, myServiceDefi
 <h3>Simple Service</h3>
 <p>In this section we are going to make a simple service and use it in our root component.</p>
 <p><strong>Project Files</strong></p>
-<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service">angular2-intro/project-files/angular-examples/services/simple-service</a>;</p>
+<p>The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/services/simple-service">angular2-intro/project-files/angular-examples/services/simple-service</a>;</p>
 <p><strong>Getting Started</strong></p>
 <p>Let's get started by creating a class, called <code>StudentSvc</code> that represents our service:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines java"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -3408,7 +3408,7 @@ Name: Liz, id: 4</code></pre>
 <h3>Getting Data from Server</h3>
 <p>In this section we are going to use the <code>http</code> class to get a list of students from a server by hitting <code>/api/students</code></p>
 <p><strong>Project Files</strong></p>
-<p>The project files for this section are in <a href="https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students">angular2-intro/project-files/angular-examples/http/get-students</a></p>
+<p>The project files for this section are in <a href="https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/http/get-students">angular2-intro/project-files/angular-examples/http/get-students</a></p>
 <p><strong>Getting Started</strong></p>
 <p>Before anything, let's add the <code>http.js</code> file from Angular's bundle. In your <code>index.html</code> file add the following to the head tag:</p>
 <div class="sourceCode" startFrom="1"><table class="sourceCode numberLines html"><tr class="sourceCode"><td class="lineNumbers"><pre>1

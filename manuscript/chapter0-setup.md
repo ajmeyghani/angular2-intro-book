@@ -2,7 +2,7 @@
 
 - The book assumes that you are working in a Unix-like environment. If you are on Windows you can use [Cygwin](https://www.cygwin.com/) so that you can follow along with the bash terminal commands.
 
-- All the project files for the book are hosted on github: [https://github.com/st32lth/angular2-intro](https://github.com/st32lth/angular2-intro). You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, `angular2-intro/project-files/hello-angular` refers to the `hello-angular` folder inside the `project-files` folder.
+- All the project files for the book are hosted on github: [https://github.com/aminmeyghani/angular2-intro](https://github.com/aminmeyghani/angular2-intro). You can clone the repository and check out the project files. Throughout the book, you will see references to the project files. Those refer to this repository. For example, `angular2-intro/project-files/hello-angular` refers to the `hello-angular` folder inside the `project-files` folder.
 
 - Make sure you have `git` installed on your machine. That is, make sure you get an output for `git --version`.
 
@@ -119,7 +119,7 @@ Visual Studio Code is a good IDE for developing web apps. In this chapter we wil
 
 ## Setting up VSCode for TypeScript
 
-In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in [**`angular2-intro/project-files/vscode`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode). You can either follow along or check out the folder to see the final result.
+In this section we are going to set up Visual Studio Code for TypeScript. The project files for this chapter are in [**`angular2-intro/project-files/vscode`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/vscode). You can either follow along or check out the folder to see the final result.
 
 ### Installing TypeScript
 

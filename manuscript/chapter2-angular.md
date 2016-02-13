@@ -127,7 +127,7 @@ In this section we are going to write a simple `HelloAngular` component, compile
 
 Note that there is a lot to talk about components. We are going dive into components a lot more in later chapters, but for now let's just keep things simple.
 
-The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
+The project files for this chapter are in **[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/basic-component)** You can either follow along or just look at the final result
 
 In order to run the project files, please refer to the [Running the Project Files](#running-the-project-files) section.
 
@@ -404,7 +404,7 @@ In order to run the debugger, select `Launch Chrome Debugger` in the dropdown un
 
 **Project files**
 
-The project files for this section are in [angular2-intro/project-files/angular-examples/component-input](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input).
+The project files for this section are in [angular2-intro/project-files/angular-examples/component-input](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-input).
 
 **Getting Started**
 
@@ -590,7 +590,7 @@ We can bind to the `textContent` property and set the text content of a node. In
 
 **Project Files**
 
-The project files for this section are in [angular2-intro/project-files/angular-examples/component-output-events](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events).
+The project files for this section are in [angular2-intro/project-files/angular-examples/component-output-events](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-output-events).
 
 **Final Result**
 
@@ -1185,7 +1185,7 @@ or in long-hand form:
 
 ### Basic Pipe
 
-Let's make a basic pipe called `pixel` that takes a value as the input and appends 'px' to the end of it. The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
+Let's make a basic pipe called `pixel` that takes a value as the input and appends 'px' to the end of it. The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
 
 Start by making a copy of the "starter" folder and call it "basic-pipe" and put it in `project-files/angular-examples`. Then, open the folder in VSCode: `code project-files/angular-examples/basic-pipe` and start the build with `command + shift + b`.
 
@@ -1289,7 +1289,7 @@ Let's continue where we left off with the "pixelPipe" and add another pipe calle
 25.3 | round | pixel -> 25px
 ```
 
-The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
+The project files for this section are in [angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
 
 We are going to add the "roundPipe" to our "basic-pipe" project. Let's get started by adding the `round.pipe.ts` file in the root of the project:
 
@@ -1342,7 +1342,7 @@ In this section we are going to extend our 'pixel' pipe to accept an optional pa
 34.5 | round | unit:'%' -> 34%
 ```
 
-You can look at the project files in [angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit).. AFter refactoring the name of the Pipe, we just need to change the implementation of the "UnitPipe":
+You can look at the project files in [angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit).. AFter refactoring the name of the Pipe, we just need to change the implementation of the "UnitPipe":
 
 **`unit.pipe.ts`**
 
@@ -1589,7 +1589,7 @@ In this section we are going to make a simple service and use it in our root com
 
 **Project Files**
 
-The project files for this section are in [angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
+The project files for this section are in [angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
 
 **Getting Started**
 
@@ -1734,7 +1734,7 @@ In this section we are going to use the `http` class to get a list of students f
 
 **Project Files**
 
-The project files for this section are in [angular2-intro/project-files/angular-examples/http/get-students](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
+The project files for this section are in [angular2-intro/project-files/angular-examples/http/get-students](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
 
 **Getting Started**
 

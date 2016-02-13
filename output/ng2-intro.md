@@ -6,7 +6,7 @@ Notes
     that you can follow along with the bash terminal commands.
 
 -   All the project files for the book are hosted on github:
-    <https://github.com/st32lth/angular2-intro>. You can clone the
+    <https://github.com/aminmeyghani/angular2-intro>. You can clone the
     repository and check out the project files. Throughout the book, you
     will see references to the project files. Those refer to
     this repository. For example,
@@ -26,7 +26,7 @@ Notes
     non-mac machine, you can almost always replace `command` with `ctrl`
     and you should be good. For example, if you a see a shortcut like
     `command + shift + b`, you can use `ctrl + shift + b` where `ctrl`
-    is obviously the `control` key.
+    is obviously the `control` key!
 
 Installing Node
 ===============
@@ -137,7 +137,7 @@ Setting up VSCode for TypeScript
 
 In this section we are going to set up Visual Studio Code for
 TypeScript. The project files for this chapter are in
-[**`angular2-intro/project-files/vscode`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/vscode).
+[**`angular2-intro/project-files/vscode`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/vscode).
 You can either follow along or check out the folder to see the final
 result.
 
@@ -393,7 +393,7 @@ in TypeScript so that you can have a better understanding of Angular
 code that you will write. Knowing TypeScript definitely helps to
 understand Angular, but again it is not a requirement. The project files
 for this chapter are in
-[**`angular2-intro/project-files/typescript`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript).
+[**`angular2-intro/project-files/typescript`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript).
 
 TypeScript Basics
 -----------------
@@ -530,7 +530,7 @@ Classes
 
 Let's make a class definition for a car and incrementally add more
 things to it. The project files for this section are in
-[**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
+[**`angular2-intro/project-files/typescript/classes/basic-class`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/basic-class).
 
 ### Adding an Instance Variable
 
@@ -887,7 +887,7 @@ can lead to code that is hard to maintain. You can learn more about
 classical inheritance and prototypical inheritance by watching Eric
 Elliot's [talk](https://www.youtube.com/watch?v=lKCCZTUx0sI) at
 O'Reilly's Fluent Conference. The project files for this section are in
-[**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
+[**`angular2-intro/project-files/typescript/classes/inheritance`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/classes/inheritance).
 
 Let's get started by creating a base class called `Vehicle`. This class
 is going to be the base class for other classes that we create later.
@@ -1040,7 +1040,7 @@ Modules
         `import mymodule = require('mymodule')`
 
 The project files for this chapter are in
-[**`angular2-intro/project-files/typescript/modules`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules).
+[**`angular2-intro/project-files/typescript/modules`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules).
 
 ### Simple Module
 
@@ -1049,7 +1049,7 @@ is a vehicle class and the second is a car class that inherits from the
 vehicle class. Then we are going to expose the car class to the outside
 world and import it from another file. The project files for this
 section are in
-[**`angular2-intro/project-files/typescript/modules/basic-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/basic-module).
+[**`angular2-intro/project-files/typescript/modules/basic-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/basic-module).
 
 First, create the `main.ts` file and copy paste the following:
 
@@ -1181,7 +1181,7 @@ define a module with the same name in different files and keep adding to
 it. This is also known as merging. In this section we are going to
 demonstrate merging multiple files that contribute to a single module
 called `Merged`. The project files for this section are in
-[**`angular2-intro/project-files/typescript/modules/merged-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/merged-module).
+[**`angular2-intro/project-files/typescript/modules/merged-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/merged-module).
 
 First, we are going to make two files: `A.ts` and `B.ts`. In each file
 we are going to define the `Merged` module:
@@ -1251,7 +1251,7 @@ In addition to TypeScript's internal module system, you can use external
 modules as well. In this section we are going to demonstrate how you can
 use external modules in TypeScript. The project files for this section
 are in
-[**`angular2-intro/project-files/typescript/modules/external-module`**](https://github.com/st32lth/angular2-intro/tree/master/project-files/typescript/modules/external-module).
+[**`angular2-intro/project-files/typescript/modules/external-module`**](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/typescript/modules/external-module).
 
 Let's say I have a JavaScript Node module defined in CommonJS format in
 a file called `common.js`:
@@ -1574,7 +1574,7 @@ into components a lot more in later chapters, but for now let's just
 keep things simple.
 
 The project files for this chapter are in
-**[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/basic-component)**
+**[`angular2-intro/project-files/angular-examples/basic-component`](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/basic-component)**
 You can either follow along or just look at the final result
 
 In order to run the project files, please refer to the [Running the
@@ -1903,7 +1903,7 @@ VSCode](images/run-debugger.png)
 **Project files**
 
 The project files for this section are in
-[angular2-intro/project-files/angular-examples/component-input](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-input).
+[angular2-intro/project-files/angular-examples/component-input](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-input).
 
 **Getting Started**
 
@@ -2121,7 +2121,7 @@ the value of an input:
 **Project Files**
 
 The project files for this section are in
-[angular2-intro/project-files/angular-examples/component-output-events](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/component-output-events).
+[angular2-intro/project-files/angular-examples/component-output-events](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/component-output-events).
 
 **Final Result**
 
@@ -2901,7 +2901,7 @@ Pipes
 Let's make a basic pipe called `pixel` that takes a value as the input
 and appends 'px' to the end of it. The project files for this section
 are in
-[angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
+[angular2-intro/project-files/angular-examples/pipes/basic-pipe](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/basic-pipe).
 
 Start by making a copy of the "starter" folder and call it "basic-pipe"
 and put it in `project-files/angular-examples`. Then, open the folder in
@@ -3016,7 +3016,7 @@ pipe called "round" that rounds down given values, that is:
     25.3 | round | pixel -> 25px
 
 The project files for this section are in
-[angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
+[angular2-intro/project-files/angular-examples/pipes/pipe-chaining](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-chaining).
 
 We are going to add the "roundPipe" to our "basic-pipe" project. Let's
 get started by adding the `round.pipe.ts` file in the root of the
@@ -3077,7 +3077,7 @@ default to 'px'. That is:
     34.5 | round | unit:'%' -> 34%
 
 You can look at the project files in
-[angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit)..
+[angular2-intro/project-files/angular-examples/pipes/pipe-unit](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/pipes/pipe-unit)..
 AFter refactoring the name of the Pipe, we just need to change the
 implementation of the "UnitPipe":
 
@@ -3371,7 +3371,7 @@ root component.
 **Project Files**
 
 The project files for this section are in
-[angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
+[angular2-intro/project-files/angular-examples/services/simple-service](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/services/simple-service);
 
 **Getting Started**
 
@@ -3543,7 +3543,7 @@ students from a server by hitting `/api/students`
 **Project Files**
 
 The project files for this section are in
-[angular2-intro/project-files/angular-examples/http/get-students](https://github.com/st32lth/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
+[angular2-intro/project-files/angular-examples/http/get-students](https://github.com/aminmeyghani/angular2-intro/tree/master/project-files/angular-examples/http/get-students)
 
 **Getting Started**
 
