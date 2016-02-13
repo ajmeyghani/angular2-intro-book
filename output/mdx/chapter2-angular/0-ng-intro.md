@@ -11,7 +11,7 @@ The goal of this chapter is to get your feet wet without scaring you with a lot 
 First, make sure that you have cloned the code repo somewhere on your machine:
 
 ```
-cd ~/Desktop && git clone git@github.com:st32lth/angular2-intro.git
+cd ~/Desktop && git clone git@github.com:aminmeyghani/angular2-intro.git
 ```
 
 In order to run the project files, you need to do two things:

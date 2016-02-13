@@ -1406,7 +1406,7 @@ Project Files
 First, make sure that you have cloned the code repo somewhere on your
 machine:
 
-    cd ~/Desktop && git clone git@github.com:st32lth/angular2-intro.git
+    cd ~/Desktop && git clone git@github.com:aminmeyghani/angular2-intro.git
 
 In order to run the project files, you need to do two things:
 
@@ -1616,7 +1616,7 @@ your `package.json` file should look something like the follwoing:
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Stealth <st32lth@gmail.com> (http://github.com/st32lth)",
+  "author": "Amin Meyghani <meyghania@gmail.com> (http://github.com/aminmeyghani)",
   "license": "ISC",
   "dependencies": {
     "angular2": "^2.0.0-beta.1",
