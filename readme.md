@@ -1,4 +1,4 @@
-# Introduction to Angular2
+# Introduction to Angular2!
 
 This book is a short book that takes you through the basics of Angular 2. It will also show you how to set up Visual Studio Code to work with TypeScript and Angular.
 
