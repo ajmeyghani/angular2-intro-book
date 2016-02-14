@@ -11,6 +11,11 @@ rm -rf course-content/code/.git
 # creating archive
 TODAY=$(date '+%a-%h-%d-%Y')
 # rm -rf "v-${TODAY}"
+
+# remove the formats not necessary for the end-reader
+rm -rf course-content/book/{*.docx,*.web.pdf,*.tex}
+rm -rf course-content/manuscript
+
 ZIPNAME="${TODAY}-course-content.tar.gz"
 tar -zcvf "${ZIPNAME}" course-content
 mv $ZIPNAME ~/Desktop
