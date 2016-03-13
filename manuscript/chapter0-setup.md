@@ -329,7 +329,7 @@ After installing the extension, we need to update or create a `launch.json` file
       "request": "launch",
       "url": "http://localhost:8080",
       "sourceMaps": true,
-      "webRoot": ".",
+      "webRoot": "${workspaceRoot}",
       "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
     }

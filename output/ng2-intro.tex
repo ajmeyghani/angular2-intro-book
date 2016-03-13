@@ -581,7 +581,7 @@ following:
       "request": "launch",
       "url": "http://localhost:8080",
       "sourceMaps": true,
-      "webRoot": ".",
+      "webRoot": "${workspaceRoot}",
       "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
     }
@@ -2535,7 +2535,7 @@ file:
       \DataTypeTok{"request"}\FunctionTok{:} \StringTok{"launch"}\FunctionTok{,}
       \DataTypeTok{"url"}\FunctionTok{:} \StringTok{"http://127.0.0.1:8080/"}\FunctionTok{,}
       \DataTypeTok{"sourceMaps"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
-      \DataTypeTok{"webRoot"}\FunctionTok{:} \StringTok{"."}\FunctionTok{,}
+      \DataTypeTok{"webRoot"}\FunctionTok{:} \StringTok{"$\{workspaceRoot\}"}\FunctionTok{,}
       \DataTypeTok{"runtimeExecutable"}\FunctionTok{:} \StringTok{"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}\FunctionTok{,}
       \DataTypeTok{"runtimeArgs"}\FunctionTok{:} \OtherTok{[}
         \StringTok{"--remote-debugging-port=9222"}\OtherTok{,}
@@ -5132,5 +5132,10 @@ The \texttt{@component} decorator defines the following:
 \item
   \href{http://rxmarbles.com/}{Visualization}
 \end{itemize}
+
+\subsection{Deploying}\label{deploying}
+
+In this chapter we are going to look at deploying a simple app to
+heroku.
 
 \end{document}

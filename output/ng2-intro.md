@@ -359,7 +359,7 @@ folder. After you created the file, put in the following:
           "request": "launch",
           "url": "http://localhost:8080",
           "sourceMaps": true,
-          "webRoot": ".",
+          "webRoot": "${workspaceRoot}",
           "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
           "runtimeArgs": ["--remote-debugging-port=9222", "--incognito"]
         }
@@ -1852,7 +1852,7 @@ file:
       "request": "launch",
       "url": "http://127.0.0.1:8080/",
       "sourceMaps": true,
-      "webRoot": ".",
+      "webRoot": "${workspaceRoot}",
       "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "runtimeArgs": [
         "--remote-debugging-port=9222",
@@ -3742,3 +3742,8 @@ RxJS
 
 -   [Visualization](http://rxmarbles.com/)
 
+Deploying
+---------
+
+In this chapter we are going to look at deploying a simple app to
+heroku.

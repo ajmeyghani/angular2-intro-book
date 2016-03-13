@@ -270,7 +270,9 @@
     <li><a href="#deep-dive">Deep Dive</a><ul>
     <li><a href="#components-in-depth">Components in Depth</a></li>
     </ul></li>
-    <li><a href="#rxjs">RxJS</a></li>
+    <li><a href="#rxjs">RxJS</a><ul>
+    <li><a href="#deploying">Deploying</a></li>
+    </ul></li>
     </ul>
   </div>
     <div class="l-main-content">
@@ -502,7 +504,7 @@ console.<span class="fu">log</span>(r);</code></pre></td></tr></table></div>
       &quot;request&quot;: &quot;launch&quot;,
       &quot;url&quot;: &quot;http://localhost:8080&quot;,
       &quot;sourceMaps&quot;: true,
-      &quot;webRoot&quot;: &quot;.&quot;,
+      &quot;webRoot&quot;: &quot;${workspaceRoot}&quot;,
       &quot;runtimeExecutable&quot;: &quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;,
       &quot;runtimeArgs&quot;: [&quot;--remote-debugging-port=9222&quot;, &quot;--incognito&quot;]
     }
@@ -1820,7 +1822,7 @@ CommonJS Modules</code></pre>
       <span class="dt">&quot;request&quot;</span><span class="fu">:</span> <span class="st">&quot;launch&quot;</span><span class="fu">,</span>
       <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;http://127.0.0.1:8080/&quot;</span><span class="fu">,</span>
       <span class="dt">&quot;sourceMaps&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
-      <span class="dt">&quot;webRoot&quot;</span><span class="fu">:</span> <span class="st">&quot;.&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;webRoot&quot;</span><span class="fu">:</span> <span class="st">&quot;${workspaceRoot}&quot;</span><span class="fu">,</span>
       <span class="dt">&quot;runtimeExecutable&quot;</span><span class="fu">:</span> <span class="st">&quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;</span><span class="fu">,</span>
       <span class="dt">&quot;runtimeArgs&quot;</span><span class="fu">:</span> <span class="ot">[</span>
         <span class="st">&quot;--remote-debugging-port=9222&quot;</span><span class="ot">,</span>
@@ -3572,6 +3574,10 @@ Name: Liz, id: 4</code></pre>
 <ul>
 <li><a href="http://rxmarbles.com/">Visualization</a></li>
 </ul>
+<div id="deploying" class="section level2">
+<h2>Deploying</h2>
+<p>In this chapter we are going to look at deploying a simple app to heroku.</p>
+</div>
 </div> 
     </div>
     <style type="text/css">
