@@ -9,7 +9,7 @@ mkdir -p course-content/code
 rsync -av --progress code/ ./course-content/code --exclude node_modules
 rm -rf course-content/code/.git
 # creating archive
-TODAY=$(date '+%a-%h-%d-%Y')
+TODAY=$(date '+%a-%h-%d-%Y_%H-%M-%S')
 # rm -rf "v-${TODAY}"
 
 # remove the formats not necessary for the end-reader
